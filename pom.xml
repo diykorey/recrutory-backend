@@ -11,6 +11,7 @@
         <appengine.app.version>1-war</appengine.app.version>
 		<appengine.target.version>1.9.0</appengine.target.version>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <spring.version>4.0.2.RELEASE</spring.version>
     </properties>
 
     <dependencies>
@@ -30,6 +31,25 @@
             <groupId>jstl</groupId>
             <artifactId>jstl</artifactId>
             <version>1.2</version>
+        </dependency>
+
+        <!-- Spring -->
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-core</artifactId>
+            <version>${spring.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-web</artifactId>
+            <version>${spring.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-webmvc</artifactId>
+            <version>${spring.version}</version>
         </dependency>
 
         <!-- Test Dependencies -->
@@ -70,7 +90,7 @@
 			<plugin>
 				<groupId>com.google.appengine</groupId>
                 <artifactId>appengine-maven-plugin</artifactId>
-                <version>${appengine.target.version}</version>
+                <version>1.9.0-maven3.0</version>
              </plugin>
         </plugins>
     </build>
