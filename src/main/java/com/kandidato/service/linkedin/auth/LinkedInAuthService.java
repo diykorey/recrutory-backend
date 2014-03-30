@@ -13,6 +13,7 @@ import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.util.EntityUtils;
+import org.hibernate.SessionFactory;
 import org.springframework.social.connect.ConnectionFactoryLocator;
 import org.springframework.social.connect.ConnectionRepository;
 import org.springframework.social.linkedin.api.LinkedIn;
@@ -48,7 +49,16 @@ public class LinkedInAuthService {
     @Inject
     private ConnectionRepository connectionRepository;
 
+    @Inject
+    private SessionFactory sessionFactory;
+
     @RequestMapping(value = "/", method = RequestMethod.GET)
+    @ResponseBody
+    public String start() {
+        return sessionFactory.openSession().getStatistics().toString();
+    }
+
+    @RequestMapping(value = "/signIn", method = RequestMethod.GET)
     public void signIn(HttpServletRequest request, HttpServletResponse response) throws URISyntaxException, IOException {
 
         String state = UUID.randomUUID().toString();

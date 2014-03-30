@@ -10,7 +10,6 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
 
 @Configuration
 @ComponentScan(basePackages = "com.kandidato", excludeFilters = {@Filter(Configuration.class)})
-@PropertySource("classpath:com/kandidato/service/linkedin/auth/linkedin-auth.properties")
 public class MainConfig {
 
 }
