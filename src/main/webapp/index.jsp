@@ -7,7 +7,7 @@
 <body>
 <div style="margin-left: auto; margin-right: auto; width: 300px; text-align: center;">
     <h1>Kandidato</h1>
-    <a href="snoop.jsp" target="_blank">JVM Monitor</a>
+    <a href="snoop" target="_blank">JVM Monitor</a>
 </div>
 </body>
 </html>

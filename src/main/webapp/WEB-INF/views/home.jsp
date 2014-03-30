@@ -2,15 +2,15 @@
 <%@ page session="false"%>
 <html>
 <head>
-<script src="../../resources/jquery/jquery-2.1.0.min.js"></script>
+<script src="<c:url value='/resources/jquery/jquery-2.1.0.min.js' />"></script>
 <!-- Latest compiled and minified CSS -->
-<link rel="stylesheet" href="../../resources/bootstrap/css/bootstrap.min.css">
+<link rel="stylesheet" href="<c:url value='/resources/bootstrap/css/bootstrap.min.css' />">
 
 <!-- Optional theme -->
-<link rel="stylesheet" href="../../resources/bootstrap/css/bootstrap-theme.min.css">
+<link rel="stylesheet" href="<c:url value='/resources/bootstrap/css/bootstrap-theme.min.css' />">
 
 <!-- Latest compiled and minified JavaScript -->
-<script src="../../resources/bootstrap/js/bootstrap.min.js"></script>
+<script src="<c:url value='/resources/bootstrap/js/bootstrap.min.js' />"></script>
 </head>
 <body>
 	<h1>Welcome page</h1>
