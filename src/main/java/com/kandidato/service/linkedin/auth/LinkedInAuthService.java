@@ -48,16 +48,7 @@ public class LinkedInAuthService {
     @Inject
     private ConnectionRepository connectionRepository;
 
-    @Inject
-    private SessionFactory sessionFactory;
-
-    @RequestMapping(value = "/", method = RequestMethod.GET)
-    @ResponseBody
-    public String start() {
-        return sessionFactory.openSession().getStatistics().toString();
-    }
-
-    @RequestMapping(value = "/signIn", method = RequestMethod.GET)
+    @RequestMapping(value = "/linkedin", method = RequestMethod.GET)
     public void signIn(HttpServletRequest request, HttpServletResponse response) throws URISyntaxException, IOException {
 
         String state = UUID.randomUUID().toString();

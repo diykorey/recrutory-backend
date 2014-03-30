@@ -8,6 +8,8 @@
 <div style="margin-left: auto; margin-right: auto; width: 300px; text-align: center;">
     <h1>Kandidato</h1>
     <a href="snoop" target="_blank">JVM Monitor</a>
+	<a href="linkedin" target="_blank">LinkedIn</a>
+	<a href="persistence" target="_blank">Persistance</a>
 </div>
 </body>
 </html>
