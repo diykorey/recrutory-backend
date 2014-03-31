@@ -1,9 +1,6 @@
 package com.kandidato.config;
 
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Scope;
-import org.springframework.context.annotation.ScopedProxyMode;
+import org.springframework.context.annotation.*;
 import org.springframework.core.env.Environment;
 import org.springframework.social.UserIdSource;
 import org.springframework.social.config.annotation.ConnectionFactoryConfigurer;
@@ -20,6 +17,7 @@ import org.springframework.social.linkedin.connect.LinkedInConnectionFactory;
 
 @Configuration
 @EnableSocial
+@PropertySource("classpath:com/kandidato/config/social.properties")
 public class SocialConfig implements SocialConfigurer {
 
     @Bean
@@ -32,8 +30,8 @@ public class SocialConfig implements SocialConfigurer {
     @Override
     public void addConnectionFactories(ConnectionFactoryConfigurer configurer, Environment env) {
         configurer.addConnectionFactory(new LinkedInConnectionFactory(
-                env.getProperty("apiKey"),
-                env.getProperty("secretKey")
+                env.getProperty("linkedin.apiKey"),
+                env.getProperty("linkedin.secretKey")
         ));
     }
 
