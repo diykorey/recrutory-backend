@@ -1,20 +1,17 @@
 package com.kandidato.entity;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
 import com.kandidato.constants.VacancyState;
 
-public class Vacancy implements Serializable {
+public class Vacancy {
 
-  /**
-   * 
-   */
-  private static final long serialVersionUID = 1L;
+  private long id;
 
   private VacancyState state;
+  private boolean hot;
   private String requirements;
   private Project project;
   private List<Flow> flows = new ArrayList<>();
@@ -22,12 +19,28 @@ public class Vacancy implements Serializable {
   private User creator;
   private Date createTime;
 
+  public long getId() {
+    return id;
+  }
+
+  public void setId(long id) {
+    this.id = id;
+  }
+
   public VacancyState getState() {
     return state;
   }
 
   public void setState(VacancyState state) {
     this.state = state;
+  }
+
+  public boolean isHot() {
+    return hot;
+  }
+
+  public void setHot(boolean hot) {
+    this.hot = hot;
   }
 
   public String getRequirements() {
@@ -82,8 +95,12 @@ public class Vacancy implements Serializable {
   public String toString() {
     StringBuilder builder = new StringBuilder(this.getClass().getSimpleName());
     builder.append(": {");
-    builder.append("state: ");
+    builder.append("id: ");
+    builder.append(id);
+    builder.append(", state: ");
     builder.append(state);
+    builder.append(", hot: ");
+    builder.append(hot);
     builder.append(", requirements: ");
     builder.append(requirements);
     builder.append("}");

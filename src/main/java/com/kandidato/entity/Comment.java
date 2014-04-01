@@ -1,18 +1,21 @@
 package com.kandidato.entity;
 
-import java.io.Serializable;
 import java.util.Date;
 
-public class Comment implements Serializable {
+public class Comment {
 
-  /**
-   * 
-   */
-  private static final long serialVersionUID = 1L;
-
+  private long id;
   private String content = "";
   private Date createTime = new Date();
   private User author;
+
+  public long getId() {
+    return id;
+  }
+
+  public void setId(long id) {
+    this.id = id;
+  }
 
   public String getContent() {
     return content;
@@ -42,7 +45,9 @@ public class Comment implements Serializable {
   public String toString() {
     StringBuilder builder = new StringBuilder(this.getClass().getSimpleName());
     builder.append(": {");
-    builder.append("content: ");
+    builder.append("id: ");
+    builder.append(id);
+    builder.append(", content: ");
     builder.append(content);
     builder.append(", createTime: ");
     builder.append(createTime);

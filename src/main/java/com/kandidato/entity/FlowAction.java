@@ -1,18 +1,23 @@
 package com.kandidato.entity;
 
-import java.io.Serializable;
 import java.util.Date;
 
 import com.kandidato.constants.FlowState;
 
-public class FlowAction implements Serializable {
-  /**
-   * 
-   */
-  private static final long serialVersionUID = 1L;
+public class FlowAction {
+
+  private long id;
   private FlowState state;
   private String description;
   private Date createTime;
+
+  public long getId() {
+    return id;
+  }
+
+  public void setId(long id) {
+    this.id = id;
+  }
 
   public FlowState getState() {
     return state;
@@ -42,7 +47,9 @@ public class FlowAction implements Serializable {
   public String toString() {
     StringBuilder builder = new StringBuilder(this.getClass().getSimpleName());
     builder.append(": {");
-    builder.append("createTime: ");
+    builder.append("id: ");
+    builder.append(id);
+    builder.append(", createTime: ");
     builder.append(createTime);
     builder.append(", state: ");
     builder.append(state);

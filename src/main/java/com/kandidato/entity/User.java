@@ -1,12 +1,14 @@
 package com.kandidato.entity;
 
-import java.io.Serializable;
+public class User {
 
-public class User implements Serializable {
+  private long id;
 
-  /**
-   * 
-   */
-  private static final long serialVersionUID = 1L;
+  public long getId() {
+    return id;
+  }
 
+  public void setId(long id) {
+    this.id = id;
+  }
 }

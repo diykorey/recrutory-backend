@@ -1,17 +1,21 @@
 package com.kandidato.entity;
 
-import java.io.Serializable;
 import java.util.Date;
 
-public class Project implements Serializable {
+public class Project {
 
-  /**
-   * 
-   */
-  private static final long serialVersionUID = 1L;
+  private long id;
   private String name;
   private String description;
   private Date createTime;
+
+  public long getId() {
+    return id;
+  }
+
+  public void setId(long id) {
+    this.id = id;
+  }
 
   public String getName() {
     return name;
@@ -41,7 +45,9 @@ public class Project implements Serializable {
   public String toString() {
     StringBuilder builder = new StringBuilder(this.getClass().getSimpleName());
     builder.append(": {");
-    builder.append("name: ");
+    builder.append("id: ");
+    builder.append(id);
+    builder.append(", name: ");
     builder.append(name);
     builder.append(", description: ");
     builder.append(description);

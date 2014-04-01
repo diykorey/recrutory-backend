@@ -1,17 +1,20 @@
 package com.kandidato.entity;
 
-import java.io.Serializable;
-
 import com.kandidato.constants.ContactType;
 
-public class Contact implements Serializable {
+public class Contact {
 
-  /**
-   * 
-   */
-  private static final long serialVersionUID = 1L;
+  private long id;
   private ContactType type;
   private String value;
+
+  public long getId() {
+    return id;
+  }
+
+  public void setId(long id) {
+    this.id = id;
+  }
 
   public ContactType getType() {
     return type;
@@ -33,7 +36,9 @@ public class Contact implements Serializable {
   public String toString() {
     StringBuilder builder = new StringBuilder(this.getClass().getSimpleName());
     builder.append(": {");
-    builder.append("type: ");
+    builder.append("id: ");
+    builder.append(id);
+    builder.append(", type: ");
     builder.append(type);
     builder.append(", value: ");
     builder.append(value);

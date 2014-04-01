@@ -1,21 +1,25 @@
 package com.kandidato.entity;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-public class Flow implements Serializable {
+public class Flow {
 
-  /**
-   * 
-   */
-  private static final long serialVersionUID = 1L;
+  private long id;
   private Person person;
   private Vacancy vacancy;
   private List<FlowAction> actions = new ArrayList<>();
   private Date createTime;
   private boolean active = true;
+
+  public long getId() {
+    return id;
+  }
+
+  public void setId(long id) {
+    this.id = id;
+  }
 
   public Person getPerson() {
     return person;
@@ -61,7 +65,9 @@ public class Flow implements Serializable {
   public String toString() {
     StringBuilder builder = new StringBuilder(this.getClass().getSimpleName());
     builder.append(": {");
-    builder.append("createTime: ");
+    builder.append("id: ");
+    builder.append(id);
+    builder.append(", createTime: ");
     builder.append(createTime);
     builder.append(", active: ");
     builder.append(active);
