@@ -37,8 +37,9 @@
     </repositories>
 	<modules>
 		<module>kandidato-core</module>
-    <module>kandidato-elastic</module>
-  </modules>
+		<module>kandidato-search</module>
+		<module>kandidato-web</module>
+	</modules>
 	<dependencyManagement>
 	<dependencies>
 		<!--Project Modules-->
@@ -49,7 +50,12 @@
 		</dependency>
 		<dependency>
 			<groupId>com.kandidato</groupId>
-			<artifactId>kandidato-elastic</artifactId>
+			<artifactId>kandidato-search</artifactId>
+			<version>${application.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>com.kandidato</groupId>
+			<artifactId>kandidato-web</artifactId>
 			<version>${application.version}</version>
 		</dependency>
 		<!-- Compile/runtime dependencies -->
