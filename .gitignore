@@ -1,3 +1,4 @@
 *.iml
 .idea/
 kandidato-web/src/main/resources/.gitkeep
+webapps/ROOT.war
