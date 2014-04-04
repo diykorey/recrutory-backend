@@ -1,7 +1,10 @@
 package com.kandidato.config;
 
-import org.apache.tomcat.dbcp.dbcp.BasicDataSource;
+import com.zaxxer.hikari.HikariConfig;
+import com.zaxxer.hikari.HikariDataSource;
 import org.hibernate.SessionFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -15,9 +18,9 @@ import javax.sql.DataSource;
 import java.util.Properties;
 
 @Configuration
-@PropertySource({ "classpath:com/kandidato/config/persistence.properties" })
+@PropertySource({"classpath:com/kandidato/config/persistence.properties"})
 public class PersistenceConfig {
-
+    private static final Logger log = LoggerFactory.getLogger(PersistenceConfig.class);
     @Autowired
     private Environment env;
 
@@ -25,7 +28,7 @@ public class PersistenceConfig {
     public LocalSessionFactoryBean sessionFactory() {
         LocalSessionFactoryBean sessionFactory = new LocalSessionFactoryBean();
         sessionFactory.setDataSource(dataSource());
-        sessionFactory.setPackagesToScan(new String[] { "com.kandidato.persistence" });
+        sessionFactory.setPackagesToScan(new String[]{"com.kandidato.persistence"});
         sessionFactory.setHibernateProperties(hibernateProperties());
 
         return sessionFactory;
@@ -33,12 +36,20 @@ public class PersistenceConfig {
 
     @Bean
     public DataSource dataSource() {
-        BasicDataSource dataSource = new BasicDataSource();
-        dataSource.setDriverClassName(env.getProperty("jdbc.driverClassName"));
-        dataSource.setUrl(env.getProperty("jdbc.url"));
-        dataSource.setUsername(env.getProperty("jdbc.user"));
-        dataSource.setPassword(env.getProperty("jdbc.pass"));
+        HikariConfig config = new HikariConfig();
+        config.setMaximumPoolSize(100);
+        config.setDataSourceClassName(env.getProperty("jdbc.dataSourceName"));
+        config.setDriverClassName(env.getProperty("jdbc.driverClassName"));
+        config.setJdbcUrl(env.getProperty("jdbc.url"));
+        config.setUsername(env.getProperty("jdbc.user"));
+        config.setPassword(env.getProperty("jdbc.pass"));
+       // config.setAutoCommit(false);
+        config.addDataSourceProperty("cachePrepStmts",env.getProperty("jdbc.cachePrepStmts") );
+        config.addDataSourceProperty("prepStmtCacheSize",env.getProperty("jdbc.prepStmtCacheSize") );
+        config.addDataSourceProperty("prepStmtCacheSqlLimit",env.getProperty("jdbc.prepStmtCacheSqlLimit") );
+        config.addDataSourceProperty("useServerPrepStmts",env.getProperty("jdbc.useServerPrepStmts") );
 
+        DataSource dataSource = new HikariDataSource(config);
         return dataSource;
     }
 

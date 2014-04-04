@@ -1,33 +1,41 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration>
-	<contextName>kandidato-web</contextName>
-	<jmxConfigurator />
+    <contextName>kandidato-web</contextName>
+    <jmxConfigurator/>
+    <appender name="console" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <charset>UTF-8</charset>
+            <param name="Pattern"
+                   value="%date{HH:mm:ss.SSS} [%thread] %-10level [%file:%line] - %msg - %logger %date{dd:MM:yyyy}%n"/>
+        </encoder>
+    </appender>
 
-	<appender name="mainAppender" class="ch.qos.logback.core.rolling.RollingFileAppender">
-		<param name="File" value="logs/kandidato.log" />
-		<encoder>
-			<charset>UTF-8</charset>
-			<param name="Pattern" value="%date{HH:mm:ss.SSS} [%thread] %-10level [%file:%line] - %msg - %logger %date{dd:MM:yyyy}%n" />
-		</encoder>
-		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
-			<param name="FileNamePattern" value="logs/kandidato.log-%d{yyyy-MM-dd}.%i.zip" />
-			<timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
-				<maxFileSize>100MB</maxFileSize>
-			</timeBasedFileNamingAndTriggeringPolicy>
-		</rollingPolicy>
-	</appender>
+    <appender name="mainAppender" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <param name="File" value="logs/kandidato.log"/>
+        <encoder>
+            <charset>UTF-8</charset>
+            <param name="Pattern"
+                   value="%date{HH:mm:ss.SSS} [%thread] %-10level [%file:%line] - %msg - %logger %date{dd:MM:yyyy}%n"/>
+        </encoder>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <param name="FileNamePattern" value="logs/kandidato.log-%d{yyyy-MM-dd}.%i.zip"/>
+            <timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+                <maxFileSize>100MB</maxFileSize>
+            </timeBasedFileNamingAndTriggeringPolicy>
+        </rollingPolicy>
+    </appender>
 
 
-	<logger name="com.kandidato" additivity="false" level="DEBUG">
-		<appender-ref ref="mainAppender" />
-	</logger>
+    <logger name="com.kandidato" additivity="false" level="DEBUG">
+        <appender-ref ref="mainAppender"/>
+    </logger>
 
-	<logger name="org.springframework" additivity="false" level="ERROR">
-		<appender-ref ref="mainAppender" />
-	</logger>
+    <logger name="org.springframework" additivity="false" level="ERROR">
+        <appender-ref ref="mainAppender"/>
+    </logger>
 
     <root level="INFO">
-        <appender-ref ref="console" />
+        <appender-ref ref="console"/>
     </root>
 </configuration>
