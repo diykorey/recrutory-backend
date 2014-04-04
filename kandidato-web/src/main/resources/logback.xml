@@ -1,56 +1,33 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- For assistance related to logback-translator or configuration -->
-<!-- files in general, please contact the logback user mailing list -->
-<!-- at http://www.qos.ch/mailman/listinfo/logback-user -->
-<!-- -->
-<!-- For professional support please see -->
-<!-- http://www.qos.ch/shop/products/professionalSupport -->
-<!-- -->
-<configuration>
-	<contextName>FrontEnd</contextName>
-	<jmxConfigurator />
-	<property resource="properties/common.properties" />
 
-	<appender name="RF" class="ch.qos.logback.core.rolling.RollingFileAppender">
-		<param name="File" value="${logs.path}/frontend-logging.log" />
+<configuration>
+	<contextName>kandidato-web</contextName>
+	<jmxConfigurator />
+
+	<appender name="mainAppender" class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<param name="File" value="logs/kandidato.log" />
 		<encoder>
 			<charset>UTF-8</charset>
 			<param name="Pattern" value="%date{HH:mm:ss.SSS} [%thread] %-10level [%file:%line] - %msg - %logger %date{dd:MM:yyyy}%n" />
 		</encoder>
 		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
-			<param name="FileNamePattern" value="${logs.path}/bkp/frontend-logging-%d{yyyy-MM-dd_HH}.%i.log" />
+			<param name="FileNamePattern" value="logs/kandidato.log-%d{yyyy-MM-dd}.%i.zip" />
 			<timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
-				<maxFileSize>300MB</maxFileSize>
+				<maxFileSize>100MB</maxFileSize>
 			</timeBasedFileNamingAndTriggeringPolicy>
 		</rollingPolicy>
 	</appender>
 
-	<appender name="HttpRequest" class="ch.qos.logback.core.rolling.RollingFileAppender">
-		<file>${logs.path}/frontend-request.log</file>
-		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
-			<!-- daily rollover -->
-			<fileNamePattern>${logs.path}/bkp/frontend-request-%d{yyyy-MM-dd_HH}.log</fileNamePattern>
-			<!-- keep 30 days' worth of history -->
-			<maxHistory>30</maxHistory>
-		</rollingPolicy>
-		<encoder>
-			<pattern>%date{HH:mm:ss.SSS} [%thread] %-10level [%file:%line] - %msg - %logger %date{dd:MM:yyyy}%n</pattern>
-		</encoder>
-	</appender>
 
-	<logger name="com.echovox" additivity="false" level="DEBUG">
-		<appender-ref ref="RF" />
-	</logger>
-
-	<logger name="HttpRequest" additivity="false" level="INFO">
-		<appender-ref ref="HttpRequest" />
+	<logger name="com.kandidato" additivity="false" level="DEBUG">
+		<appender-ref ref="mainAppender" />
 	</logger>
 
 	<logger name="org.springframework" additivity="false" level="ERROR">
-		<appender-ref ref="RF" />
+		<appender-ref ref="mainAppender" />
 	</logger>
 
-	<root level="ERROR">
-		<appender-ref ref="RF" />
-	</root>
+    <root level="INFO">
+        <appender-ref ref="console" />
+    </root>
 </configuration>
