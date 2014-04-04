@@ -4,7 +4,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Set;
 
-public class Person {
+public class Person implements Entity {
 
   private long id;
   private String name;

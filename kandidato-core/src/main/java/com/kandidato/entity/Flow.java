@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-public class Flow {
+public class Flow implements Entity {
 
   private long id;
   private Person person;

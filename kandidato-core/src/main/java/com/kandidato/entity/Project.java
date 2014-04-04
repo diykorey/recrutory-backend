@@ -2,7 +2,7 @@ package com.kandidato.entity;
 
 import java.util.Date;
 
-public class Project {
+public class Project implements Entity {
 
   private long id;
   private String name;

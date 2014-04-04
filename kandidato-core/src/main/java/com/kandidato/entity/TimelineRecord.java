@@ -1,6 +1,6 @@
 package com.kandidato.entity;
 
-public class TimelineRecord {
+public class TimelineRecord implements Entity {
 
   private long id;
 

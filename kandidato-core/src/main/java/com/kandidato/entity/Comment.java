@@ -2,14 +2,12 @@ package com.kandidato.entity;
 
 import java.util.Date;
 
-import com.kandidato.constants.FlowState;
-
-public class FlowAction {
+public class Comment implements Entity {
 
   private long id;
-  private FlowState state;
-  private String description;
-  private Date createTime;
+  private String content = "";
+  private Date createTime = new Date();
+  private User author;
 
   public long getId() {
     return id;
@@ -19,20 +17,12 @@ public class FlowAction {
     this.id = id;
   }
 
-  public FlowState getState() {
-    return state;
+  public String getContent() {
+    return content;
   }
 
-  public void setState(FlowState state) {
-    this.state = state;
-  }
-
-  public String getDescription() {
-    return description;
-  }
-
-  public void setDescription(String description) {
-    this.description = description;
+  public void setContent(String content) {
+    this.content = content;
   }
 
   public Date getCreateTime() {
@@ -43,19 +33,26 @@ public class FlowAction {
     this.createTime = createTime;
   }
 
+  public User getAuthor() {
+    return author;
+  }
+
+  public void setAuthor(User author) {
+    this.author = author;
+  }
+
   @Override
   public String toString() {
     StringBuilder builder = new StringBuilder(this.getClass().getSimpleName());
     builder.append(": {");
     builder.append("id: ");
     builder.append(id);
+    builder.append(", content: ");
+    builder.append(content);
     builder.append(", createTime: ");
     builder.append(createTime);
-    builder.append(", state: ");
-    builder.append(state);
-    builder.append(", description: ");
-    builder.append(description);
     builder.append("}");
     return builder.toString();
   }
+
 }

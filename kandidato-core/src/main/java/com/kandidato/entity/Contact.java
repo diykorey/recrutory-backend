@@ -2,7 +2,7 @@ package com.kandidato.entity;
 
 import com.kandidato.constants.ContactType;
 
-public class Contact {
+public class Contact implements Entity {
 
   private long id;
   private ContactType type;
