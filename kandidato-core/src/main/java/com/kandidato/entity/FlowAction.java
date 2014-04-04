@@ -4,7 +4,7 @@ import java.util.Date;
 
 import com.kandidato.constants.FlowState;
 
-public class FlowAction {
+public class FlowAction implements Entity {
 
   private long id;
   private FlowState state;

@@ -2,7 +2,7 @@ package com.kandidato.entity;
 
 import java.util.Date;
 
-public class Comment {
+public class Comment implements Entity {
 
   private long id;
   private String content = "";

@@ -6,7 +6,7 @@ import java.util.List;
 
 import com.kandidato.constants.VacancyState;
 
-public class Vacancy {
+public class Vacancy implements Entity {
 
   private long id;
 

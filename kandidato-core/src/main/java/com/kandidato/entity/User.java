@@ -1,6 +1,6 @@
 package com.kandidato.entity;
 
-public class User {
+public class User implements Entity {
 
   private long id;
 
