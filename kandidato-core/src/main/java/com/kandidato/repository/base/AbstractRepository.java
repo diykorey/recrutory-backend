@@ -1,7 +1,9 @@
 package com.kandidato.repository.base;
 
 import com.kandidato.entity.Entity;
+import com.kandidato.entity.Vacancy;
 import com.kandidato.repository.query.Query;
+import com.kandidato.repository.vacancy.query.VacancyQuery;
 import org.hibernate.SessionFactory;
 
 import java.util.Collection;
