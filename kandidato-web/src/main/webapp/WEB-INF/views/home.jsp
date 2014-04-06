@@ -85,11 +85,11 @@
 								<form role="form">
 									<div class="form-group">
 										<label for="vacancyRequirements">Requirements:</label>
-										<textarea class="form-control" rows="3"></textarea>
+										<textarea id="vacancyRequirements" class="form-control" rows="3"></textarea>
 									</div>
 									<div class="form-group">
-										<label for="vacancyRequirements">Project Description:</label>
-										<textarea class="form-control" rows="3"></textarea>
+										<label for="projectDescription">Project Description:</label>
+										<textarea id="projectDescription" class="form-control" rows="3"></textarea>
 									</div>
 								</form>
 							</div>
