@@ -1,4 +1,4 @@
-USE `KANDIDATO_DB`;
+USE `KANDIDATO`;
 
 -- drop tables
 DROP TABLE IF EXISTS
