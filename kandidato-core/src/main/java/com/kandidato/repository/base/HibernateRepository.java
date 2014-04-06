@@ -9,13 +9,19 @@ import java.util.Collection;
 /**
  * Created by andriy on 4/6/14.
  */
-public abstract class HibernateRepository<T extends Entity, Q extends HibernateQuery> extends AbstractRepository<T, Q> {
+public abstract class HibernateRepository<T extends Entity, Q extends HibernateQuery> implements Repository<T, Q> {
 
-    protected HibernateRepository(SessionFactory sessionFactory) {
-        super(sessionFactory);
+    private final SessionFactory sessionFactory;
+
+    private final Class<T> entityClass;
+
+    public HibernateRepository(SessionFactory sessionFactory, Class<T> entityClass) {
+        this.sessionFactory = sessionFactory;
+        this.entityClass = entityClass;
     }
 
-    protected Collection<T> query(Q query, Class<T> clazz) {
-        return this.sessionFactory.getCurrentSession().createCriteria(clazz).add(query.toCriterion()).list();
+    @Override
+    public Collection<T> query(Q query) {
+        return this.sessionFactory.getCurrentSession().createCriteria(entityClass).add(query.toCriterion()).list();
     }
 }

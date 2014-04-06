@@ -34,6 +34,11 @@
             <artifactId>spring-orm</artifactId>
         </dependency>
 
+        <dependency>
+            <groupId>org.springframework.data</groupId>
+            <artifactId>spring-data-jpa</artifactId>
+        </dependency>
+
         <!-- Hibernate 4 -->
         <dependency>
             <groupId>org.hibernate</groupId>
@@ -68,4 +73,15 @@
             <artifactId>junit</artifactId>
         </dependency>
     </dependencies>
+    <build>
+        <resources>
+            <resource>
+                <!-- excluding sql files from the jar -->
+                <directory>resources/sql</directory>
+                <excludes>
+                    <exclude>/**</exclude>
+                </excludes>
+            </resource>
+        </resources>
+    </build>
 </project>
