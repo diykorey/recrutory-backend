@@ -1,77 +1,97 @@
 package com.kandidato.entity;
 
+import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+@javax.persistence.Entity
+@Table(name = "FLOWS")
 public class Flow implements Entity {
 
-  private long id;
-  private Person person;
-  private Vacancy vacancy;
-  private List<FlowAction> actions = new ArrayList<>();
-  private Date createTime;
-  private boolean active = true;
+    @Id
+    @Column(name = "FLOW_ID")
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long id;
 
-  public long getId() {
-    return id;
-  }
+    @ManyToOne
+    @JoinTable(name = "PEOPLE", joinColumns = {@JoinColumn(name = "PERSON_ID")})
+    private Person person;
 
-  public void setId(long id) {
-    this.id = id;
-  }
+    @ManyToOne
+    @JoinTable(name = "VACANCIES", joinColumns = {@JoinColumn(name = "VACANCY_ID")})
+    private Vacancy vacancy;
 
-  public Person getPerson() {
-    return person;
-  }
+    @OneToMany
+    @JoinTable(name = "FLOW_ACTIONS", joinColumns = @JoinColumn(name = "FLOW_ID"), inverseJoinColumns = @JoinColumn(name = "FLOW_ACTION_ID"))
+    private List<FlowAction> actions = new ArrayList<>();
 
-  public void setPerson(Person person) {
-    this.person = person;
-  }
+    @Column(name = "CREATION_TIME")
+    private Date createTime;
 
-  public Vacancy getVacancy() {
-    return vacancy;
-  }
+    //TODO Do we need active flag here? As for me it overlaps with the FlowState of the last action in the current flow.
+    @Column(name = "ACTIVE_FLAG")
+    private boolean active = true;
 
-  public void setVacancy(Vacancy vacancy) {
-    this.vacancy = vacancy;
-  }
+    public long getId() {
+        return id;
+    }
 
-  public List<FlowAction> getActions() {
-    return actions;
-  }
+    public void setId(long id) {
+        this.id = id;
+    }
 
-  public void setActions(List<FlowAction> actions) {
-    this.actions = actions;
-  }
+    public Person getPerson() {
+        return person;
+    }
 
-  public Date getCreateTime() {
-    return createTime;
-  }
+    public void setPerson(Person person) {
+        this.person = person;
+    }
 
-  public void setCreateTime(Date createTime) {
-    this.createTime = createTime;
-  }
+    public Vacancy getVacancy() {
+        return vacancy;
+    }
 
-  public boolean isActive() {
-    return active;
-  }
+    public void setVacancy(Vacancy vacancy) {
+        this.vacancy = vacancy;
+    }
 
-  public void setActive(boolean active) {
-    this.active = active;
-  }
+    public List<FlowAction> getActions() {
+        return actions;
+    }
 
-  @Override
-  public String toString() {
-    StringBuilder builder = new StringBuilder(this.getClass().getSimpleName());
-    builder.append(": {");
-    builder.append("id: ");
-    builder.append(id);
-    builder.append(", createTime: ");
-    builder.append(createTime);
-    builder.append(", active: ");
-    builder.append(active);
-    builder.append("}");
-    return builder.toString();
-  }
+    public void setActions(List<FlowAction> actions) {
+        this.actions = actions;
+    }
+
+    public Date getCreateTime() {
+        return createTime;
+    }
+
+    public void setCreateTime(Date createTime) {
+        this.createTime = createTime;
+    }
+
+    public boolean isActive() {
+        return active;
+    }
+
+    public void setActive(boolean active) {
+        this.active = active;
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder builder = new StringBuilder(this.getClass().getSimpleName());
+        builder.append(": {");
+        builder.append("id: ");
+        builder.append(id);
+        builder.append(", createTime: ");
+        builder.append(createTime);
+        builder.append(", active: ");
+        builder.append(active);
+        builder.append("}");
+        return builder.toString();
+    }
 }
