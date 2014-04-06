@@ -11,14 +11,20 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.Environment;
 import org.springframework.dao.annotation.PersistenceExceptionTranslationPostProcessor;
+
+import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.orm.hibernate4.HibernateTransactionManager;
 import org.springframework.orm.hibernate4.LocalSessionFactoryBean;
+import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
+import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
 
+import javax.persistence.EntityManagerFactory;
 import javax.sql.DataSource;
 import java.util.Properties;
 
 @Configuration
 @PropertySource({"classpath:com/kandidato/config/persistence.properties"})
+@EnableJpaRepositories(basePackages = {"com.kandidato.persistence.repository"})
 public class PersistenceConfig {
 
     private static final Logger log = LoggerFactory.getLogger(PersistenceConfig.class);
@@ -27,29 +33,42 @@ public class PersistenceConfig {
     private Environment env;
 
     @Bean
-    public LocalSessionFactoryBean sessionFactory() {
-        LocalSessionFactoryBean sessionFactory = new LocalSessionFactoryBean();
-        sessionFactory.setDataSource(dataSource());
-        sessionFactory.setPackagesToScan(new String[]{"com.kandidato.persistence"});
-        sessionFactory.setHibernateProperties(hibernateProperties());
+    public EntityManagerFactory entityManagerFactory() {
+        HibernateJpaVendorAdapter vendorAdapter = new HibernateJpaVendorAdapter();
 
-        return sessionFactory;
+        LocalContainerEntityManagerFactoryBean factory = new LocalContainerEntityManagerFactoryBean();
+        factory.setJpaVendorAdapter(vendorAdapter);
+        factory.setPackagesToScan(new String[]{"com.kandidato.persistence.entity"});
+        factory.setDataSource(dataSource());
+        factory.setJpaProperties(hibernateProperties());
+        factory.afterPropertiesSet();
+        return factory.getObject();
     }
+
+//    @Bean
+//    public LocalSessionFactoryBean sessionFactory() {
+//        LocalSessionFactoryBean sessionFactory = new LocalSessionFactoryBean();
+//        sessionFactory.setDataSource(dataSource());
+//        sessionFactory.setPackagesToScan(new String[]{"com.kandidato.persistence"});
+//        sessionFactory.setHibernateProperties(hibernateProperties());
+//
+//        return sessionFactory;
+//    }
 
     @Bean
     public DataSource dataSource() {
         HikariConfig config = new HikariConfig();
-        config.setMaximumPoolSize(100);
-        //config.setDataSourceClassName(env.getProperty("jdbc.dataSourceName"));
+        config.setMaximumPoolSize(10);
+        config.setDataSourceClassName(env.getProperty("jdbc.dataSourceName"));
         config.setDriverClassName(env.getProperty("jdbc.driverClassName"));
         config.setJdbcUrl(env.getProperty("jdbc.url"));
         config.setUsername(env.getProperty("jdbc.user"));
         config.setPassword(env.getProperty("jdbc.pass"));
-       // config.setAutoCommit(false);
-        config.addDataSourceProperty("cachePrepStmts", env.getProperty("jdbc.cachePrepStmts") );
-        config.addDataSourceProperty("prepStmtCacheSize", env.getProperty("jdbc.prepStmtCacheSize") );
-        config.addDataSourceProperty("prepStmtCacheSqlLimit", env.getProperty("jdbc.prepStmtCacheSqlLimit") );
-        config.addDataSourceProperty("useServerPrepStmts", env.getProperty("jdbc.useServerPrepStmts") );
+        // config.setAutoCommit(false);
+        config.addDataSourceProperty("cachePrepStmts", env.getProperty("jdbc.cachePrepStmts"));
+        config.addDataSourceProperty("prepStmtCacheSize", env.getProperty("jdbc.prepStmtCacheSize"));
+        config.addDataSourceProperty("prepStmtCacheSqlLimit", env.getProperty("jdbc.prepStmtCacheSqlLimit"));
+        config.addDataSourceProperty("useServerPrepStmts", env.getProperty("jdbc.useServerPrepStmts"));
 
         return new HikariDataSource(config);
     }

@@ -1,8 +1,8 @@
 package com.kandidato.service.workflow;
 
-import com.kandidato.entity.Flow;
-import com.kandidato.entity.Person;
-import com.kandidato.entity.Vacancy;
+import com.kandidato.persistence.entity.Flow;
+import com.kandidato.persistence.entity.Person;
+import com.kandidato.persistence.entity.Vacancy;
 
 /**
  * Interface for workflow services.
