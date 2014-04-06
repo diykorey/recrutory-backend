@@ -34,6 +34,11 @@
             <artifactId>spring-orm</artifactId>
         </dependency>
 
+        <dependency>
+            <groupId>org.springframework.data</groupId>
+            <artifactId>spring-data-jpa</artifactId>
+        </dependency>
+
         <!-- Hibernate 4 -->
         <dependency>
             <groupId>org.hibernate</groupId>
@@ -44,6 +49,24 @@
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
             <scope>runtime</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.tika</groupId>
+            <artifactId>tika-core</artifactId>
+            <version>1.5</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.tika</groupId>
+            <artifactId>tika-parsers</artifactId>
+            <version>1.5</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.data</groupId>
+            <artifactId>spring-data-elasticsearch</artifactId>
+            <version>1.0.0.M2</version>
         </dependency>
 
         <!-- Others -->
@@ -63,4 +86,15 @@
             <artifactId>junit</artifactId>
         </dependency>
     </dependencies>
+    <build>
+        <resources>
+            <resource>
+                <!-- excluding sql files from the jar -->
+                <directory>resources/sql</directory>
+                <excludes>
+                    <exclude>/**</exclude>
+                </excludes>
+            </resource>
+        </resources>
+    </build>
 </project>

@@ -20,7 +20,9 @@ import java.util.Properties;
 @Configuration
 @PropertySource({"classpath:com/kandidato/config/persistence.properties"})
 public class PersistenceConfig {
+
     private static final Logger log = LoggerFactory.getLogger(PersistenceConfig.class);
+
     @Autowired
     private Environment env;
 
@@ -38,19 +40,18 @@ public class PersistenceConfig {
     public DataSource dataSource() {
         HikariConfig config = new HikariConfig();
         config.setMaximumPoolSize(100);
-        config.setDataSourceClassName(env.getProperty("jdbc.dataSourceName"));
+        //config.setDataSourceClassName(env.getProperty("jdbc.dataSourceName"));
         config.setDriverClassName(env.getProperty("jdbc.driverClassName"));
         config.setJdbcUrl(env.getProperty("jdbc.url"));
         config.setUsername(env.getProperty("jdbc.user"));
         config.setPassword(env.getProperty("jdbc.pass"));
        // config.setAutoCommit(false);
-        config.addDataSourceProperty("cachePrepStmts",env.getProperty("jdbc.cachePrepStmts") );
-        config.addDataSourceProperty("prepStmtCacheSize",env.getProperty("jdbc.prepStmtCacheSize") );
-        config.addDataSourceProperty("prepStmtCacheSqlLimit",env.getProperty("jdbc.prepStmtCacheSqlLimit") );
-        config.addDataSourceProperty("useServerPrepStmts",env.getProperty("jdbc.useServerPrepStmts") );
+        config.addDataSourceProperty("cachePrepStmts", env.getProperty("jdbc.cachePrepStmts") );
+        config.addDataSourceProperty("prepStmtCacheSize", env.getProperty("jdbc.prepStmtCacheSize") );
+        config.addDataSourceProperty("prepStmtCacheSqlLimit", env.getProperty("jdbc.prepStmtCacheSqlLimit") );
+        config.addDataSourceProperty("useServerPrepStmts", env.getProperty("jdbc.useServerPrepStmts") );
 
-        DataSource dataSource = new HikariDataSource(config);
-        return dataSource;
+        return new HikariDataSource(config);
     }
 
     @Bean

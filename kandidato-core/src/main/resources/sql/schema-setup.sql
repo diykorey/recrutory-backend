@@ -1,3 +1,3 @@
-drop schema if exists `KANDIDATO_DB`;
+drop schema if exists `KANDIDATO`;
 
-create schema `KANDIDATO_DB`;
+create schema `KANDIDATO`;

@@ -1,109 +1,146 @@
 package com.kandidato.entity;
 
+import com.kandidato.constants.VacancyState;
+
+import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Set;
 
-import com.kandidato.constants.VacancyState;
-
+@javax.persistence.Entity
+@Table(name = "VACANCIES")
 public class Vacancy implements Entity {
 
-  private long id;
+    @Id
+    @GeneratedValue
+    @Column(name = "VACANCY_ID")
+    private long id;
 
-  private VacancyState state;
-  private boolean hot;
-  private String requirements;
-  private Project project;
-  private List<Flow> flows = new ArrayList<>();
-  private List<Comment> comments = new ArrayList<>();
-  private User creator;
-  private Date createTime;
+    @Column(name = "STATE")
+    @Enumerated(value = EnumType.STRING)
+    private VacancyState state;
 
-  public long getId() {
-    return id;
-  }
+    @Column(name = "HOT_FLAG")
+    private boolean hot;
 
-  public void setId(long id) {
-    this.id = id;
-  }
+    @Column(name = "DESCRIPTION")
+    private String requirements;
 
-  public VacancyState getState() {
-    return state;
-  }
+    @ManyToMany(cascade = {CascadeType.ALL})
+    @JoinTable(name = "VACANCIES_TAGS", joinColumns = {@JoinColumn(name = "VACANCY_ID")}, inverseJoinColumns = {@JoinColumn(name = "TAG_ID")})
+    private Set<Tag> tags;
 
-  public void setState(VacancyState state) {
-    this.state = state;
-  }
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinTable(name = "PROJECTS", joinColumns = {@JoinColumn(name = "PROJECT_ID")})
+    private Project project;
 
-  public boolean isHot() {
-    return hot;
-  }
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinTable(name = "FLOWS", joinColumns = {@JoinColumn(name = "VACANCY_ID")})
+    private List<Flow> flows = new ArrayList<>();
 
-  public void setHot(boolean hot) {
-    this.hot = hot;
-  }
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinTable(name = "USERS", joinColumns = {@JoinColumn(name = "CREATOR_ID")})
+    private User creator;
 
-  public String getRequirements() {
-    return requirements;
-  }
+    private List<Comment> comments = new ArrayList<>();
 
-  public void setRequirements(String requirements) {
-    this.requirements = requirements;
-  }
+    @Column(name = "CREATION_TIME")
+    private Date createTime;
 
-  public Project getProject() {
-    return project;
-  }
+    public long getId() {
+        return id;
+    }
 
-  public void setProject(Project project) {
-    this.project = project;
-  }
+    public void setId(long id) {
+        this.id = id;
+    }
 
-  public List<Flow> getFlows() {
-    return flows;
-  }
+    public VacancyState getState() {
+        return state;
+    }
 
-  public void setFlows(List<Flow> flows) {
-    this.flows = flows;
-  }
+    public void setState(VacancyState state) {
+        this.state = state;
+    }
 
-  public List<Comment> getComments() {
-    return comments;
-  }
+    public boolean isHot() {
+        return hot;
+    }
 
-  public void setComments(List<Comment> comments) {
-    this.comments = comments;
-  }
+    public void setHot(boolean hot) {
+        this.hot = hot;
+    }
 
-  public User getCreator() {
-    return creator;
-  }
+    public String getRequirements() {
+        return requirements;
+    }
 
-  public void setCreator(User creator) {
-    this.creator = creator;
-  }
+    public void setRequirements(String requirements) {
+        this.requirements = requirements;
+    }
 
-  public Date getCreateTime() {
-    return createTime;
-  }
+    public Set<Tag> getTags() {
+        return tags;
+    }
 
-  public void setCreateTime(Date createTime) {
-    this.createTime = createTime;
-  }
+    public void setTags(Set<Tag> tags) {
+        this.tags = tags;
+    }
 
-  @Override
-  public String toString() {
-    StringBuilder builder = new StringBuilder(this.getClass().getSimpleName());
-    builder.append(": {");
-    builder.append("id: ");
-    builder.append(id);
-    builder.append(", state: ");
-    builder.append(state);
-    builder.append(", hot: ");
-    builder.append(hot);
-    builder.append(", requirements: ");
-    builder.append(requirements);
-    builder.append("}");
-    return builder.toString();
-  }
+    public Project getProject() {
+        return project;
+    }
+
+    public void setProject(Project project) {
+        this.project = project;
+    }
+
+    public List<Flow> getFlows() {
+        return flows;
+    }
+
+    public void setFlows(List<Flow> flows) {
+        this.flows = flows;
+    }
+
+    public List<Comment> getComments() {
+        return comments;
+    }
+
+    public void setComments(List<Comment> comments) {
+        this.comments = comments;
+    }
+
+    public User getCreator() {
+        return creator;
+    }
+
+    public void setCreator(User creator) {
+        this.creator = creator;
+    }
+
+    public Date getCreateTime() {
+        return createTime;
+    }
+
+    public void setCreateTime(Date createTime) {
+        this.createTime = createTime;
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder builder = new StringBuilder(this.getClass().getSimpleName());
+        builder.append(": {");
+        builder.append("id: ");
+        builder.append(id);
+        builder.append(", state: ");
+        builder.append(state);
+        builder.append(", hot: ");
+        builder.append(hot);
+        builder.append(", requirements: ");
+        builder.append(requirements);
+        builder.append("}");
+        return builder.toString();
+    }
 }

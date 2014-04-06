@@ -1,61 +1,74 @@
 package com.kandidato.entity;
 
-import java.util.Date;
-
 import com.kandidato.constants.FlowState;
 
+import javax.persistence.*;
+import java.util.Date;
+
+@javax.persistence.Entity
+@Table(name = "FLOW_ACTIONS")
 public class FlowAction implements Entity {
 
-  private long id;
-  private FlowState state;
-  private String description;
-  private Date createTime;
+    @Id
+    @GeneratedValue
+    @Column(name = "FLOW_ACTION_ID")
+    private long id;
 
-  public long getId() {
-    return id;
-  }
+    @Column(name = "STATE")
+    @Enumerated(EnumType.STRING)
+    private FlowState state;
 
-  public void setId(long id) {
-    this.id = id;
-  }
+    @Column(name = "DESCRIPTION")
+    private String description;
 
-  public FlowState getState() {
-    return state;
-  }
+    @Column(name = "CREATION_TIME")
+    private Date creationTime;
 
-  public void setState(FlowState state) {
-    this.state = state;
-  }
+    public long getId() {
+        return id;
+    }
 
-  public String getDescription() {
-    return description;
-  }
+    public void setId(long id) {
+        this.id = id;
+    }
 
-  public void setDescription(String description) {
-    this.description = description;
-  }
+    public FlowState getState() {
+        return state;
+    }
 
-  public Date getCreateTime() {
-    return createTime;
-  }
+    public void setState(FlowState state) {
+        this.state = state;
+    }
 
-  public void setCreateTime(Date createTime) {
-    this.createTime = createTime;
-  }
+    public String getDescription() {
+        return description;
+    }
 
-  @Override
-  public String toString() {
-    StringBuilder builder = new StringBuilder(this.getClass().getSimpleName());
-    builder.append(": {");
-    builder.append("id: ");
-    builder.append(id);
-    builder.append(", createTime: ");
-    builder.append(createTime);
-    builder.append(", state: ");
-    builder.append(state);
-    builder.append(", description: ");
-    builder.append(description);
-    builder.append("}");
-    return builder.toString();
-  }
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public Date getCreationTime() {
+        return creationTime;
+    }
+
+    public void setCreationTime(Date creationTime) {
+        this.creationTime = creationTime;
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder builder = new StringBuilder(this.getClass().getSimpleName());
+        builder.append(": {");
+        builder.append("id: ");
+        builder.append(id);
+        builder.append(", creationTime: ");
+        builder.append(creationTime);
+        builder.append(", state: ");
+        builder.append(state);
+        builder.append(", description: ");
+        builder.append(description);
+        builder.append("}");
+        return builder.toString();
+    }
 }

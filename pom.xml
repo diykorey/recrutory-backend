@@ -16,6 +16,7 @@
         <spring.version>4.0.2.RELEASE</spring.version>
         <spring-social-core.version>1.1.0.RC1</spring-social-core.version>
         <spring-social-linkedin.version>1.0.0.RC4</spring-social-linkedin.version>
+        <spring-data.version>1.5.1.RELEASE</spring-data.version>
         <hibernate.version>4.3.4.Final</hibernate.version>
         <mysql.version>5.1.28</mysql.version>
         <servlet-api.version>3.1.0</servlet-api.version>
@@ -38,6 +39,11 @@
             <snapshots>
                 <enabled>false</enabled>
             </snapshots>
+        </repository>
+        <repository>
+            <id>spring-libs-milestone</id>
+            <name>Spring Milestone Repository</name>
+            <url>http://repo.spring.io/libs-milestone</url>
         </repository>
     </repositories>
     <modules>
@@ -106,6 +112,12 @@
                 <groupId>org.springframework</groupId>
                 <artifactId>spring-orm</artifactId>
                 <version>${spring.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.springframework.data</groupId>
+                <artifactId>spring-data-jpa</artifactId>
+                <version>${spring-data.version}</version>
             </dependency>
 
             <!-- Spring Social -->
