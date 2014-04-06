@@ -34,4 +34,6 @@ public abstract class AbstractRepository<T extends Entity, Q extends Query> impl
     public void update(T entity) {
         this.sessionFactory.getCurrentSession().saveOrUpdate(entity);
     }
+
+
 }

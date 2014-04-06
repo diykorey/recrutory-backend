@@ -24,7 +24,7 @@ public interface Repository<T extends Entity, Q extends Query> {
 
     void update(T entity);
 
-    Collection<T> query(Q q);
+    Collection<T> query(Q query);
 
 
 }
