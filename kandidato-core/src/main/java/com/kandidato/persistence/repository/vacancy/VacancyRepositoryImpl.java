@@ -3,16 +3,17 @@ package com.kandidato.persistence.repository.vacancy;
 import com.kandidato.persistence.entity.Vacancy;
 import com.kandidato.persistence.repository.base.HibernateRepository;
 import com.kandidato.persistence.repository.vacancy.query.VacancyQuery;
-import org.hibernate.SessionFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 
-import javax.inject.Inject;
+import javax.persistence.EntityManager;
 
 /**
  * Hibernate-based implementation of {@link com.kandidato.persistence.repository.vacancy.VacancyRepository}.
  */
-public class VacancyRepositoryImpl extends HibernateRepository<Vacancy, VacancyQuery> implements com.kandidato.persistence.repository.base.Repository<Vacancy, VacancyQuery> {
+public class VacancyRepositoryImpl extends HibernateRepository<Vacancy, VacancyQuery> implements VacancyRepositoryCustom {
 
-    public VacancyRepositoryImpl() {
-        super(null, Vacancy.class);
+    @Autowired
+    public VacancyRepositoryImpl(EntityManager entityManager) {
+        super(entityManager, Vacancy.class);
     }
 }

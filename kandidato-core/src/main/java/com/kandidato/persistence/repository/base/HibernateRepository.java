@@ -2,8 +2,9 @@ package com.kandidato.persistence.repository.base;
 
 import com.kandidato.persistence.entity.Entity;
 import com.kandidato.persistence.repository.query.HibernateQuery;
-import org.hibernate.SessionFactory;
+import org.hibernate.Session;
 
+import javax.persistence.EntityManager;
 import java.util.Collection;
 
 /**
@@ -11,17 +12,17 @@ import java.util.Collection;
  */
 public abstract class HibernateRepository<T extends Entity, Q extends HibernateQuery> implements Repository<T, Q> {
 
-    private final SessionFactory sessionFactory;
+    private final EntityManager entityManager;
 
     private final Class<T> entityClass;
 
-    public HibernateRepository(SessionFactory sessionFactory, Class<T> entityClass) {
-        this.sessionFactory = sessionFactory;
+    public HibernateRepository(EntityManager entityManager, Class<T> entityClass) {
+        this.entityManager = entityManager;
         this.entityClass = entityClass;
     }
 
     @Override
     public Collection<T> query(Q query) {
-        return this.sessionFactory.getCurrentSession().createCriteria(entityClass).add(query.toCriterion()).list();
+        return this.entityManager.unwrap(Session.class).createCriteria(entityClass).add(query.toCriterion()).list();
     }
 }

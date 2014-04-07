@@ -3,20 +3,23 @@ package com.kandidato.manager.search;
 
 import com.kandidato.persistence.entity.Resume;
 import com.kandidato.persistence.repository.resume.ResumeRepository;
+import com.kandidato.persistence.repository.resume.query.FindNotIndexed;
 import com.kandidato.persistence.repository.search.ResumeSearchRepository;
 import com.kandidato.persistence.repository.search.TikaTransformer;
 import com.kandidato.persistence.repository.search.elastic.ResumeDocument;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.util.Collection;
+
 @Component
 public class ResumeIndexingManager {
 
     @Autowired
     private ResumeSearchRepository repository;
-
-    @Autowired
-    private ResumeRepository resumeRepository;
+//
+//    @Autowired
+//    private ResumeRepository resumeRepository;
 
     @Autowired
     private TikaTransformer transformer;

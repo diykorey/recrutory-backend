@@ -23,7 +23,7 @@ public class Flow implements Entity {
     private Vacancy vacancy;
 
     @OneToMany
-    @JoinTable(name = "FLOW_ACTIONS", joinColumns = @JoinColumn(name = "FLOW_ID"), inverseJoinColumns = @JoinColumn(name = "FLOW_ACTION_ID"))
+    @JoinTable(name = "FLOW_ACTIONS", joinColumns = @JoinColumn(name = "FLOW_ID"))
     private List<FlowAction> actions = new ArrayList<>();
 
     @Column(name = "CREATION_TIME")

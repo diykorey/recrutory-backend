@@ -3,7 +3,9 @@ package com.kandidato.persistence.repository.resume;
 import com.kandidato.persistence.entity.Resume;
 import com.kandidato.persistence.repository.base.HibernateRepository;
 import com.kandidato.persistence.repository.query.HibernateQuery;
+import org.springframework.beans.factory.annotation.Autowired;
 
+import javax.persistence.EntityManager;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -13,8 +15,9 @@ import java.util.Collection;
 
 public class ResumeRepositoryImp extends HibernateRepository<Resume, HibernateQuery> implements ResumeRepositoryCustom {
 
-    public ResumeRepositoryImp() {
-        super(null, Resume.class);
+    @Autowired
+    public ResumeRepositoryImp(EntityManager entityManager) {
+        super(entityManager, Resume.class);
     }
 
     @Override

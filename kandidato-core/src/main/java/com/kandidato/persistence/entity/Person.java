@@ -24,13 +24,13 @@ public class Person implements Entity {
     @Column(name = "CREATION_TIME")
     private Date createTime;
 
+    @ManyToMany(cascade = {CascadeType.ALL})
+    @JoinTable(name = "PEOPLE_TAGS", joinColumns = {@JoinColumn(name = "PERSON_ID")}, inverseJoinColumns = {@JoinColumn(name = "TAG_ID")})
     private Set<Tag> tags;
 
-    private List<TimelineRecord> timeline;
+//    private List<TimelineRecord> timeline;
 
-    @OneToMany
-    @JoinColumn
-    private List<Contact> contacts;
+//    private List<Contact> contacts;
 
     public long getId() {
         return id;
@@ -72,21 +72,21 @@ public class Person implements Entity {
         this.tags = tags;
     }
 
-    public List<TimelineRecord> getTimeline() {
-        return timeline;
-    }
+//    public List<TimelineRecord> getTimeline() {
+//        return timeline;
+//    }
+//
+//    public void setTimeline(List<TimelineRecord> timeline) {
+//        this.timeline = timeline;
+//    }
 
-    public void setTimeline(List<TimelineRecord> timeline) {
-        this.timeline = timeline;
-    }
-
-    public List<Contact> getContacts() {
-        return contacts;
-    }
-
-    public void setContacts(List<Contact> contacts) {
-        this.contacts = contacts;
-    }
+//    public List<Contact> getContacts() {
+//        return contacts;
+//    }
+//
+//    public void setContacts(List<Contact> contacts) {
+//        this.contacts = contacts;
+//    }
 
     @Override
     public String toString() {
