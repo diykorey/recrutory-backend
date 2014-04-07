@@ -28,6 +28,7 @@ public class PersistenceConfig {
 
     @Bean
     public LocalSessionFactoryBean sessionFactory() {
+        log.warn("Get new sesssion factory");
         LocalSessionFactoryBean sessionFactory = new LocalSessionFactoryBean();
         sessionFactory.setDataSource(dataSource());
         sessionFactory.setPackagesToScan(new String[]{"com.kandidato.persistence"});
@@ -38,6 +39,7 @@ public class PersistenceConfig {
 
     @Bean
     public DataSource dataSource() {
+        log.warn("Get new data source");
         HikariConfig config = new HikariConfig();
         config.setMaximumPoolSize(100);
         //config.setDataSourceClassName(env.getProperty("jdbc.dataSourceName"));

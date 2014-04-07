@@ -16,7 +16,7 @@ public class CustomInitBinder {
 
     @InitBinder
     public void initBinder(WebDataBinder binder) {
-        System.out.println("INIT BINDER");
+        log.info("INIT BINDER");
         binder.registerCustomEditor(VacancyState.class, new VacancyStateEnumConverter());
     }
 
