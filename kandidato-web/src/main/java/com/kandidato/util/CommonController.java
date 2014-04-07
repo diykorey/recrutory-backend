@@ -1,4 +1,4 @@
-package com.kandidato.config;
+package com.kandidato.util;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
