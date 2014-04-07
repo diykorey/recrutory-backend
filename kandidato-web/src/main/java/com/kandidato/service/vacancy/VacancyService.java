@@ -1,7 +1,7 @@
 package com.kandidato.service.vacancy;
 
 import com.kandidato.constants.VacancyState;
-import com.kandidato.entity.Vacancy;
+import com.kandidato.persistence.entity.Vacancy;
 
 import java.util.List;
 

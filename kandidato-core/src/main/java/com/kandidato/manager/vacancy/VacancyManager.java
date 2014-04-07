@@ -1,7 +1,7 @@
 package com.kandidato.manager.vacancy;
 
 import com.kandidato.constants.VacancyState;
-import com.kandidato.entity.Vacancy;
+import com.kandidato.persistence.entity.Vacancy;
 
 import java.util.List;
 
@@ -11,7 +11,7 @@ import java.util.List;
 public interface VacancyManager {
 
     /**
-     * Retrieves a {@link com.kandidato.entity.Vacancy} by its id.
+     * Retrieves a {@link com.kandidato.persistence.entity.Vacancy} by its id.
      *
      * @param id
      * @return

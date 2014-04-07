@@ -2,7 +2,7 @@ package com.kandidato.service.vacancy;
 
 
 import com.kandidato.constants.VacancyState;
-import com.kandidato.entity.Vacancy;
+import com.kandidato.persistence.entity.Vacancy;
 import com.kandidato.manager.vacancy.VacancyManager;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

@@ -2,12 +2,12 @@ package com.kandidato.manager.vacancy;
 
 import com.google.common.collect.Iterables;
 import com.kandidato.constants.VacancyState;
-import com.kandidato.entity.Vacancy;
-import com.kandidato.repository.vacancy.VacancyRepository;
-import com.kandidato.repository.vacancy.query.RemoveVacancyQuery;
-import com.kandidato.repository.vacancy.query.VacancyByAuthorQuery;
-import com.kandidato.repository.vacancy.query.VacancyByExampleQuery;
-import com.kandidato.repository.vacancy.query.VacancyByIdQuery;
+import com.kandidato.persistence.entity.Vacancy;
+import com.kandidato.persistence.repository.vacancy.VacancyRepository;
+import com.kandidato.persistence.repository.vacancy.query.RemoveVacancyQuery;
+import com.kandidato.persistence.repository.vacancy.query.VacancyByAuthorQuery;
+import com.kandidato.persistence.repository.vacancy.query.VacancyByExampleQuery;
+import com.kandidato.persistence.repository.vacancy.query.VacancyByIdQuery;
 import org.springframework.stereotype.Component;
 
 import javax.inject.Inject;
