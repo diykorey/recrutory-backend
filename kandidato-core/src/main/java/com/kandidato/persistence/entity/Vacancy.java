@@ -42,7 +42,7 @@ public class Vacancy implements Entity {
     @JoinColumn(name = "CREATOR_ID")
     private User creator;
 
-//    private List<CommentDto> comments = new ArrayList<>();
+//    private List<Comment> comments = new ArrayList<>();
 
     @Column(name = "CREATION_TIME")
     private Date createTime;
@@ -103,11 +103,11 @@ public class Vacancy implements Entity {
         this.flows = flows;
     }
 
-//    public List<CommentDto> getComments() {
+//    public List<Comment> getComments() {
 //        return comments;
 //    }
 //
-//    public void setComments(List<CommentDto> comments) {
+//    public void setComments(List<Comment> comments) {
 //        this.comments = comments;
 //    }
 
