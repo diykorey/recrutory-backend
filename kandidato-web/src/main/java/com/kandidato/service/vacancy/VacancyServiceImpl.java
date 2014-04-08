@@ -50,7 +50,7 @@ public class VacancyServiceImpl implements VacancyService {
             vacancy.setId(i);
             vacancy.setHot(i % 2 == 0);
             vacancy.setRequirements("Requirements: " + i);
-            vacancy.setS
+            vacancy.setState(VacancyState.OPEN);
             vacancies.add(vacancy);
         }
 
