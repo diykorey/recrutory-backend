@@ -35,8 +35,7 @@ public class Vacancy implements Entity {
     @JoinColumn(name = "PROJECT_ID")
     private Project project;
 
-    @OneToMany(cascade = CascadeType.ALL)
-    @JoinTable(name = "FLOWS", joinColumns = {@JoinColumn(name = "VACANCY_ID")})
+    @OneToMany(mappedBy = "vacancy", cascade = CascadeType.ALL)
     private List<Flow> flows = new ArrayList<>();
 
     @ManyToOne(cascade = CascadeType.ALL)

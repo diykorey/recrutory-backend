@@ -1,65 +1,27 @@
 package com.kandidato.persistence.entity;
 
 
-import com.kandidato.constants.ResumeState;
+import javax.persistence.*;
 
-import java.util.Date;
-
+@javax.persistence.Entity
+@Table(name = "RESUME")
 public class Resume implements Entity{
-    private long id;
-    private Person owner;
-    private Date createTime;
-    private Date indexingTime;
-    private boolean latest;
-    private ResumeState state;
+
+    @Id
+    @Column(name = "RESUME_ID")
+    @GeneratedValue
+    private Long id;
+
+    @Column(name = "RESUME_DATA")
+    @Lob
     private byte[] data;
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
-    }
-
-    public ResumeState getState() {
-        return state;
-    }
-
-    public void setState(ResumeState state) {
-        this.state = state;
-    }
-
-    public boolean isLatest() {
-        return latest;
-    }
-
-    public void setLatest(boolean latest) {
-        this.latest = latest;
-    }
-
-    public Date getIndexingTime() {
-        return indexingTime;
-    }
-
-    public void setIndexingTime(Date indexingTime) {
-        this.indexingTime = indexingTime;
-    }
-
-    public Date getCreateTime() {
-        return createTime;
-    }
-
-    public void setCreateTime(Date createTime) {
-        this.createTime = createTime;
-    }
-
-    public Person getOwner() {
-        return owner;
-    }
-
-    public void setOwner(Person owner) {
-        this.owner = owner;
     }
 
     public byte[] getData() {
