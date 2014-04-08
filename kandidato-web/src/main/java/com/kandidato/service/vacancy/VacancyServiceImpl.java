@@ -35,9 +35,8 @@ public class VacancyServiceImpl implements VacancyService {
 
     @Override
     @RequestMapping(value = "/remove/{id}", method = RequestMethod.GET, produces = "application/json")
-    @ResponseBody
-    public Vacancy remove(@PathVariable long id) {
-        return manager.remove(id);
+    public void remove(@PathVariable long id) {
+        manager.remove(id);
     }
 
     @Override

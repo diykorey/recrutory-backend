@@ -24,7 +24,7 @@ public interface VacancyManager {
      * @param id
      * @return removed vacancy
      */
-    Vacancy remove(long id);
+    void remove(long id);
 
     /**
      * Retrieves a list of {@link Vacancy}ies, with the current state.

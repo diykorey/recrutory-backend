@@ -27,18 +27,18 @@ public class Vacancy implements Entity {
     @Column(name = "DESCRIPTION")
     private String requirements;
 
-    @ManyToMany(cascade = {CascadeType.ALL})
+    @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(name = "VACANCIES_TAGS", joinColumns = {@JoinColumn(name = "VACANCY_ID")}, inverseJoinColumns = {@JoinColumn(name = "TAG_ID")})
     private Set<Tag> tags;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     @JoinColumn(name = "PROJECT_ID")
     private Project project;
 
     @OneToMany(mappedBy = "vacancy", cascade = CascadeType.ALL)
     private List<Flow> flows = new ArrayList<>();
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     @JoinColumn(name = "CREATOR_ID")
     private User creator;
 

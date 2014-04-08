@@ -11,6 +11,7 @@ import com.kandidato.persistence.repository.vacancy.query.VacancyByIdQuery;
 import org.springframework.stereotype.Component;
 
 import javax.inject.Inject;
+import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -31,8 +32,8 @@ public class VacancyManagerImpl implements VacancyManager {
     }
 
     @Override
-    public Vacancy remove(long id) {
-        return Iterables.getOnlyElement(repository.query(new RemoveVacancyQuery(id)));
+    public void remove(long id) {
+        this.repository.delete(id);
     }
 
     @Override
