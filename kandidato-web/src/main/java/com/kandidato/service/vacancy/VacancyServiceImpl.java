@@ -2,8 +2,8 @@ package com.kandidato.service.vacancy;
 
 
 import com.kandidato.constants.VacancyState;
-import com.kandidato.persistence.entity.Vacancy;
 import com.kandidato.manager.vacancy.VacancyManager;
+import com.kandidato.persistence.entity.Vacancy;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.inject.Inject;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -44,7 +45,17 @@ public class VacancyServiceImpl implements VacancyService {
     @ResponseBody
     public List<Vacancy> findByState(@PathVariable VacancyState state) {
         log.debug("findByState: {}", state);
-        return manager.findByState(state);
+        List<Vacancy> vacancies = new ArrayList<>();
+        for (int i = 0; i < 10; i++) {
+            Vacancy vacancy = new Vacancy();
+            vacancy.setId(i);
+            vacancy.setHot(i % 2 == 0);
+            vacancy.setRequirements("Requirements: " + i);
+            vacancy.setS
+            vacancies.add(vacancy);
+        }
+
+        return vacancies;
     }
 
     @Override
