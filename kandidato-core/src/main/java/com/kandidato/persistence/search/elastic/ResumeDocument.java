@@ -1,20 +1,22 @@
-package com.kandidato.persistence.repository.search.elastic;
+package com.kandidato.persistence.search.elastic;
 
 
 import org.springframework.data.elasticsearch.annotations.Document;
 
-@Document(indexName = "", type = "")
+@Document(indexName = "resumes", type = "resume")
 public class ResumeDocument {
 
     private long organizationId;
     private long userId;
     private String text;
+    private Long id;
 
 
-    public ResumeDocument(long organizationId, long userId, String text) {
+    public ResumeDocument(Long id, long organizationId, long userId, String text) {
         this.organizationId = organizationId;
         this.userId = userId;
         this.text = text;
+        this.id = id;
     }
 
     public long getOrganizationId() {
@@ -27,5 +29,9 @@ public class ResumeDocument {
 
     public String getText() {
         return text;
+    }
+
+    public Long getId() {
+        return id;
     }
 }

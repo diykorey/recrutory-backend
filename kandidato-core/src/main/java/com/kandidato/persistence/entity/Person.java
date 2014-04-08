@@ -18,8 +18,8 @@ public class Person implements Entity {
     @Column(name = "FIRST_NAME")
     private String name;
 
-    @Column(name = "SECOND_NAME")
-    private String secondName;
+   // @Column(name = "SECOND_NAME")
+   // private String secondName;
 
     @Column(name = "CREATION_TIME")
     private Date createTime;
@@ -48,13 +48,13 @@ public class Person implements Entity {
         this.name = name;
     }
 
-    public String getSecondName() {
-        return secondName;
-    }
+   // public String getSecondName() {
+   //     return secondName;
+   // }
 
-    public void setSecondName(String secondName) {
-        this.secondName = secondName;
-    }
+   // public void setSecondName(String secondName) {
+   //     this.secondName = secondName;
+   // }
 
     public Date getCreateTime() {
         return createTime;

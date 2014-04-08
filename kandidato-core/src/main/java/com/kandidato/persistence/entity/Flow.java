@@ -11,7 +11,7 @@ public class Flow implements Entity {
 
     @Id
     @Column(name = "FLOW_ID")
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue
     private Long id;
 
     @ManyToOne
@@ -23,7 +23,7 @@ public class Flow implements Entity {
     private Vacancy vacancy;
 
     @OneToMany
-    @JoinTable(name = "FLOW_ACTIONS", joinColumns = @JoinColumn(name = "FLOW_ID"))
+    @JoinColumn(name = "FLOW_ID")
     private List<FlowAction> actions = new ArrayList<>();
 
     @Column(name = "CREATION_TIME")
