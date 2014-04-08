@@ -1,5 +1,6 @@
 package com.kandidato.persistence.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.kandidato.constants.VacancyState;
 
 import javax.persistence.*;
@@ -29,6 +30,7 @@ public class Vacancy implements Entity {
 
     @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(name = "VACANCIES_TAGS", joinColumns = {@JoinColumn(name = "VACANCY_ID")}, inverseJoinColumns = {@JoinColumn(name = "TAG_ID")})
+    @JsonIgnore
     private Set<Tag> tags;
 
     @ManyToOne
@@ -36,6 +38,7 @@ public class Vacancy implements Entity {
     private Project project;
 
     @OneToMany(mappedBy = "vacancy", cascade = CascadeType.ALL)
+    @JsonIgnore
     private List<Flow> flows = new ArrayList<>();
 
     @ManyToOne
