@@ -15,7 +15,7 @@ public class Vacancy implements Entity {
     @Id
     @GeneratedValue
     @Column(name = "VACANCY_ID")
-    private long id;
+    private Long id;
 
     @Column(name = "STATE")
     @Enumerated(value = EnumType.STRING)
@@ -42,16 +42,16 @@ public class Vacancy implements Entity {
     @JoinColumn(name = "CREATOR_ID")
     private User creator;
 
-//    private List<Comment> comments = new ArrayList<>();
+//    private List<CommentDto> comments = new ArrayList<>();
 
     @Column(name = "CREATION_TIME")
     private Date createTime;
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -103,11 +103,11 @@ public class Vacancy implements Entity {
         this.flows = flows;
     }
 
-//    public List<Comment> getComments() {
+//    public List<CommentDto> getComments() {
 //        return comments;
 //    }
 //
-//    public void setComments(List<Comment> comments) {
+//    public void setComments(List<CommentDto> comments) {
 //        this.comments = comments;
 //    }
 

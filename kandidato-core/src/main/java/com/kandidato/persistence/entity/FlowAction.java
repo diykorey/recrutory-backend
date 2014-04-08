@@ -12,7 +12,7 @@ public class FlowAction implements Entity {
     @Id
     @GeneratedValue
     @Column(name = "FLOW_ACTION_ID")
-    private long id;
+    private Long id;
 
     @Column(name = "STATE")
     @Enumerated(EnumType.STRING)
@@ -24,11 +24,11 @@ public class FlowAction implements Entity {
     @Column(name = "CREATION_TIME")
     private Date creationTime;
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
