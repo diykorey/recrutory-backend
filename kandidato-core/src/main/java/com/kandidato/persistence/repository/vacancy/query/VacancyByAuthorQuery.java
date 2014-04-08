@@ -16,6 +16,6 @@ public class VacancyByAuthorQuery implements VacancyQuery {
 
     @Override
     public Criterion toCriterion() {
-        return Restrictions.eq("creator", creatorId);
+        return Restrictions.eq("creator.id", creatorId);
     }
 }

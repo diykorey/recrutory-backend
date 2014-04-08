@@ -8,6 +8,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 /**
  * Created by andriy on 4/3/14.
  */
+@org.springframework.stereotype.Repository
 public interface VacancyRepository extends JpaRepository<Vacancy, Long>, Repository<Vacancy, VacancyQuery> {
 
 }

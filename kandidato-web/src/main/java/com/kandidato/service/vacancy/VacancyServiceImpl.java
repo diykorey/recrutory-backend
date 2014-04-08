@@ -2,8 +2,8 @@ package com.kandidato.service.vacancy;
 
 
 import com.kandidato.constants.VacancyState;
-import com.kandidato.persistence.entity.Vacancy;
 import com.kandidato.manager.vacancy.VacancyManager;
+import com.kandidato.persistence.entity.Vacancy;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.inject.Inject;
+import javax.transaction.Transactional;
 import java.util.List;
 
 /**
@@ -20,35 +21,37 @@ import java.util.List;
  */
 @Controller
 @RequestMapping("/vacancy")
-public class VacancyServiceImpl implements VacancyService {
+//FIXME when adding 'implements VacancyService' - serivce becomes unavailable, probably because of issues with proxies.
+public class VacancyServiceImpl {
+
     private static final Logger log = LoggerFactory.getLogger(VacancyServiceImpl.class);
     @Inject
     private VacancyManager manager;
 
-    @Override
     @RequestMapping(value = "/find/{id}", method = RequestMethod.GET, produces = "application/json")
     @ResponseBody
+    @Transactional
     public Vacancy findById(@PathVariable long id) {
         return manager.findById(id);
     }
 
-    @Override
     @RequestMapping(value = "/remove/{id}", method = RequestMethod.GET, produces = "application/json")
+    @Transactional
     public void remove(@PathVariable long id) {
         manager.remove(id);
     }
 
-    @Override
-    @RequestMapping(value = "/findByState/{state}", method = RequestMethod.GET, consumes = "application/json", produces = "application/json")
+    @RequestMapping(value = "/findByState/{state}", method = RequestMethod.GET, produces = "application/json")
     @ResponseBody
+    @Transactional
     public List<Vacancy> findByState(@PathVariable VacancyState state) {
         log.debug("findByState: {}", state);
         return manager.findByState(state);
     }
 
-    @Override
-    @RequestMapping(value = "/findByAuthor/{authorId}", method = RequestMethod.POST, consumes = "application/json", produces = "application/json")
+    @RequestMapping(value = "/findByAuthor/{authorId}", method = RequestMethod.GET, produces = "application/json")
     @ResponseBody
+    @Transactional
     public List<Vacancy> findByAuthor(@PathVariable long authorId) {
         return manager.findByAuthor(authorId);
     }

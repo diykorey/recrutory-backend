@@ -1,21 +1,13 @@
 package com.kandidato.persistence.repository.vacancy.query;
 
 import com.kandidato.persistence.entity.Vacancy;
-import org.hibernate.criterion.Criterion;
+import com.kandidato.persistence.repository.query.ByExmpleHibernateQuery;
 
 /**
  * Created by andriy on 4/3/14.
  */
-public class VacancyByExampleQuery implements VacancyQuery {
-
-    private final Vacancy example;
-
+public class VacancyByExampleQuery extends ByExmpleHibernateQuery<Vacancy> implements VacancyQuery {
     public VacancyByExampleQuery(Vacancy example) {
-        this.example = example;
-    }
-
-    @Override
-    public Criterion toCriterion() {
-        return null;
+        super(example);
     }
 }
