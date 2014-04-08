@@ -22,7 +22,7 @@ public class Flow implements Entity {
     @JoinColumn(name = "VACANCY_ID")
     private Vacancy vacancy;
 
-    @OneToMany
+    @OneToMany(cascade = CascadeType.REMOVE)
     @JoinColumn(name = "FLOW_ID")
     private List<FlowAction> actions = new ArrayList<>();
 

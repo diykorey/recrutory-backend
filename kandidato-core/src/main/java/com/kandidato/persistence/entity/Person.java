@@ -2,7 +2,6 @@ package com.kandidato.persistence.entity;
 
 import javax.persistence.*;
 import java.util.Date;
-import java.util.List;
 import java.util.Set;
 
 
@@ -18,8 +17,8 @@ public class Person implements Entity {
     @Column(name = "FIRST_NAME")
     private String name;
 
-   // @Column(name = "SECOND_NAME")
-   // private String secondName;
+    @Column(name = "LAST_NAME")
+    private String lastName;
 
     @Column(name = "CREATION_TIME")
     private Date createTime;
@@ -48,13 +47,13 @@ public class Person implements Entity {
         this.name = name;
     }
 
-   // public String getSecondName() {
-   //     return secondName;
-   // }
+    public String getLastName() {
+         return lastName;
+    }
 
-   // public void setSecondName(String secondName) {
-   //     this.secondName = secondName;
-   // }
+    public void setLastName(String lastName) {
+         this.lastName = lastName;
+    }
 
     public Date getCreateTime() {
         return createTime;
