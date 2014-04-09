@@ -7,10 +7,7 @@ import com.kandidato.persistence.entity.Vacancy;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import javax.inject.Inject;
 import javax.transaction.Transactional;
@@ -21,12 +18,19 @@ import java.util.List;
  */
 @Controller
 @RequestMapping("/vacancy")
-//FIXME when adding 'implements VacancyService' - serivce becomes unavailable, probably because of issues with proxies.
+//FIXME when adding 'implements VacancyService' - service becomes unavailable, probably because of issues with proxies.
 public class VacancyServiceImpl {
 
     private static final Logger log = LoggerFactory.getLogger(VacancyServiceImpl.class);
     @Inject
     private VacancyManager manager;
+
+    @RequestMapping(value = "/create", method = RequestMethod.POST, consumes = "application/json" , produces = "application/json")
+    @ResponseBody
+    @Transactional
+    public Vacancy create(@RequestBody Vacancy vacancy) {
+        return manager.create(vacancy);
+    }
 
     @RequestMapping(value = "/find/{id}", method = RequestMethod.GET, produces = "application/json")
     @ResponseBody

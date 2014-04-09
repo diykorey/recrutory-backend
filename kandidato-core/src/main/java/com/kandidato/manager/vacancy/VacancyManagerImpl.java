@@ -4,14 +4,12 @@ import com.google.common.collect.Iterables;
 import com.kandidato.constants.VacancyState;
 import com.kandidato.persistence.entity.Vacancy;
 import com.kandidato.persistence.repository.vacancy.VacancyRepository;
-import com.kandidato.persistence.repository.vacancy.query.RemoveVacancyQuery;
 import com.kandidato.persistence.repository.vacancy.query.VacancyByAuthorQuery;
 import com.kandidato.persistence.repository.vacancy.query.VacancyByExampleQuery;
 import com.kandidato.persistence.repository.vacancy.query.VacancyByIdQuery;
 import org.springframework.stereotype.Component;
 
 import javax.inject.Inject;
-import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -25,6 +23,11 @@ public class VacancyManagerImpl implements VacancyManager {
     @Inject
     private VacancyRepository repository;
 
+
+    @Override
+    public Vacancy create(Vacancy vacancy) {
+        return repository.save(vacancy);
+    }
 
     @Override
     public Vacancy findById(long id) {

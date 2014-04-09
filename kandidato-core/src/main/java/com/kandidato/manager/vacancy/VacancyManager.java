@@ -11,6 +11,14 @@ import java.util.List;
 public interface VacancyManager {
 
     /**
+     * Creates a new vacancy.
+     *
+     * @param vacancy
+     * @return newly created vacancy
+     */
+    Vacancy create(Vacancy vacancy);
+
+    /**
      * Retrieves a {@link com.kandidato.persistence.entity.Vacancy} by its id.
      *
      * @param id
