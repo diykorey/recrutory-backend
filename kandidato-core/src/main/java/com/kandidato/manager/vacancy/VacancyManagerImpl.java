@@ -31,7 +31,7 @@ public class VacancyManagerImpl implements VacancyManager {
 
     @Override
     public Vacancy findById(long id) {
-        return Iterables.getOnlyElement(repository.query(new VacancyByIdQuery(id)));
+        return repository.findOne(id);
     }
 
     @Override
