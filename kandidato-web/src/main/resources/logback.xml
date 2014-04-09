@@ -19,7 +19,7 @@
                    value="%date{HH:mm:ss.SSS} [%thread] %-10level [%file:%line] - %msg - %logger %date{dd:MM:yyyy}%n"/>
         </encoder>
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
-            <param name="FileNamePattern" value="logs/kandidato.log-%d{yyyy-MM-dd}.%i.zip"/>
+            <param name="FileNamePattern" value="logs/backup/kandidato.log-%d{yyyy-MM-dd}.%i.zip"/>
             <timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
                 <maxFileSize>100MB</maxFileSize>
             </timeBasedFileNamingAndTriggeringPolicy>

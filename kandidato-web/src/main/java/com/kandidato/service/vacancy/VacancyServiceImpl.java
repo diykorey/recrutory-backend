@@ -40,7 +40,7 @@ public class VacancyServiceImpl implements VacancyService {
     }
 
     @Override
-    @RequestMapping(value = "/findByState/{state}", method = RequestMethod.GET, consumes = "application/json", produces = "application/json")
+    @RequestMapping(value = "/findByState/{state}", method = RequestMethod.GET, produces = "application/json")
     @ResponseBody
     public List<Vacancy> findByState(@PathVariable VacancyState state) {
         log.debug("findByState: {}", state);
@@ -50,7 +50,7 @@ public class VacancyServiceImpl implements VacancyService {
             vacancy.setId(i);
             vacancy.setHot(i % 2 == 0);
             vacancy.setRequirements("Requirements: " + i);
-            vacancy.setState(VacancyState.OPEN);
+            vacancy.setState((i > 6) ? VacancyState.HOLD : VacancyState.OPEN);
             vacancies.add(vacancy);
         }
 

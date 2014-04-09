@@ -12,23 +12,19 @@
 
 </head>
 <body>
-<div class="container-fluid">
+<div class="container-fluid" id="mainContainer">
     <h2>Dashboard</h2>
-    <div class="panel panel-default" draggable="true">
-        <div class="panel-heading" style="padding: 2px 2px;">
-            &nbsp;
-            <div class="label label-success  pull-right">Interview</div>
+
+    <div id="main_row" class="row-fluid" style="height: 100%">
+        <!-- main_row  begin -->
+        <div id="vacancyBoardHolder" class="col-xs-6" style="height: 100%">
         </div>
-        <div class="panel-body" contenteditable="true">Basic panel example</div>
+        <div id="vacancyManagementHolder" class="col-xs-6" style="height: 100%">
+        </div>
     </div>
 </div>
 <script src="../jquery/jquery-2.1.0.min.js"></script>
 <script src="../bootstrap/js/bootstrap.min.js"></script>
 <script src="../custom/js/test.js"></script>
-<script>
-    $( document ).ready(function() {
-        console.log( "ready!" );
-    });
-</script>
 </body>
 </html>
