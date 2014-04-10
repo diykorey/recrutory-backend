@@ -1,5 +1,7 @@
 package com.kandidato.persistence.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.Date;
@@ -24,6 +26,7 @@ public class Flow implements Entity {
 
     @OneToMany(cascade = CascadeType.REMOVE)
     @JoinColumn(name = "FLOW_ID")
+    @JsonIgnore
     private List<FlowAction> actions = new ArrayList<>();
 
     @Column(name = "CREATION_TIME")
@@ -79,6 +82,15 @@ public class Flow implements Entity {
 
     public void setActive(boolean active) {
         this.active = active;
+    }
+
+    public Flow() {
+
+    }
+
+    public Flow(Vacancy vacancy, Person person) {
+        this.vacancy = vacancy;
+        this.person = person;
     }
 
     @Override

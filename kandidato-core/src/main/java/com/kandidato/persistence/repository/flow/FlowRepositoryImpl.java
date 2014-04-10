@@ -3,6 +3,7 @@ package com.kandidato.persistence.repository.flow;
 import com.kandidato.persistence.entity.Flow;
 import com.kandidato.persistence.repository.base.HibernateRepository;
 import com.kandidato.persistence.repository.flow.query.FlowQuery;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.persistence.EntityManager;
 
@@ -11,7 +12,8 @@ import javax.persistence.EntityManager;
  */
 public class FlowRepositoryImpl extends HibernateRepository<Flow, FlowQuery> implements FlowRepositoryCustom {
 
-    public FlowRepositoryImpl(EntityManager entityManager, Class<Flow> entityClass) {
-        super(entityManager, entityClass);
+    @Autowired
+    public FlowRepositoryImpl(EntityManager entityManager) {
+        super(entityManager, Flow.class);
     }
 }
