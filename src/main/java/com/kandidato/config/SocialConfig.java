@@ -19,7 +19,7 @@ import org.springframework.social.linkedin.api.LinkedIn;
 import org.springframework.social.linkedin.connect.LinkedInConnectionFactory;
 
 @Configuration
-@EnableSocial
+@EnableSocial 
 public class SocialConfig implements SocialConfigurer {
 
     @Bean
