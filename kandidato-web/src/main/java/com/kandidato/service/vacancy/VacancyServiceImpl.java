@@ -2,18 +2,22 @@ package com.kandidato.service.vacancy;
 
 
 import com.kandidato.constants.VacancyState;
+import com.kandidato.exception.ResourceNotFoundException;
 import com.kandidato.manager.vacancy.VacancyManager;
+import com.kandidato.persistence.entity.Project;
+import com.kandidato.persistence.entity.Tag;
 import com.kandidato.persistence.entity.Vacancy;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import javax.inject.Inject;
+import javax.transaction.Transactional;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
 
 /**
@@ -21,46 +25,81 @@ import java.util.List;
  */
 @Controller
 @RequestMapping("/vacancy")
-public class VacancyServiceImpl implements VacancyService {
+//FIXME when adding 'implements VacancyService' - service becomes unavailable, probably because of issues with proxies.
+public class VacancyServiceImpl {
+
     private static final Logger log = LoggerFactory.getLogger(VacancyServiceImpl.class);
     @Inject
     private VacancyManager manager;
 
-    @Override
-    @RequestMapping(value = "/find/{id}", method = RequestMethod.GET, produces = "application/json")
+    @RequestMapping(method = RequestMethod.POST, consumes = "application/json", produces = "application/json")
     @ResponseBody
-    public Vacancy findById(@PathVariable long id) {
-        return manager.findById(id);
+    @Transactional
+    public Vacancy create(@RequestBody Vacancy vacancy) {
+        return manager.create(vacancy);
     }
 
-    @Override
-    @RequestMapping(value = "/remove/{id}", method = RequestMethod.GET, produces = "application/json")
+    @RequestMapping(value = "/{id}", method = RequestMethod.GET, produces = "application/json")
+    @ResponseBody
+    @Transactional
+    public Vacancy findById(@PathVariable long id) {
+        Vacancy vacancy = manager.findById(id);
+        if (null == vacancy) {
+            throw new ResourceNotFoundException();
+        }
+        return vacancy;
+    }
+
+    @RequestMapping(value = "/{id}", method = RequestMethod.DELETE, produces = "application/json")
+    @Transactional
     public void remove(@PathVariable long id) {
         manager.remove(id);
     }
 
-    @Override
-    @RequestMapping(value = "/findByState/{state}", method = RequestMethod.GET, produces = "application/json")
+    @RequestMapping(value = "/byState/{state}", method = RequestMethod.GET, produces = "application/json")
     @ResponseBody
+    @Transactional
     public List<Vacancy> findByState(@PathVariable VacancyState state) {
         log.debug("findByState: {}", state);
+       /* List<Vacancy> vacancies = manager.findByState(state);
+        if (vacancies.isEmpty()) {
+            throw new ResourceNotFoundException();
+        }    */
+        log.debug("findByState: {}", state);
         List<Vacancy> vacancies = new ArrayList<>();
-        for (int i = 0; i < 10; i++) {
+        for (long i = 0; i < 10; i++) {
             Vacancy vacancy = new Vacancy();
             vacancy.setId(i);
             vacancy.setHot(i % 2 == 0);
-            vacancy.setRequirements("Requirements: " + i);
+            vacancy.setRequirements("Vacancy Requirements: " + i);
             vacancy.setState((i > 6) ? VacancyState.HOLD : VacancyState.OPEN);
+            vacancy.setTags(new HashSet<Tag>());
+            vacancy.setCreateTime(new Date());
+            Project project = new Project();
+            project.setCreationTime(new Date());
+            project.setId(i);
+            project.setName("Project name" + i);
+            project.setDescription("Project Description " + i);
             vacancies.add(vacancy);
         }
 
         return vacancies;
     }
 
-    @Override
-    @RequestMapping(value = "/findByAuthor/{authorId}", method = RequestMethod.POST, consumes = "application/json", produces = "application/json")
+    @RequestMapping(value = "/byAuthor/{authorId}", method = RequestMethod.GET, produces = "application/json")
     @ResponseBody
+    @Transactional
     public List<Vacancy> findByAuthor(@PathVariable long authorId) {
-        return manager.findByAuthor(authorId);
+        List<Vacancy> vacancies = manager.findByAuthor(authorId);
+        if (vacancies.isEmpty()) {
+            throw new ResourceNotFoundException();
+        }
+        return vacancies;
+    }
+
+    @ExceptionHandler(ResourceNotFoundException.class)
+    @ResponseStatus(value = HttpStatus.NOT_FOUND)
+    public void handleException(ResourceNotFoundException e) {
+        log.debug("Resource not found {}", e);
     }
 }

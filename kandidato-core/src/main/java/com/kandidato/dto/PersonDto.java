@@ -1,31 +1,22 @@
-package com.kandidato.persistence.entity;
+package com.kandidato.dto;
 
 import javax.persistence.*;
+import javax.persistence.Entity;
 import java.util.Date;
 import java.util.Set;
 
 
-@javax.persistence.Entity
-@Table(name = "PEOPLE")
-public class Person implements Entity {
+public class PersonDto implements Dto {
 
-    @Id
-    @Column(name = "PERSON_ID")
-    @GeneratedValue
     private Long id;
 
-    @Column(name = "FIRST_NAME")
     private String name;
 
-    @Column(name = "LAST_NAME")
     private String lastName;
 
-    @Column(name = "CREATION_TIME")
     private Date createTime;
 
-    @ManyToMany(cascade = {CascadeType.ALL})
-    @JoinTable(name = "PEOPLE_TAGS", joinColumns = {@JoinColumn(name = "PERSON_ID")}, inverseJoinColumns = {@JoinColumn(name = "TAG_ID")})
-    private Set<Tag> tags;
+    private Set<TagDto> tags;
 
 //    private List<TimelineRecord> timeline;
 
@@ -63,11 +54,11 @@ public class Person implements Entity {
         this.createTime = createTime;
     }
 
-    public Set<Tag> getTags() {
+    public Set<TagDto> getTags() {
         return tags;
     }
 
-    public void setTags(Set<Tag> tags) {
+    public void setTags(Set<TagDto> tags) {
         this.tags = tags;
     }
 

@@ -1,36 +1,21 @@
-package com.kandidato.persistence.entity;
+package com.kandidato.dto;
 
-import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-@javax.persistence.Entity
-@Table(name = "FLOWS")
-public class Flow implements Entity {
+public class FlowDto implements Dto {
 
-    @Id
-    @Column(name = "FLOW_ID")
-    @GeneratedValue
     private Long id;
 
-    @ManyToOne
-    @JoinColumn(name = "PERSON_ID")
-    private Person person;
+    private PersonDto person;
 
-    @ManyToOne
-    @JoinColumn(name = "VACANCY_ID")
-    private Vacancy vacancy;
+    private VacancyDto vacancy;
 
-    @OneToMany(cascade = CascadeType.REMOVE)
-    @JoinColumn(name = "FLOW_ID")
-    private List<FlowAction> actions = new ArrayList<>();
-
-    @Column(name = "CREATION_TIME")
+    private List<FlowActionDto> actions = new ArrayList<>();
     private Date createTime;
 
     //TODO Do we need active flag here? As for me it overlaps with the FlowState of the last action in the current flow.
-    @Column(name = "ACTIVE_FLAG")
     private boolean active = true;
 
     public Long getId() {
@@ -41,27 +26,27 @@ public class Flow implements Entity {
         this.id = id;
     }
 
-    public Person getPerson() {
+    public PersonDto getPerson() {
         return person;
     }
 
-    public void setPerson(Person person) {
+    public void setPerson(PersonDto person) {
         this.person = person;
     }
 
-    public Vacancy getVacancy() {
+    public VacancyDto getVacancy() {
         return vacancy;
     }
 
-    public void setVacancy(Vacancy vacancy) {
+    public void setVacancy(VacancyDto vacancy) {
         this.vacancy = vacancy;
     }
 
-    public List<FlowAction> getActions() {
+    public List<FlowActionDto> getActions() {
         return actions;
     }
 
-    public void setActions(List<FlowAction> actions) {
+    public void setActions(List<FlowActionDto> actions) {
         this.actions = actions;
     }
 

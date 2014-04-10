@@ -1,27 +1,17 @@
-package com.kandidato.persistence.entity;
+package com.kandidato.dto;
 
 import com.kandidato.constants.FlowState;
 
 import javax.persistence.*;
+import javax.persistence.Entity;
 import java.util.Date;
 
-@javax.persistence.Entity
-@Table(name = "FLOW_ACTIONS")
-public class FlowAction implements Entity {
+public class FlowActionDto implements Dto {
 
-    @Id
-    @GeneratedValue
-    @Column(name = "FLOW_ACTION_ID")
     private Long id;
-
-    @Column(name = "STATE")
-    @Enumerated(EnumType.STRING)
     private FlowState state;
 
-    @Column(name = "DESCRIPTION")
     private String description;
-
-    @Column(name = "CREATION_TIME")
     private Date creationTime;
 
     public Long getId() {

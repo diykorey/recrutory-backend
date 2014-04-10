@@ -1,23 +1,13 @@
-package com.kandidato.persistence.entity;
+package com.kandidato.dto;
 
 import com.kandidato.constants.ContactType;
 
-import javax.persistence.*;
+public class ContactDto implements com.kandidato.dto.Dto {
 
-@javax.persistence.Entity
-@Table(name = "CONTACTS")
-public class Contact implements Entity {
-
-    @Id
-    @GeneratedValue
-    @Column(name = "CONTACT_ID")
     private Long id;
 
-    @Column(name = "CONTACT_TYPE")
-    @Enumerated(EnumType.STRING)
     private ContactType type;
 
-    @Column(name = "VALUE")
     private String value;
 
     public Long getId() {

@@ -1,52 +1,32 @@
-package com.kandidato.persistence.entity;
+package com.kandidato.dto;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.kandidato.constants.VacancyState;
 
-import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Set;
 
-@javax.persistence.Entity
-@Table(name = "VACANCIES")
-public class Vacancy implements Entity {
+public class VacancyDto implements com.kandidato.dto.Dto {
 
-    @Id
-    @GeneratedValue
-    @Column(name = "VACANCY_ID")
-    private Long id;
+    private long id;
 
-    @Column(name = "STATE")
-    @Enumerated(value = EnumType.STRING)
     private VacancyState state;
 
-    @Column(name = "HOT_FLAG")
     private boolean hot;
 
-    @Column(name = "DESCRIPTION")
     private String requirements;
 
-    @ManyToMany(cascade = CascadeType.ALL)
-    @JoinTable(name = "VACANCIES_TAGS", joinColumns = {@JoinColumn(name = "VACANCY_ID")}, inverseJoinColumns = {@JoinColumn(name = "TAG_ID")})
-    private Set<Tag> tags;
+    private Set<TagDto> tags;
 
-    @ManyToOne
-    @JoinColumn(name = "PROJECT_ID")
-    private Project project;
+    private ProjectDto project;
 
-    @OneToMany(mappedBy = "vacancy", cascade = CascadeType.ALL)
-    @JsonIgnore
-    private List<Flow> flows = new ArrayList<>();
+    private List<FlowDto> flows = new ArrayList<>();
 
-    @ManyToOne
-    @JoinColumn(name = "CREATOR_ID")
-    private User creator;
+    private UserDto creator;
 
-//    private List<Comment> comments = new ArrayList<>();
+//    private List<CommentDto> comments = new ArrayList<>();
 
-    @Column(name = "CREATION_TIME")
     private Date createTime;
 
     public Long getId() {
@@ -81,43 +61,43 @@ public class Vacancy implements Entity {
         this.requirements = requirements;
     }
 
-    public Set<Tag> getTags() {
+    public Set<TagDto> getTags() {
         return tags;
     }
 
-    public void setTags(Set<Tag> tags) {
+    public void setTags(Set<TagDto> tags) {
         this.tags = tags;
     }
 
-    public Project getProject() {
+    public ProjectDto getProject() {
         return project;
     }
 
-    public void setProject(Project project) {
+    public void setProject(ProjectDto project) {
         this.project = project;
     }
 
-    public List<Flow> getFlows() {
+    public List<FlowDto> getFlows() {
         return flows;
     }
 
-    public void setFlows(List<Flow> flows) {
+    public void setFlows(List<FlowDto> flows) {
         this.flows = flows;
     }
 
-//    public List<Comment> getComments() {
+//    public List<CommentDto> getComments() {
 //        return comments;
 //    }
 //
-//    public void setComments(List<Comment> comments) {
+//    public void setComments(List<CommentDto> comments) {
 //        this.comments = comments;
 //    }
 
-    public User getCreator() {
+    public UserDto getCreator() {
         return creator;
     }
 
-    public void setCreator(User creator) {
+    public void setCreator(UserDto creator) {
         this.creator = creator;
     }
 

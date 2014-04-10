@@ -4,16 +4,16 @@ import java.util.Date;
 
 public class Comment implements Entity {
 
-  private long id;
+  private Long id;
   private String content = "";
   private Date createTime = new Date();
   private User author;
 
-  public long getId() {
+  public Long getId() {
     return id;
   }
 
-  public void setId(long id) {
+  public void setId(Long id) {
     this.id = id;
   }
 

@@ -14,7 +14,7 @@ public class Project implements Entity {
     @Id
     @GeneratedValue
     @Column(name = "PROJECT_ID")
-    private long id;
+    private Long id;
 
     @Column(name = "NAME")
     private String name;
@@ -25,11 +25,11 @@ public class Project implements Entity {
     @Column(name = "CREATION_TIME")
     private Date creationTime;
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

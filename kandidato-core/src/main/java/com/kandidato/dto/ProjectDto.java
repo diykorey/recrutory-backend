@@ -1,27 +1,14 @@
-package com.kandidato.persistence.entity;
+package com.kandidato.dto;
 
-import com.kandidato.constants.FlowState;
-
-import javax.persistence.*;
 import java.util.Date;
 
-@javax.persistence.Entity
-@Table(name = "FLOW_ACTIONS")
-public class FlowAction implements Entity {
-
-    @Id
-    @GeneratedValue
-    @Column(name = "FLOW_ACTION_ID")
+public class ProjectDto implements Dto {
     private Long id;
 
-    @Column(name = "STATE")
-    @Enumerated(EnumType.STRING)
-    private FlowState state;
+    private String name;
 
-    @Column(name = "DESCRIPTION")
     private String description;
 
-    @Column(name = "CREATION_TIME")
     private Date creationTime;
 
     public Long getId() {
@@ -32,12 +19,12 @@ public class FlowAction implements Entity {
         this.id = id;
     }
 
-    public FlowState getState() {
-        return state;
+    public String getName() {
+        return name;
     }
 
-    public void setState(FlowState state) {
-        this.state = state;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getDescription() {
@@ -52,8 +39,8 @@ public class FlowAction implements Entity {
         return creationTime;
     }
 
-    public void setCreationTime(Date creationTime) {
-        this.creationTime = creationTime;
+    public void setCreationTime(Date createTime) {
+        this.creationTime = createTime;
     }
 
     @Override
@@ -62,12 +49,12 @@ public class FlowAction implements Entity {
         builder.append(": {");
         builder.append("id: ");
         builder.append(id);
-        builder.append(", creationTime: ");
-        builder.append(creationTime);
-        builder.append(", state: ");
-        builder.append(state);
+        builder.append(", name: ");
+        builder.append(name);
         builder.append(", description: ");
         builder.append(description);
+        builder.append(", creationTime: ");
+        builder.append(creationTime);
         builder.append("}");
         return builder.toString();
     }

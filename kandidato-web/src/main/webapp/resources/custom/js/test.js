@@ -16,11 +16,12 @@ function createVacancy(vacancyJson) {
 }
 
 function readActiveVacancies() {
-    $.getJSON("http://localhost:8080/kandidato-web-0.1/vacancy/findByState/open", function (vacancies) {
+    $.getJSON("http://localhost:8080/kandidato-web-0.1/vacancy/byState/open", function (vacancies) {
         var items = [];
         var vacancyNumber = 0;
         var rowNumber = 0
         var currentRawId = '';
+        console.log(vacancies);
         $.each(vacancies, function (key, vacancyJson) {
             if (vacancyNumber % 4 == 0) {
                 currentRawId = 'raw_' + rowNumber;
