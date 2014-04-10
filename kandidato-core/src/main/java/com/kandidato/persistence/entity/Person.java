@@ -1,5 +1,7 @@
 package com.kandidato.persistence.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.util.Date;
 import java.util.Set;
@@ -25,6 +27,7 @@ public class Person implements Entity {
 
     @ManyToMany(cascade = {CascadeType.ALL})
     @JoinTable(name = "PEOPLE_TAGS", joinColumns = {@JoinColumn(name = "PERSON_ID")}, inverseJoinColumns = {@JoinColumn(name = "TAG_ID")})
+    @JsonIgnore
     private Set<Tag> tags;
 
 //    private List<TimelineRecord> timeline;

@@ -1,12 +1,13 @@
 package com.kandidato.persistence.repository.flow;
 
 import com.kandidato.persistence.entity.Flow;
+import com.kandidato.persistence.repository.base.Repository;
+import com.kandidato.persistence.repository.flow.query.FlowQuery;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.stereotype.Repository;
 
 /**
  * Created by andriy on 4/8/14.
  */
-@Repository
-public interface FlowRepository extends FlowRepositoryCustom, JpaRepository<Flow, Long> {
+@org.springframework.stereotype.Repository
+public interface FlowRepository extends FlowRepositoryCustom, JpaRepository<Flow, Long>, Repository<Flow, FlowQuery> {
 }
