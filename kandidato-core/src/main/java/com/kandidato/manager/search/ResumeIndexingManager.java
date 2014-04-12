@@ -5,12 +5,16 @@ import com.kandidato.persistence.entity.Resume;
 import com.kandidato.persistence.search.ResumeSearchRepository;
 import com.kandidato.persistence.search.elastic.ResumeDocument;
 import com.kandidato.util.TikaTransformer;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.elasticsearch.repository.support.ElasticsearchRepositoryFactory;
 import org.springframework.stereotype.Component;
 
 @Component
 public class ResumeIndexingManager {
+
+    private static final Logger LOG = LoggerFactory.getLogger(ResumeIndexingManager.class);
 
     @Autowired
     private ElasticsearchRepositoryFactory elasticSearchRepositoryFactory;
@@ -23,6 +27,7 @@ public class ResumeIndexingManager {
 
 
     public void indexResumes(){
+        LOG.error("Quartz is working " + System.currentTimeMillis());
 //        Collection<Resume> resumes = resumeRepository.query(new FindNotIndexed());
 //
 //        for(Resume resume : resumes){

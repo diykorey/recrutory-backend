@@ -49,20 +49,29 @@ public class PersistenceConfig {
 
     @Bean
     public DataSource dataSource() {
+        return new HikariDataSource(newHikariConfig("jdbc.url"));
+    }
+
+    @Bean
+    public DataSource quartzDataSource() {
+        return new HikariDataSource(newHikariConfig("quartz.jdbc.url"));
+    }
+
+    private HikariConfig newHikariConfig(String jdbcUrlPropertyName) {
         HikariConfig config = new HikariConfig();
         config.setMaximumPoolSize(50);
-//        config.setDataSourceClassName(env.getProperty("jdbc.dataSourceName"));
+
         config.setDriverClassName(env.getProperty("jdbc.driverClassName"));
-        config.setJdbcUrl(env.getProperty("jdbc.url"));
+        config.setJdbcUrl(env.getProperty(jdbcUrlPropertyName));
         config.setUsername(env.getProperty("jdbc.user"));
         config.setPassword(env.getProperty("jdbc.pass"));
-        // config.setAutoCommit(false);
+
         config.addDataSourceProperty("cachePrepStmts", env.getProperty("jdbc.cachePrepStmts"));
         config.addDataSourceProperty("prepStmtCacheSize", env.getProperty("jdbc.prepStmtCacheSize"));
         config.addDataSourceProperty("prepStmtCacheSqlLimit", env.getProperty("jdbc.prepStmtCacheSqlLimit"));
         config.addDataSourceProperty("useServerPrepStmts", env.getProperty("jdbc.useServerPrepStmts"));
 
-        return new HikariDataSource(config);
+        return config;
     }
 
     @Bean(name = "transactionManager")
