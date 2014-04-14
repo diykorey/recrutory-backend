@@ -5,13 +5,14 @@ function createRow(id) {
 function createVacancy(vacancyJson) {
     var labelType = (vacancyJson.state == "OPEN") ? "success" : "info";
     var vacancyHtml = '<div class="col-xs-3">' +
-        '<div class="panel panel-default" draggable="true">' +
-        '<div class="panel-heading" style="padding: 2px 2px;">&nbsp;' +
+        '<div class="panel panel-default" draggable="true" id="vacancyPanel_' + vacancyJson.id + '">' +
+        '<div class="panel-heading" style="padding: 2px 2px;" id="vacancyPanelHeader_' + vacancyJson.id + '">&nbsp;' +
         '<div class="label label-' + labelType + '  pull-right">' + vacancyJson.state + '</div>' +
         '</div>' +
         '<div class="panel-body" contenteditable="true">' + vacancyJson.requirements + '</div>' +
         '</div>' +
         '</div>';
+
     return vacancyHtml;
 }
 
@@ -32,6 +33,9 @@ function readActiveVacancies() {
             vacancyNumber = vacancyNumber + 1;
             var vacancyHtml = createVacancy(vacancyJson);
             $("#" + currentRawId).append(vacancyHtml);
+            $("#vacancyPanelHeader_" + vacancyJson.id).click(function () {
+                createVacancyManager(vacancyJson);
+            });
         });
     });
 }
@@ -49,7 +53,7 @@ function Vacancy(vacancyJson) {
     this.state = "OPEN";
     this.hot = false;
     this.requirements = '';
-    this.tag = [];
+    this.tags = [];
     this.project = new Project()
     if (vacancyJson) {
         for (var prop in vacancyJson) this[prop] = vacancyJson[prop];
