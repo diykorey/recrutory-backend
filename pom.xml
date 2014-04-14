@@ -120,8 +120,25 @@
                 <version>${spring-data.version}</version>
             </dependency>
 
-            <!-- Spring Social -->
+            <dependency>
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-context</artifactId>
+                <version>${spring.version}</version>
+            </dependency>
 
+            <dependency>
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-context-support</artifactId>
+                <version>${spring.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-tx</artifactId>
+                <version>${spring.version}</version>
+            </dependency>
+
+            <!-- Spring Social -->
             <dependency>
                 <groupId>org.springframework.social</groupId>
                 <artifactId>spring-social-core</artifactId>
@@ -167,8 +184,20 @@
                 <version>${elasticsearch.version}</version>
             </dependency>
 
-            <!-- Other -->
+            <!-- Quartz Scheduler -->
+            <dependency>
+                <groupId>org.quartz-scheduler</groupId>
+                <artifactId>quartz</artifactId>
+                <version>2.2.1</version>
+            </dependency>
+            <dependency>
+                <groupId>org.quartz-scheduler</groupId>
+                <artifactId>quartz-jobs</artifactId>
+                <version>2.2.1</version>
+            </dependency>
 
+
+            <!-- Other -->
             <dependency>
                 <groupId>javax.inject</groupId>
                 <artifactId>javax.inject</artifactId>
