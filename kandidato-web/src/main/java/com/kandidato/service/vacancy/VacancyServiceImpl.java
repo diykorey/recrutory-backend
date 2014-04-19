@@ -15,10 +15,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.inject.Inject;
 import javax.transaction.Transactional;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashSet;
-import java.util.List;
+import java.util.*;
 
 /**
  * RESTful implementation of {@link com.kandidato.service.vacancy.VacancyService}.
@@ -72,7 +69,14 @@ public class VacancyServiceImpl implements VacancyService {
             vacancy.setHot(i % 2 == 0);
             vacancy.setRequirements("Vacancy Requirements: " + i);
             vacancy.setState((i > 6) ? VacancyState.HOLD : VacancyState.OPEN);
-            vacancy.setTags(new HashSet<Tag>());
+            Set<Tag> tags = new HashSet<Tag>();
+            for (long j = 0; j < 7; j++) {
+                Tag tag = new Tag();
+                tag.setId(j);
+                tag.setKeyword(j + "_" + i);
+                tags.add(tag);
+            }
+            vacancy.setTags(tags);
             vacancy.setCreateTime(new Date());
             Project project = new Project();
             project.setCreationTime(new Date());
