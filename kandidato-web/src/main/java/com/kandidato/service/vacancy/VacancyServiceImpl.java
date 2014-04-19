@@ -25,8 +25,7 @@ import java.util.List;
  */
 @Controller
 @RequestMapping("/vacancy")
-//FIXME when adding 'implements VacancyService' - service becomes unavailable, probably because of issues with proxies.
-public class VacancyServiceImpl {
+public class VacancyServiceImpl implements VacancyService {
 
     private static final Logger log = LoggerFactory.getLogger(VacancyServiceImpl.class);
     @Inject
