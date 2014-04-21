@@ -1,3 +1,16 @@
+var activeVacancy = new Vacancy();
+var pickedVacancy;
+var selectedVacancyModified = false;
+function initVacancyCloseConfirmationWindow() {
+    $('#vacancyCloseConfirmationWindow').on('hidden.bs.modal', function (e) {
+        selectVacancy();
+    });
+}
+function addVacancyChangeListener(object) {
+    object.on('input propertychange', function () {
+        selectedVacancyModified = true;
+    });
+}
 function createRow(id) {
     var vacancyHtml = '<div class="row-fluid" id="' + id + '"></div>';
     return vacancyHtml;
@@ -5,15 +18,44 @@ function createRow(id) {
 function createVacancy(vacancyJson) {
     var labelType = (vacancyJson.state == "OPEN") ? "success" : "info";
     var vacancyHtml = '<div class="col-xs-3">' +
-        '<div class="panel panel-default" draggable="true" id="vacancyPanel_' + vacancyJson.id + '">' +
-        '<div class="panel-heading" style="padding: 2px 2px;" id="vacancyPanelHeader_' + vacancyJson.id + '">&nbsp;' +
+        '<div class="panel panel-default" id="vacancyPanel_' + vacancyJson.id + '">' +
+        '<div class="panel-heading clickable" style="padding: 2px 2px;" id="vacancyPanelHeader_' + vacancyJson.id + '">&nbsp;' +
         '<div class="label label-' + labelType + '  pull-right">' + vacancyJson.state + '</div>' +
         '</div>' +
-        '<div class="panel-body" contenteditable="true">' + vacancyJson.requirements + '</div>' +
+        '<div class="panel-body" contenteditable="false">' + getVacancyRequirements(vacancyJson) + '</div>' +
         '</div>' +
         '</div>';
 
     return vacancyHtml;
+}
+function getRowId(rowNumber) {
+    return 'raw_' + rowNumber;
+}
+function getVacancyPanelHeaderId(vacancyId) {
+    return 'vacancyPanelHeader_' + vacancyId;
+}
+function getVacancyPanelId(vacancyId) {
+    return 'vacancyPanel_' + vacancyId;
+}
+
+function selectVacancy() {
+    var pickedVacancyPanelId = getVacancyPanelId(pickedVacancy.id);
+    $("#" + pickedVacancyPanelId).toggleClass("toogle");
+    if (activeVacancy.id === pickedVacancy.id) {
+        activeVacancy = new Vacancy();
+        createVacancyManager();
+    } else {
+        var activeVacancyPanelId = getVacancyPanelId(activeVacancy.id);
+        $("#" + activeVacancyPanelId).toggleClass("toogle");
+        activeVacancy = pickedVacancy;
+        createVacancyManager(activeVacancy);
+    }
+}
+function saveVacancyChanges() {
+    alert("save");
+    activeVacancy.requirements =  $('#vacancyRequirements').value;
+    activeVacancy.
+    $('#vacancyCloseConfirmationWindow').modal('hide');
 }
 
 function readActiveVacancies() {
@@ -21,20 +63,27 @@ function readActiveVacancies() {
         var items = [];
         var vacancyNumber = 0;
         var rowNumber = 0
-        var currentRawId = '';
+        var currentRowId = '';
         console.log(vacancies);
         $.each(vacancies, function (key, vacancyJson) {
             if (vacancyNumber % 4 == 0) {
-                currentRawId = 'raw_' + rowNumber;
-                var rawHtml = createRow(currentRawId);
-                $("#vacancyBoardHolder").append(rawHtml);
+                currentRowId = getRowId(rowNumber);
+                var rowHtml = createRow(currentRowId);
+                $("#vacancyBoardHolder").append(rowHtml);
                 rowNumber = rowNumber + 1;
             }
             vacancyNumber = vacancyNumber + 1;
             var vacancyHtml = createVacancy(vacancyJson);
-            $("#" + currentRawId).append(vacancyHtml);
-            $("#vacancyPanelHeader_" + vacancyJson.id).click(function () {
-                createVacancyManager(vacancyJson);
+            $("#" + currentRowId).append(vacancyHtml);
+            var vacancyPanelHeaderId = getVacancyPanelHeaderId(vacancyJson.id);
+            $("#" + vacancyPanelHeaderId).click(function (eventObject) {
+                pickedVacancy = new Vacancy(vacancyJson);
+                if (selectedVacancyModified) {
+                    $('#vacancyCloseConfirmationWindow').modal('show')
+                } else {
+                    selectVacancy();
+                }
+
             });
         });
     });
@@ -64,35 +113,68 @@ function Vacancy(vacancyJson) {
  for (var prop in vacancyJson) this[prop] = vacancyJson[prop];
  };     */
 
-function getTags(tagsJson) {
+function getTags(vacancy) {
 
-    if (!tagsJson) {
+    if (!vacancy) {
+        return "";
+    }
+    if (!vacancy.tags) {
         return "";
     }
     var tags = "";
-    $.each(tagsJson, function (key, tagJson) {
-        if (!tags) {
+    $.each(vacancy.tags, function (key, tagJson) {
+        if (tags) {
             tags = tags + ", ";
         }
         tags = tags + tagJson["keyword"];
     });
     return tags;
 }
+
+function getProjectDescription(vacancy) {
+
+    if (!vacancy) {
+        return "";
+    }
+    if (!vacancy.project) {
+        return "";
+    }
+    if (!vacancy.project.description) {
+        return "";
+    }
+    return vacancy.project.description;
+}
+
+function getVacancyRequirements(vacancy) {
+
+    if (!vacancy) {
+        return "";
+    }
+    if (!vacancy.requirements) {
+        return "";
+    }
+
+    return vacancy.requirements;
+}
+
 function vacancyView(vacancy) {
-    var title = 'New Vacancy';
+    selectedVacancyModified = false;
+    var title = (vacancy) ? "" : 'New';
     var saveBtn = 'Save'
     var vacancyFlowsPanel = '';
-    var tags = getTags(vacancy.tag);
+    var tags = getTags(vacancy);
+    var projectDescription = getProjectDescription(vacancy);
+    var requirements = getVacancyRequirements(vacancy)
 
     var vacancyInfoPanel = '<form role="form">' +
         '<div class="form-group">' +
-        '<label for="vacancyRequirements">Requirements:</label>' +
-        '<textarea id="vacancyRequirements" class="form-control" rows="3">' + vacancy.requirements +
+        '<label for="vacancyRequirements">Requirements*:</label>' +
+        '<textarea id="vacancyRequirements" class="form-control" rows="3">' + requirements +
         '</textarea>' +
         '</div>' +
         '<div class="form-group">' +
         '<label for="projectDescription">Project Description:</label>' +
-        '<textarea id="projectDescription" class="form-control" rows="3">' + vacancy.project.description +
+        '<textarea id="projectDescription" class="form-control" rows="3">' + projectDescription +
         '</textarea>' +
         '</div>' +
         '<div class="form-group">' +
@@ -101,6 +183,7 @@ function vacancyView(vacancy) {
         '</textarea>' +
         '</div>' +
         '</form>';
+
 
     var vacancyTabPanel = '<div class="tab-content">' +
         '<div class="tab-pane active" id="vacancyInfoTab">' + vacancyInfoPanel +
@@ -126,7 +209,7 @@ function vacancyView(vacancy) {
         <!-- /.container-fluid -->
         '</nav>';
     var vacancyMainPanel = '<div class="panel panel-default">' +
-        '<div class="panel-heading">' + title +
+        '<div class="panel-heading">&nbsp;' + title +
         '<button type="button" class="btn btn-default btn-xs  pull-right">' +
         '<span class="glyphicon glyphicon-save"></span>' + saveBtn +
         '</button>' +
@@ -137,19 +220,17 @@ function vacancyView(vacancy) {
     return vacancyMainPanel;
 }
 function createVacancyManager(vacancyJson) {
-    var view;
-    if (vacancyJson) {
-        var vacancy = new Vacancy(vacancyJson);
-        view = vacancyView(vacancy);
-    } else {
-        var vacancy = new Vacancy();
-        view = vacancyView(vacancy);
-    }
+    var view = vacancyView(vacancyJson);
+
     $("#vacancyManagementHolder").html(view);
+    addVacancyChangeListener($('#vacancyRequirements'));
+    addVacancyChangeListener($('#projectDescription'));
+    addVacancyChangeListener($('#vacancyTags'));
 }
 $(document).ready(function () {
     readActiveVacancies();
     createVacancyManager();
+    initVacancyCloseConfirmationWindow();
 });
 
 

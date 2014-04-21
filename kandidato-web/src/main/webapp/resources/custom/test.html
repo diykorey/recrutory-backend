@@ -9,6 +9,7 @@
 
     <!-- Optional theme -->
     <link rel="stylesheet" href="../bootstrap/css/bootstrap-theme.min.css">
+    <link rel="stylesheet" href="css/test.css">
 
 </head>
 <body>
@@ -21,6 +22,27 @@
         <div id="vacancyManagementHolder" class="col-xs-6" style="border-left: 2px solid #EEE; height: 100%">
         </div>
     </div>
+</div>
+<div class="modal fade" id="vacancyCloseConfirmationWindow" tabindex="-1" role="dialog"
+     aria-labelledby="vacancyCloseConfirmationModal"
+     aria-hidden="true">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+
+            <div class="modal-header alert alert-success" style="padding:10px;"> Warning!
+                <button id="" type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+            </div>
+            <div class="modal-body">
+                Would you like to save changes?
+            </div>
+            <div class="modal-footer" style="padding:10px;">
+                <button type="button" class="btn btn-default btn-xs" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary btn-xs" onclick="saveVacancyChanges()">Save changes</button>
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
 </div>
 <script src="../jquery/jquery-2.1.0.min.js"></script>
 <script src="../bootstrap/js/bootstrap.min.js"></script>
