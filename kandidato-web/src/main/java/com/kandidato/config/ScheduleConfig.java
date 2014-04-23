@@ -36,7 +36,7 @@ public class ScheduleConfig {
 
     private Trigger newTrigger(JobDetail job){
         return TriggerBuilder.newTrigger() //
-                .withSchedule(SimpleScheduleBuilder.simpleSchedule().withIntervalInMinutes(1)
+                .withSchedule(SimpleScheduleBuilder.simpleSchedule().withIntervalInMinutes(2)
                 .repeatForever()).forJob(job).startNow()//
                 .build();//
     }

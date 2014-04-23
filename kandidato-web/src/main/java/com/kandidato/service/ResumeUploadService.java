@@ -1,7 +1,9 @@
 package com.kandidato.service;
 
+import com.kandidato.manager.search.ResumeManager;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -26,6 +28,9 @@ public class ResumeUploadService {
 
     private static final Logger log = LoggerFactory.getLogger(ResumeUploadService.class);
     private static final String UPLOAD_FOLDER = "UPLOADED";
+
+    @Autowired
+    private ResumeManager resumeManager;
 
     @PostConstruct
     public void init() throws IOException {
@@ -87,9 +92,8 @@ public class ResumeUploadService {
     }
 
     @RequestMapping(value = "/upload", method = RequestMethod.POST)
-    public
     @ResponseBody
-    Map upload(MultipartHttpServletRequest request) {
+    public Map upload(MultipartHttpServletRequest request) {
         log.debug("uploadPost called");
         Iterator<String> itr = request.getFileNames();
         MultipartFile mpf;
@@ -99,13 +103,8 @@ public class ResumeUploadService {
             mpf = request.getFile(itr.next());
             log.debug("Uploading {}", mpf.getOriginalFilename());
 
-
             try {
-                byte[] bytes = mpf.getBytes();
-                BufferedOutputStream stream =
-                        new BufferedOutputStream(new FileOutputStream(new File("uploaded/" + mpf.getOriginalFilename())));
-                stream.write(bytes);
-                stream.close();
+                 resumeManager.createResume(mpf.getOriginalFilename(), mpf.getBytes());
             } catch (IOException e) {
                 log.error("Could not upload file {}", mpf.getOriginalFilename(), e);
                 log.debug("Stacktrace {}", e);

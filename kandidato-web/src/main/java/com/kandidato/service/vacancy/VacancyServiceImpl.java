@@ -10,6 +10,7 @@ import com.kandidato.persistence.entity.Vacancy;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
@@ -35,10 +36,9 @@ public class VacancyServiceImpl implements VacancyService {
         return manager.create(vacancy);
     }
 
-    @RequestMapping(value = "/{id}", method = RequestMethod.GET, produces = "application/json")
+    @RequestMapping(value = "/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
-    @Transactional
-    public Vacancy findById(@PathVariable long id) {
+    public Vacancy findById(@PathVariable("id") long id) {
         Vacancy vacancy = manager.findById(id);
         if (null == vacancy) {
             throw new ResourceNotFoundException();
