@@ -25,7 +25,7 @@ import java.util.Properties;
 
 @Configuration
 @PropertySource({"classpath:com/kandidato/config/persistence.properties"})
-@EnableJpaRepositories(basePackages = {"com.kandidato.persistence.repository.vacancy", "com.kandidato.persistence.repository.people", "com.kandidato.persistence.repository.flow"})
+@EnableJpaRepositories(basePackages = {"com.kandidato.persistence.repository.vacancy", "com.kandidato.persistence.repository.people", "com.kandidato.persistence.repository.flow", "com.kandidato.persistence.repository.comment"})
 @EnableTransactionManagement
 public class PersistenceConfig {
 
@@ -40,7 +40,7 @@ public class PersistenceConfig {
 
         LocalContainerEntityManagerFactoryBean factory = new LocalContainerEntityManagerFactoryBean();
         factory.setJpaVendorAdapter(vendorAdapter);
-        factory.setPackagesToScan(new String[]{"com.kandidato.persistence.entity"});
+        factory.setPackagesToScan(new String[]{"com.kandidato.persistence.entity", "com.kandidato.persistence.entity.comment"});
         factory.setDataSource(dataSource());
         factory.setJpaProperties(hibernateProperties());
         factory.afterPropertiesSet();

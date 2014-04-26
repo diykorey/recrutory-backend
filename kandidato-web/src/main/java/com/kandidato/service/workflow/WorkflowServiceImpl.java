@@ -3,10 +3,10 @@ package com.kandidato.service.workflow;
 import com.kandidato.exception.ResourceNotFoundException;
 import com.kandidato.manager.flow.FlowManager;
 import com.kandidato.persistence.entity.Flow;
+import com.kandidato.service.HttpAwareService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
@@ -18,7 +18,7 @@ import java.util.List;
  */
 @RequestMapping("/workflow")
 @Controller
-public class WorkflowServiceImpl {
+public class WorkflowServiceImpl extends HttpAwareService {
 
     private static final Logger log = LoggerFactory.getLogger(WorkflowServiceImpl.class);
 
@@ -27,7 +27,7 @@ public class WorkflowServiceImpl {
 
     //    @Override
     @ResponseBody
-    @RequestMapping(value = "/forVacancy/{vacancyId}/{personId}", method = RequestMethod.GET, produces = "application/json" )
+    @RequestMapping(value = "/forVacancy/{vacancyId}/{personId}", method = RequestMethod.GET, produces = "application/json")
     @Transactional
     public Flow create(@PathVariable long vacancyId, @PathVariable long personId) {
         return this.flowManager.create(vacancyId, personId);
@@ -67,11 +67,5 @@ public class WorkflowServiceImpl {
     @Transactional
     public List<Flow> findFlowsByVacancy(@PathVariable long vacancyId) {
         return this.flowManager.findByVacancy(vacancyId);
-    }
-
-    @ExceptionHandler(ResourceNotFoundException.class)
-    @ResponseStatus(value = HttpStatus.NOT_FOUND)
-    public void handleException(ResourceNotFoundException e) {
-        log.debug("Resource not found {}", e);
     }
 }

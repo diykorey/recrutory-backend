@@ -2,6 +2,8 @@ package com.kandidato.persistence.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.kandidato.constants.VacancyState;
+import com.kandidato.persistence.entity.comment.CommentableEntity;
+import com.kandidato.persistence.entity.comment.VacancyComment;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -11,7 +13,7 @@ import java.util.Set;
 
 @javax.persistence.Entity
 @Table(name = "VACANCIES")
-public class Vacancy implements Entity {
+public class Vacancy implements CommentableEntity<VacancyComment> {
 
     @Id
     @GeneratedValue
@@ -30,6 +32,7 @@ public class Vacancy implements Entity {
 
     @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(name = "VACANCIES_TAGS", joinColumns = {@JoinColumn(name = "VACANCY_ID")}, inverseJoinColumns = {@JoinColumn(name = "TAG_ID")})
+    @JsonIgnore
     private Set<Tag> tags;
 
     @ManyToOne
@@ -44,7 +47,9 @@ public class Vacancy implements Entity {
     @JoinColumn(name = "CREATOR_ID")
     private User creator;
 
-//    private List<Comment> comments = new ArrayList<>();
+    @OneToMany(mappedBy = "entity", cascade = CascadeType.ALL)
+    @JsonIgnore
+    private List<VacancyComment> comments = new ArrayList<>();
 
     @Column(name = "CREATION_TIME")
     private Date createTime;
@@ -105,13 +110,15 @@ public class Vacancy implements Entity {
         this.flows = flows;
     }
 
-//    public List<Comment> getComments() {
-//        return comments;
-//    }
-//
-//    public void setComments(List<Comment> comments) {
-//        this.comments = comments;
-//    }
+    @Override
+    public List<VacancyComment> getComments() {
+        return comments;
+    }
+
+    @Override
+    public void setComments(List<VacancyComment> comments) {
+        this.comments = comments;
+    }
 
     public User getCreator() {
         return creator;

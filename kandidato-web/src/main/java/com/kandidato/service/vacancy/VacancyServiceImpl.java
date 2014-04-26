@@ -7,6 +7,7 @@ import com.kandidato.manager.vacancy.VacancyManager;
 import com.kandidato.persistence.entity.Project;
 import com.kandidato.persistence.entity.Tag;
 import com.kandidato.persistence.entity.Vacancy;
+import com.kandidato.service.HttpAwareService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
@@ -22,22 +23,27 @@ import java.util.*;
  */
 @Controller
 @RequestMapping("/vacancy")
-public class VacancyServiceImpl implements VacancyService {
+public class VacancyServiceImpl extends HttpAwareService {
 
     private static final Logger log = LoggerFactory.getLogger(VacancyServiceImpl.class);
+
     @Inject
     private VacancyManager manager;
 
+    //@Override
     @RequestMapping(method = RequestMethod.POST, consumes = "application/json", produces = "application/json")
     @ResponseBody
     @Transactional
+    @ResponseStatus(value = HttpStatus.OK)
     public Vacancy create(@RequestBody Vacancy vacancy) {
         return manager.create(vacancy);
     }
 
+    //@Override
     @RequestMapping(value = "/{id}", method = RequestMethod.GET, produces = "application/json")
     @ResponseBody
     @Transactional
+    @ResponseStatus(value = HttpStatus.OK)
     public Vacancy findById(@PathVariable long id) {
         Vacancy vacancy = manager.findById(id);
         if (null == vacancy) {
@@ -46,15 +52,19 @@ public class VacancyServiceImpl implements VacancyService {
         return vacancy;
     }
 
+    //@Override
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE, produces = "application/json")
     @Transactional
+    @ResponseStatus(value = HttpStatus.OK)
     public void remove(@PathVariable long id) {
         manager.remove(id);
     }
 
+    //@Override
     @RequestMapping(value = "/byState/{state}", method = RequestMethod.GET, produces = "application/json")
     @ResponseBody
     @Transactional
+    @ResponseStatus(value = HttpStatus.OK)
     public List<Vacancy> findByState(@PathVariable VacancyState state) {
         log.debug("findByState: {}", state);
        /* List<Vacancy> vacancies = manager.findByState(state);
@@ -69,7 +79,7 @@ public class VacancyServiceImpl implements VacancyService {
             vacancy.setHot(i % 2 == 0);
             vacancy.setRequirements("Vacancy Requirements: " + i);
             vacancy.setState((i > 6) ? VacancyState.HOLD : VacancyState.OPEN);
-            Set<Tag> tags = new HashSet<Tag>();
+            Set<Tag> tags = new HashSet<>();
             for (long j = 0; j < 7; j++) {
                 Tag tag = new Tag();
                 tag.setId(j);
@@ -89,20 +99,16 @@ public class VacancyServiceImpl implements VacancyService {
         return vacancies;
     }
 
+    //@Override
     @RequestMapping(value = "/byAuthor/{authorId}", method = RequestMethod.GET, produces = "application/json")
     @ResponseBody
     @Transactional
+    @ResponseStatus(value = HttpStatus.OK)
     public List<Vacancy> findByAuthor(@PathVariable long authorId) {
         List<Vacancy> vacancies = manager.findByAuthor(authorId);
         if (vacancies.isEmpty()) {
             throw new ResourceNotFoundException();
         }
         return vacancies;
-    }
-
-    @ExceptionHandler(ResourceNotFoundException.class)
-    @ResponseStatus(value = HttpStatus.NOT_FOUND)
-    public void handleException(ResourceNotFoundException e) {
-        log.debug("Resource not found {}", e);
     }
 }

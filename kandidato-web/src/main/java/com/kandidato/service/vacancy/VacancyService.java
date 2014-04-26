@@ -11,6 +11,13 @@ import java.util.List;
 public interface VacancyService {
 
     /**
+     * Creates the vacancy.
+     *
+     * @param vacancy
+     */
+    Vacancy create(Vacancy vacancy);
+
+    /**
      * Retrieves a {@link Vacancy} by its id.
      *
      * @param id
@@ -44,5 +51,13 @@ public interface VacancyService {
      * @return list of vacancies or an empty list
      */
     List<Vacancy> findByAuthor(long authorId);
+
+    /**
+     * Add a comment to the specified vacancy.
+     *
+     * @param vacancyId
+     * @param comment
+     */
+    void comment(long vacancyId, String comment);
 
 }

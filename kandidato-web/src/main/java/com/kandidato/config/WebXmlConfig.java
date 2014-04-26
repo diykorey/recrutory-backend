@@ -21,11 +21,6 @@ public class WebXmlConfig implements WebApplicationInitializer {
         dispatcher.setLoadOnStartup(1);
         dispatcher.setInitParameter("contextClass", "org.springframework.web.context.support.AnnotationConfigWebApplicationContext");
         dispatcher.setInitParameter("contextConfigLocation", "com.kandidato.config");
-
-        //FIXME Configure opensessioninview
-//        FilterRegistration.Dynamic sessionInViewFilter = container.addFilter("openSessionInViewFilter", "org.springframework.orm.hibernate4.support.OpenSessionInViewFilter");
-//        sessionInViewFilter.addMappingForUrlPatterns(EnumSet.of(DispatcherType.REQUEST), true, "/*");
-
     }
 
 

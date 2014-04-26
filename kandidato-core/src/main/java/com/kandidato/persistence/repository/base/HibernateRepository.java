@@ -12,7 +12,7 @@ import java.util.Collection;
  */
 public abstract class HibernateRepository<T extends Entity, Q extends HibernateQuery> implements Repository<T, Q> {
 
-    private final EntityManager entityManager;
+    protected final EntityManager entityManager;
 
     private final Class<T> entityClass;
 

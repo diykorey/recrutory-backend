@@ -1,13 +1,17 @@
 package com.kandidato.persistence.entity;
 
 import com.kandidato.constants.FlowState;
+import com.kandidato.persistence.entity.comment.ActionComment;
+import com.kandidato.persistence.entity.comment.CommentableEntity;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 @javax.persistence.Entity
 @Table(name = "FLOW_ACTIONS")
-public class FlowAction implements Entity {
+public class FlowAction implements CommentableEntity<ActionComment> {
 
     @Id
     @GeneratedValue
@@ -23,6 +27,9 @@ public class FlowAction implements Entity {
 
     @Column(name = "CREATION_TIME")
     private Date creationTime;
+
+    @OneToMany(mappedBy = "entity", cascade = CascadeType.ALL)
+    private List<ActionComment> comments = new ArrayList<>();
 
     public Long getId() {
         return id;
@@ -54,6 +61,14 @@ public class FlowAction implements Entity {
 
     public void setCreationTime(Date creationTime) {
         this.creationTime = creationTime;
+    }
+
+    public List<ActionComment> getComments() {
+        return comments;
+    }
+
+    public void setComments(List<ActionComment> comments) {
+        this.comments = comments;
     }
 
     @Override

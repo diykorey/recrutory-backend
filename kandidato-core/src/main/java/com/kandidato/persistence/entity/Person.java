@@ -1,15 +1,19 @@
 package com.kandidato.persistence.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.kandidato.persistence.entity.comment.CommentableEntity;
+import com.kandidato.persistence.entity.comment.PersonComment;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.Set;
 
 
 @javax.persistence.Entity
 @Table(name = "PEOPLE")
-public class Person implements Entity {
+public class Person implements CommentableEntity<PersonComment> {
 
     @Id
     @Column(name = "PERSON_ID")
@@ -30,9 +34,15 @@ public class Person implements Entity {
     @JsonIgnore
     private Set<Tag> tags;
 
+    @OneToMany(mappedBy = "entity", cascade = CascadeType.ALL)
+    @JsonIgnore
+    private List<PersonComment> comments = new ArrayList<>();
+
 //    private List<TimelineRecord> timeline;
 
 //    private List<Contact> contacts;
+
+
 
     public Long getId() {
         return id;
@@ -51,11 +61,11 @@ public class Person implements Entity {
     }
 
     public String getLastName() {
-         return lastName;
+        return lastName;
     }
 
     public void setLastName(String lastName) {
-         this.lastName = lastName;
+        this.lastName = lastName;
     }
 
     public Date getCreateTime() {
@@ -74,7 +84,17 @@ public class Person implements Entity {
         this.tags = tags;
     }
 
-//    public List<TimelineRecord> getTimeline() {
+    @Override
+    public List<PersonComment> getComments() {
+        return this.comments;
+    }
+
+    @Override
+    public void setComments(List<PersonComment> comments) {
+        this.comments = comments;
+    }
+
+    //    public List<TimelineRecord> getTimeline() {
 //        return timeline;
 //    }
 //

@@ -1,5 +1,6 @@
 package com.kandidato.util;
 
+import com.kandidato.constants.CommentType;
 import com.kandidato.constants.VacancyState;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -18,6 +19,7 @@ public class CustomInitBinder {
     public void initBinder(WebDataBinder binder) {
         log.info("INIT BINDER");
         binder.registerCustomEditor(VacancyState.class, new VacancyStateEnumConverter());
+        binder.registerCustomEditor(CommentType.class, new CommentTypeEnumConverter());
     }
 
 }

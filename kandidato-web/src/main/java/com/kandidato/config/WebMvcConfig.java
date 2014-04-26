@@ -1,11 +1,14 @@
 package com.kandidato.config;
 
 import com.kandidato.constants.VacancyState;
+import com.kandidato.constants.CommentType;
+import com.kandidato.util.CommentTypeEnumConverter;
 import com.kandidato.util.VacancyStateEnumConverter;
 import org.springframework.beans.factory.config.CustomEditorConfigurer;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.converter.HttpMessageConverter;
+import org.springframework.http.converter.StringHttpMessageConverter;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.web.multipart.MultipartResolver;
 import org.springframework.web.multipart.commons.CommonsMultipartResolver;
@@ -57,6 +60,7 @@ public class WebMvcConfig extends WebMvcConfigurerAdapter {
     @Override
     public void configureMessageConverters(List<HttpMessageConverter<?>> converters) {
         converters.add(new MappingJackson2HttpMessageConverter());
+        converters.add(new StringHttpMessageConverter());
     }
 
     /*
@@ -72,6 +76,7 @@ public class WebMvcConfig extends WebMvcConfigurerAdapter {
     public CustomEditorConfigurer customEditorConfigurer() {
         CustomEditorConfigurer customEditorConfigurer = new CustomEditorConfigurer();
         Map<Class<?>, Class<? extends PropertyEditor>> customEditors = new HashMap<>();
+        customEditors.put(CommentType.class, CommentTypeEnumConverter.class);
         customEditors.put(VacancyState.class, VacancyStateEnumConverter.class);
         customEditorConfigurer.setCustomEditors(customEditors);
         return customEditorConfigurer;
