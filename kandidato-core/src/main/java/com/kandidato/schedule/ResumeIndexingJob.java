@@ -21,6 +21,7 @@ public class ResumeIndexingJob extends QuartzJobBean {
 
     @Override
     protected void executeInternal(JobExecutionContext jobExecutionContext) throws JobExecutionException {
+        LOG.info("ResumeIndexingJob is executed.");
         resumeIndexingManager.indexResumes();
     }
 }

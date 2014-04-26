@@ -5,6 +5,8 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.kandidato.persistence.entity.comment.CommentableEntity;
 import com.kandidato.persistence.entity.comment.ResumeComment;
 
+import com.kandidato.constants.ResumeState;
+
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -18,7 +20,15 @@ public class Resume implements CommentableEntity<ResumeComment> {
     @GeneratedValue
     private Long id;
 
-    @Column(name = "RESUME_DATA")
+    @Column(name = "STATE")
+    @Enumerated(EnumType.STRING)
+    private ResumeState state;
+
+    @ManyToOne
+    @JoinColumn(name = "RESUME_OWNER_ID")
+    private Person resumeOwner;
+
+    @Column(name = "DATA")
     @Lob
     private byte[] data;
 
@@ -50,5 +60,21 @@ public class Resume implements CommentableEntity<ResumeComment> {
     @Override
     public void setComments(List<ResumeComment> comments) {
         this.comments = comments;
+    }
+
+    public ResumeState getState() {
+        return state;
+    }
+
+    public void setState(ResumeState state) {
+        this.state = state;
+    }
+
+    public Person getResumeOwner() {
+        return resumeOwner;
+    }
+
+    public void setResumeOwner(Person resumeOwner) {
+        this.resumeOwner = resumeOwner;
     }
 }

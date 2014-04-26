@@ -25,7 +25,7 @@ import java.util.Properties;
 
 @Configuration
 @PropertySource({"classpath:com/kandidato/config/persistence.properties"})
-@EnableJpaRepositories(basePackages = {"com.kandidato.persistence.repository.vacancy", "com.kandidato.persistence.repository.people", "com.kandidato.persistence.repository.flow", "com.kandidato.persistence.repository.comment"})
+@EnableJpaRepositories(basePackages = {"com.kandidato.persistence.repository"})
 @EnableTransactionManagement
 public class PersistenceConfig {
 
