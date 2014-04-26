@@ -44,7 +44,7 @@ public class VacancyServiceImpl extends HttpAwareService {
     @ResponseBody
     @Transactional
     @ResponseStatus(value = HttpStatus.OK)
-    public Vacancy findById(@PathVariable long id) {
+    public Vacancy findById(@PathVariable("id") long id) {
         Vacancy vacancy = manager.findById(id);
         if (null == vacancy) {
             throw new ResourceNotFoundException();
@@ -56,7 +56,7 @@ public class VacancyServiceImpl extends HttpAwareService {
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE, produces = "application/json")
     @Transactional
     @ResponseStatus(value = HttpStatus.OK)
-    public void remove(@PathVariable long id) {
+    public void remove(@PathVariable("id") long id) {
         manager.remove(id);
     }
 
