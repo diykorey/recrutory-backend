@@ -47,6 +47,7 @@
         </repository>
     </repositories>
     <modules>
+        <module>kandidato-db</module>
         <module>kandidato-core</module>
         <module>kandidato-search</module>
         <module>kandidato-web</module>
@@ -256,30 +257,6 @@
                 </plugin>
             </plugins>
         </pluginManagement>
-        <plugins>
-            <plugin>
-                <groupId>org.flywaydb</groupId>
-                <artifactId>flyway-maven-plugin</artifactId>
-                <version>3.0</version>
-                <!-- Inherited = false, to avoid executing the plugin for child modules -->
-                <inherited>false</inherited>
-                <configuration>
-                    <locations>
-                        <location>filesystem:kandidato-db/sql/</location>
-                    </locations>
-                    <sqlMigrationPrefix>patch-</sqlMigrationPrefix>
-                    <initVersion>0</initVersion>
-                    <configFile>kandidato-db/flyway.properties</configFile>
-                </configuration>
-                <dependencies>
-                    <dependency>
-                        <groupId>mysql</groupId>
-                        <artifactId>mysql-connector-java</artifactId>
-                        <version>${mysql.version}</version>
-                    </dependency>
-                </dependencies>
-            </plugin>
-        </plugins>
     </build>
 
 </project>
