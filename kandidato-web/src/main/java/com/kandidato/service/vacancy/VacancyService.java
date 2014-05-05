@@ -52,12 +52,4 @@ public interface VacancyService {
      */
     List<Vacancy> findByAuthor(long authorId);
 
-    /**
-     * Add a comment to the specified vacancy.
-     *
-     * @param vacancyId
-     * @param comment
-     */
-    void comment(long vacancyId, String comment);
-
 }

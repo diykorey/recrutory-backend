@@ -30,7 +30,7 @@ public class VacancyServiceImpl extends HttpAwareService {
     @Inject
     private VacancyManager manager;
 
-    //@Override
+    //    @Override
     @RequestMapping(method = RequestMethod.POST, consumes = "application/json", produces = "application/json")
     @ResponseBody
     @Transactional
@@ -39,7 +39,7 @@ public class VacancyServiceImpl extends HttpAwareService {
         return manager.create(vacancy);
     }
 
-    //@Override
+    //    @Override
     @RequestMapping(value = "/{id}", method = RequestMethod.GET, produces = "application/json")
     @ResponseBody
     @Transactional
@@ -52,7 +52,7 @@ public class VacancyServiceImpl extends HttpAwareService {
         return vacancy;
     }
 
-    //@Override
+    //    @Override
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE, produces = "application/json")
     @Transactional
     @ResponseStatus(value = HttpStatus.OK)
@@ -60,7 +60,7 @@ public class VacancyServiceImpl extends HttpAwareService {
         manager.remove(id);
     }
 
-    //@Override
+    //    @Override
     @RequestMapping(value = "/byState/{state}", method = RequestMethod.GET, produces = "application/json")
     @ResponseBody
     @Transactional
@@ -99,7 +99,7 @@ public class VacancyServiceImpl extends HttpAwareService {
         return vacancies;
     }
 
-    //@Override
+    //    @Override
     @RequestMapping(value = "/byAuthor/{authorId}", method = RequestMethod.GET, produces = "application/json")
     @ResponseBody
     @Transactional

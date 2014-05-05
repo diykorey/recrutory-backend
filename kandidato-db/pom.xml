@@ -1,0 +1,55 @@
+<?xml version="1.0"?>
+<project xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"
+         xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>com.kandidato</groupId>
+        <artifactId>kandidato</artifactId>
+        <version>0.0.0</version>
+    </parent>
+    <artifactId>kandidato-db</artifactId>
+    <packaging>pom</packaging>
+    <version>${application.version}</version>
+    <name>kandidato-db</name>
+    <url>http://maven.apache.org</url>
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    </properties>
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.flywaydb</groupId>
+                <artifactId>flyway-maven-plugin</artifactId>
+                <version>3.0</version>
+                <!-- Inherited = false, to avoid executing the plugin for child modules -->
+                <inherited>false</inherited>
+                <configuration>
+                    <locations>
+                        <location>filesystem:sql/</location>
+                    </locations>
+                    <sqlMigrationPrefix>patch-</sqlMigrationPrefix>
+                    <initVersion>0</initVersion>
+                    <configFile>flyway.properties</configFile>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>migration</id>
+                        <goals>
+                            <goal>migrate</goal>
+                        </goals>
+                        <phase>install</phase>
+                    </execution>
+                </executions>
+                <dependencies>
+                    <dependency>
+                        <groupId>mysql</groupId>
+                        <artifactId>mysql-connector-java</artifactId>
+                        <version>${mysql.version}</version>
+                    </dependency>
+                </dependencies>
+            </plugin>
+        </plugins>
+    </build>
+
+</project>

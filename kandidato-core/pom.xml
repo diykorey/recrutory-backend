@@ -72,6 +72,11 @@
         </dependency>
 
         <dependency>
+            <groupId>com.zaxxer</groupId>
+            <artifactId>HikariCP</artifactId>
+        </dependency>
+
+        <dependency>
             <groupId>org.apache.tika</groupId>
             <artifactId>tika-core</artifactId>
             <version>1.5</version>
@@ -106,15 +111,4 @@
             <artifactId>junit</artifactId>
         </dependency>
     </dependencies>
-    <build>
-        <resources>
-            <resource>
-                <!-- excluding sql files from the jar -->
-                <directory>resources/sql</directory>
-                <excludes>
-                    <exclude>/**</exclude>
-                </excludes>
-            </resource>
-        </resources>
-    </build>
 </project>

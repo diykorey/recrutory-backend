@@ -1,5 +1,7 @@
 package com.kandidato.persistence.entity.comment;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.kandidato.constants.CommentType;
 import com.kandidato.persistence.entity.FlowAction;
 import com.kandidato.persistence.entity.User;
 
@@ -13,8 +15,10 @@ import java.util.Date;
  * Created by andriy on 4/21/14.
  */
 @Entity
-@DiscriminatorValue("ACTION")
+@DiscriminatorValue(ActionComment.DISCRIMINATOR)
 public class ActionComment extends EntityComment<FlowAction> {
+
+    public static final String DISCRIMINATOR = "ACTION";
 
     public ActionComment() {
         //JPA Compatibility
@@ -27,6 +31,7 @@ public class ActionComment extends EntityComment<FlowAction> {
 
     @ManyToOne(targetEntity = FlowAction.class)
     @JoinColumn(name = "ENTITY_ID")
+    @JsonIgnore
     private FlowAction entity;
 
     @Override

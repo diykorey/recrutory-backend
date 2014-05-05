@@ -1,5 +1,6 @@
 package com.kandidato.persistence.entity.comment;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.kandidato.persistence.entity.Resume;
 import com.kandidato.persistence.entity.User;
 import com.kandidato.persistence.entity.Vacancy;
@@ -14,8 +15,10 @@ import java.util.Date;
  * Created by andriy on 4/26/14.
  */
 @Entity
-@DiscriminatorValue("RESUME")
+@DiscriminatorValue(ResumeComment.DISCRIMINATOR)
 public class ResumeComment extends EntityComment<Resume> {
+
+    public static final String DISCRIMINATOR = "RESUME";
 
     public ResumeComment() {
         //JPA Compatibility
@@ -28,8 +31,8 @@ public class ResumeComment extends EntityComment<Resume> {
 
     @ManyToOne(targetEntity = Vacancy.class)
     @JoinColumn(name = "ENTITY_ID")
+    @JsonIgnore
     private Resume entity;
-
 
     @Override
     public Resume getEntity() {
