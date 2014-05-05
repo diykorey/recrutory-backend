@@ -11,6 +11,45 @@ function addVacancyChangeListener(object) {
         selectedVacancyModified = true;
     });
 }
+function addTypeahead(name, objectId, sourceUrl) {
+    var source = new Bloodhound({
+        datumTokenizer: function (d) {
+            return Bloodhound.tokenizers.whitespace(d.name);
+        },
+        queryTokenizer: Bloodhound.tokenizers.whitespace,
+        limit: 20,
+        remote: sourceUrl + '/%QUERY'
+    });
+
+    source.initialize();
+
+    $(objectId).typeahead({
+            minLength: 1,
+            highlight: true
+        },
+        {
+            name: name,
+            displayKey: 'name',
+            source: source.ttAdapter()
+        }
+    );
+    $(objectId).on('typeahead:selected', function (event, data) {
+        activeVacancy.project = data;
+        $('projectDescription').val(data.description);
+
+    });
+
+    $(objectId).on('input propertychange', function () {
+        var value = $(this).val();
+        if (!activeVacancy.project) {
+            var project = new Project();
+            activeVacancy.project = project;
+        }
+        activeVacancy.project.name = value;
+    });
+}
+
+
 function createRow(id) {
     var vacancyHtml = '<div class="row-fluid" id="' + id + '"></div>';
     return vacancyHtml;
@@ -53,8 +92,8 @@ function selectVacancy() {
 }
 function saveVacancyChanges() {
     alert("save");
-    activeVacancy.requirements =  $('#vacancyRequirements').value;
-    activeVacancy.
+    activeVacancy.requirements = $('#vacancyRequirements').value;
+    activeVacancy
     $('#vacancyCloseConfirmationWindow').modal('hide');
 }
 
@@ -88,7 +127,7 @@ function readActiveVacancies() {
         });
     });
 }
-//add vacncy management
+//add vacancy management
 function Project(projectJson) {
     this.id = null;
     this.name = "";
@@ -130,7 +169,19 @@ function getTags(vacancy) {
     });
     return tags;
 }
+function getProjectName(vacancy) {
 
+    if (!vacancy) {
+        return "";
+    }
+    if (!vacancy.project) {
+        return "";
+    }
+    if (!vacancy.project.name) {
+        return "";
+    }
+    return vacancy.project.name;
+}
 function getProjectDescription(vacancy) {
 
     if (!vacancy) {
@@ -164,22 +215,28 @@ function vacancyView(vacancy) {
     var vacancyFlowsPanel = '';
     var tags = getTags(vacancy);
     var projectDescription = getProjectDescription(vacancy);
+    var projectName = getProjectName(vacancy);
     var requirements = getVacancyRequirements(vacancy)
 
     var vacancyInfoPanel = '<form role="form">' +
         '<div class="form-group">' +
         '<label for="vacancyRequirements">Requirements*:</label>' +
-        '<textarea id="vacancyRequirements" class="form-control" rows="3">' + requirements +
+        '<textarea id="vacancyRequirements" class="form-control" rows="3" placeholder="Text input">' + requirements +
         '</textarea>' +
         '</div>' +
         '<div class="form-group">' +
+        '<label for="projectName">Project Name:</label>' +
+        '<div><input type="text" id="projectName" class="form-control typeahead" placeholder="Text input">' + projectName +
+        '</input></div>' +
+        '</div>' +
+        '<div class="form-group">' +
         '<label for="projectDescription">Project Description:</label>' +
-        '<textarea id="projectDescription" class="form-control" rows="3">' + projectDescription +
+        '<textarea id="projectDescription" class="form-control" rows="3" placeholder="Text input">' + projectDescription +
         '</textarea>' +
         '</div>' +
         '<div class="form-group">' +
         '<label for="vacancyTags">Tags:</label>' +
-        '<textarea id="vacancyTags" class="form-control" rows="3">' + tags +
+        '<textarea id="vacancyTags" class="form-control" rows="3" placeholder="Text input">' + tags +
         '</textarea>' +
         '</div>' +
         '</form>';
@@ -224,12 +281,22 @@ function createVacancyManager(vacancyJson) {
 
     $("#vacancyManagementHolder").html(view);
     addVacancyChangeListener($('#vacancyRequirements'));
+    addVacancyChangeListener($('#projectName'));
     addVacancyChangeListener($('#projectDescription'));
-    addVacancyChangeListener($('#vacancyTags'));
+    addTypeahead("projectName", "#projectName", "http://localhost:8080/kandidato-web-0.1/project/find");
 }
+
+function readProjects() {
+    $.getJSON("http://localhost:8080/kandidato-web-0.1/project/find", function (projects) {
+        console.log(projects);
+
+    });
+}
+
 $(document).ready(function () {
     readActiveVacancies();
     createVacancyManager();
+    readProjects();
     initVacancyCloseConfirmationWindow();
 });
 
