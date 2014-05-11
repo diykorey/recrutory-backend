@@ -11,6 +11,7 @@ import com.kandidato.service.HttpAwareService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
@@ -34,7 +35,7 @@ public class VacancyServiceImpl extends HttpAwareService {
     @RequestMapping(method = RequestMethod.POST, consumes = "application/json", produces = "application/json")
     @ResponseBody
     @Transactional
-    @ResponseStatus(value = HttpStatus.OK)
+    @ResponseStatus(value = HttpStatus.CREATED)
     public Vacancy create(@RequestBody Vacancy vacancy) {
         return manager.create(vacancy);
     }
@@ -45,6 +46,7 @@ public class VacancyServiceImpl extends HttpAwareService {
     @Transactional
     @ResponseStatus(value = HttpStatus.OK)
     public Vacancy findById(@PathVariable("id") long id) {
+//        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         Vacancy vacancy = manager.findById(id);
         if (null == vacancy) {
             throw new ResourceNotFoundException();
