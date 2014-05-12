@@ -76,6 +76,8 @@ public class VacancyServiceImpl extends HttpAwareService {
         for (long i = 0; i < 10; i++) {
             Vacancy vacancy = new Vacancy();
             vacancy.setId(i);
+            vacancy.setNumber("#" + i);
+            vacancy.setName("name-" + i);
             vacancy.setHot(i % 2 == 0);
             vacancy.setRequirements("Vacancy Requirements: " + i);
             vacancy.setState((i > 6) ? VacancyState.HOLD : VacancyState.OPEN);
@@ -93,6 +95,7 @@ public class VacancyServiceImpl extends HttpAwareService {
             project.setId(i);
             project.setName("Project name" + i);
             project.setDescription("Project Description " + i);
+            vacancy.setProject(project);
             vacancies.add(vacancy);
         }
 

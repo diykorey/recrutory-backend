@@ -5,10 +5,7 @@ import com.kandidato.persistence.entity.Project;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import javax.transaction.Transactional;
 import java.util.ArrayList;
@@ -27,7 +24,9 @@ public class ProjectService {
     @RequestMapping(value = "/find", method = RequestMethod.GET, produces = "application/json")
     @ResponseBody
     @Transactional
-    public List<Project> findAll() {
+    public List<Project> find(@RequestParam("query") String query, @RequestParam("limit") int limit, @RequestParam("page") int page) {
+        if (page > 1)
+            return new ArrayList<>();
         List<Project> projects = new ArrayList<>();
         for (long i = 0; i < 7; i++) {
             Project project = new Project();
@@ -39,21 +38,6 @@ public class ProjectService {
         return projects;
     }
 
-
-    @RequestMapping(value = "/find/{begin}", method = RequestMethod.GET, produces = "application/json")
-    @ResponseBody
-    @Transactional
-    public List<Project> find(@PathVariable("begin") String begin) {
-        List<Project> projects = new ArrayList<>();
-        for (long i = 2; i < 5; i++) {
-            Project project = new Project();
-            project.setId(i);
-            project.setName("name_" + i);
-            project.setDescription("description_" + i);
-            projects.add(project);
-        }
-        return projects;
-    }
 
 
 }

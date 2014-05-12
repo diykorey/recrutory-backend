@@ -47,7 +47,7 @@
         </repository>
     </repositories>
     <modules>
-        <module>kandidato-db</module>
+        <!--module>kandidato-db</module-->
         <module>kandidato-core</module>
         <module>kandidato-search</module>
         <module>kandidato-web</module>
