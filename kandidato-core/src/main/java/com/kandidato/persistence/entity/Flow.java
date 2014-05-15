@@ -17,8 +17,8 @@ public class Flow implements Entity {
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name = "PERSON_ID")
-    private Person person;
+    @JoinColumn(name = "CANDIDATE_ID")
+    private Candidate candidate;
 
     @ManyToOne
     @JoinColumn(name = "VACANCY_ID")
@@ -44,12 +44,12 @@ public class Flow implements Entity {
         this.id = id;
     }
 
-    public Person getPerson() {
-        return person;
+    public Candidate getCandidate() {
+        return candidate;
     }
 
-    public void setPerson(Person person) {
-        this.person = person;
+    public void setCandidate(Candidate candidate) {
+        this.candidate = candidate;
     }
 
     public Vacancy getVacancy() {
@@ -88,9 +88,9 @@ public class Flow implements Entity {
 
     }
 
-    public Flow(Vacancy vacancy, Person person) {
+    public Flow(Vacancy vacancy, Candidate candidate) {
         this.vacancy = vacancy;
-        this.person = person;
+        this.candidate = candidate;
     }
 
     @Override

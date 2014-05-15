@@ -25,8 +25,8 @@ public class Resume implements CommentableEntity<ResumeComment> {
     private ResumeState state;
 
     @ManyToOne
-    @JoinColumn(name = "RESUME_OWNER_ID")
-    private Person resumeOwner;
+    @JoinColumn(name = "CANDIDATE_ID")
+    private Candidate candidate;
 
     @Column(name = "DATA")
     @Lob
@@ -70,11 +70,11 @@ public class Resume implements CommentableEntity<ResumeComment> {
         this.state = state;
     }
 
-    public Person getResumeOwner() {
-        return resumeOwner;
+    public Candidate getCandidate() {
+        return candidate;
     }
 
-    public void setResumeOwner(Person resumeOwner) {
-        this.resumeOwner = resumeOwner;
+    public void setCandidate(Candidate candidate) {
+        this.candidate = candidate;
     }
 }

@@ -5,5 +5,5 @@ import com.kandidato.persistence.repository.query.HibernateQuery;
 /**
  * Created by andriy on 4/10/14.
  */
-public interface PersonQuery extends HibernateQuery {
+public interface CandidateQuery extends HibernateQuery {
 }

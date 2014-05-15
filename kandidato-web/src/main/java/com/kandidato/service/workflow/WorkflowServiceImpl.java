@@ -27,10 +27,10 @@ public class WorkflowServiceImpl extends HttpAwareService {
 
     //    @Override
     @ResponseBody
-    @RequestMapping(value = "/forVacancy/{vacancyId}/{personId}", method = RequestMethod.GET, produces = "application/json")
+    @RequestMapping(value = "/forVacancy/{vacancyId}/{candidateId}", method = RequestMethod.GET, produces = "application/json")
     @Transactional
-    public Flow create(@PathVariable long vacancyId, @PathVariable long personId) {
-        return this.flowManager.create(vacancyId, personId);
+    public Flow create(@PathVariable long vacancyId, @PathVariable long candidateId) {
+        return this.flowManager.create(vacancyId, candidateId);
     }
 
     //    @Override

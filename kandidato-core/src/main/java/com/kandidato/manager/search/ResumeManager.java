@@ -1,9 +1,9 @@
 package com.kandidato.manager.search;
 
 import com.kandidato.constants.ResumeState;
-import com.kandidato.persistence.entity.Person;
+import com.kandidato.persistence.entity.Candidate;
 import com.kandidato.persistence.entity.Resume;
-import com.kandidato.persistence.repository.people.PeopleRepository;
+import com.kandidato.persistence.repository.people.CandidateRepository;
 import com.kandidato.persistence.repository.resume.ResumeRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -21,24 +21,24 @@ public class ResumeManager {
     private ResumeRepository resumeRepository;
 
     @Autowired
-    private PeopleRepository peopleRepository;
+    private CandidateRepository peopleRepository;
 
     public void createResume(String fileName, byte[] data){
 
         LOG.info("Creating resume fro file: " + fileName);
-        Person person = new Person();
-        person.setName(fileName);
-        person.setLastName(fileName);
-        person.setCreateTime(new Date());
+        Candidate candidate = new Candidate();
+        candidate.setName(fileName);
+        candidate.setLastName(fileName);
+        candidate.setCreateTime(new Date());
 
-        Person newPerson = peopleRepository.saveAndFlush(person);
-        LOG.info("New person created with id: " + newPerson.getId());
+        Candidate newCandidate = peopleRepository.saveAndFlush(candidate);
+        LOG.info("New candidate created with id: " + newCandidate.getId());
 
 
         Resume resume = new Resume();
         resume.setState(ResumeState.NEW);
         resume.setData(data);
-        resume.setResumeOwner(newPerson);
+        resume.setCandidate(newCandidate);
 
         Resume newResume = resumeRepository.saveAndFlush(resume);
         LOG.info("New resume created with id: " + newResume.getId());

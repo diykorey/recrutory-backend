@@ -1,8 +1,8 @@
 package com.kandidato.manager.search;
 
-import com.kandidato.persistence.entity.Person;
+import com.kandidato.persistence.entity.Candidate;
 import com.kandidato.persistence.entity.Vacancy;
-import com.kandidato.persistence.repository.people.PeopleRepository;
+import com.kandidato.persistence.repository.people.CandidateRepository;
 import com.kandidato.persistence.repository.vacancy.VacancyRepository;
 import com.kandidato.persistence.search.ResumeSearchRepository;
 import com.kandidato.persistence.search.elastic.ResumeDocument;
@@ -18,8 +18,8 @@ import java.util.List;
 
 
 @Component
-public class PersonSearchManager {
-    private static final Logger LOG = LoggerFactory.getLogger(PersonSearchManager.class);
+public class CandidateSearchManager {
+    private static final Logger LOG = LoggerFactory.getLogger(CandidateSearchManager.class);
 
     @Autowired
     private ResumeSearchRepository resumeSearchRepository;
@@ -28,10 +28,10 @@ public class PersonSearchManager {
     private VacancyRepository vacancyRepository;
 
     @Autowired
-    private PeopleRepository peopleRepository;
+    private CandidateRepository peopleRepository;
 
-    public List<Person> findPersonByVacancyId(long vacancyId){
-        LOG.info("findPersonByVacancyId called with id:" + vacancyId);
+    public List<Candidate> findCandidateByVacancyId(long vacancyId){
+        LOG.info("findCandidateByVacancyId called with id:" + vacancyId);
 
         Vacancy vacancy = vacancyRepository.getOne(vacancyId);
 
@@ -41,10 +41,10 @@ public class PersonSearchManager {
             LOG.info("found vacancy: " + vacancy.getId());
         }
 
-        return findPersonByRequirements(vacancy.getRequirements());
+        return findCandidateByRequirements(vacancy.getRequirements());
     }
 
-    public List<Person> findPersonByRequirements(String requirements){
+    public List<Candidate> findCandidateByRequirements(String requirements){
         QueryBuilder queryBuilder = QueryBuilders.multiMatchQuery(requirements, "text");
         Iterable<ResumeDocument> resumes = resumeSearchRepository.search(queryBuilder);
 

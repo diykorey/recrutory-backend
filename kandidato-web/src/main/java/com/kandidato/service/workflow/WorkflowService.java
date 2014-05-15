@@ -1,8 +1,6 @@
 package com.kandidato.service.workflow;
 
 import com.kandidato.persistence.entity.Flow;
-import com.kandidato.persistence.entity.Person;
-import com.kandidato.persistence.entity.Vacancy;
 import org.springframework.web.bind.annotation.PathVariable;
 
 import java.util.List;
@@ -22,12 +20,12 @@ public interface WorkflowService {
     Flow find(@PathVariable long flowId);
 
     /**
-     * Creates a new {@link Flow}, which links the specified person to the vacancy.
+     * Creates a new {@link Flow}, which links the specified candidate to the vacancy.
      *
      * @param vacancyId
-     * @param personId
+     * @param candidateId
      */
-    Flow create(long vacancyId, long personId);
+    Flow create(long vacancyId, long candidateId);
 
     /**
      * Creates a new {@link Flow}.
