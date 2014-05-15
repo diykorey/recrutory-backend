@@ -9,11 +9,27 @@
 
     <!-- Optional theme -->
     <link rel="stylesheet" href="../bootstrap/css/bootstrap-theme.min.css">
-    <link rel="stylesheet" href="css/test.css">
+    <link rel="stylesheet" href="../select2/css/select2.css">
+    <link rel="stylesheet" href="../select2/css/select2-bootstrap.css">
+    <link rel="stylesheet" href="css/candidato.css">
 
 </head>
 <body>
+<nav class="navbar navbar-default" role="navigation">
+    <div class="container-fluid">        <!-- Collect the nav links, forms, and other content for toggling -->
+
+        <ul class="nav navbar-nav" >
+            <li class="active"><a href="./test.html">Vacancy Dashboard</a></li>
+            <li><a href="./candidate.html" >Candidate Dashboard</a></li>
+        </ul>
+
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container-fluid -->
+</nav>
+
 <div class="container-fluid" id="mainContainer">
+
     <h2>Dashboard</h2>
 
     <div id="main_row" class="row-fluid" style="height: 100%">
@@ -46,12 +62,13 @@
 </div>
 <script src="../jquery/jquery-2.1.0.min.js"></script>
 <script src="../bootstrap/js/bootstrap.min.js"></script>
-<script src="../jquery/typeahead.bundle.js"></script>
 <!-- add if needed <script src="http://ajax.cdnjs.com/ajax/libs/json2/20110223/json2.js"></script> -->
-<script>
 
-</script>
-
-<script src="../custom/js/test.js"></script>
+<script src="../select2/js/select2.js"></script>
+<script src="js/vacancy-dashboard.js"></script>
+<!--[if lt IE 9]>
+<script src="../other/js/html5shiv.js"></script>
+<script src="../other/js/respond.min.js"></script>
+<![endif]-->
 </body>
 </html>

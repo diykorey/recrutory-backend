@@ -20,6 +20,12 @@ public class Vacancy implements CommentableEntity<VacancyComment> {
     @Column(name = "VACANCY_ID")
     private Long id;
 
+    @Column(name = "NUMBER")
+    private String number;
+
+    @Column(name = "NAME")
+    private String name;
+
     @Column(name = "STATE")
     @Enumerated(value = EnumType.STRING)
     private VacancyState state;
@@ -136,12 +142,32 @@ public class Vacancy implements CommentableEntity<VacancyComment> {
         this.createTime = createTime;
     }
 
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getNumber() {
+        return number;
+    }
+
+    public void setNumber(String number) {
+        this.number = number;
+    }
+
     @Override
     public String toString() {
         StringBuilder builder = new StringBuilder(this.getClass().getSimpleName());
         builder.append(": {");
         builder.append("id: ");
         builder.append(id);
+        builder.append("number: ");
+        builder.append(number);
+        builder.append("name: ");
+        builder.append(name);
         builder.append(", state: ");
         builder.append(state);
         builder.append(", hot: ");
@@ -151,4 +177,6 @@ public class Vacancy implements CommentableEntity<VacancyComment> {
         builder.append("}");
         return builder.toString();
     }
+
+
 }
