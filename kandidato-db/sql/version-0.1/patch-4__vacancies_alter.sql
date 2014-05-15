@@ -1,7 +1,7 @@
 USE `KANDIDATO`;
 
-ALTER TABLE vacancies
+ALTER TABLE VACANCIES
 
-ADD number varchar(50),
+ADD NUMBER varchar(50),
 
-ADD name varchar(100)
+ADD NAME varchar(100)
