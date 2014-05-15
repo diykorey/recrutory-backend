@@ -5,7 +5,7 @@ import com.kandidato.persistence.entity.Candidate;
 import com.kandidato.persistence.entity.Vacancy;
 import com.kandidato.persistence.repository.flow.FlowRepository;
 import com.kandidato.persistence.repository.flow.query.FlowQuery;
-import com.kandidato.persistence.repository.people.CandidateRepository;
+import com.kandidato.persistence.repository.candidate.CandidateRepository;
 import com.kandidato.persistence.repository.vacancy.VacancyRepository;
 import org.hibernate.criterion.Criterion;
 import org.hibernate.criterion.Restrictions;
@@ -37,7 +37,7 @@ public class FlowManagerImpl implements FlowManager {
         Vacancy vacancy = vacancyRepository.findOne(vacancyId);
         Candidate candidate = peoppleRepository.findOne(candidateId);
         if (candidate == null || vacancy == null) {
-            throw new IllegalArgumentException("Specify existing vacancies and people");
+            throw new IllegalArgumentException("Specify existing vacancies and candidate");
         }
         Flow newFlow = new Flow(vacancy, candidate);
         return this.repository.save(newFlow);

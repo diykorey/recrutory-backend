@@ -1,7 +1,7 @@
-package com.kandidato.persistence.repository.people;
+package com.kandidato.persistence.repository.candidate;
 
 import com.kandidato.persistence.entity.Candidate;
-import com.kandidato.persistence.repository.people.query.CandidateQuery;
+import com.kandidato.persistence.repository.candidate.query.CandidateQuery;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

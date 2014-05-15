@@ -1,8 +1,8 @@
-package com.kandidato.persistence.repository.people;
+package com.kandidato.persistence.repository.candidate;
 
 import com.kandidato.persistence.entity.Candidate;
 import com.kandidato.persistence.repository.base.HibernateRepository;
-import com.kandidato.persistence.repository.people.query.CandidateQuery;
+import com.kandidato.persistence.repository.candidate.query.CandidateQuery;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.persistence.EntityManager;

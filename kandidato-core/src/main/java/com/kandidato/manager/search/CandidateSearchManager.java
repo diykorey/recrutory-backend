@@ -2,7 +2,7 @@ package com.kandidato.manager.search;
 
 import com.kandidato.persistence.entity.Candidate;
 import com.kandidato.persistence.entity.Vacancy;
-import com.kandidato.persistence.repository.people.CandidateRepository;
+import com.kandidato.persistence.repository.candidate.CandidateRepository;
 import com.kandidato.persistence.repository.vacancy.VacancyRepository;
 import com.kandidato.persistence.search.ResumeSearchRepository;
 import com.kandidato.persistence.search.elastic.ResumeDocument;

@@ -3,7 +3,7 @@ package com.kandidato.manager.search;
 import com.kandidato.constants.ResumeState;
 import com.kandidato.persistence.entity.Candidate;
 import com.kandidato.persistence.entity.Resume;
-import com.kandidato.persistence.repository.people.CandidateRepository;
+import com.kandidato.persistence.repository.candidate.CandidateRepository;
 import com.kandidato.persistence.repository.resume.ResumeRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

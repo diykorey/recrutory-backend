@@ -1,4 +1,4 @@
-package com.kandidato.persistence.repository.people.query;
+package com.kandidato.persistence.repository.candidate.query;
 
 
 import org.hibernate.criterion.Criterion;
