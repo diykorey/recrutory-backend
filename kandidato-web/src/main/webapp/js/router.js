@@ -18,6 +18,7 @@ define([
             'flow-dashboard': 'flowDashboard',
             'candidate': 'candidate',
             'candidates': 'candidates',
+            'projects': 'projects',
             // Default
             '': 'home'
         }
@@ -26,34 +27,32 @@ define([
     var initialize = function () {
         var app_router = new AppRouter;
         app_router.on('route:flowDashboard', function () {
-            menuUpdate();
             var flowDashboardView = new FlowDashboard();
             flowDashboardView.render();
         });
         app_router.on('route:candidate', function () {
-            menuUpdate();
             var candidateView = new CandidateView();
             candidateView.render();
         });
         app_router.on('route:candidates', function () {
-            menuUpdate();
             var candidateListView = new CandidatesView();
             candidateListView.render();
         });
         app_router.on('route:vacancyDashboard', function () {
-            menuUpdate();
             var vacancyDashboard = new VacancyDashboard();
             vacancyDashboard.render();
+        });
+        app_router.on('route:projects', function () {
         });
         app_router.on('route:home', function () {
-            menuUpdate();
             var vacancyDashboard = new VacancyDashboard();
             vacancyDashboard.render();
         });
-        var menuUpdate = function() {
+
+        Backbone.history.bind("all", function (route, router) {
             $('.nav li').removeClass('active');
             $('.nav li a[href="' + window.location.hash + '"]').parent().addClass('active');
-        }
+        });
         Backbone.history.start();
     };
     return {
