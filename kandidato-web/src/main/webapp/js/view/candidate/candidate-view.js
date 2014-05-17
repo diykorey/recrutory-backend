@@ -8,11 +8,13 @@ define([
 
     var CandidateView = Backbone.View.extend({
         el: $("#container"),
-        template: _.template(candidateTemplate),
         model: new CandidateModel(),
+        initialize: function() {
+            this.template = _.template(candidateTemplate),
+            this.listenTo(this.model, 'change', this.render);
+        },
         render: function () {
-            $('.nav li').removeClass('active');
-            $('.nav li a[href="' + window.location.hash + '"]').parent().addClass('active');
+
             this.model.id = 1;
             this.model.fetch();
 

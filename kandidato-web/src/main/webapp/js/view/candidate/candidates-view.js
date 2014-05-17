@@ -11,8 +11,6 @@ define([
     var CandidatesView = Backbone.View.extend({
         el: $("#container"),
         render: function () {
-            $('.nav li').removeClass('active');
-            $('.nav li a[href="' + window.location.hash + '"]').parent().addClass('active');
             this.$el.html(candidatesTemplate);
 
             var candidate0 = new CandidateModel({name: 'test1', lastName: 'Test'});
