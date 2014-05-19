@@ -27,14 +27,14 @@ public class TagService {
     @RequestMapping(value = "/find", method = RequestMethod.GET, produces = "application/json")
     @ResponseBody
     @Transactional
-    public List<Tag> find(@RequestParam("query") String query, @RequestParam("limit") int limit, @RequestParam("page") int page) {
+    public List<Tag> find(@RequestParam(value = "query", required = false) String query, @RequestParam(value = "limit", required = false) Integer limit, @RequestParam(value = "page", required = false) Integer page) {
         if (page > 1)
             return new ArrayList<>();
         List<Tag> tags = new ArrayList<>();
         for (long i = 0; i < 7; i++) {
             Tag tag = new Tag();
             tag.setId(i);
-            tag.setKeyword("keyword" + i);
+            tag.setKeyword("tag-" + i);
             tags.add(tag);
         }
         return tags;
