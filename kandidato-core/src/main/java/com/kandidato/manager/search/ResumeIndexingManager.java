@@ -2,7 +2,7 @@ package com.kandidato.manager.search;
 
 
 import com.kandidato.constants.ResumeState;
-import com.kandidato.persistence.entity.Person;
+import com.kandidato.persistence.entity.Candidate;
 import com.kandidato.persistence.entity.Resume;
 import com.kandidato.persistence.repository.resume.ResumeRepository;
 import com.kandidato.persistence.search.ResumeSearchRepository;
@@ -45,7 +45,7 @@ public class ResumeIndexingManager {
 
     private void addToIndex(Resume resume) {
         String text = transformer.textFrom(resume.getData());
-        Person resumeOwner = resume.getResumeOwner();
+        Candidate resumeOwner = resume.getCandidate();
 
         ResumeDocument doc = new ResumeDocument(resume.getId(), resumeOwner.getId(), text);
 

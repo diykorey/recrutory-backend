@@ -1,6 +1,5 @@
 package com.kandidato.service.vacancy;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.kandidato.persistence.entity.Vacancy;
 import com.sun.syndication.io.impl.Base64;
 import org.junit.Assert;
@@ -16,7 +15,6 @@ import java.util.Date;
  * Created by andriy on 5/4/14.
  */
 public class VacancyServiceTest {
-
     static HttpHeaders getHeaders(String auth) {
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);

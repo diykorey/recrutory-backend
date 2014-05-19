@@ -31,8 +31,8 @@ public class CommentRepositoryImpl extends HibernateRepository<EntityComment, Hi
                 comment = new VacancyComment(commentText, new Date(), u, (Vacancy) entity);
             } else if (FlowAction.class.equals(entityClass)) {
                 comment = new ActionComment(commentText, new Date(), u, (FlowAction) entity);
-            } else if (Person.class.equals(entityClass)) {
-                comment = new PersonComment(commentText, new Date(), u, (Person) entity);
+            } else if (Candidate.class.equals(entityClass)) {
+                comment = new CandidateComment(commentText, new Date(), u, (Candidate) entity);
             } else if (Resume.class.equals(entityClass)) {
                 comment = new ActionComment(commentText, new Date(), u, (FlowAction) entity);
             } else {

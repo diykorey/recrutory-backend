@@ -1,7 +1,7 @@
 package com.kandidato.constants;
 
+import com.kandidato.persistence.entity.Candidate;
 import com.kandidato.persistence.entity.FlowAction;
-import com.kandidato.persistence.entity.Person;
 import com.kandidato.persistence.entity.Resume;
 import com.kandidato.persistence.entity.Vacancy;
 import com.kandidato.persistence.entity.comment.*;
@@ -11,7 +11,7 @@ import com.kandidato.persistence.entity.comment.*;
  */
 public enum CommentType {
 
-    VACANCY(Vacancy.class, VacancyComment.DISCRIMINATOR), RESUME(Resume.class, ResumeComment.DISCRIMINATOR), PERSON(Person.class, PersonComment.DISCRIMINATOR), ACTION(FlowAction.class, ActionComment.DISCRIMINATOR);
+    VACANCY(Vacancy.class, VacancyComment.DISCRIMINATOR), RESUME(Resume.class, ResumeComment.DISCRIMINATOR), CANDIDATE(Candidate.class, CandidateComment.DISCRIMINATOR), ACTION(FlowAction.class, ActionComment.DISCRIMINATOR);
 
     private final Class<? extends CommentableEntity<?>> clazz;
 

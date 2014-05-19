@@ -2,7 +2,7 @@ package com.kandidato.persistence.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.kandidato.persistence.entity.comment.CommentableEntity;
-import com.kandidato.persistence.entity.comment.PersonComment;
+import com.kandidato.persistence.entity.comment.CandidateComment;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -12,11 +12,11 @@ import java.util.Set;
 
 
 @javax.persistence.Entity
-@Table(name = "PEOPLE")
-public class Person implements CommentableEntity<PersonComment> {
+@Table(name = "CANDIDATES")
+public class Candidate implements CommentableEntity<CandidateComment> {
 
     @Id
-    @Column(name = "PERSON_ID")
+    @Column(name = "CANDIDATE_ID")
     @GeneratedValue
     private Long id;
 
@@ -30,13 +30,13 @@ public class Person implements CommentableEntity<PersonComment> {
     private Date createTime;
 
     @ManyToMany(cascade = {CascadeType.ALL})
-    @JoinTable(name = "PEOPLE_TAGS", joinColumns = {@JoinColumn(name = "PERSON_ID")}, inverseJoinColumns = {@JoinColumn(name = "TAG_ID")})
+    @JoinTable(name = "CANDIDATE_TAGS", joinColumns = {@JoinColumn(name = "CANDIDATE_ID")}, inverseJoinColumns = {@JoinColumn(name = "TAG_ID")})
     @JsonIgnore
     private Set<Tag> tags;
 
     @OneToMany(mappedBy = "entity", cascade = CascadeType.ALL)
     @JsonIgnore
-    private List<PersonComment> comments = new ArrayList<>();
+    private List<CandidateComment> comments = new ArrayList<>();
 
 //    private List<TimelineRecord> timeline;
 
@@ -85,12 +85,12 @@ public class Person implements CommentableEntity<PersonComment> {
     }
 
     @Override
-    public List<PersonComment> getComments() {
+    public List<CandidateComment> getComments() {
         return this.comments;
     }
 
     @Override
-    public void setComments(List<PersonComment> comments) {
+    public void setComments(List<CandidateComment> comments) {
         this.comments = comments;
     }
 

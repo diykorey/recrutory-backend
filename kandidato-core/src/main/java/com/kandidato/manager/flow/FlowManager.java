@@ -10,12 +10,12 @@ import java.util.List;
 public interface FlowManager {
 
     /**
-     * Creates a new {@link com.kandidato.persistence.entity.Flow}, which links the specified person to the vacancy.
+     * Creates a new {@link com.kandidato.persistence.entity.Flow}, which links the specified canidate to the vacancy.
      *
      * @param vacancyId
-     * @param personId
+     * @param candidateId
      */
-    Flow create(long vacancyId, long personId);
+    Flow create(long vacancyId, long candidateId);
 
     /**
      * Creates a new {@link Flow}.

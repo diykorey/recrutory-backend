@@ -1,0 +1,5 @@
+<ul>
+    <% _.each(candidates, function(candidate){ %>
+    <li><a href='<%= candidate.get("lastName") %>'><%= candidate.get("name") %></a></li>
+    <% }); %>
+</ul>
