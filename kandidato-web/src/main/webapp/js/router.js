@@ -16,7 +16,7 @@ define([
         routes: {
             'vacancy-dashboard': 'vacancyDashboard',
             'flow-dashboard': 'flowDashboard',
-            'candidate': 'candidate',
+            'candidate/:id': 'candidate',
             'candidates': 'candidates',
             'projects': 'projects',
             // Default
@@ -30,8 +30,9 @@ define([
             var flowDashboardView = new FlowDashboard();
             flowDashboardView.render();
         });
-        app_router.on('route:candidate', function () {
+        app_router.on('route:candidate', function (id) {
             var candidateView = new CandidateView();
+            candidateView.candidateId = id;
             candidateView.render();
         });
         app_router.on('route:candidates', function () {
@@ -49,7 +50,7 @@ define([
             vacancyDashboard.render();
         });
 
-        Backbone.history.bind("all", function (route, router) {
+        Backbone.history.bind("all", function () {
             $('.nav li').removeClass('active');
             $('.nav li a[href="' + window.location.hash + '"]').parent().addClass('active');
         });

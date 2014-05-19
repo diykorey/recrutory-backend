@@ -6,10 +6,10 @@ define([
         urlRoot: 'http://localhost:8080/candidate',
         defaults: {
             id: null,
-            name: 'Mykola',
-            lastName: 'Kavf',
+            name: '',
+            lastName: '',
             createTime: new Date(),
-            position: 'Software engineer'
+            position: ''
         },
         url: function () {
             return this.urlRoot + '/' + this.id;

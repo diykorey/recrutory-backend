@@ -1,5 +1,6 @@
 package com.kandidato.service.candidate;
 
+import com.kandidato.exception.ResourceNotFoundException;
 import com.kandidato.manager.candidate.CandidateManager;
 import com.kandidato.persistence.entity.Candidate;
 import com.kandidato.service.HttpAwareService;
@@ -25,7 +26,11 @@ public class CandidateServiceImpl extends HttpAwareService {
     @Transactional
     @ResponseStatus(value = HttpStatus.OK)
     public Candidate findById(@PathVariable long id) {
-        return this.manager.findById(id);
+        Candidate result = this.manager.findById(id);
+        if (null == result) {
+            throw new ResourceNotFoundException();
+        }
+        return result;
     }
 
 }
