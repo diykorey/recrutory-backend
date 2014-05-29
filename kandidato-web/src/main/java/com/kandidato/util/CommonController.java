@@ -7,7 +7,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 @Controller
 public class CommonController {
-  @RequestMapping("/{name}")
+  //@RequestMapping("/{name}")
   public ModelAndView myView(@PathVariable("name") String name) {
     return new ModelAndView(name);
   }
