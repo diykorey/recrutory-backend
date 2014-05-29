@@ -9,6 +9,9 @@ define([
     var FlowDashboard = Backbone.View.extend({
         el: $("#container"),
         render: function () {
+            _.each(this.models, function(model, index, list) {
+
+            });
             this.$el.html(flowsTemplate);
         }
     });

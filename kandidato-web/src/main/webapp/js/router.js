@@ -8,7 +8,7 @@ define([
     'backbone',
     'view/candidate/candidate-view',
     'view/candidate/candidates-view',
-    'view/vacancy/vacancy-dashboard',
+    'view/vacancy/vacancy-dashboard-view',
     'view/flow/flow-dashboard-view'
 
 ], function ($, _, Backbone, CandidateView, CandidatesView, VacancyDashboard, FlowDashboard) {
@@ -40,15 +40,16 @@ define([
             candidateListView.render();
         });
         app_router.on('route:vacancyDashboard', function () {
-            var vacancyDashboard = new VacancyDashboard();
-            vacancyDashboard.render();
+            var vacancyDashboard = new VacancyDashboard({author: 1});
+            vacancyDashboard.start();
         });
         app_router.on('route:projects', function () {
         });
         app_router.on('route:home', function () {
             var vacancyDashboard = new VacancyDashboard();
-            vacancyDashboard.render();
+            vacancyDashboard.start();
         });
+
 
         Backbone.history.bind("all", function () {
             $('.nav li').removeClass('active');

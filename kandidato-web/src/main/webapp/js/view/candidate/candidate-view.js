@@ -14,10 +14,11 @@ define([
             this.template = _.template(candidateTemplate);
             this.model = new CandidateModel();
             this.listenTo(this.model, 'change', this.render);
+        },
+
+        render: function () {
             this.model.id = this.candidateId;
             this.model.fetch();
-        },
-        render: function () {
             this.$el.html(this.template(this.model.attributes));
             return this;
         }
