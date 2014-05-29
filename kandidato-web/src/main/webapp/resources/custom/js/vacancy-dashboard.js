@@ -292,7 +292,6 @@ function selectVacancy() {
 }
 function saveVacancy() {
     alert("save");
-
 }
 
 function readActiveVacancies() {
