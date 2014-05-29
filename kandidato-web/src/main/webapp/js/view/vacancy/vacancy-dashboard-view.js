@@ -30,7 +30,6 @@ define([
             var dashboard = this;
             this.vacancies.fetch({
                 success: function () {
-                    console.log(dashboard);
                     dashboard.render();
                 }
             });
