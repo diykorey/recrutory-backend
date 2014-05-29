@@ -38,7 +38,6 @@ public class Vacancy implements CommentableEntity<VacancyComment> {
 
     @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(name = "VACANCIES_TAGS", joinColumns = {@JoinColumn(name = "VACANCY_ID")}, inverseJoinColumns = {@JoinColumn(name = "TAG_ID")})
-    @JsonIgnore
     private Set<Tag> tags;
 
     @ManyToOne

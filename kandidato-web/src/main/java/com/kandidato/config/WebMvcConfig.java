@@ -1,10 +1,5 @@
 package com.kandidato.config;
 
-import com.kandidato.constants.CommentType;
-import com.kandidato.constants.VacancyState;
-import com.kandidato.util.CommentTypeEnumConverter;
-import com.kandidato.util.VacancyStateEnumConverter;
-import org.springframework.beans.factory.config.CustomEditorConfigurer;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
@@ -20,14 +15,11 @@ import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 
-import java.beans.PropertyEditor;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 @Configuration
 @EnableWebMvc
-@ComponentScan(basePackages = {"com.kandidato.service"})
+@ComponentScan(basePackages = "com.kandidato", excludeFilters = {@ComponentScan.Filter(Configuration.class)})
 public class WebMvcConfig extends WebMvcConfigurerAdapter {
 
     @Bean
@@ -57,6 +49,8 @@ public class WebMvcConfig extends WebMvcConfigurerAdapter {
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         registry.addResourceHandler("/resources/**").addResourceLocations("/resources/**");
+        registry.addResourceHandler("/js/**").addResourceLocations("/js/**");
+        registry.addResourceHandler("kandidato.html").addResourceLocations("kandidato.html");
     }
 
     @Override
@@ -65,23 +59,5 @@ public class WebMvcConfig extends WebMvcConfigurerAdapter {
         converters.add(new StringHttpMessageConverter());
     }
 
-    /*
-    <bean class="org.springframework.beans.factory.config.CustomEditorConfigurer">
-        <property name="customEditors">
-            <map>
-                <entry key="domain.model.product.Product" value="domain.infrastructure.ProductEnumConverter"/>
-            </map>
-        </property>
-    </bean>
-     */
-    @Bean
-    public CustomEditorConfigurer customEditorConfigurer() {
-        CustomEditorConfigurer customEditorConfigurer = new CustomEditorConfigurer();
-        Map<Class<?>, Class<? extends PropertyEditor>> customEditors = new HashMap<>();
-        customEditors.put(CommentType.class, CommentTypeEnumConverter.class);
-        customEditors.put(VacancyState.class, VacancyStateEnumConverter.class);
-        customEditorConfigurer.setCustomEditors(customEditors);
-        return customEditorConfigurer;
-    }
 
 }

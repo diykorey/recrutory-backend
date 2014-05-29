@@ -14,7 +14,7 @@
     <link rel="stylesheet" href="css/candidato.css">
 
 </head>
-<body>
+<body id="vacancyDashboardBodyId">
 <nav class="navbar navbar-default" role="navigation">
     <div class="container-fluid">        <!-- Collect the nav links, forms, and other content for toggling -->
 
@@ -39,33 +39,15 @@
         </div>
     </div>
 </div>
-<div class="modal fade" id="vacancyCloseConfirmationWindow" tabindex="-1" role="dialog"
-     aria-labelledby="vacancyCloseConfirmationModal"
-     aria-hidden="true">
-    <div class="modal-dialog modal-sm">
-        <div class="modal-content">
 
-            <div class="modal-header alert alert-success" style="padding:10px;"> Warning!
-                <button id="" type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-            </div>
-            <div class="modal-body">
-                Would you like to save changes?
-            </div>
-            <div class="modal-footer" style="padding:10px;">
-                <button type="button" class="btn btn-default btn-xs" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary btn-xs" onclick="saveVacancyChanges()">Save changes</button>
-            </div>
-        </div>
-        <!-- /.modal-content -->
-    </div>
-    <!-- /.modal-dialog -->
-</div>
 <script src="../jquery/jquery-2.1.0.min.js"></script>
 <script src="../bootstrap/js/bootstrap.min.js"></script>
 <!-- add if needed <script src="http://ajax.cdnjs.com/ajax/libs/json2/20110223/json2.js"></script> -->
 
 <script src="../select2/js/select2.js"></script>
+<script src="js/modal-dialog.js"></script>
 <script src="js/vacancy-dashboard.js"></script>
+
 <!--[if lt IE 9]>
 <script src="../other/js/html5shiv.js"></script>
 <script src="../other/js/respond.min.js"></script>

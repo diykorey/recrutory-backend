@@ -12,8 +12,14 @@ function getVacancyPanelId(vacancyId) {
     return 'vacancyPanel_' + vacancyId;
 }
 
+function Tag(tagJson) {
+    this.id = null;
+    this.keyword = "";
+    if (projectJson) {
+        for (var prop in tagJson) this[prop] = tagJson[prop];
+    }
+}
 
-//add vacancy management
 function Project(projectJson) {
     this.id = null;
     this.name = "";
@@ -107,25 +113,22 @@ function getVacancyNumber(vacancy) {
     return vacancy.number;
 }
 
-function initVacancyCloseConfirmationWindow() {
-    $('#vacancyCloseConfirmationWindow').on('hidden.bs.modal', function (e) {
-        selectVacancy();
-    });
-}
-function addVacancyChangeListener(object) {
-    object.on('input propertychange', function () {
+function addVacancyChangeListener(objectId, fieldName) {
+    $('#' + objectId).on('input propertychange', function () {
         selectedVacancyModified = true;
+        if (fieldName) {
+            activeVacancy[fieldName] = $('#' + objectId).val();
+        }
     });
 }
-
 
 
 function addSelect2ProjectName(name, objectId, sourceUrl) {
-    function projectFormatResult(project) {
+    function formatResult(project) {
         return project.name;
     }
 
-    function projectFormatSelection(project) {
+    function formatSelection(project) {
         return project.name;
     }
 
@@ -145,14 +148,20 @@ function addSelect2ProjectName(name, objectId, sourceUrl) {
         // notice we return the value of more so Select2 knows if more results can be loaded
         return {results: data, more: more};
     };
-    function initProjectSelection(element, callback) {
+    function initSelection(element, callback) {
         if (activeVacancy.project) {
             callback(activeVacancy.project)
         }
     }
 
+    function displayCurrentValue(selectedObject, currentSearchTerm) {
+        return currentSearchTerm;
+    }
+
     $(objectId).select2({
         placeholder: "Choose project",
+        allowClear: true,
+        nextSearchTerm: displayCurrentValue,
         ajax: {
             url: sourceUrl,
             dataType: 'json',
@@ -160,28 +169,26 @@ function addSelect2ProjectName(name, objectId, sourceUrl) {
             data: requestPaging,
             results: dataFormatter
         },
-        initSelection: initProjectSelection,
-        formatResult: projectFormatResult,
-        formatSelection: projectFormatSelection,
-        dropdownAutoWidth: true,
-        escapeMarkup: function (m) {
-            return m;
-        }
+        initSelection: initSelection,
+        formatResult: formatResult,
+        formatSelection: formatSelection,
+        dropdownAutoWidth: true
     });
 
     $(objectId)
         .on("change", function (e) {
             activeVacancy.project = e.added;
+            selectedVacancyModified = true;
         })
 }
 
 function addSelect2Tags(name, objectId, sourceUrl) {
-    function projectFormatResult(project) {
-        return project.name;
+    function formatResult(tag) {
+        return tag.keyword;
     }
 
-    function projectFormatSelection(project) {
-        return project.name;
+    function formatSelection(tag) {
+        return tag.keyword;
     }
 
     function requestPaging(query, page) { // page is the one-based page number tracked by Select2
@@ -200,14 +207,36 @@ function addSelect2Tags(name, objectId, sourceUrl) {
         // notice we return the value of more so Select2 knows if more results can be loaded
         return {results: data, more: more};
     };
-    function initProjectSelection(element, callback) {
-        if (activeVacancy.project) {
-            callback(activeVacancy.project)
+    function initSelection(element, callback) {
+        if (activeVacancy.tags) {
+            callback(activeVacancy.tags)
         }
     }
 
+    function displayCurrentValue(selectedObject, currentSearchTerm) {
+        return currentSearchTerm;
+    }
+
+    function createSearchChoice(term, tags) {
+        var matched = false;
+        var matchedTag;
+        $.each(tags, function (key, tag) {
+            matched = this.keyword.toUpperCase() === term.toUpperCase();
+            matchedTag = this;
+            return !matched;
+        });
+
+
+        if (!matched) {
+            return {id: term, keyword: term};
+        }
+        return matchedTag;
+    }
+
     $(objectId).select2({
-        placeholder: "Choose project",
+        placeholder: "Choose Tags",
+        tags: true,
+        tokenSeparators: [",", " "],
         ajax: {
             url: sourceUrl,
             dataType: 'json',
@@ -215,18 +244,18 @@ function addSelect2Tags(name, objectId, sourceUrl) {
             data: requestPaging,
             results: dataFormatter
         },
-        initSelection: initProjectSelection,
-        formatResult: projectFormatResult,
-        formatSelection: projectFormatSelection,
-        dropdownAutoWidth: true,
-        escapeMarkup: function (m) {
-            return m;
-        }
+        createSearchChoice: createSearchChoice,
+        multiple: true,
+        initSelection: initSelection,
+        formatResult: formatResult,
+        formatSelection: formatSelection,
+        dropdownAutoWidth: true
     });
 
     $(objectId)
         .on("change", function (e) {
-            activeVacancy.project = e.added;
+            activeVacancy.tags = e.added;
+            selectedVacancyModified = true;
         })
 }
 
@@ -261,11 +290,8 @@ function selectVacancy() {
         createVacancyManager(activeVacancy);
     }
 }
-function saveVacancyChanges() {
+function saveVacancy() {
     alert("save");
-    activeVacancy.requirements = $('#vacancyRequirements').value;
-    activeVacancy
-    $('#vacancyCloseConfirmationWindow').modal('hide');
 }
 
 function readActiveVacancies() {
@@ -289,7 +315,7 @@ function readActiveVacancies() {
             $("#" + vacancyPanelHeaderId).click(function (eventObject) {
                 pickedVacancy = new Vacancy(vacancyJson);
                 if (selectedVacancyModified) {
-                    $('#vacancyCloseConfirmationWindow').modal('show')
+                    $('#vacancyCloseConfirmation').modal('show')
                 } else {
                     selectVacancy();
                 }
@@ -301,19 +327,19 @@ function readActiveVacancies() {
 
 function vacancyView(vacancy) {
     selectedVacancyModified = false;
-    var vacancyNumber = getVacancyNumber();
+    var vacancyNumber = getVacancyNumber(vacancy);
     var title = (vacancy) ? vacancyNumber : 'New';
     var saveBtn = 'Save'
     var vacancyFlowsPanel = '';
     var tags = getTags(vacancy);
     var projectName = getProjectName(vacancy);
     var requirements = getVacancyRequirements(vacancy);
-    var vacancyName = getVacancyName();
+    var vacancyName = getVacancyName(vacancy);
 
 
     var vacancyInfoPanel = '<form role="form">' +
         '<div class="form-group">' +
-        '<label for="vacancyName">Project Name:</label>' +
+        '<label for="vacancyName">Vacancy Name:</label>' +
         '<div > <input id="vacancyName" class="form-control input-sm select2-multiple" value="' + vacancyName + '"/></div > ' +
         '</div>' +
         '<div class="form-group">' +
@@ -323,12 +349,11 @@ function vacancyView(vacancy) {
         '</div>' +
         '<div class="form-group">' +
         '<label for="projectName">Project Name:</label>' +
-        '<div > <input type="hidden" id="projectName" class="form-control input-sm select2-multiple" value="' + projectName + '"/></div > ' +
+        '<div > <input type="hidden" id="projectName" class="form-control input-sm" value="' + projectName + '"/></div > ' +
         '</div>' +
         '<div class="form-group">' +
         '<label for="vacancyTags">Tags:</label>' +
-        '<textarea id="vacancyTags" class="form-control" rows="3" placeholder="Text input">' + tags +
-        '</textarea>' +
+        '<div ><input type="hidden" id="vacancyTags"  class="form-control input-sm select2-multiple"  value="' + tags + '" /></div>' +
         '</div>' +
         '</form>';
 
@@ -371,10 +396,10 @@ function createVacancyManager(vacancyJson) {
     var view = vacancyView(vacancyJson);
 
     $("#vacancyManagementHolder").html(view);
-    addVacancyChangeListener($('#vacancyRequirements'));
-    addVacancyChangeListener($('#projectName'));
+    addVacancyChangeListener('vacancyRequirements', 'requirements');
+    addVacancyChangeListener('vacancyName', 'name');
     addSelect2ProjectName("projectName", "#projectName", "http://localhost:8080/kandidato-web-0.1/project/find");
-    addSelect2Tags("vacancyTags", "#vacancyTagse", "http://localhost:8080/kandidato-web-0.1/project/find");
+    addSelect2Tags("vacancyTags", "#vacancyTags", "http://localhost:8080/kandidato-web-0.1/tag/find");
 }
 
 function readProjects() {
@@ -388,7 +413,7 @@ $(document).ready(function () {
     readActiveVacancies();
     createVacancyManager();
     readProjects();
-    initVacancyCloseConfirmationWindow();
+    //initVacancyCloseConfirmationWindow();
 });
 
 

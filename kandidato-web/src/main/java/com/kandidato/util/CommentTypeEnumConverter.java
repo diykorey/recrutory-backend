@@ -7,7 +7,7 @@ import java.beans.PropertyEditorSupport;
 /**
  * Case-insensitive converter, from {@link java.lang.String} to {@link CommentType}.
  *
- * Created by andriy on 4/26/14.
+ * Created by Andriy Andrunevchyn on 4/26/14.
  */
 public class CommentTypeEnumConverter extends PropertyEditorSupport {
 
