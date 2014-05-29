@@ -46,7 +46,7 @@ define([
         app_router.on('route:projects', function () {
         });
         app_router.on('route:home', function () {
-            var vacancyDashboard = new VacancyDashboard();
+            var vacancyDashboard = new VacancyDashboard({author: 1});
             vacancyDashboard.start();
         });
 

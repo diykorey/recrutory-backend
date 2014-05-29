@@ -10,8 +10,6 @@ define([
 
     var VacancyDashboard = Backbone.View.extend({
         el: $("#container"),
-
-
         initialize: function (options) {
             this.vacancies = new VacancyListModel({author: options.author});
             this.template = _.template(dashboardTemplate);

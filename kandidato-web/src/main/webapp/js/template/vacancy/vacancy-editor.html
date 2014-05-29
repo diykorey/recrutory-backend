@@ -1,0 +1,31 @@
+<div class="col-sm-12 col-xs-12 col-lg-12">
+    <form role="form">
+        <div class="form-group">
+            <label for="vacancyRequirements">Requirements*:</label>
+            <textarea id="vacancyRequirements" class="form-control" rows="3" placeholder="Text input">
+                <%= requirements %>
+            </textarea>
+        </div>
+        <div class="form-group">
+            <label for="projectName">Project Name:</label>
+
+            <div>
+                <input type="text" id="projectName" class="form-control typeahead" placeholder="Text input">
+                <%= project.name %>
+                </input>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="projectDescription">Project Description:</label>
+            <textarea id="projectDescription" class="form-control" rows="3" placeholder="Text input">
+                <%= project.description %>
+            </textarea>
+        </div>
+        <div class="form-group">
+            <label for="vacancyTags">Tags:</label>
+            <textarea id="vacancyTags" class="form-control" rows="3" placeholder="Text input">
+                <%= tags %>
+            </textarea>
+        </div>
+    </form>
+</div>
