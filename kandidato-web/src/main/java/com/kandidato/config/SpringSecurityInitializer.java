@@ -1,5 +1,6 @@
 package com.kandidato.config;
 
+import com.kandidato.security.DummyAuthenticationFilter;
 import org.springframework.security.web.context.AbstractSecurityWebApplicationInitializer;
 
 import javax.servlet.DispatcherType;
