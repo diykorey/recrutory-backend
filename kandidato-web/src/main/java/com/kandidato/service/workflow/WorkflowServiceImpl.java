@@ -11,6 +11,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import javax.transaction.Transactional;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -67,5 +69,63 @@ public class WorkflowServiceImpl extends HttpAwareService {
     @Transactional
     public List<Flow> findFlowsByVacancy(@PathVariable long vacancyId) {
         return this.flowManager.findByVacancy(vacancyId);
+    }
+
+    @RequestMapping(value = "/flows", method = RequestMethod.GET, produces = "application/json")
+    @ResponseBody
+    @Transactional
+    public List<Flow> list() {
+        List<Flow> flows = new ArrayList<>();
+
+        Flow f1 = new Flow();
+        f1.setId(100L);
+        f1.setActive(true);
+        f1.setVacancy(null);
+        f1.setCandidate(null);
+        f1.setCreateTime(new Date());
+
+        Flow f2 = new Flow();
+        f2.setId(200L);
+        f2.setActive(true);
+        f2.setVacancy(null);
+        f2.setCandidate(null);
+        f2.setCreateTime(new Date());
+
+        Flow f3 = new Flow();
+        f3.setId(300L);
+        f3.setActive(true);
+        f3.setVacancy(null);
+        f3.setCandidate(null);
+        f3.setCreateTime(new Date());
+
+        Flow f4 = new Flow();
+        f4.setId(400L);
+        f4.setActive(true);
+        f4.setVacancy(null);
+        f4.setCandidate(null);
+        f4.setCreateTime(new Date());
+
+        Flow f5 = new Flow();
+        f5.setId(500L);
+        f5.setActive(true);
+        f5.setVacancy(null);
+        f5.setCandidate(null);
+        f5.setCreateTime(new Date());
+
+        Flow f6 = new Flow();
+        f6.setId(600L);
+        f6.setActive(true);
+        f6.setVacancy(null);
+        f6.setCandidate(null);
+        f6.setCreateTime(new Date());
+
+        flows.add(f1);
+        flows.add(f2);
+        flows.add(f3);
+        flows.add(f4);
+        flows.add(f5);
+        flows.add(f6);
+
+        return flows;
     }
 }
