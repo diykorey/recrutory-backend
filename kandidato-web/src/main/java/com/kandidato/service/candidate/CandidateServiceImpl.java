@@ -33,4 +33,11 @@ public class CandidateServiceImpl extends HttpAwareService {
         return result;
     }
 
+    @RequestMapping(method = RequestMethod.POST, consumes = "application/json")
+    @ResponseBody
+    @Transactional
+    @ResponseStatus(value = HttpStatus.OK)
+    public void update(Candidate candidate) {
+        this.manager.update(candidate);
+    }
 }

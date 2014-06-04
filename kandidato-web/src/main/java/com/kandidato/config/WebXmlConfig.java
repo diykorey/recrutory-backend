@@ -2,15 +2,15 @@ package com.kandidato.config;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.orm.jpa.support.OpenEntityManagerInViewFilter;
 import org.springframework.web.WebApplicationInitializer;
 import org.springframework.web.context.ContextLoaderListener;
 import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.context.support.AnnotationConfigWebApplicationContext;
 import org.springframework.web.servlet.DispatcherServlet;
 
-import javax.servlet.ServletContext;
-import javax.servlet.ServletException;
-import javax.servlet.ServletRegistration;
+import javax.servlet.*;
+import java.util.EnumSet;
 import java.util.Set;
 
 /**
@@ -24,6 +24,7 @@ public class WebXmlConfig implements WebApplicationInitializer {
     @Override
     public void onStartup(ServletContext servletContext) throws ServletException {
         WebApplicationContext rootContext = createRootContext(servletContext);
+        configureFilters(servletContext);
         configureSpringMvc(servletContext, rootContext);
     }
 
@@ -57,6 +58,11 @@ public class WebXmlConfig implements WebApplicationInitializer {
             throw new IllegalStateException(
                     "'webservice' cannot be mapped to '/'");
         }
+    }
+
+    private void configureFilters(ServletContext ctx) {
+        FilterRegistration.Dynamic filter = ctx.addFilter("openEntityManagerInView", OpenEntityManagerInViewFilter.class);
+        filter.addMappingForUrlPatterns(EnumSet.of(DispatcherType.REQUEST), false, "/*");
     }
 }
 

@@ -1,4 +1,4 @@
-package com.kandidato.config;
+package com.kandidato.security;
 
 import org.springframework.security.crypto.codec.Base64;
 
