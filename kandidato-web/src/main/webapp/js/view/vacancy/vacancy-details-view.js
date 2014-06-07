@@ -4,16 +4,19 @@ define([
     'backbone',
     'model/vacancy/vacancy-model',
     'collection/flow/flow-collection',
+    'collection/comment/comment-collection',
     'view/vacancy/vacancy-editor-view',
     'view/flow/flow-list-view',
+    'view/comment/comment-list-view',
     'text!template/vacancy/vacancy-details.html'
-], function ($, _, Backbone, VacancyModel, FlowCollection, VacancyEditor, FlowListView, detailsTemplate) {
+], function ($, _, Backbone, VacancyModel, FlowCollection, CommentCollection, VacancyEditor, FlowListView, CommentListView, detailsTemplate) {
 
     var VacancyDetails = Backbone.View.extend({
         el : $('#details'),
         events: {
             'click #editor-link': 'showDetails',
-            'click #flows-link': 'showFlows'
+            'click #flows-link': 'showFlows',
+            'click #comments-link': 'showComments'
         },
         showDetails: function() {
             var vacancyEditor = new VacancyEditor({model: this.model});
@@ -25,6 +28,15 @@ define([
                 success: function() {
                     var flowList = new FlowListView({model: flowCollection});
                     $('#vacancy-details-tab').html(flowList.render().el);
+                }
+            });
+        },
+        showComments: function() {
+            var commentCollection = new CommentCollection({criteria : 'VACANCY/'+ this.model.id});
+            commentCollection.fetch({
+                success: function() {
+                    var commentList = new CommentListView({model: commentCollection});
+                    $('#vacancy-details-tab').html(commentList.render().el);
                 }
             });
         },
