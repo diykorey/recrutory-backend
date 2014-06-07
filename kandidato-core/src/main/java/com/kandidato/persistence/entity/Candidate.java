@@ -1,8 +1,8 @@
 package com.kandidato.persistence.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.kandidato.persistence.entity.comment.CommentableEntity;
 import com.kandidato.persistence.entity.comment.CandidateComment;
+import com.kandidato.persistence.entity.comment.CommentableEntity;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -13,7 +13,7 @@ import java.util.Set;
 
 @javax.persistence.Entity
 @Table(name = "CANDIDATES")
-public class Candidate implements CommentableEntity<CandidateComment> {
+public class Candidate implements CommentableEntity<CandidateComment>, CreatorAware {
 
     @Id
     @Column(name = "CANDIDATE_ID")
@@ -38,10 +38,13 @@ public class Candidate implements CommentableEntity<CandidateComment> {
     @JsonIgnore
     private List<CandidateComment> comments = new ArrayList<>();
 
+    @ManyToOne
+    @JoinColumn(name = "USER_ID")
+    private User creator;
+
 //    private List<TimelineRecord> timeline;
 
 //    private List<Contact> contacts;
-
 
 
     public Long getId() {
@@ -94,6 +97,16 @@ public class Candidate implements CommentableEntity<CandidateComment> {
         this.comments = comments;
     }
 
+    @Override
+    public User getCreator() {
+        return this.creator;
+    }
+
+    @Override
+    public void setCreator(User creator) {
+        this.creator = creator;
+    }
+
     //    public List<TimelineRecord> getTimeline() {
 //        return timeline;
 //    }
@@ -109,6 +122,31 @@ public class Candidate implements CommentableEntity<CandidateComment> {
 //    public void setContacts(List<Contact> contacts) {
 //        this.contacts = contacts;
 //    }
+
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Candidate)) return false;
+
+        Candidate candidate = (Candidate) o;
+
+        if (!createTime.equals(candidate.createTime)) return false;
+        if (!lastName.equals(candidate.lastName)) return false;
+        if (!name.equals(candidate.name)) return false;
+        if (!tags.equals(candidate.tags)) return false;
+
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = name.hashCode();
+        result = 31 * result + lastName.hashCode();
+        result = 31 * result + createTime.hashCode();
+        result = 31 * result + tags.hashCode();
+        return result;
+    }
 
     @Override
     public String toString() {

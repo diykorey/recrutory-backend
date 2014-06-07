@@ -4,7 +4,7 @@ define([
     'model/project/project-model'
 ], function (_, Backbone, ProjectModel) {
     var VacancyModel = Backbone.Model.extend({
-        urlRoot: 'http://localhost:8080/vacancy',
+        urlRoot: 'vacancy',
         defaults: {
             id: null,
             number: null,

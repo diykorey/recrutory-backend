@@ -2,13 +2,13 @@ define([
     'jquery',
     'underscore',
     'backbone',
-    'collection/vacancy/vacancies-collection',
+    'collection/vacancy/vacancy-collection',
     'text!template/vacancy/vacancy-list-row.html'
-], function ($, _, Backbone, VacancyCollection, vacancyListRow) {
+], function ($, _, Backbone, VacanciesCollection, vacancyListRow) {
     var CandidateListView = Backbone.View.extend({
         el: $("#container"),
         initialize: function () {
-            this.collection = new VacancyCollection();
+            this.collection = new VacanciesCollection();
             var compiledTemplate = _.template(vacancyListRow, { candidates: this.collection.models });
             this.$el.html(compiledTemplate);
         }

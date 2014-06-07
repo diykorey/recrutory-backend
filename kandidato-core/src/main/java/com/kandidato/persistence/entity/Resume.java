@@ -13,7 +13,7 @@ import java.util.List;
 
 @javax.persistence.Entity
 @Table(name = "RESUME")
-public class Resume implements CommentableEntity<ResumeComment> {
+public class Resume implements CommentableEntity<ResumeComment>, CreatorAware {
 
     @Id
     @Column(name = "RESUME_ID")
@@ -35,6 +35,10 @@ public class Resume implements CommentableEntity<ResumeComment> {
     @OneToMany(mappedBy = "entity", cascade = CascadeType.ALL)
     @JsonIgnore
     private List<ResumeComment> comments = new ArrayList<>();
+
+    @ManyToOne
+    @JoinColumn(name = "USER_ID")
+    private User creator;
 
     public Long getId() {
         return id;
@@ -76,5 +80,15 @@ public class Resume implements CommentableEntity<ResumeComment> {
 
     public void setCandidate(Candidate candidate) {
         this.candidate = candidate;
+    }
+
+    @Override
+    public User getCreator() {
+        return this.creator;
+    }
+
+    @Override
+    public void setCreator(User creator) {
+        this.creator = creator;
     }
 }

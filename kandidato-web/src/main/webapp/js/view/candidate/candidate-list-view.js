@@ -2,7 +2,7 @@ define([
     'jquery',
     'underscore',
     'backbone',
-    'collection/candidate/candidates-collection',
+    'collection/candidate/candidate-collection',
     'text!template/candidate/candidate-list-row.html'
 ], function ($, _, Backbone, CandidateCollection, candidateListRow) {
     var CandidateListView = Backbone.View.extend({

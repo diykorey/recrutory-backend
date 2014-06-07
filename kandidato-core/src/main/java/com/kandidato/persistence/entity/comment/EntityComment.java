@@ -1,5 +1,6 @@
 package com.kandidato.persistence.entity.comment;
 
+import com.kandidato.persistence.entity.CreatorAware;
 import com.kandidato.persistence.entity.Entity;
 import com.kandidato.persistence.entity.User;
 
@@ -13,7 +14,7 @@ import java.util.Date;
 @Table(name = "COMMENTS")
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn(name = "ENTITY_TYPE", discriminatorType = DiscriminatorType.STRING)
-public abstract class EntityComment<T extends Entity> implements Entity {
+public abstract class EntityComment<T extends Entity> implements Entity, CreatorAware {
 
     @Id
     @Column(name = "COMMENT_ID")
@@ -28,16 +29,16 @@ public abstract class EntityComment<T extends Entity> implements Entity {
 
     @ManyToOne
     @JoinColumn(name = "USER_ID", nullable = false)
-    protected User author;
+    protected User creator;
 
     protected EntityComment() {
         //JPA compatibility
     }
 
-    public EntityComment(String comment, Date creationDate, User author) {
+    public EntityComment(String comment, Date creationDate, User creator) {
         this.comment = comment;
         this.creationDate = creationDate;
-        this.author = author;
+        this.creator = creator;
     }
 
     public Long getId() {
@@ -68,12 +69,12 @@ public abstract class EntityComment<T extends Entity> implements Entity {
         this.creationDate = creationDate;
     }
 
-    public User getAuthor() {
-        return author;
+    public User getCreator() {
+        return creator;
     }
 
-    public void setAuthor(User author) {
-        this.author = author;
+    public void setCreator(User creator) {
+        this.creator = creator;
     }
 
     @Override
@@ -83,7 +84,7 @@ public abstract class EntityComment<T extends Entity> implements Entity {
 
         EntityComment that = (EntityComment) o;
 
-        if (author != null ? !author.equals(that.author) : that.author != null) return false;
+        if (creator != null ? !creator.equals(that.creator) : that.creator != null) return false;
         if (comment != null ? !comment.equals(that.comment) : that.comment != null) return false;
         if (creationDate != null ? !creationDate.equals(that.creationDate) : that.creationDate != null) return false;
 
@@ -95,7 +96,7 @@ public abstract class EntityComment<T extends Entity> implements Entity {
 
         int result = 31 + (comment != null ? comment.hashCode() : 0);
         result = 31 * result + (creationDate != null ? creationDate.hashCode() : 0);
-        result = 31 * result + (author != null ? author.hashCode() : 0);
+        result = 31 * result + (creator != null ? creator.hashCode() : 0);
         return result;
     }
 }

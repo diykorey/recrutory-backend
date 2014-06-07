@@ -6,5 +6,6 @@ define([
     var ProjectCollection = Backbone.Collection.extend({
         model: ProjectModel
     });
+
     return ProjectCollection;
 });

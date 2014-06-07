@@ -3,7 +3,7 @@ define([
     'backbone'
 ], function (_, Backbone) {
     var FlowModel = Backbone.Model.extend({
-        urlRoot: 'http://localhost:8080/flow',
+        urlRoot: 'flow',
         url: function () {
             return this.urlRoot + '/' + this.id;
         }

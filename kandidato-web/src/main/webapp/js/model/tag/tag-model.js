@@ -3,7 +3,7 @@ define([
     'backbone'
 ], function (_, Backbone) {
     var TagModel = Backbone.Model.extend({
-        urlRoot: 'http://localhost:8080/tag',
+        urlRoot: 'tag',
         defaults: {
             id: null,
             keyword: ""

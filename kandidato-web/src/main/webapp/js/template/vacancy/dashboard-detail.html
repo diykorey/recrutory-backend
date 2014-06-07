@@ -1,0 +1,38 @@
+
+
+<div class="tab-content">
+    <div class="tab-pane active" id="vacancyInfoTab">
+        <%= vacancyInfoPanel %>
+    </div>
+    <div class="tab-pane" id="vacancyFlowsTab">
+        <%= vacancyFlowsPanel %>
+    </div>
+    <div class="tab-pane" id="vacancyCommentsTab">3...</div>
+    <div class="tab-pane" id="vacancyTaskTab">4...</div>
+</div>
+<nav class="navbar navbar-default" role="navigation">
+
+    <div class="container-fluid">
+        <!-- Collect the nav links, forms, and other content for toggling -->
+
+        <div class="collapse navbar-collapse" id="vacancyNavbar">
+            <ul class="nav navbar-nav" id="vacancyTabs">
+                <li class="active"><a href="#vacancyInfoTab" data-toggle="tab">Main</a></li>
+                <li><a href="#vacancyFlowsTab" data-toggle="tab">Flows</a></li>
+                <li><a href="#vacancyCommentsTab" data-toggle="tab">Comments</a></li>
+                <li><a href="#vacancyTaskTab" data-toggle="tab">Task</a></li>
+            </ul>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container-fluid -->
+</nav>
+<div class="panel panel-default">
+    <div class="panel-heading">&nbsp;<%= title %>
+        <button type="button" class="btn btn-default btn-xs  pull-right">
+            <span class="glyphicon glyphicon-save"></span><%= saveBtn %>
+        </button>
+    </div>
+    <div class="panel-body"><%= vacancyTabPanel %> <%= vacancyNavbar %>
+    </div>
+</div>

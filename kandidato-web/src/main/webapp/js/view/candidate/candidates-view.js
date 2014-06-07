@@ -3,7 +3,7 @@ define([
     'underscore',
     'backbone',
     'model/candidate/candidate-model',
-    'collection/candidate/candidates-collection',
+    'collection/candidate/candidate-collection',
     'view/candidate/candidate-list-view',
     'text!template/candidate/candidate-list.html'
 ], function ($, _, Backbone, CandidateModel, CandidatesCollection, CandidateListView, candidatesTemplate) {

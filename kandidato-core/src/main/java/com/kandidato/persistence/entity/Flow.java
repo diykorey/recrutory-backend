@@ -9,7 +9,7 @@ import java.util.List;
 
 @javax.persistence.Entity
 @Table(name = "FLOWS")
-public class Flow implements Entity {
+public class Flow implements Entity, CreatorAware {
 
     @Id
     @Column(name = "FLOW_ID")
@@ -31,6 +31,10 @@ public class Flow implements Entity {
 
     @Column(name = "CREATION_TIME")
     private Date createTime;
+
+    @ManyToOne
+    @JoinColumn(name = "USER_ID")
+    private User creator;
 
     //TODO Do we need active flag here? As for me it overlaps with the FlowState of the last action in the current flow.
     @Column(name = "ACTIVE_FLAG")
@@ -82,6 +86,16 @@ public class Flow implements Entity {
 
     public void setActive(boolean active) {
         this.active = active;
+    }
+
+    @Override
+    public User getCreator() {
+        return this.creator;
+    }
+
+    @Override
+    public void setCreator(User creator) {
+        this.creator = creator;
     }
 
     public Flow() {

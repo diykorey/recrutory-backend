@@ -10,6 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import javax.transaction.Transactional;
+import java.util.List;
 
 /**
  * Created by andriy on 5/15/14.
@@ -31,6 +32,14 @@ public class CandidateServiceImpl extends HttpAwareService {
             throw new ResourceNotFoundException();
         }
         return result;
+    }
+
+    @RequestMapping(value = "findByOwner/{ownerId}", method = RequestMethod.GET, produces = "application/json")
+    @ResponseBody
+    @Transactional
+    @ResponseStatus(value = HttpStatus.OK)
+    public List<Candidate> findByOwner(@PathVariable long ownerId) {
+        return this.manager.findByOwner(ownerId);
     }
 
     @RequestMapping(method = RequestMethod.POST, consumes = "application/json")

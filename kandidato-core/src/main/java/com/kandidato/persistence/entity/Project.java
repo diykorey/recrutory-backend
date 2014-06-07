@@ -1,14 +1,11 @@
 package com.kandidato.persistence.entity;
 
-import javax.persistence.Column;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.util.Date;
 
 @javax.persistence.Entity
 @Table(name = "PROJECTS")
-public class Project implements Entity {
+public class Project implements Entity, CreatorAware {
 
 
     @Id
@@ -24,6 +21,10 @@ public class Project implements Entity {
 
     @Column(name = "CREATION_TIME")
     private Date creationTime;
+
+    @ManyToOne
+    @JoinColumn(name = "USER_ID")
+    private User creator;
 
     public Long getId() {
         return id;
@@ -55,6 +56,16 @@ public class Project implements Entity {
 
     public void setCreationTime(Date createTime) {
         this.creationTime = createTime;
+    }
+
+    @Override
+    public User getCreator() {
+        return this.creator;
+    }
+
+    @Override
+    public void setCreator(User creator) {
+        this.creator = creator;
     }
 
     @Override

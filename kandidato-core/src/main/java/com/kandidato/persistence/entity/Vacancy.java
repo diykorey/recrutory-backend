@@ -13,7 +13,7 @@ import java.util.Set;
 
 @javax.persistence.Entity
 @Table(name = "VACANCIES")
-public class Vacancy implements CommentableEntity<VacancyComment> {
+public class Vacancy implements CommentableEntity<VacancyComment>, CreatorAware {
 
     @Id
     @GeneratedValue
@@ -49,7 +49,7 @@ public class Vacancy implements CommentableEntity<VacancyComment> {
     private List<Flow> flows = new ArrayList<>();
 
     @ManyToOne
-    @JoinColumn(name = "CREATOR_ID")
+    @JoinColumn(name = "USER_ID")
     private User creator;
 
     @OneToMany(mappedBy = "entity", cascade = CascadeType.ALL)

@@ -3,7 +3,7 @@ define([
     'backbone'
 ], function (_, Backbone) {
     var CandidateModel = Backbone.Model.extend({
-        urlRoot: 'http://localhost:8080/candidate',
+        urlRoot: 'candidate',
         defaults: {
             id: null,
             name: '',
