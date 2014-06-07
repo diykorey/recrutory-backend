@@ -1,5 +1,8 @@
 package com.kandidato.service.workflow;
 
+import com.kandidato.constants.FlowState;
+import com.kandidato.dto.FlowActionModel;
+import com.kandidato.dto.FlowModel;
 import com.kandidato.exception.ResourceNotFoundException;
 import com.kandidato.manager.flow.FlowManager;
 import com.kandidato.persistence.entity.Flow;
@@ -12,7 +15,6 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.transaction.Transactional;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 /**
@@ -23,7 +25,6 @@ import java.util.List;
 public class WorkflowServiceImpl extends HttpAwareService {
 
     private static final Logger log = LoggerFactory.getLogger(WorkflowServiceImpl.class);
-
     @Autowired
     private FlowManager flowManager;
 
@@ -54,7 +55,6 @@ public class WorkflowServiceImpl extends HttpAwareService {
         return flow;
     }
 
-
     //    @Override
     @RequestMapping(method = RequestMethod.POST, produces = "application/json", consumes = "application/json")
     @ResponseBody
@@ -74,50 +74,38 @@ public class WorkflowServiceImpl extends HttpAwareService {
     @RequestMapping(value = "/flows", method = RequestMethod.GET, produces = "application/json")
     @ResponseBody
     @Transactional
-    public List<Flow> list() {
-        List<Flow> flows = new ArrayList<>();
+    public List<FlowModel> list() {
+        List<FlowModel> flows = new ArrayList<>();
 
-        Flow f1 = new Flow();
-        f1.setId(100L);
-        f1.setActive(true);
-        f1.setVacancy(null);
-        f1.setCandidate(null);
-        f1.setCreateTime(new Date());
+        FlowModel f1 = new FlowModel();
+        f1.setId(1L);
+        f1.setVacancyName("Java 1");
+        f1.setCandidateName("Lisa");
 
-        Flow f2 = new Flow();
-        f2.setId(200L);
-        f2.setActive(true);
-        f2.setVacancy(null);
-        f2.setCandidate(null);
-        f2.setCreateTime(new Date());
+        FlowModel f2 = new FlowModel();
+        f2.setId(2L);
+        f2.setVacancyName("Java 2");
+        f2.setCandidateName("Marge");
 
-        Flow f3 = new Flow();
-        f3.setId(300L);
-        f3.setActive(true);
-        f3.setVacancy(null);
-        f3.setCandidate(null);
-        f3.setCreateTime(new Date());
+        FlowModel f3 = new FlowModel();
+        f3.setId(3L);
+        f3.setVacancyName("Java 2");
+        f3.setCandidateName("Bart");
 
-        Flow f4 = new Flow();
-        f4.setId(400L);
-        f4.setActive(true);
-        f4.setVacancy(null);
-        f4.setCandidate(null);
-        f4.setCreateTime(new Date());
+        FlowModel f4 = new FlowModel();
+        f4.setId(4L);
+        f4.setVacancyName("Java 1");
+        f4.setCandidateName("Homer");
 
-        Flow f5 = new Flow();
-        f5.setId(500L);
-        f5.setActive(true);
-        f5.setVacancy(null);
-        f5.setCandidate(null);
-        f5.setCreateTime(new Date());
+        FlowModel f5 = new FlowModel();
+        f5.setId(5L);
+        f5.setVacancyName("Java 2");
+        f5.setCandidateName("Homer");
 
-        Flow f6 = new Flow();
-        f6.setId(600L);
-        f6.setActive(true);
-        f6.setVacancy(null);
-        f6.setCandidate(null);
-        f6.setCreateTime(new Date());
+        FlowModel f6 = new FlowModel();
+        f6.setId(6L);
+        f6.setVacancyName("Java 3");
+        f6.setCandidateName("Bart");
 
         flows.add(f1);
         flows.add(f2);
@@ -127,5 +115,48 @@ public class WorkflowServiceImpl extends HttpAwareService {
         flows.add(f6);
 
         return flows;
+    }
+
+    @RequestMapping(value = "/actions/{id}", method = RequestMethod.GET, produces = "application/json")
+    @ResponseBody
+    @Transactional
+    public List<FlowActionModel> actions(@PathVariable Long id) {
+        List<FlowActionModel> actions = new ArrayList<>();
+
+        if(id % 2 == 0){
+            FlowActionModel action1 = new FlowActionModel();
+            action1.setId(1);
+            action1.setState(FlowState.CONTACT.toString());
+            action1.setDescription("Desciption for 1");
+
+            FlowActionModel action2 = new FlowActionModel();
+            action2.setId(2);
+            action2.setState(FlowState.INTERVIEW.toString());
+            action2.setDescription("Desciption for 2");
+
+            actions.add(action1);
+            actions.add(action2);
+        }      else{
+            FlowActionModel action3 = new FlowActionModel();
+            action3.setId(3);
+            action3.setState(FlowState.CONTACT.toString());
+            action3.setDescription("Desciption for 3");
+
+            FlowActionModel action4 = new FlowActionModel();
+            action4.setId(4);
+            action4.setState(FlowState.INTERVIEW.toString());
+            action4.setDescription("Desciption for 4");
+
+            FlowActionModel action5 = new FlowActionModel();
+            action5.setId(5);
+            action5.setState(FlowState.HIRED.toString());
+            action5.setDescription("Desciption for 5");
+
+            actions.add(action3);
+            actions.add(action4);
+            actions.add(action5);
+        }
+
+        return actions;
     }
 }
