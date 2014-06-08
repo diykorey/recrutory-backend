@@ -19,9 +19,10 @@ define([
                 success: function (actions) {
                     var $el = $(that.el);
                     $el.html(_.template(actionsTemplate));
+
                     actions.each(function (action) {
                         var actionWidget = new ActionWidget({model: action});
-                        $el.append(actionWidget.render().el);
+                        $("#flow-action-accordion").append(actionWidget.render().el);
                     });
                     return this;
                 }

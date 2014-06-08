@@ -6,6 +6,7 @@ import com.kandidato.dto.FlowModel;
 import com.kandidato.exception.ResourceNotFoundException;
 import com.kandidato.manager.flow.FlowManager;
 import com.kandidato.persistence.entity.Flow;
+import com.kandidato.persistence.entity.FlowAction;
 import com.kandidato.service.HttpAwareService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -74,46 +75,17 @@ public class WorkflowServiceImpl extends HttpAwareService {
     @RequestMapping(value = "/flows", method = RequestMethod.GET, produces = "application/json")
     @ResponseBody
     @Transactional
-    public List<FlowModel> list() {
+    public List<FlowModel> findAll() {
         List<FlowModel> flows = new ArrayList<>();
 
-        FlowModel f1 = new FlowModel();
-        f1.setId(1L);
-        f1.setVacancyName("Java 1");
-        f1.setCandidateName("Lisa");
+        for (Flow flow : flowManager.findAll()) {
+            FlowModel flowModel = new FlowModel();
+            flowModel.setId(flow.getId());
+            flowModel.setVacancyName(flow.getVacancy().getName());
+            flowModel.setCandidateName(flow.getCandidate().getName() + " " + flow.getCandidate().getLastName());
 
-        FlowModel f2 = new FlowModel();
-        f2.setId(2L);
-        f2.setVacancyName("Java 2");
-        f2.setCandidateName("Marge");
-
-        FlowModel f3 = new FlowModel();
-        f3.setId(3L);
-        f3.setVacancyName("Java 2");
-        f3.setCandidateName("Bart");
-
-        FlowModel f4 = new FlowModel();
-        f4.setId(4L);
-        f4.setVacancyName("Java 1");
-        f4.setCandidateName("Homer");
-
-        FlowModel f5 = new FlowModel();
-        f5.setId(5L);
-        f5.setVacancyName("Java 2");
-        f5.setCandidateName("Homer");
-
-        FlowModel f6 = new FlowModel();
-        f6.setId(6L);
-        f6.setVacancyName("Java 3");
-        f6.setCandidateName("Bart");
-
-        flows.add(f1);
-        flows.add(f2);
-        flows.add(f3);
-        flows.add(f4);
-        flows.add(f5);
-        flows.add(f6);
-
+            flows.add(flowModel);
+        }
         return flows;
     }
 
@@ -123,38 +95,16 @@ public class WorkflowServiceImpl extends HttpAwareService {
     public List<FlowActionModel> actions(@PathVariable Long id) {
         List<FlowActionModel> actions = new ArrayList<>();
 
-        if(id % 2 == 0){
-            FlowActionModel action1 = new FlowActionModel();
-            action1.setId(1);
-            action1.setState(FlowState.CONTACT.toString());
-            action1.setDescription("Desciption for 1");
+        Flow flow = flowManager.find(id);
 
-            FlowActionModel action2 = new FlowActionModel();
-            action2.setId(2);
-            action2.setState(FlowState.INTERVIEW.toString());
-            action2.setDescription("Desciption for 2");
+        for(FlowAction action : flow.getActions()){
 
-            actions.add(action1);
-            actions.add(action2);
-        }      else{
-            FlowActionModel action3 = new FlowActionModel();
-            action3.setId(3);
-            action3.setState(FlowState.CONTACT.toString());
-            action3.setDescription("Desciption for 3");
+            FlowActionModel actionModel = new FlowActionModel();
+            actionModel.setId(action.getId());
+            actionModel.setState(action.getState().toString());
+            actionModel.setDescription(action.getDescription());
 
-            FlowActionModel action4 = new FlowActionModel();
-            action4.setId(4);
-            action4.setState(FlowState.INTERVIEW.toString());
-            action4.setDescription("Desciption for 4");
-
-            FlowActionModel action5 = new FlowActionModel();
-            action5.setId(5);
-            action5.setState(FlowState.HIRED.toString());
-            action5.setDescription("Desciption for 5");
-
-            actions.add(action3);
-            actions.add(action4);
-            actions.add(action5);
+            actions.add(actionModel);
         }
 
         return actions;

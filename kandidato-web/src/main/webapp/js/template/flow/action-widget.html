@@ -1,8 +1,14 @@
 <div class="panel panel-default">
     <div class="panel-heading">
-        <h3 class="panel-title"><%= state %></h3>
+        <h4 class="panel-title">
+            <a data-toggle="collapse" data-parent="#flow-action-accordion" href="#collapse<%= id %>">
+                <%= state %>
+            </a>
+        </h4>
     </div>
-    <div class="panel-body">
-        <%= description %>
+    <div id="collapse<%= id%>" class="panel-collapse collapse in">
+        <div class="panel-body">
+            <%= description %>
+        </div>
     </div>
 </div>
