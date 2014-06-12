@@ -47,4 +47,11 @@ public interface FlowManager {
      * @return
      */
     Flow find(long flowId);
+
+    /**
+     * Returns the all {@link Flow} in the system.
+     *
+     * @return
+     */
+    List<Flow> findAll();
 }

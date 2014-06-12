@@ -16,14 +16,11 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-/**
- * Created by andriy on 4/8/14.
- */
 @Component
 public class FlowManagerImpl implements FlowManager {
 
     @Autowired
-    private FlowRepository repository;
+    private FlowRepository flowRepository;
 
     @Autowired
     private VacancyRepository vacancyRepository;
@@ -40,22 +37,22 @@ public class FlowManagerImpl implements FlowManager {
             throw new IllegalArgumentException("Specify existing vacancies and candidate");
         }
         Flow newFlow = new Flow(vacancy, candidate);
-        return this.repository.save(newFlow);
+        return this.flowRepository.save(newFlow);
     }
 
     @Override
     public Flow create(Flow flow) {
-        return this.repository.save(flow);
+        return this.flowRepository.save(flow);
     }
 
     @Override
     public void remove(long id) {
-        this.repository.delete(id);
+        this.flowRepository.delete(id);
     }
 
     @Override
     public List<Flow> findByVacancy(final long vacancyId) {
-        Collection<Flow> flows = this.repository.query(new FlowQuery() {
+        Collection<Flow> flows = this.flowRepository.query(new FlowQuery() {
             @Override
             public Criterion toCriterion() {
                 return Restrictions.eq("vacancy.id", vacancyId);
@@ -66,6 +63,11 @@ public class FlowManagerImpl implements FlowManager {
 
     @Override
     public Flow find(long flowId) {
-        return this.repository.findOne(flowId);
+        return this.flowRepository.findOne(flowId);
+    }
+
+    @Override
+    public List<Flow> findAll() {
+        return this.flowRepository.findAll();
     }
 }
