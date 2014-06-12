@@ -33,9 +33,10 @@ define([
         },
         showComments: function() {
             var commentCollection = new CommentCollection({criteria : 'VACANCY/'+ this.model.id});
+            var vacancyModel = this.model;
             commentCollection.fetch({
                 success: function() {
-                    var commentList = new CommentListView({model: commentCollection});
+                    var commentList = new CommentListView({model: commentCollection, entityId: vacancyModel.id, entityType: 'VACANCY'});
                     $('#vacancy-details-tab').html(commentList.render().el);
                 }
             });
