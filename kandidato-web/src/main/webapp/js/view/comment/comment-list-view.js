@@ -13,9 +13,9 @@ define([
             this.$el.html(compiledTemplate);
         },
         render: function () {
-            var $tbody = this.$("tbody");
+            var $listBody = this.$("#comment-list");
             _.each(this.model.models, function (data) {
-                $tbody.append(new RowView({model: data}).render().el);
+                $listBody.append(new RowView({model: data}).render().el);
             }, this);
             return this;
         }

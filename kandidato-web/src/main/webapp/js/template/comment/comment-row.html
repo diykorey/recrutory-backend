@@ -1,3 +1,8 @@
-<td><%= id %></a></td>
-<td><%= comment %></a></td>
-<td><%= createDate %></td>
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title"><%= creator.id %>, on <%= creationDate %></h3>
+    </div>
+    <div  class="panel-body">
+        <%= comment %>
+    </div>
+</div>

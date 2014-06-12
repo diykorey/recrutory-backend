@@ -8,7 +8,6 @@ define([
 
     var CommentRow = Backbone.View.extend({
         model: new CommentModel(),
-        el: $('<tr></tr>'),
         initialize: function () {
             this.template = _.template(rowTemplate);
         },

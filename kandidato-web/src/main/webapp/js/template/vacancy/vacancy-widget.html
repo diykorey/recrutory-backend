@@ -1,24 +1,42 @@
 <div class="col-xs-3">
     <div class="panel panel-default">
         <div class="panel-heading clickable">
-            <% if ( typeof state !== 'undefined' && state == 'OPEN') { %>
-            <div class="label label-success pull-right">
+            <span>
+
+            </span>
+            <span>
+                <% if ( typeof state !== 'undefined' && state == 'OPEN') { %>
+                    <div class="label label-success pull-right">
                 <% } else { %>
-                <div class="label label-warning pull-right">
-                    <% } %>
-                    <% if ( typeof state !== 'undefined' ) { %>
-                    <%= state %>
-                    <% } else { %>
-                    Unknown
-                    <% } %>
-                </div>
-            </div>
-            <div class="panel-body" contenteditable="false">
-                <% if ( typeof requirements !== 'undefined' ) { %>
-                <%= requirements %>
-                <% } else { %>
-                Unknown
+                    <div class="label label-warning pull-right">
                 <% } %>
+                        <% if ( typeof state !== 'undefined' ) { %>
+                            <%= state %>
+                        <% } else { %>
+                                Unknown
+                        <% } %>
+                    </div>
+            </span>
+        </div>
+
+            <div class="panel-body" contenteditable="false">
+                <div>
+                    <div><b>Project</b></div>
+                    <div>
+                        <%= project.name %>
+                    </div>
+                </div>
+                <div>
+                    <div><b>Requirements</b></div>
+                    <div>
+                        <% if ( typeof requirements !== 'undefined' ) { %>
+                        <%= requirements %>
+                        <% } else { %>
+                        Unknown
+                        <% } %>
+                    </div>
+                </div>
+
             </div>
         </div>
     </div>
