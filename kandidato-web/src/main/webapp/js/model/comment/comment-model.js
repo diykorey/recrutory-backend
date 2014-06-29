@@ -21,12 +21,18 @@ define([
             return this.urlRoot + '/' + this.id;
         },
         sync: function (method, model, options) {
-            if (method == 'POST') {
-                options.url = 'comment/' + model.entityId + '/' + model.authorId + '/' + model.entityType;
+            if (method == 'create') {
+                options.url = 'comment/' + model.entityType + '/' + model.entityId + '/' + 1;
+                options.beforeSend = function(xhr) {
+                    xhr.setRequestHeader('Content-Type', 'text/plain');
+                };
             } else {
-                options.url = model.url;
+                options.url = model.url();
             }
-            return Backbone.sync(method, model.comment, options);
+            return Backbone.sync(method, model, options);
+        },
+        toJSON: function() {
+            return this.attributes.comment;
         }
     });
     return CommentModel;
