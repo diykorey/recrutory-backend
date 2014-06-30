@@ -30,7 +30,7 @@ public class CommentServiceImpl extends HttpAwareService {
     @RequestMapping(value = "/{type}/{entityId}/{authorId}", method = RequestMethod.POST, consumes = "text/plain")
     @Transactional
     @ResponseStatus(value = HttpStatus.OK)
-    public void addComment(@RequestBody String comment, @PathVariable long entityId, @PathVariable long authorId, @PathVariable CommentType type) {
+    public void addComment(@PathVariable long entityId, @PathVariable long authorId, @PathVariable CommentType type, @RequestBody String comment) {
         log.info("Adding comment");
         this.manager.addComment(entityId, authorId, type, comment);
     }
