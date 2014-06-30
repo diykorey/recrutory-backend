@@ -1,6 +1,5 @@
 package com.kandidato.service.workflow;
 
-import com.kandidato.constants.FlowState;
 import com.kandidato.dto.FlowActionModel;
 import com.kandidato.dto.FlowModel;
 import com.kandidato.exception.ResourceNotFoundException;
@@ -11,6 +10,7 @@ import com.kandidato.service.HttpAwareService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
@@ -94,11 +94,9 @@ public class WorkflowServiceImpl extends HttpAwareService {
     @Transactional
     public List<FlowActionModel> actions(@PathVariable Long id) {
         List<FlowActionModel> actions = new ArrayList<>();
-
         Flow flow = flowManager.find(id);
 
         for(FlowAction action : flow.getActions()){
-
             FlowActionModel actionModel = new FlowActionModel();
             actionModel.setId(action.getId());
             actionModel.setState(action.getState().toString());
@@ -106,7 +104,21 @@ public class WorkflowServiceImpl extends HttpAwareService {
 
             actions.add(actionModel);
         }
-
         return actions;
+    }
+
+    @RequestMapping(value = "/flow-action/{flowId}", method = RequestMethod.POST, consumes = "application/json", produces = "application/json")
+    @Transactional
+    @ResponseStatus(value = HttpStatus.OK)
+    @ResponseBody
+    public FlowActionModel addFlowAction(@RequestBody FlowActionModel action, @PathVariable long flowId) {
+        return action;
+    }
+
+    @RequestMapping(value = "/flow-action/{actionId}", method = RequestMethod.GET, produces = "application/json")
+    @ResponseBody
+    @Transactional
+    public FlowActionModel getFlowAction(@PathVariable long actionId) {
+        return null;
     }
 }
