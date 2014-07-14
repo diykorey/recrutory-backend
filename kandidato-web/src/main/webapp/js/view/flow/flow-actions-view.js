@@ -24,6 +24,8 @@ define([
 
                     var editor = new FlowActionEditor({ model: new FlowActionModel({flowId: that.flowId})});
                     $("#flow-action-accordion").append(editor.render().el);
+                    editor.view = that;
+
 
                     actions.each(function (action) {
                         var actionWidget = new ActionWidget({model: action});

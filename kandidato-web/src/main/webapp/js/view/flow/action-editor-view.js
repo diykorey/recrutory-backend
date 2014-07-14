@@ -26,7 +26,10 @@ define([
             this.model.set('description', this.$el.find('textarea[id="description"]').val());
             this.model.set('state', this.$el.find('select[id="state"]').val());
             this.model.save();
-            return false;
+
+            this.view.render();
+
+            return true;
         }
     });
     return FlowActionEditor;

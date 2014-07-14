@@ -24,9 +24,7 @@ public class Flow implements Entity, CreatorAware {
     @JoinColumn(name = "VACANCY_ID")
     private Vacancy vacancy;
 
-    @OneToMany(cascade = CascadeType.REMOVE)
-    @JoinColumn(name = "FLOW_ID")
-    @JsonIgnore
+    @OneToMany(mappedBy = "flow")
     private List<FlowAction> actions = new ArrayList<>();
 
     @Column(name = "CREATION_TIME")

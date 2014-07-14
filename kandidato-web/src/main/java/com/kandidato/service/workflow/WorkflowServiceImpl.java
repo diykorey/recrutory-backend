@@ -1,11 +1,13 @@
 package com.kandidato.service.workflow;
 
+import com.kandidato.constants.FlowState;
 import com.kandidato.dto.FlowActionModel;
 import com.kandidato.dto.FlowModel;
 import com.kandidato.exception.ResourceNotFoundException;
 import com.kandidato.manager.flow.FlowManager;
 import com.kandidato.persistence.entity.Flow;
 import com.kandidato.persistence.entity.FlowAction;
+import com.kandidato.persistence.repository.flow.ActionRepository;
 import com.kandidato.service.HttpAwareService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -15,8 +17,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import javax.transaction.Transactional;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 /**
  * RESTful implementation of {@link com.kandidato.service.workflow.WorkflowService}.
@@ -26,6 +27,7 @@ import java.util.List;
 public class WorkflowServiceImpl extends HttpAwareService {
 
     private static final Logger log = LoggerFactory.getLogger(WorkflowServiceImpl.class);
+
     @Autowired
     private FlowManager flowManager;
 
@@ -93,18 +95,26 @@ public class WorkflowServiceImpl extends HttpAwareService {
     @ResponseBody
     @Transactional
     public List<FlowActionModel> actions(@PathVariable Long id) {
-        List<FlowActionModel> actions = new ArrayList<>();
+        List<FlowActionModel> actionsModel = new ArrayList<>();
         Flow flow = flowManager.find(id);
 
-        for(FlowAction action : flow.getActions()){
+        List<FlowAction> actions = flow.getActions();
+        Collections.sort(actions, new Comparator<FlowAction>() {
+            @Override
+            public int compare(FlowAction o1, FlowAction o2) {
+                return o2.getCreationTime().compareTo(o1.getCreationTime());
+            }
+        });
+
+        for(FlowAction action : actions){
             FlowActionModel actionModel = new FlowActionModel();
             actionModel.setId(action.getId());
             actionModel.setState(action.getState().toString());
             actionModel.setDescription(action.getDescription());
 
-            actions.add(actionModel);
+            actionsModel.add(actionModel);
         }
-        return actions;
+        return actionsModel;
     }
 
     @RequestMapping(value = "/flow-action/{flowId}", method = RequestMethod.POST, consumes = "application/json", produces = "application/json")
@@ -112,6 +122,18 @@ public class WorkflowServiceImpl extends HttpAwareService {
     @ResponseStatus(value = HttpStatus.OK)
     @ResponseBody
     public FlowActionModel addFlowAction(@RequestBody FlowActionModel action, @PathVariable long flowId) {
+        Flow flow = flowManager.find(flowId);
+
+        FlowAction flowAction = new FlowAction();
+        flowAction.setState(FlowState.valueOf(action.getState()));
+        flowAction.setDescription(action.getDescription());
+        flowAction.setCreationTime(new Date());
+
+        flow.getActions().add(flowAction);
+        flowAction.setFlow(flow);
+
+        flowManager.createAction(flowAction);
+
         return action;
     }
 
