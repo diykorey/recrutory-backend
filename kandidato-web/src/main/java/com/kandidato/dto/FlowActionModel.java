@@ -2,6 +2,7 @@ package com.kandidato.dto;
 
 public class FlowActionModel {
     private long id;
+    private long flowId;
     private String state;
     private String description;
 
@@ -27,5 +28,13 @@ public class FlowActionModel {
 
     public void setState(String state) {
         this.state = state;
+    }
+
+    public long getFlowId() {
+        return flowId;
+    }
+
+    public void setFlowId(long flowId) {
+        this.flowId = flowId;
     }
 }

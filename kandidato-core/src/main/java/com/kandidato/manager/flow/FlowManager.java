@@ -1,6 +1,7 @@
 package com.kandidato.manager.flow;
 
 import com.kandidato.persistence.entity.Flow;
+import com.kandidato.persistence.entity.FlowAction;
 
 import java.util.List;
 
@@ -54,4 +55,6 @@ public interface FlowManager {
      * @return
      */
     List<Flow> findAll();
+
+    FlowAction createAction(FlowAction action);
 }

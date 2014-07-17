@@ -28,6 +28,10 @@ public class FlowAction implements CommentableEntity<ActionComment> {
     @Column(name = "CREATION_TIME")
     private Date creationTime;
 
+    @ManyToOne(cascade = CascadeType.REMOVE)
+    @JoinColumn(name = "FLOW_ID")
+    private Flow flow;
+
     @OneToMany(mappedBy = "entity", cascade = CascadeType.ALL)
     private List<ActionComment> comments = new ArrayList<>();
 
@@ -85,5 +89,13 @@ public class FlowAction implements CommentableEntity<ActionComment> {
         builder.append(description);
         builder.append("}");
         return builder.toString();
+    }
+
+    public Flow getFlow() {
+        return flow;
+    }
+
+    public void setFlow(Flow flow) {
+        this.flow = flow;
     }
 }

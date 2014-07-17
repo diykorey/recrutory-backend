@@ -1,0 +1,29 @@
+<script>
+    function onHidePanelButtonClick(){
+        $('#new-action-panel').toggle();
+        if($('#hide-panel-btn').text() == 'Hide'){
+            $('#hide-panel-btn').text('Show')
+        }else{
+            $('#hide-panel-btn').text('Hide')
+        }
+    }
+</script>
+
+<div class="panel panel-default form-group">
+    <button id="hide-panel-btn" type="button" class="btn btn-link" onclick="onHidePanelButtonClick()">Hide</button>
+    <div id="new-action-panel" class="panel-body">
+        <select id="state">
+            <option value="INIT">Init</option>
+            <option value="CONTACT">Contact</option>
+            <option value="INTERVIEW">Interview</option>
+            <option value="OFFER">Offer</option>
+            <option value="HIRED">Hired</option>
+            <option value="REJECTED">Rejected</option>
+            <option value="CLOSED">Closed</option>
+        </select>
+        <textarea id="description" class="form-control" rows="3" placeholder="Action description"></textarea>
+        <div style="margin-top: 3px; float: right;">
+            <button id="add-action-btn" type="submit" class="btn btn-primary">Save</button>
+        </div>
+    </div>
+</div>

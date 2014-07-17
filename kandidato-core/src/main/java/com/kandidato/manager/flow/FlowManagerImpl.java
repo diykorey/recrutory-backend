@@ -2,7 +2,9 @@ package com.kandidato.manager.flow;
 
 import com.kandidato.persistence.entity.Flow;
 import com.kandidato.persistence.entity.Candidate;
+import com.kandidato.persistence.entity.FlowAction;
 import com.kandidato.persistence.entity.Vacancy;
+import com.kandidato.persistence.repository.flow.ActionRepository;
 import com.kandidato.persistence.repository.flow.FlowRepository;
 import com.kandidato.persistence.repository.flow.query.FlowByVacancyQuery;
 import com.kandidato.persistence.repository.candidate.CandidateRepository;
@@ -26,6 +28,8 @@ public class FlowManagerImpl implements FlowManager {
     @Autowired
     private CandidateRepository peoppleRepository;
 
+    @Autowired
+    private ActionRepository actionRepository;
 
     @Override
     public Flow create(long vacancyId, long candidateId) {
@@ -62,5 +66,10 @@ public class FlowManagerImpl implements FlowManager {
     @Override
     public List<Flow> findAll() {
         return this.flowRepository.findAll();
+    }
+
+    @Override
+    public FlowAction createAction(FlowAction action) {
+        return actionRepository.save(action);
     }
 }

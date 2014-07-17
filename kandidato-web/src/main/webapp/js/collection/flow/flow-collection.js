@@ -16,7 +16,6 @@ define([
             } else {
                 this.instanceUrl = this.urlRoot + '/flows';
             }
-            console.log('collections loaded successfully');
         }
     });
     return FlowCollection;
