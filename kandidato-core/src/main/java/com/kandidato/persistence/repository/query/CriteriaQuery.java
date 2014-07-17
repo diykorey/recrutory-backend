@@ -6,7 +6,7 @@ import org.hibernate.criterion.Criterion;
 /**
  * Query, to be used with Hibernate persistence.
  */
-public interface HibernateQuery extends Query {
+public interface CriteriaQuery extends Query {
 
     /**
      * Transforms ths query into hibernate criterion.

@@ -40,6 +40,7 @@ public class CommentServiceImpl extends HttpAwareService {
     @ResponseStatus(value = HttpStatus.OK)
     @ResponseBody
     public List<EntityComment<?>> getComments(@PathVariable CommentType type, @PathVariable long entityId) {
-        return this.manager.getEntityComments(entityId, type);
+        List<EntityComment<?>> comments = this.manager.getEntityComments(entityId, type);
+        return comments;
     }
 }

@@ -12,6 +12,7 @@ define([
             'click #save-comment-btn': 'saveComment'
         },
         saveComment: function() {
+            this.model.attributes.comment = $('#comment-text').val();
             this.model.save();
         },
         initialize: function (options) {

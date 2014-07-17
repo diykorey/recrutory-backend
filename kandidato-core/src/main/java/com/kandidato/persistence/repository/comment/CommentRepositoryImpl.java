@@ -3,7 +3,7 @@ package com.kandidato.persistence.repository.comment;
 import com.kandidato.persistence.entity.*;
 import com.kandidato.persistence.entity.comment.*;
 import com.kandidato.persistence.repository.base.HibernateRepository;
-import com.kandidato.persistence.repository.query.HibernateQuery;
+import com.kandidato.persistence.repository.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.persistence.EntityManager;
@@ -13,7 +13,7 @@ import java.util.Date;
 /**
  * Created by andriy on 4/24/14.
  */
-public class CommentRepositoryImpl extends HibernateRepository<EntityComment, HibernateQuery> implements CommentRepositoryCustom {
+public class CommentRepositoryImpl extends HibernateRepository<EntityComment, Query> implements CommentRepositoryCustom {
 
     @Autowired
     public CommentRepositoryImpl(EntityManager entityManager) {
