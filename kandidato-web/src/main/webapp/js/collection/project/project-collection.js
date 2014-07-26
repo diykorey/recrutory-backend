@@ -4,7 +4,15 @@ define([
     'model/project/project-model'
 ], function (_, Backbone, ProjectModel) {
     var ProjectCollection = Backbone.Collection.extend({
-        model: ProjectModel
+
+        urlRoot: 'project/find',
+        model: ProjectModel,
+        initialize: function(options) {
+           this.instanceUrl = this.urlRoot;
+        },
+        url: function() {
+            return this.instanceUrl;
+        }
     });
 
     return ProjectCollection;

@@ -9,9 +9,10 @@ define([
     'view/candidate/candidate-view',
     'view/candidate/candidates-view',
     'view/vacancy/vacancy-dashboard-view',
-    'view/flow/flow-dashboard-view'
+    'view/flow/flow-dashboard-view',
+    'view/project/project-list-view'
 
-], function ($, _, Backbone, CandidateView, CandidatesView, VacancyDashboard, FlowDashboard) {
+], function ($, _, Backbone, CandidateView, CandidatesView, VacancyDashboard, FlowDashboard, ProjectListView) {
     var AppRouter = Backbone.Router.extend({
         routes: {
             'vacancy-dashboard': 'vacancyDashboard',
@@ -44,6 +45,8 @@ define([
             vacancyDashboard.start();
         });
         app_router.on('route:projects', function () {
+            var projectListView = new ProjectListView();
+            projectListView.start();
         });
         app_router.on('route:home', function () {
             var vacancyDashboard = new VacancyDashboard({author: 1});

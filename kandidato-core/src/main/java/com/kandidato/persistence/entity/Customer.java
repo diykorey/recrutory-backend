@@ -1,16 +1,19 @@
 package com.kandidato.persistence.entity;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Table;
 import java.util.Date;
 
 @javax.persistence.Entity
-@Table(name = "PROJECTS")
-public class Project implements Entity, CreatorAware {
+@Table(name = "CUSTOMERS")
+public class Customer implements Entity {
 
 
     @Id
     @GeneratedValue
-    @Column(name = "PROJECT_ID")
+    @Column(name = "CUSTOMER_ID")
     private Long id;
 
     @Column(name = "NAME")
@@ -21,15 +24,6 @@ public class Project implements Entity, CreatorAware {
 
     @Column(name = "CREATION_TIME")
     private Date creationTime;
-
-    @ManyToOne
-    @JoinColumn(name = "USER_ID")
-    private User creator;
-
-
-    @ManyToOne
-    @JoinColumn(name = "CUSTOMER_ID")
-    private Customer customer;
 
     public Long getId() {
         return id;
@@ -64,24 +58,6 @@ public class Project implements Entity, CreatorAware {
     }
 
     @Override
-    public User getCreator() {
-        return this.creator;
-    }
-
-    @Override
-    public void setCreator(User creator) {
-        this.creator = creator;
-    }
-
-    public Customer getCustomer() {
-        return customer;
-    }
-
-    public void setCustomer(Customer customer) {
-        this.customer = customer;
-    }
-
-    @Override
     public String toString() {
         StringBuilder builder = new StringBuilder(this.getClass().getSimpleName());
         builder.append(": {");
@@ -93,10 +69,6 @@ public class Project implements Entity, CreatorAware {
         builder.append(description);
         builder.append(", creationTime: ");
         builder.append(creationTime);
-        builder.append(", creator: ");
-        builder.append(creator);
-        builder.append(", customer: ");
-        builder.append(customer);
         builder.append("}");
         return builder.toString();
     }
