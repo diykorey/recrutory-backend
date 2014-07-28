@@ -11,7 +11,7 @@
         </thead>
         <tbody id="projectListBody">
         <% _.each(models, function(project){ %>
-        <tr>
+        <tr class='clickableRow' data-url='{#projects/<%= project.get("id")%>}'>
             <td></td>
             <td><%= project.get("name")%></td>
             <td><%= project.get("customer").name%></td>

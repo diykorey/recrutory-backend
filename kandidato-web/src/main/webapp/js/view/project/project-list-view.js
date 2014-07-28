@@ -11,9 +11,16 @@ define([
             this.projects = new ProjectCollection();
             this.template = _.template(projectList);
         },
-
+        events: {
+            'click .clickableRow': 'showProjectDetails'
+        },
+        showProjectDetails: function (ev) {
+            /*  var projectDetails = new ProjectDetails({model: this.model});
+             projectDetails.render();    */
+            alert("click " + $(ev.currentTarget).data('url'));
+        },
         render: function () {
-            this.$el.html(this.template( this.projects));
+            this.$el.html(this.template(this.projects));
             return this;
         },
         start: function () {
@@ -23,6 +30,7 @@ define([
                     listView.render();
                 }
             });
+
         }
     });
     return ProjectListView;
