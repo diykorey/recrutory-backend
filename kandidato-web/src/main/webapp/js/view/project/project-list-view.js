@@ -7,10 +7,30 @@ define([
 ], function ($, _, Backbone, ProjectCollection, projectList) {
     var ProjectListView = Backbone.View.extend({
         el: $("#container"),
-        initialize: function () {
-            this.collection = new ProjectCollection();
-            var compiledTemplate = _.template(projectList, { candidates: this.collection.models });
-            this.$el.html(compiledTemplate);
+        initialize: function (options) {
+            this.projects = new ProjectCollection();
+            this.template = _.template(projectList);
+        },
+        events: {
+            'click .clickableRow': 'showProjectDetails'
+        },
+        showProjectDetails: function (ev) {
+            /*  var projectDetails = new ProjectDetails({model: this.model});
+             projectDetails.render();    */
+            alert("click " + $(ev.currentTarget).data('url'));
+        },
+        render: function () {
+            this.$el.html(this.template(this.projects));
+            return this;
+        },
+        start: function () {
+            var listView = this;
+            this.projects.fetch({
+                success: function () {
+                    listView.render();
+                }
+            });
+
         }
     });
     return ProjectListView;

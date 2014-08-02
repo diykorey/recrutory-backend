@@ -1,0 +1,14 @@
+tr.clickableRow {
+    cursor: hand;
+    cursor: pointer;
+}
+
+.clickable {
+    cursor: hand;
+    cursor: pointer;
+}
+
+.toogle {
+    border: 1px solid gray;
+}
+

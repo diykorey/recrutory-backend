@@ -28,6 +28,22 @@ require.config({
             //module value.
             exports: 'Select2'
         },
+        'bootstrap': {
+            //These script dependencies should be loaded before loading
+            //select2.js
+            deps: ['jquery'],
+            //Once loaded, use the global 'Select2' as the
+            //module value.
+            exports: 'bootstrap'
+        },
+        'jasnybootstrap': {
+            //These script dependencies should be loaded before loading
+            //select2.js
+            deps: ['bootstrap'],
+            //Once loaded, use the global 'Select2' as the
+            //module value.
+            exports: 'jasnybootstrap'
+        },
         'underscore': {
             exports: '_'
         }

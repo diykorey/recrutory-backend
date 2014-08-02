@@ -1,17 +1,16 @@
 package com.kandidato.service.vacancy;
 
 
+import com.kandidato.persistence.entity.Customer;
 import com.kandidato.persistence.entity.Project;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import javax.transaction.Transactional;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -36,10 +35,16 @@ public class ProjectService {
             project.setId(i);
             project.setName("name_" + i);
             project.setDescription("description_" + i);
+            project.setCreationTime(new Date());
+            Customer customer = new Customer();
+            customer.setId(1l);
+            customer.setName("customer_" + i);
+            project.setCustomer(customer);
             projects.add(project);
         }
         return projects;
     }
+
 
 
 }
