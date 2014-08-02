@@ -1,4 +1,4 @@
-package com.kandidato.security;
+package com.kandidato.security.auth;
 
 import org.springframework.security.crypto.codec.Base64;
 
@@ -47,7 +47,7 @@ public class DummyAuthenticationFilter implements Filter {
 
         private DummyAuthenticationRequest(HttpServletRequest request) {
             super(request);
-            byte[] authData = Base64.encode("user:user".getBytes());
+            byte[] authData = Base64.encode("user1:user".getBytes());
             this.AUTH_DATA = "Basic " + new String(authData);
         }
 

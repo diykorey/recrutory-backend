@@ -3,6 +3,7 @@ package com.kandidato.service.comment;
 import com.kandidato.constants.CommentType;
 import com.kandidato.manager.comment.CommentManager;
 import com.kandidato.persistence.entity.comment.EntityComment;
+import com.kandidato.security.util.SessionUtil;
 import com.kandidato.service.HttpAwareService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -27,12 +28,13 @@ public class CommentServiceImpl extends HttpAwareService {
     private CommentManager manager;
 
     //    @Override
-    @RequestMapping(value = "/{type}/{entityId}/{authorId}", method = RequestMethod.POST, consumes = "text/plain")
+    @RequestMapping(value = "/{type}/{entityId}", method = RequestMethod.POST, consumes = "text/plain")
     @Transactional
     @ResponseStatus(value = HttpStatus.OK)
-    public void addComment(@PathVariable long entityId, @PathVariable long authorId, @PathVariable CommentType type, @RequestBody String comment) {
+    public void addComment(@PathVariable long entityId, @PathVariable CommentType type, @RequestBody String comment) {
         log.info("Adding comment");
-        this.manager.addComment(entityId, authorId, type, comment);
+        long authorId = SessionUtil.getCurrentUserId();
+        this.manager.addComment(authorId, entityId, type, comment);
     }
 
     @RequestMapping(value = "/{type}/{entityId}", method = RequestMethod.GET, produces = "application/json")

@@ -22,7 +22,7 @@ define([
         },
         sync: function (method, model, options) {
             if (method == 'create') {
-                options.url = 'comment/' + model.entityType + '/' + model.entityId + '/' + 1;
+                options.url = 'comment/' + model.entityType + '/' + model.entityId;
                 options.beforeSend = function(xhr) {
                     xhr.setRequestHeader('Content-Type', 'text/plain');
                 };

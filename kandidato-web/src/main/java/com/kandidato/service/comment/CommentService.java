@@ -7,6 +7,6 @@ import com.kandidato.constants.CommentType;
  */
 public interface CommentService {
 
-    void addComment(long authorId, long entityId, CommentType type, String comment);
+    void addComment(long entityId, CommentType type, String comment);
 
 }
