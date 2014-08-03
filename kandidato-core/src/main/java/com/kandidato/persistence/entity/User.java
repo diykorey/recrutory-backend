@@ -1,5 +1,7 @@
 package com.kandidato.persistence.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.Column;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -18,6 +20,7 @@ public class User implements Entity {
     private String login;
 
     @Column(name = "PASSWORD", nullable = false)
+    @JsonIgnore
     private byte[] password;
 
     @Column(name = "FIRST_NAME")
