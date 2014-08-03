@@ -9,11 +9,12 @@ define([
 
     var VacancyWidget = Backbone.View.extend({
         model: new VacancyModel(),
-
+        selected: false,
         events: {
             "click .clickable": "showVacancyDetails"
         },
         showVacancyDetails: function() {
+            this.model.selected = true;
             var vacancyDetails = new VacancyDetails({model: this.model});
             vacancyDetails.render();
         },

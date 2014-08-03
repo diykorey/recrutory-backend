@@ -12,3 +12,10 @@ tr.clickableRow {
     border: 1px solid gray;
 }
 
+.dashboard-header-label, .panel-heading  {
+    padding: 5px 5px 0px;
+}
+
+.dashboard-selected-panel, .panel-heading {
+    background-color: #006CC9;
+}
