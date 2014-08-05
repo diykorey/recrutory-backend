@@ -1,45 +1,41 @@
 <div class="col-xs-3">
-    <div class="panel panel-primary clickable">
-        <% if (selected) { %>
-        <div class="panel-heading clearfix dashboard-header-label dashboard-selected-panel">
-            <% } else {%>
-            <div class="panel-heading clearfix dashboard-header-label">
-                <% } %>
-                <div class="panel-title pull-left">
-                    <%= number %>
+    <div id="vacancy-<%= number %>" class="panel panel-primary clickable">
+        <div class="panel-heading clearfix dashboard-header-label">
+            <div class="panel-title pull-left">
+                <%= number %>
+            </div>
+            <div>
+                <% if ( typeof state !== 'undefined' && state == 'OPEN') { %>
+                <div class="label label-success pull-right ">
+                    <% } else { %>
+                    <div class="label label-warning pull-right">
+                        <% } %>
+                        <% if ( typeof state !== 'undefined' ) { %>
+                        <%= state %>
+                        <% } else { %>
+                        Unknown
+                        <% } %>
+                    </div>
+                </div>
+            </div>
+
+            <div class="panel-body" contenteditable="false">
+                <div>
+                    <%= name %>
                 </div>
                 <div>
-                    <% if ( typeof state !== 'undefined' && state == 'OPEN') { %>
-                    <div class="label label-success pull-right ">
-                        <% } else { %>
-                        <div class="label label-warning pull-right">
-                            <% } %>
-                            <% if ( typeof state !== 'undefined' ) { %>
-                            <%= state %>
-                            <% } else { %>
-                            Unknown
-                            <% } %>
-                        </div>
-                    </div>
+                    <%= project.name %>
                 </div>
-
-                <div class="panel-body" contenteditable="false">
-                    <div>
-                        <%= name %>
-                    </div>
-                    <div>
-                        <%= project.name %>
-                    </div>
-                    <div>
-                        <i>
-                            <% if ( typeof requirements !== 'undefined' ) { %>
-                            <%= requirements %>
-                            <% } else { %>
-                            Unknown
-                            <% } %>
-                        </i>
-                    </div>
+                <div>
+                    <i>
+                        <% if ( typeof requirements !== 'undefined' ) { %>
+                        <%= requirements %>
+                        <% } else { %>
+                        Unknown
+                        <% } %>
+                    </i>
                 </div>
             </div>
         </div>
     </div>
+</div>

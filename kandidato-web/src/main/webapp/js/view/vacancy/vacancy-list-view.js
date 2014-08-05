@@ -5,7 +5,7 @@ define([
     'collection/vacancy/vacancy-collection',
     'text!template/vacancy/vacancy-list-row.html'
 ], function ($, _, Backbone, VacanciesCollection, vacancyListRow) {
-    var CandidateListView = Backbone.View.extend({
+    var VacancyListView = Backbone.View.extend({
         el: $("#container"),
         initialize: function () {
             this.collection = new VacanciesCollection();
@@ -13,5 +13,5 @@ define([
             this.$el.html(compiledTemplate);
         }
     });
-    return CandidateListView;
+    return VacancyListView;
 });
