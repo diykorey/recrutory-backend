@@ -26,7 +26,7 @@ import java.util.*;
 @Controller
 public class WorkflowServiceImpl extends HttpAwareService {
 
-    private static final Logger log = LoggerFactory.getLogger(WorkflowServiceImpl.class);
+//    private static final Logger log = LoggerFactory.getLogger(WorkflowServiceImpl.class);
 
     @Autowired
     private FlowManager flowManager;
