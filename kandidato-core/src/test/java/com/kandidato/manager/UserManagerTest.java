@@ -24,9 +24,9 @@ import javax.transaction.Transactional;
 /**
  * Created by andriy on 8/2/14.
  */
-@ContextConfiguration(classes = {PersistenceConfig.class})
-@RunWith(SpringJUnit4ClassRunner.class)
-@Transactional
+//@ContextConfiguration(classes = {PersistenceConfig.class})
+//@RunWith(SpringJUnit4ClassRunner.class)
+//@Transactional
 public class UserManagerTest {
 
     private static final String USER_WORD = "user";

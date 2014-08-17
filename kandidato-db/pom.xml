@@ -30,7 +30,7 @@
                     </locations>
                     <sqlMigrationPrefix>patch-</sqlMigrationPrefix>
                     <initVersion>0</initVersion>
-                    <configFile>flyway.properties</configFile>
+                    <configFile>flyway-${build.environment}.properties</configFile>
                 </configuration>
                 <executions>
                     <execution>
@@ -38,7 +38,7 @@
                         <goals>
                             <goal>migrate</goal>
                         </goals>
-                        <phase>install</phase>
+                        <phase>package</phase>
                     </execution>
                 </executions>
                 <dependencies>
