@@ -1,0 +1,63 @@
+
+<div class="col-lg-3 card" ng-repeat="candidate in candidatesData" ng-click="selectCandidate(candidate)">
+      <div class="card-content clearfix ">
+        <div class="name"><span>{{candidate.timelineRecords[0].fields[0].fieldValue}}</span></div>
+        <div class="tags">
+        <span  ng-repeat="tag in candidate.tags">
+     {{tag.keyword}}
+        </span>
+        </div>
+        <div class="date">{{candidate.createTime|date:'medium'}}</div>
+      </div>
+    </div>
+
+<style type="text/css">
+
+	.card {
+
+    box-shadow: none;
+		margin: 0;
+
+padding:15px;
+	}
+
+  .card-content{
+    background: #fff;
+    padding:20px 15px;
+        height: 200px;
+        border-radius: 4px;
+         box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+  }
+
+
+.name span{
+  background: #5cb85c;
+  color: #fff;
+  padding: 10px 20px;
+  font-size:1em;
+     border-radius: 2px;
+}
+  .tags{
+    margin-top: 20px
+  }
+  .tags span{
+    margin: 5px 5px 5px 0;
+    padding: 5px;
+    font-size:12px;
+    font-weight: 300;
+    color: #fff;
+    border-radius: 2px;
+    background: #039be5
+  }
+
+
+  .tags span:first-child{
+  margin-left: 0;
+}
+
+.date{
+  margin-top:90px;
+  font-size:12px;
+}
+
+</style>
