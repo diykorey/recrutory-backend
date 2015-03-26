@@ -9,12 +9,10 @@
  */
 kandidatoApp.controller('candidateDash', function ($scope, $log, ApiDataFactory) {
 
-
+$scope.currentCandidate = false
 function getData() {
         ApiDataFactory.query('http://recrutory-web-dev.cloudapp.net:8080/recrutory/candidate/findByOwner/1').then(function(result) {
 
-
-  
 
             $scope.candidatesData = result // response data
             console.log($scope.candidatesData)
@@ -24,7 +22,8 @@ function getData() {
     getData()
 
 function selectCandidate(candidateData){
-console.log(candidateData)
+$scope.currentCandidate = candidateData
+$log.info('Set candidate', $scope.currentCandidate);
 }
 
 $scope.selectCandidate = selectCandidate;

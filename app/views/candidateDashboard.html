@@ -1,5 +1,6 @@
 
-<div class="col-lg-3 card" ng-repeat="candidate in candidatesData" ng-click="selectCandidate(candidate)">
+<div ng-class="currentCandidate ? 'col-lg-8' : 'row'">
+<div class="card col-lg-3"  ng-repeat="candidate in candidatesData" ng-click="selectCandidate(candidate)">
       <div class="card-content clearfix ">
         <div class="name"><span>{{candidate.timelineRecords[0].fields[0].fieldValue}}</span></div>
         <div class="tags">
@@ -10,16 +11,83 @@
         <div class="date">{{candidate.createTime|date:'medium'}}</div>
       </div>
     </div>
+    </div>
 
+    <div ng-show="currentCandidate" class="clearfix sideView" ng-controller="candidateDetails" ng-class="currentCandidate ? 'col-lg-4' : 'hide'" >
+  <md-toolbar md-scroll-shrink>
+    <div class="md-toolbar-tools">
+      <h3>
+        <span>{{currentCandidate.timelineRecords[0].fields[0].fieldValue}}</span>
+      </h3>
+    </div>
+  </md-toolbar>
+  <md-content>
+     <div class="wrapper-header col-centered" >
+
+  <div >
+  <md-tabs md-selected="selectedIndex" flex>
+<md-tab ng-repeat="tab in tabsCandidateDetails"><a href='javascript:void(0)'>{{tab.heading}}</a> </md-tab>   
+  </md-tabs>
+  <div ng-show="selectedIndex == 0">
+    <md-input-container>
+      <label>Name</label>
+      <input ng-model="currentCandidateData.summaryCard.predefinedFields.NAME_SURNAME.fieldValue">
+    </md-input-container>
+    <md-input-container>
+      <label>Email</label>
+      <input ng-model="currentCandidateData.summaryCard.predefinedFields.EMAIL.fieldValue">
+    </md-input-container>
+    <md-input-container>
+      <label>Skype</label>
+      <input ng-model="currentCandidateData.summaryCard.predefinedFields.SKYPE.fieldValue">
+    </md-input-container>
+    <md-input-container>
+      <label>Phone</label>
+      <input ng-model="currentCandidateData.summaryCard.predefinedFields.PHONE.fieldValue">
+    </md-input-container>
+    <md-input-container>
+      <label>Address</label>
+      <input ng-model="currentCandidateData.summaryCard.predefinedFields.ADDRESS.fieldValue">
+    </md-input-container>
+    <md-input-container>
+      <div class="tags tag-editable" >
+        <span  ng-repeat="tag in currentCandidateTags">
+     {{tag.keyword}}    <i class="glyphicon glyphicon-remove"></i>
+        </span>
+    
+        </div>
+    </md-input-container>
+     <md-input-container>
+      <label>Add tag</label>
+      <input ng-model="tagInput" ng-keypress="($event.which === 13)?addCandidateTags():0">
+    </md-input-container>
+  </div>
+   <div ng-show="selectedIndex == 1">2</div>
+    <div ng-show="selectedIndex == 2">3</div>
+</div>
+  </md-content>
+
+    </div>
 <style type="text/css">
-
+.hide{
+display: none;
+}
 	.card {
 
     box-shadow: none;
 		margin: 0;
 
+
 padding:15px;
 	}
+
+  .sideView{
+    margin-top: 15px;
+  }
+
+  md-toolbar div{
+    background: #039be5;
+  }
 
   .card-content{
     background: #fff;
@@ -42,21 +110,38 @@ padding:15px;
   }
   .tags span{
     margin: 5px 5px 5px 0;
-    padding: 5px;
-    font-size:12px;
-    font-weight: 300;
+    padding: 3px;
+    font-size:10px;
+    font-weight: bold;
     color: #fff;
     border-radius: 2px;
     background: #039be5
   }
 
 
+
+
   .tags span:first-child{
   margin-left: 0;
 }
 
+
+.tag-editable span{
+    font-size:14px;
+    padding-left: 5px;
+}
+.tag-editable button{
+
+  margin:0 10px;
+  padding: 0;
+  color: #fff;
+  font-size: 12px;
+
+  border: none;
+  background: transparent;
+}
 .date{
-  margin-top:90px;
+  margin-top:30px;
   font-size:12px;
 }
 
