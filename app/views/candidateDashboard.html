@@ -1,6 +1,6 @@
 
 <div ng-class="currentCandidate ? 'col-lg-8' : 'row'">
-<div class="card col-lg-3"  ng-repeat="candidate in candidatesData" ng-click="selectCandidate(candidate)">
+<div class="card "  ng-class="currentCandidate ? 'col-lg-4' : 'col-lg-3'" ng-repeat="candidate in candidatesData" ng-click="selectCandidate(candidate)">
       <div class="card-content clearfix ">
         <div class="name"><span>{{candidate.timelineRecords[0].fields[0].fieldValue}}</span></div>
         <div class="tags">
@@ -69,66 +69,11 @@
 
     </div>
 <style type="text/css">
-.hide{
-display: none;
-}
-	.card {
-
-    box-shadow: none;
-		margin: 0;
-
-
-padding:15px;
-	}
-
-  .sideView{
-    margin-top: 15px;
-  }
-
-  md-toolbar div{
-    background: #039be5;
-  }
-
-  .card-content{
-    background: #fff;
-    padding:20px 15px;
-        height: 200px;
-        border-radius: 4px;
-         box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
-  }
-
-
-.name span{
-  background: #5cb85c;
-  color: #fff;
-  padding: 10px 20px;
-  font-size:1em;
-     border-radius: 2px;
-}
-  .tags{
-    margin-top: 20px
-  }
-  .tags span{
-    margin: 5px 5px 5px 0;
-    padding: 3px;
-    font-size:10px;
-    font-weight: bold;
-    color: #fff;
-    border-radius: 2px;
-    background: #039be5
-  }
-
-
-
-
-  .tags span:first-child{
-  margin-left: 0;
-}
-
 
 .tag-editable span{
-    font-size:14px;
-    padding-left: 5px;
+
+    font-size:12px;
+      padding: 5px 10px;
 }
 .tag-editable button{
 
@@ -140,9 +85,6 @@ padding:15px;
   border: none;
   background: transparent;
 }
-.date{
-  margin-top:30px;
-  font-size:12px;
-}
+
 
 </style>

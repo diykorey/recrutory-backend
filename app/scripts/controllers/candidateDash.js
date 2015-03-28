@@ -7,14 +7,16 @@
  * # MainCtrl
  * Controller of the kandidatoApp
  */
-kandidatoApp.controller('candidateDash', function ($scope, $log, ApiDataFactory) {
+kandidatoApp.controller('candidateDash', function ($scope, $rootScope, $log, ApiDataFactory) {
 
 $scope.currentCandidate = false
 function getData() {
+$rootScope.loader = true
         ApiDataFactory.query('http://recrutory-web-dev.cloudapp.net:8080/recrutory/candidate/findByOwner/1').then(function(result) {
-
+$rootScope.loader = false
 
             $scope.candidatesData = result // response data
+
             console.log($scope.candidatesData)
 
         })

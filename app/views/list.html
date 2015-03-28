@@ -1,1 +1,25 @@
-<p>This is the list view.</p>
+<div class="container">
+
+        
+  <table class="table table-striped tableMaterial">
+    <thead style="border:none">
+      <tr>
+        <th ng-repeat="column in columnsTable">{{column.heading.toUpperCase()}}</th>
+
+      </tr>
+    </thead>
+    <tbody>
+      <tr ng-repeat="vacancy in vacanciesData">
+        <td>{{vacancy.name}}</td>
+        <td><a href="#!" class="collection-item"><span class="badge open">{{vacancy.state}}</span></a><a ng-if="vacancy.hot == true" href="#!" class="collection-item"><span class="badge hot">HOT</span></a></td>
+        <td>{{vacancy.createTime|date:'medium'}}</td>
+        <td><div class="tags">
+        <span  ng-repeat="tag in vacancy.tags">
+     {{tag.keyword}}
+        </span>
+        </div></td>
+        <td><span class="badge open">{{vacancy.number}}</span></a></td>
+      </tr>
+    </tbody>
+  </table>
+</div>

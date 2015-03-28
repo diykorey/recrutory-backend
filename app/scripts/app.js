@@ -21,8 +21,8 @@ var kandidatoApp = angular  .module('kandidatoApp', [
 
 kandidatoApp.config(function($mdThemingProvider) {
   $mdThemingProvider.theme('default')
-    .primaryPalette('blue-grey')
-    .accentPalette('light-blue');
+    .primaryPalette('light-blue')
+    .accentPalette('cyan');
 });
 
 
@@ -30,11 +30,11 @@ kandidatoApp.config(function($mdThemingProvider) {
     $routeProvider
       .when('/dashboard', {
         templateUrl: 'views/dashboard.html',
-        controller: 'AboutCtrl'
+        controller: 'dashCtrl'
       })
       .when('/list', {
         templateUrl: 'views/list.html',
-        controller: 'AboutCtrl'
+        controller: 'listCtrl'
       })
       .when('/candidateDashboard', {
         templateUrl: 'views/candidateDashboard.html',

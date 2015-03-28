@@ -7,7 +7,183 @@ $icon-font-path: "../bower_components/bootstrap-sass-official/vendor/assets/font
   float: none;
 }
 
+// Colors
 
+$blue: #00b9e8;
+$sky: rgb(64,196,255);
+$green: #8bc34a;
+$red: #e53935;
+
+// Styles
+
+body, html {
+   background: rgba(0, 0, 0, 0.02);
+}
+
+.header{
+  margin: 0;
+   background:#fff;
+  
+}
+  .wrapper-header {
+ 
+  width: 95%;
+
+  
+ }
+ .progress{
+ 	background:$sky !important;
+ }
+ .progress .indeterminate{
+ 	background:#fff !important;
+ }
+ .wrapper-header a  {
+ text-decoration: none;
+  outline: 0;
+color: $sky;
+  display: block;
+  padding: 20px 30px;
+  width: 100%;
+ }
+ md-tab {
+  
+  padding: 20px 0;
+
+}
+
+// Candidate Dashboard
+
+.hide{
+display: none;
+}
+	.card {
+
+    box-shadow: none !important;
+		margin: 0;
+
+background: transparent !important;
+padding:15px;
+	}
+
+  .sideView{
+    margin-top: 10px;
+  }
+
+  md-toolbar div{
+    background: $blue;
+  }
+
+  .card-content{
+    background: #fff;
+    padding:20px 15px;
+        height: 200px;
+        border-radius: 7px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1), 0 1px 2px rgba(0,0,0,0.1);
+    border:1px solid $sky;
+  }
+
+
+.name span{
+  background: $blue;
+  color: #fff;
+  padding: 10px 20px;
+  font-size:1em;
+     border-radius: 2px;
+}
+  .tags{
+    margin-top: 20px
+  }
+  .tags span{
+    margin: 5px 5px 5px 0;
+    padding: 3px;
+    font-size:10px;
+    font-weight: bold;
+    color: #fff;
+    border-radius: 2px;
+    background: $blue;
+  }
+  .tags span:first-child{
+  margin-left: 0;
+}
+
+
+.tag-editable span{
+    font-size:14px;
+    padding-left: 5px;
+}
+.tag-editable button{
+
+  margin:0 10px;
+  padding: 0;
+  color: #fff;
+  font-size: 12px;
+
+  border: none;
+  background: transparent;
+}
+.date{
+  margin-top:30px;
+  font-size:12px;
+}
+
+// list
+
+span.badge {
+float:none !important;
+ font-weight: 300;
+    font-size: 0.8rem !important;
+    color: #fff;
+    -webkit-border-radius: 2px;
+    -moz-border-radius: 2px;
+    border-radius: 2px;
+    background-clip: padding-box;
+margin-right:5px !important;
+ }
+
+ span.badge.open {
+      background-color: $green;
+   }
+span.badge.hot {
+      background-color: $red;
+        
+   }
+
+    span.badge.open, span.badge.hot{
+        color:#fff !important;
+    }
+
+  span.badge.new:after {
+    content: " new"; }
+
+.numberCircle {
+    border-radius: 50%;
+background:red;
+padding:5px;
+color:#fff;
+}
+.tableMaterial{
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1), 0 1px 2px rgba(0,0,0,0.1);
+}
+.table > thead > tr > th, .table > thead > tr > td, .table > tbody > tr > th, .table > tbody > tr > td, .table > tfoot > tr > th, .table > tfoot > tr > td{
+  padding:10px;
+}
+.table > thead > tr > th {
+  border-bottom:none;
+}
+
+// Dashboard
+
+.wrapper-dashboard{
+background:#fff;
+padding:30px
+}
+
+.name{
+  margin-top:10px;
+}
+.search{
+  margin-top: -18px;
+}
 
 /* Responsive: Portrait tablets and up */
 @media screen and (min-width: 768px) {
