@@ -2,190 +2,306 @@ $icon-font-path: "../bower_components/bootstrap-sass-official/vendor/assets/font
 // bower:scss
 @import "bootstrap-sass-official/vendor/assets/stylesheets/bootstrap.scss";
 // endbower
-.col-centered{
-  margin:0 auto;
-  float: none;
-}
-
 // Colors
-
 $blue: #00b9e8;
-$sky: rgb(64,196,255);
+$sky: rgb(64, 196, 255);
 $green: #8bc34a;
 $red: #e53935;
+$gray: #252525;
+.col-centered {
+    margin: 0 auto;
+    float: none;
+}
+
+.separator {
+    margin: 10px auto;
+    height: 1px;
+    background: rgba(0, 0, 0, 0.05);
+}
+
+.section {
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1), 0 1px 2px rgba(0, 0, 0, 0.1);
+    border-radius: 3px;
+    background: rgba(0, 0, 0, 0.02);
+    margin: 10px auto;
+}
+
+.section .vacancy-heading-inner {
+    margin: 0;
+    font-size: 18px;
+}
+
+div.tags {
+    margin: 20px auto;
+}
+
+div.tags a {
+    background: $sky;
+    color: #fff;
+    width: auto !important;
+    float: left;
+    border-radius: 2px;
+    padding: 2px 10px;
+    font-size: 10px;
+    font-weight: bold;
+    margin-top: 5px;
+    margin-right: 5px;
+}
+
+div.tags a:hover {
+    color: #fff;
+    text-decoration: none;
+    cursor: default;
+}
+
+div.tags a > button {
+    background: transparent;
+    border: none;
+    color: #fff;
+    padding: 2px 10px 1px 10px;
+    font-size: 10px;
+}
+
+.no-tags {
+    background: rgba(0, 0, 0, 0.05) !important;
+    color: #000 !important;
+}
+
+.margin-t-20 {
+    margin-top: 20px;
+}
+
+.margin-b-20 {
+    margin-bottom: 20px;
+}
+
+.margin-t-10 {
+    margin-top: 10px;
+}
+
+.margin-b-10 {
+    margin-bottom: 10px;
+}
 
 // Styles
-
-body, html {
-   background: rgba(0, 0, 0, 0.02);
+body,
+html {
+    background: rgba(0, 0, 0, 0.02);
 }
 
-.header{
-  margin: 0;
-   background:#fff;
-  
+.header {
+    margin: 0;
+    background: #fff;
 }
-  .wrapper-header {
- 
-  width: 95%;
 
-  
- }
- .progress{
- 	background:$sky !important;
- }
- .progress .indeterminate{
- 	background:#fff !important;
- }
- .wrapper-header a  {
- text-decoration: none;
-  outline: 0;
-color: $sky;
-  display: block;
-  padding: 20px 30px;
-  width: 100%;
- }
- md-tab {
-  
-  padding: 20px 0;
+.row {
+    margin: 0 !important;
+}
 
+.wrapper-header {
+    width: 95%;
+}
+
+.progress {
+    background: $green !important;
+}
+
+.progress .indeterminate {
+    background: #fff !important;
+}
+
+.wrapper-header a {
+    text-decoration: none;
+    outline: 0;
+    color: $sky;
+    display: block;
+    padding: 20px 30px;
+    width: 100%;
+}
+
+md-tab {
+    padding: 20px 0;
 }
 
 // Candidate Dashboard
-
-.hide{
-display: none;
+.hide {
+    display: none;
 }
-	.card {
 
+.card {
     box-shadow: none !important;
-		margin: 0;
+    margin: 0;
+    background: transparent !important;
+    padding: 15px;
+}
 
-background: transparent !important;
-padding:15px;
-	}
+.sideView {
+    margin-top: 22px;
+}
 
-  .sideView{
-    margin-top: 10px;
-  }
+md-toolbar div {
+    background: $gray;
+}
 
-  md-toolbar div{
-    background: $blue;
-  }
-
-  .card-content{
+.card-content {
     background: #fff;
-    padding:20px 15px;
-        height: 200px;
-        border-radius: 7px;
-    box-shadow: 0 1px 3px rgba(0,0,0,0.1), 0 1px 2px rgba(0,0,0,0.1);
-    border:1px solid $sky;
-  }
-
-
-.name span{
-  background: $blue;
-  color: #fff;
-  padding: 10px 20px;
-  font-size:1em;
-     border-radius: 2px;
+    padding: 20px 15px;
+    height: 300px;
+    position: relative;
+    border-radius: 7px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1), 0 1px 2px rgba(0, 0, 0, 0.1);
+    border: 1px solid $sky;
 }
-  .tags{
-    margin-top: 20px
-  }
-  .tags span{
-    margin: 5px 5px 5px 0;
-    padding: 3px;
-    font-size:10px;
-    font-weight: bold;
-    color: #fff;
-    border-radius: 2px;
+
+.name span {
     background: $blue;
-  }
-  .tags span:first-child{
-  margin-left: 0;
+    color: #fff;
+    padding: 10px 20px;
+    font-size: 1em;
+    border-radius: 2px;
 }
 
-
-.tag-editable span{
-    font-size:14px;
-    padding-left: 5px;
-}
-.tag-editable button{
-
-  margin:0 10px;
-  padding: 0;
-  color: #fff;
-  font-size: 12px;
-
-  border: none;
-  background: transparent;
-}
-.date{
-  margin-top:30px;
-  font-size:12px;
+.date {
+    position: absolute;
+    bottom: 10px;
+    margin-top: 30px;
+    font-size: 12px;
 }
 
 // list
-
 span.badge {
-float:none !important;
- font-weight: 300;
+    float: none !important;
+    font-weight: 300;
     font-size: 0.8rem !important;
     color: #fff;
     -webkit-border-radius: 2px;
     -moz-border-radius: 2px;
     border-radius: 2px;
     background-clip: padding-box;
-margin-right:5px !important;
- }
+    margin-right: 5px !important;
+}
 
- span.badge.open {
-      background-color: $green;
-   }
+span.badge.open {
+    background-color: $green;
+}
+
 span.badge.hot {
-      background-color: $red;
-        
-   }
+    background-color: $red;
+}
 
-    span.badge.open, span.badge.hot{
-        color:#fff !important;
-    }
+span.badge.open,
+span.badge.hot {
+    color: #fff !important;
+}
 
-  span.badge.new:after {
-    content: " new"; }
+span.badge.new:after {
+    content: " new";
+}
 
 .numberCircle {
     border-radius: 50%;
-background:red;
-padding:5px;
-color:#fff;
+    background: red;
+    padding: 5px;
+    color: #fff;
 }
-.tableMaterial{
-    box-shadow: 0 1px 3px rgba(0,0,0,0.1), 0 1px 2px rgba(0,0,0,0.1);
+
+.tableMaterial {
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1), 0 1px 2px rgba(0, 0, 0, 0.1);
 }
-.table > thead > tr > th, .table > thead > tr > td, .table > tbody > tr > th, .table > tbody > tr > td, .table > tfoot > tr > th, .table > tfoot > tr > td{
-  padding:10px;
+
+.table > thead > tr > th,
+.table > thead > tr > td,
+.table > tbody > tr > th,
+.table > tbody > tr > td,
+.table > tfoot > tr > th,
+.table > tfoot > tr > td {
+    padding: 10px;
 }
+
 .table > thead > tr > th {
-  border-bottom:none;
+    border-bottom: none;
 }
 
 // Dashboard
-
-.wrapper-dashboard{
-background:#fff;
-padding:30px
+.panel {
+    margin-top: -1px !important;
 }
 
-.name{
-  margin-top:10px;
-}
-.search{
-  margin-top: -18px;
+.panel-body {
+    background: $sky !important;
+    padding: 0 !important;
+    padding-top: 20px !important;
 }
 
+.button-dash {
+    color: $sky !important;
+}
+
+.button-text-white {
+    color: #fff !important;
+}
+
+.button-upload-cv {
+    padding-left: 20px !important;
+    padding-right: 20px !important;
+}
+
+.wrapper-dashboard {
+    background: #fff;
+    padding-top: 60px !important;
+}
+
+.name {
+    margin-top: 10px;
+    margin-bottom: 20px;
+}
+
+.search {
+    margin-top: -18px;
+}
+
+.heading-vacancy-side {
+    color: #fff;
+}
+
+//add new
+.heading-add-item {
+    color: $sky !important;
+}
+
+//Suggestions
+.suggestions-candidate {
+    padding: 10px;
+    margin: 10px auto;
+    border: 1px solid $sky;
+}
+
+.section-suggestions {
+    color: #fff !important;
+    padding-top: 10px !important;
+    padding-bottom: 30px !important;
+}
+
+.suggestion-Interview {
+    background: $sky;
+}
+
+.suggestion-Offer {
+    background: $red;
+}
+
+.suggestion-Rejected {
+    background: $gray;
+}
+
+.suggestion-Hired {
+    background: $green;
+}
+
+.button-comment-suggestions {
+    font-size: 10px !important;
+    margin-top: -5px !important;
+}
 /* Responsive: Portrait tablets and up */
-@media screen and (min-width: 768px) {
 
-}
+@media screen and (min-width: 768px) {}

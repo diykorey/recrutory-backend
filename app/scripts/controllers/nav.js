@@ -7,40 +7,49 @@
  * # MainCtrl
  * Controller of the kandidatoApp
  */
-kandidatoApp.controller('NavCtrl', function ($scope, $rootScope, $location) {
- var tabs = [
-    
-    {
-      heading: 'Dashboard',
-         type: 'link',
-      route:   'dashboard'
-    },
-    {
-      heading: 'Vacancies list',
-         type: 'link',
-      route:   'list'
-    },
-      {
-          heading: 'Candidate Dashboard',
-             type: 'link',
-          route:   'candidateDashboard'
-      },
-      {
-          heading: 'Candidate List',
-             type: 'link',
-          route:   'candidateList'
-      }
-    ];
+kandidatoApp.controller('NavCtrl', function($scope, $rootScope, $location) {
+    var tabs = [{
+        heading: 'images/logo.png',
+        type: 'image',
+        route: '/'
+    }, {
+        heading: 'Dashboard',
+        type: 'link',
+        route: 'dashboard'
+    }, {
+        heading: 'Vacancies list',
+        type: 'link',
+        route: 'list'
+    }, {
+        heading: 'Candidate Dashboard',
+        type: 'link',
+        route: 'candidateDashboard'
+    }, {
+        heading: 'Candidate List',
+        type: 'link',
+        route: 'candidateList'
+    }];
+
+
+
+
+
 
     $scope.tabs = tabs;
 
-   
-function navigate(view){
-     
-        }
 
-        $scope.navigate = navigate
+    function navigate(view) {
 
-  });
+    }
+
+    $scope.navigate = navigate
 
 
+    function route(hash) {
+        $location.path(hash);
+    }
+
+
+    $scope.route = route;
+
+});

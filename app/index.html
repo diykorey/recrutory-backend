@@ -1,70 +1,85 @@
 <!doctype html>
-<html class="no-js">
-  <head>
+<html class="no-js" ng-app="kandidatoApp">
+
+<head>
     <meta charset="utf-8">
     <title></title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width">
-  <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
+    <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
+    <!-- build:css(.tmp) styles/main.css -->
+    <link rel="stylesheet" href="styles/main.css">
+    <!-- endbuild -->
     <!-- build:css(.) styles/vendor.css -->
     <!-- bower:css -->
+    <link rel="stylesheet" href="bower_components/angular-material/angular-material.css" />
     <!-- endbower -->
     <!-- endbuild -->
-    <!-- build:css(.tmp) styles/main.css -->
-    
-    <link rel="stylesheet" href="styles/main.css">
+    <link rel="stylesheet" href="styles/materialize.css">
+</head>
 
-
-    <!-- endbuild -->
-            <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/angular_material/0.8.3/angular-material.min.css">
-<link rel="stylesheet" href="styles/materialize.css">
-
-  </head>
-  <body ng-app="kandidatoApp">
+<body>
     <!--[if lt IE 7]>
       <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
     <![endif]-->
-<div class="row header" ng-controller="NavCtrl">
-    <!-- Add your site or application content here -->
-    <div class="wrapper-header col-centered" >
-  <md-tabs md-selected="selectedIndex" flex>  
-
-<md-tab ng-repeat="tab in tabs">
-<a ng-if="tab.type == 'link'" href="#/{{tab.route}}">{{tab.heading}}</a> 
-
-</md-tab>   
-  </md-tabs>
-</div>
- <div ng-show="loader" class="progress" style="margin:0px">
-      <div class="indeterminate"></div>
-  </div>
- </div>
-
-
-    <div class="row main col-centered">
-    
-
-      <div ng-view=""></div>
-
-   
-</div>
-
+    <div class="row header" ng-controller="NavCtrl">
+        <div ng-show="loader" class="progress" style="margin:0px">
+            <div class="indeterminate"></div>
+        </div>
+        <!-- Add your site or application content here -->
+        <div class="wrapper-header col-centered">
+            <md-tabs md-selected="selectedIndex" flex>
+                <md-tab ng-repeat="tab in tabs">
+                    <a ng-if="tab.type == 'image'" href="#/{{tab.route}}"><img src="{{tab.heading}}"></a>
+                    <a ng-if="tab.type == 'link'" href="#/{{tab.route}}">{{tab.heading}}</a>
+                </md-tab>
+            </md-tabs>
+        </div>
+        <div class="panel panel-default">
+            <div class="panel-body" style="padding-top:40px">
+                <div class="col-lg-1 pull-right">
+                    <md-button class="md-raised md-light button-dash
+" ng-click='route("/addVacancy")'>Add vacancy</md-button>
+                </div>
+                <div class="col-lg-1 pull-right">
+                    <md-button class="md-raised md-light button-dash" ng-click='route("/addCandidate")'>Add candidate</md-button>
+                </div>
+                <div class="col-lg-1 pull-right">
+                    <md-button class="md-raised md-light button-dash button-upload-cv" ng-click='route("/uploadCV")'>Upload CV</md-button>
+                </div>
+                <div class="col-lg-2 col-sm-5 pull-right search">
+                    <md-input-container>
+                        <label>Search</label>
+                        <input ng-model="filterValue">
+                    </md-input-container>
+                </div>
+            </div>
+        </div>
+        <div class="row main col-centered">
+            <div ng-view=""></div>
+        </div>
+    </div>
     <!-- Google Analytics: change UA-XXXXX-X to be your site's ID -->
-     <script>
-       (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-       (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-       m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-       })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+    <script>
+    (function(i, s, o, g, r, a, m) {
+        i['GoogleAnalyticsObject'] = r;
+        i[r] = i[r] || function() {
+            (i[r].q = i[r].q || []).push(arguments)
+        }, i[r].l = 1 * new Date();
+        a = s.createElement(o),
+            m = s.getElementsByTagName(o)[0];
+        a.async = 1;
+        a.src = g;
+        m.parentNode.insertBefore(a, m)
+    })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
 
-       ga('create', 'UA-XXXXX-X');
-       ga('send', 'pageview');
+    ga('create', 'UA-XXXXX-X');
+    ga('send', 'pageview');
     </script>
-
     <!--[if lt IE 9]>
     <script src="bower_components/es5-shim/es5-shim.js"></script>
     <script src="bower_components/json3/lib/json3.min.js"></script>
     <![endif]-->
-
     <!-- build:js(.) scripts/vendor.js -->
     <!-- bower:js -->
     <script src="bower_components/jquery/dist/jquery.js"></script>
@@ -85,33 +100,28 @@
     <script src="bower_components/angular-resource/angular-resource.js"></script>
     <script src="bower_components/angular-touch/angular-touch.js"></script>
     <script src="bower_components/angular-route/angular-route.js"></script>
+    <script src="bower_components/angular-animate/angular-animate.js"></script>
+    <script src="bower_components/angular-aria/angular-aria.js"></script>
+    <script src="bower_components/angular-material/angular-material.js"></script>
     <!-- endbower -->
-
     <!-- endbuild -->
-
-
-
-        <!-- build:js({.tmp,app}) scripts/scripts.js -->
-        <script src="scripts/app.js"></script>
-        <script src="scripts/controllers/candidateDash.js"></script>
-        <script src="scripts/controllers/candidateDetails.js"></script>
-        <script src="scripts/controllers/about.js"></script>
-        <script src="scripts/controllers/nav.js"></script>
-        <script src="scripts/controllers/list.js"></script>
-        <script src="scripts/controllers/dash.js"></script>
-
-
-
-  <!-- Compiled and minified JavaScript -->
+    <!-- build:js({.tmp,app}) scripts/scripts.js -->
+    <script src="scripts/app.js"></script>
+    <script src="scripts/controllers/candidateDash.js"></script>
+    <script src="scripts/controllers/candidateDetails.js"></script>
+    <script src="scripts/controllers/about.js"></script>
+    <script src="scripts/controllers/nav.js"></script>
+    <script src="scripts/controllers/list.js"></script>
+    <script src="scripts/controllers/dash.js"></script>
+    <script src="scripts/controllers/addVacancy.js"></script>
+    <script src="scripts/controllers/addCV.js"></script>
+    <script src="scripts/controllers/addCandidate.js"></script>
+    <script src="scripts/controllers/suggestions.js"></script>
+    <!-- Compiled and minified JavaScript -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.95.3/js/materialize.min.js"></script>
-
-        <!-- endbuild -->
-<!-- Utils -->
-    <!-- Angular Material Javascript now available via Google CDN; version 0.8 used here -->
-  <script src="https://ajax.googleapis.com/ajax/libs/angular_material/0.8.3/angular-material.min.js"></script>
-   <!-- Angular Material Dependencies -->
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.6/angular-animate.min.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.6/angular-aria.min.js"></script>
-<script type="text/javascript" src="http://underscorejs.org/underscore.js"></script>
+    <!-- endbuild -->
+    <!-- Utils -->
+    <script type="text/javascript" src="http://underscorejs.org/underscore.js"></script>
 </body>
+
 </html>
