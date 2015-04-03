@@ -3,18 +3,19 @@
 
 <head>
     <meta charset="utf-8">
-    <title></title>
+    <title>Recrutory</title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width">
+    <link href='http://fonts.googleapis.com/css?family=Roboto:500,100,300,700,400' rel='stylesheet' type='text/css'>
     <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
-    <!-- build:css(.tmp) styles/main.css -->
-    <link rel="stylesheet" href="styles/main.css">
-    <!-- endbuild -->
     <!-- build:css(.) styles/vendor.css -->
     <!-- bower:css -->
     <link rel="stylesheet" href="bower_components/angular-material/angular-material.css" />
     <!-- endbower -->
     <!-- endbuild -->
+    <!-- build:css(.tmp) styles/main.css -->
+    <link rel="stylesheet" href="styles/main.css">
+    <link rel="stylesheet" href="styles/navbar.css" <!-- endbuild -->
     <link rel="stylesheet" href="styles/materialize.css">
 </head>
 
@@ -22,7 +23,8 @@
     <!--[if lt IE 7]>
       <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
     <![endif]-->
-    <div class="row header" ng-controller="NavCtrl">
+    <div class="row header" ng-controller="MainCtrl
+">
         <div ng-show="loader" class="progress" style="margin:0px">
             <div class="indeterminate"></div>
         </div>
@@ -35,27 +37,28 @@
                 </md-tab>
             </md-tabs>
         </div>
-        <div class="panel panel-default">
-            <div class="panel-body" style="padding-top:40px">
-                <div class="col-lg-1 pull-right">
-                    <md-button class="md-raised md-light button-dash
-" ng-click='route("/addVacancy")'>Add vacancy</md-button>
+        <nav class="navbar navbar-default">
+            <div class="container-fluid">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
                 </div>
-                <div class="col-lg-1 pull-right">
-                    <md-button class="md-raised md-light button-dash" ng-click='route("/addCandidate")'>Add candidate</md-button>
+                <div id="navbar" class="navbar-collapse collapse">
+                    <ul class="nav navbar-nav navbar-right">
+                        <li><a href="/#/addVacancy">Add vacancy</a></li>
+                        <li><a href="/#/addCandidate">Add candidate</a></li>
+                        <li><a href="/#/uploadCV">Upload CV</a></li>
+                    </ul>
                 </div>
-                <div class="col-lg-1 pull-right">
-                    <md-button class="md-raised md-light button-dash button-upload-cv" ng-click='route("/uploadCV")'>Upload CV</md-button>
-                </div>
-                <div class="col-lg-2 col-sm-5 pull-right search">
-                    <md-input-container>
-                        <label>Search</label>
-                        <input ng-model="filterValue">
-                    </md-input-container>
-                </div>
+                <!--/.nav-collapse -->
             </div>
-        </div>
-        <div class="row main col-centered">
+            <!--/.container-fluid -->
+        </nav>
+        <div class="row main col-centered" style="margin-top:-20px !important">
             <div ng-view=""></div>
         </div>
     </div>
@@ -110,13 +113,15 @@
     <script src="scripts/controllers/candidateDash.js"></script>
     <script src="scripts/controllers/candidateDetails.js"></script>
     <script src="scripts/controllers/about.js"></script>
-    <script src="scripts/controllers/nav.js"></script>
+    <script src="scripts/controllers/main.js"></script>
     <script src="scripts/controllers/list.js"></script>
     <script src="scripts/controllers/dash.js"></script>
     <script src="scripts/controllers/addVacancy.js"></script>
     <script src="scripts/controllers/addCV.js"></script>
     <script src="scripts/controllers/addCandidate.js"></script>
     <script src="scripts/controllers/suggestions.js"></script>
+    <!-- Utils -->
+    <script src="scripts/utils.js"></script>
     <!-- Compiled and minified JavaScript -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.95.3/js/materialize.min.js"></script>
     <!-- endbuild -->

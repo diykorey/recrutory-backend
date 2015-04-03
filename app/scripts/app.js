@@ -20,20 +20,47 @@ var kandidatoApp = angular.module('kandidatoApp', [
 
 
 kandidatoApp.config(function($mdThemingProvider) {
+  $mdThemingProvider.definePalette('redTheme', {
+    '50': 'f15f4c',
+    '100': 'f15f4c',
+    '200': 'f15f4c',
+    '300': 'f15f4c',
+    '400': 'f15f4c',
+    '500': 'f15f4c',
+    '600': 'f15f4c',
+    '700': 'f15f4c',
+    '800': 'f15f4c',
+    '900': 'f15f4c',
+    'A100': 'f15f4c',
+    'A200': 'f15f4c',
+    'A400': 'f15f4c',
+    'A700': 'f15f4c'
+  });
+   $mdThemingProvider.definePalette('grayTheme', {
+    '50': '4b494f',
+    '100': '4b494f',
+    '200': '4b494f',
+    '300': '4b494f',
+    '400': '4b494f',
+    '500': '4b494f',
+    '600': '4b494f',
+    '700': '4b494f',
+    '800': '4b494f',
+    '900': '4b494f',
+    'A100': '4b494f',
+    'A200': '4b494f',
+    'A400': '4b494f',
+    'A700': '4b494f'
+  });
+  $mdThemingProvider.theme('default')
+    .primaryPalette('redTheme')
     $mdThemingProvider.theme('default')
-        .primaryPalette('blue', {
-            'default': '400', // by default use shade 400 from the pink palette for primary intentions
-            'hue-1': '100', // use shade 100 for the <code>md-hue-1</code> class
-            'hue-2': '600', // use shade 600 for the <code>md-hue-2</code> class
-            'hue-3': 'A100' // use shade A100 for the <code>md-hue-3</code> class
-        })
-        // If you specify less than all of the keys, it will inherit from the
-        // default shades
-        .accentPalette('light-blue', {
-            'default': '300' // use shade 200 for default, and keep all other shades the same
-        });
+    .accentPalette('grayTheme')
 });
 
+
+// #f15f4c
+// #4b494f
 
 kandidatoApp.config(function($routeProvider) {
     $routeProvider
@@ -78,10 +105,27 @@ kandidatoApp.$inject = ['$scope', 'ApiDataFactory'];
 kandidatoApp.factory('ApiDataFactory', ['$http', '$q', function($http, $q) {
 
     var factory = {
-        query: function(url) {
+        queryGet: function(url) {
             var URL = url;
             var data = $http({
                 method: 'GET',
+                url: URL
+            }).then(function(result) {
+                console.log("Data got");
+                return result.data
+
+            }, function(result) {
+                console.log("Error: No data returned, probably API Issues");
+            });
+
+            return data;
+        },
+        queryPost: function(url,dataPost) {
+            var URL = url;
+            var dataPost = dataPost
+            var data = $http({
+                method: 'POST',
+                data: dataPost,
                 url: URL
             }).then(function(result) {
                 console.log("Data got");

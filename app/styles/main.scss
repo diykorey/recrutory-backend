@@ -4,10 +4,10 @@ $icon-font-path: "../bower_components/bootstrap-sass-official/vendor/assets/font
 // endbower
 // Colors
 $blue: #00b9e8;
-$sky: rgb(64, 196, 255);
 $green: #8bc34a;
-$red: #e53935;
-$gray: #252525;
+$red: #f15f4c;
+$gray: #4b494f;
+$lightgray: #E1E1E1;
 .col-centered {
     margin: 0 auto;
     float: none;
@@ -26,6 +26,28 @@ $gray: #252525;
     margin: 10px auto;
 }
 
+.section-flow {
+    margin: 0 auto;
+    margin-top: -10px;
+    padding: 10px !important;
+}
+
+.section-edit {
+    padding-bottom: 0 !important;
+}
+
+md-checkbox {
+    margin: 0 !important;
+}
+
+.add-flow-btn {
+    margin-bottom: 20px;
+}
+
+.section-flow span {
+    margin-top: 5px;
+}
+
 .section .vacancy-heading-inner {
     margin: 0;
     font-size: 18px;
@@ -36,7 +58,7 @@ div.tags {
 }
 
 div.tags a {
-    background: $sky;
+    background: $gray;
     color: #fff;
     width: auto !important;
     float: left;
@@ -86,7 +108,12 @@ div.tags a > button {
 // Styles
 body,
 html {
-    background: rgba(0, 0, 0, 0.02);
+    background: $lightgray;
+}
+
+.main {
+    background: $lightgray;
+    margin-top: -20px !important;
 }
 
 .header {
@@ -102,18 +129,27 @@ html {
     width: 95%;
 }
 
+.wrapper-sidemenu {
+    padding-bottom: 30px;
+}
+
 .progress {
     background: $green !important;
+}
+
+.progress-details {
+    background: $red !important;
 }
 
 .progress .indeterminate {
     background: #fff !important;
 }
 
-.wrapper-header a {
+.wrapper-header a,
+.wrapper-sidemenu a {
     text-decoration: none;
     outline: 0;
-    color: $sky;
+    color: $red;
     display: block;
     padding: 20px 30px;
     width: 100%;
@@ -130,17 +166,24 @@ md-tab {
 
 .card {
     box-shadow: none !important;
-    margin: 0;
+    margin: 0 auto !important;
     background: transparent !important;
-    padding: 15px;
+    padding: 10px;
+    overflow: none !important;
 }
 
 .sideView {
-    margin-top: 22px;
+    margin-top: 18px;
 }
 
 md-toolbar div {
     background: $gray;
+    border-top-left-radius: 5px !important;
+    border-top-right-radius: 5px !important;
+}
+
+md-toolbar.md-default-theme {
+    background: transparent;
 }
 
 .card-content {
@@ -148,9 +191,17 @@ md-toolbar div {
     padding: 20px 15px;
     height: 300px;
     position: relative;
-    border-radius: 7px;
+    border-radius: 2px !important;
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1), 0 1px 2px rgba(0, 0, 0, 0.1);
-    border: 1px solid $sky;
+}
+
+.card-content {
+    font-weight: 600;
+}
+
+.card-full-height {
+    margin: 10px auto !important;
+    height: auto;
 }
 
 .name span {
@@ -194,6 +245,11 @@ span.badge.hot {
     color: #fff !important;
 }
 
+.card-content span.badge {
+    padding: 5px 10px !important;
+    font-weight: 600;
+}
+
 span.badge.new:after {
     content: " new";
 }
@@ -223,18 +279,23 @@ span.badge.new:after {
 }
 
 // Dashboard
-.panel {
-    margin-top: -1px !important;
-}
-
-.panel-body {
-    background: $sky !important;
-    padding: 0 !important;
-    padding-top: 20px !important;
-}
-
+// .panel {
+//     margin-top: -1px !important;
+// }
+// .panel-body ul{
+//     padding-bottom:15px;
+// }
+// .panel-body ul li{
+//     margin:0 10px;
+//     display:inline;
+// }
+// .panel-body {
+//     background: $red !important;
+//     padding: 0 !important;
+//     padding-top: 20px !important;
+// }
 .button-dash {
-    color: $sky !important;
+    color: $red !important;
 }
 
 .button-text-white {
@@ -257,7 +318,9 @@ span.badge.new:after {
 }
 
 .search {
-    margin-top: -18px;
+    margin: -20px !important;
+    padding: 0;
+    margin-right: 40px !important
 }
 
 .heading-vacancy-side {
@@ -266,14 +329,14 @@ span.badge.new:after {
 
 //add new
 .heading-add-item {
-    color: $sky !important;
+    color: $red !important;
 }
 
 //Suggestions
 .suggestions-candidate {
     padding: 10px;
     margin: 10px auto;
-    border: 1px solid $sky;
+    border: 1px solid $red;
 }
 
 .section-suggestions {
@@ -283,7 +346,7 @@ span.badge.new:after {
 }
 
 .suggestion-Interview {
-    background: $sky;
+    background: $red;
 }
 
 .suggestion-Offer {
@@ -301,6 +364,41 @@ span.badge.new:after {
 .button-comment-suggestions {
     font-size: 10px !important;
     margin-top: -5px !important;
+}
+
+.md-button.md-default-theme[disabled],
+.md-button.md-default-theme.md-raised[disabled],
+.md-button.md-default-theme.md-fab[disabled] {
+    background-color: rgba(0, 0, 0, 0.26) !important;
+}
+
+.labelHeading {
+    font-size: 18px !important;
+}
+
+//Flow
+.flow-candidate-name {
+    color: $gray
+}
+
+md-select {
+    margin-top: -5px !important;
+}
+
+md-select span {
+    color: #000;
+}
+
+.comment-input {
+    width: 80% !important;
+    margin: 0 auto !important;
+    float: none !important;
+    margin-top: 20px;
+}
+
+.selected {
+    border: 3px solid $red;
+    border-radius: 3px;
 }
 /* Responsive: Portrait tablets and up */
 

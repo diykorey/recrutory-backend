@@ -9,37 +9,16 @@
  */
 kandidatoApp.controller('suggestionsView', function($scope, $rootScope, $log, ApiDataFactory) {
 
-    $scope.dataSuggectionsSimulated = [{
-            name: "Oleh Shostkevych",
-            status: "Hired",
-            comment: false
-        }, {
-            name: "Steven Apple",
-            status: "Rejected",
-            comment: false
-        }, {
-            name: "Jenifer Lopes",
-            status: "Rejected",
-            comment: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam gravida dictum dolor id tristique. Curabitur id blandit nisl, sed dictum odio. Nullam pretium lacinia justo sed rhoncus. Nam neque purus, bibendum et dui quis, facilisis congue est. Praesent et neque sed dui convallis lobortis."
-        }, {
-            name: "Nick Developer",
-            status: "Interview",
-            comment: false
-        }, {
-            name: "John Doe",
-            status: "Interview",
-            comment: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam gravida dictum dolor id tristique. Curabitur id blandit nisl, sed dictum odio. Nullam pretium lacinia justo sed rhoncus. Nam neque purus, bibendum et dui quis, facilisis congue est. Praesent et neque sed dui convallis lobortis."
-        }, {
-            name: "Jack Sparrow",
-            status: "Interview",
-            comment: false
-        }, {
-            name: "Sergey Brin",
-            status: "Offer",
-            comment: false
-        }
+    
 
-    ]
+     _.each($scope.flowData, function(item) {
+
+alert(item)
+
+    });
+
+
+
 
 
     function addComment(candidateSelected) {
