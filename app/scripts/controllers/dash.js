@@ -70,6 +70,49 @@ kandidatoApp.controller('dashCtrl', function($scope, $rootScope, $log, ApiDataFa
         }, 0);
     }
 
+
+    function addTag() {
+
+
+        if (/^\s*$/.test($scope.tagEdit)) {
+            $scope.tagEdit = ""
+            return
+
+        }
+
+        _.each($scope.currentVacancy.tags, function(tag) {
+            if (tag.keyword == $scope.tagEdit) {
+                $scope.sameTagFound = true
+            };
+
+        });
+
+        if ($scope.sameTagFound == true) {
+            $scope.tagEdit = ""
+            delete $scope.sameTagFound
+            return
+        };
+
+
+        $scope.tagEdit = $scope.tagEdit.replace(/,/g, "")
+        $rootScope.updateProcess = true
+        var tag = {}
+        tag.keyword = $scope.tagEdit
+        $scope.currentVacancy.tags.push(tag)
+        tag = {}
+        tag.tags = [$scope.tagEdit]
+        console.log($scope.currentVacancy.tags)
+        var URL = 'http://recrutory-web-dev.cloudapp.net:8080/recrutory/vacancy/' + $scope.currentVacancy.id + '/tags'
+        ApiDataFactory.queryPost(URL, tag).then(function(result) {
+            $rootScope.updateProcess = false
+            $scope.showToast()
+        })
+
+
+
+        $scope.tagEdit = ""
+    }
+
     function selectVacancy(vacancy) {
         if (vacancy.id == $scope.currentVacancy.id) {
             $scope.currentVacancy = false;
@@ -153,6 +196,7 @@ kandidatoApp.controller('dashCtrl', function($scope, $rootScope, $log, ApiDataFa
 
 
     $scope.updateInfo = updateInfo
+    $scope.addTag = addTag
     $scope.fastAction = fastAction
     $scope.isEmpty = isEmpty
     $scope.removeTag = removeTag;

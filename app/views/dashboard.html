@@ -5,9 +5,6 @@
 
 ">
             <div class="card-content clearfix " ng-click="selectVacancy(vacancy)" ng-class="vacancy.id == currentVacancy.id ? 'selected' :'default'">
-                <md-select placeholder="More" ng-model="product.action" class="pull-right">
-                    <md-option ng-repeat="action in fastActions" ng-value="$index" ng-click="fastAction(vacancy,action.index)">{{action.name}}</md-option>
-                </md-select>
                 <div><span class="badge open">{{vacancy.state}}</span><span ng-if="vacancy.hot == true" class="badge hot">HOT</span></div>
                 <div class="name">{{vacancy.name}}</div>
                 <h6>Tags:</h6>
@@ -62,6 +59,13 @@
                             <h5 class="vacancy-heading-inner">Tags</h5>
                             <div class="tags clearfix" ng-if="currentVacancyData.tags.length > 0">
                                 <a ng-repeat="tag in currentVacancyData.tags" ng-if="currentVacancyData.tags.length > 0" ng-click="removeTag(tag.keyword)">{{tag.keyword}}<button><i class="glyphicon glyphicon-remove"></i></button></a>
+                            </div>
+                            <div class="col-centered section section-edit col-lg-11">
+                                <md-input-container>
+                                    <label class="labelHeading">Type tag name and hit Enter, Space or type comma to add it.</label>
+                                    <input ng-keyup="$event.keyCode == 13 || $event.keyCode == 32 || $event.keyCode == 188? addTag() : null" ng-model="tagEdit
+">
+                                </md-input-container>
                             </div>
                         </div>
                         <div class="tags clearfix" ng-if="currentVacancyData.tags.length == 0">
