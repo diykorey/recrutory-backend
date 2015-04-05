@@ -7,52 +7,45 @@
  * # MainCtrl
  * Controller of the kandidatoApp
  */
-kandidatoApp.controller('listCtrl', function ($scope, $rootScope, $log, ApiDataFactory) {
+kandidatoApp.controller('listCtrl', function($scope, $rootScope, $log, ApiDataFactory) {
 
 
 
 
 
-function getData() {
-$rootScope.loader = true
-        ApiDataFactory.query('http://recrutory-web-dev.cloudapp.net:8080/recrutory/vacancy/byState/open').then(function(result) {
-$rootScope.loader = false
+    function getData() {
+        $rootScope.loader = true
+        ApiDataFactory.query('vacancy/byState/open').then(function(result) {
+            $rootScope.loader = false
 
             $scope.vacanciesData = result // response data
-console.log(result)
+            console.log(result)
         })
     }
     getData()
 
 
 
-var columnsTable = [
-    {
-      heading: 'title'
-    },
-    {
-      heading: 'status'
+    var columnsTable = [{
+            heading: 'title'
+        }, {
+            heading: 'status'
 
-    },
-    {
-      heading: 'createtime'
+        }, {
+            heading: 'createtime'
 
-    },
-      
-      {
-          heading: 'tags'
+        },
 
-      }
-      ,
-      {
-          heading: 'notifications'
+        {
+            heading: 'tags'
 
-      }
+        }, {
+            heading: 'notifications'
+
+        }
     ];
 
-    $scope.columnsTable =  columnsTable;
+    $scope.columnsTable = columnsTable;
 
 
-  });
-
-		 		
+});

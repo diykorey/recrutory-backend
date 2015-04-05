@@ -104,8 +104,15 @@ div.tags a > button {
 .margin-b-10 {
     margin-bottom: 10px;
 }
+/*
+ * General styles
+ * 
+ * COMMENTS
+ * 
+ *
+ * 
+ */
 
-// Styles
 body,
 html {
     background: $lightgray;
@@ -154,12 +161,15 @@ html {
     padding: 20px 30px;
     width: 100%;
 }
+/*
+ * Candidate dashboard tab [view] styles
+ * 
+ * COMMENTS
+ * 
+ *
+ * 
+ */
 
-md-tab {
-    padding: 20px 0;
-}
-
-// Candidate Dashboard
 .hide {
     display: none;
 }
@@ -174,16 +184,6 @@ md-tab {
 
 .sideView {
     margin-top: 18px;
-}
-
-md-toolbar div {
-    background: $gray;
-    border-top-left-radius: 5px !important;
-    border-top-right-radius: 5px !important;
-}
-
-md-toolbar.md-default-theme {
-    background: transparent;
 }
 
 .card-content {
@@ -218,8 +218,15 @@ md-toolbar.md-default-theme {
     margin-top: 30px;
     font-size: 12px;
 }
+/*
+ * List tab [view] styles
+ * 
+ * COMMENTS
+ * 
+ *
+ * 
+ */
 
-// list
 span.badge {
     float: none !important;
     font-weight: 300;
@@ -230,6 +237,10 @@ span.badge {
     border-radius: 2px;
     background-clip: padding-box;
     margin-right: 5px !important;
+}
+
+.sideView span.badge {
+    font-size: 0.9rem !important;
 }
 
 span.badge.open {
@@ -278,22 +289,6 @@ span.badge.new:after {
     border-bottom: none;
 }
 
-// Dashboard
-// .panel {
-//     margin-top: -1px !important;
-// }
-// .panel-body ul{
-//     padding-bottom:15px;
-// }
-// .panel-body ul li{
-//     margin:0 10px;
-//     display:inline;
-// }
-// .panel-body {
-//     background: $red !important;
-//     padding: 0 !important;
-//     padding-top: 20px !important;
-// }
 .button-dash {
     color: $red !important;
 }
@@ -327,12 +322,18 @@ span.badge.new:after {
     color: #fff;
 }
 
-//add new
 .heading-add-item {
     color: $red !important;
 }
+/*
+ * Suggestion styles
+ * 
+ * COMMENTS
+ * 
+ *
+ * 
+ */
 
-//Suggestions
 .suggestions-candidate {
     padding: 10px;
     margin: 10px auto;
@@ -366,27 +367,20 @@ span.badge.new:after {
     margin-top: -5px !important;
 }
 
-.md-button.md-default-theme[disabled],
-.md-button.md-default-theme.md-raised[disabled],
-.md-button.md-default-theme.md-fab[disabled] {
-    background-color: rgba(0, 0, 0, 0.26) !important;
-}
-
 .labelHeading {
     font-size: 18px !important;
 }
+/*
+ * Flow tab styles
+ * 
+ * COMMENTS
+ * 
+ *
+ * 
+ */
 
-//Flow
 .flow-candidate-name {
     color: $gray
-}
-
-md-select {
-    margin-top: -5px !important;
-}
-
-md-select span {
-    color: #000;
 }
 
 .comment-input {
@@ -400,6 +394,59 @@ md-select span {
     border: 3px solid $red;
     border-radius: 3px;
 }
-/* Responsive: Portrait tablets and up */
+/*
+ * Angular material styles
+ * 
+ * COMMENTS
+ * 
+ * Custom styles for Angular Material
+ * 
+ */
 
-@media screen and (min-width: 768px) {}
+md-tab {
+    padding: 20px 0;
+}
+
+md-toolbar div {
+    background: $gray;
+    border-top-left-radius: 5px !important;
+    border-top-right-radius: 5px !important;
+}
+
+md-toolbar.md-default-theme {
+    background: transparent;
+}
+
+.md-button.md-default-theme[disabled],
+.md-button.md-default-theme.md-raised[disabled],
+.md-button.md-default-theme.md-fab[disabled] {
+    background-color: rgba(0, 0, 0, 0.26) !important;
+}
+
+md-select {
+    margin-top: -5px !important;
+}
+
+md-select span {
+    color: #000;
+}
+
+md-input-container {
+    padding-bottom: 10px !important;
+}
+
+md-select.md-default-theme .md-select-label {
+    border: none !important;
+}
+
+.md-select-label .md-select-icon {
+    display: none !important;
+}
+
+md-select {
+    width: 50px !important;
+    padding: 5px 10px !important;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1), 0 1px 2px rgba(0, 0, 0, 0.1) !important;
+    border-radius: 3px !important;
+    background: rgba(0, 0, 0, 0.02) !important;
+}

@@ -23,7 +23,7 @@ kandidatoApp.controller('candidateDash', function($scope, $rootScope, $log, ApiD
 
     function getData() {
         $rootScope.loader = true
-        ApiDataFactory.queryGet('http://recrutory-web-dev.cloudapp.net:8080/recrutory/candidate/findByOwner/1').then(function(result) {
+        ApiDataFactory.queryGet('candidate/findByOwner/1').then(function(result) {
             $rootScope.loader = false
 
             $scope.candidatesData = result // response data

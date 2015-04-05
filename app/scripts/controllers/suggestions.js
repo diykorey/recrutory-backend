@@ -9,11 +9,11 @@
  */
 kandidatoApp.controller('suggestionsView', function($scope, $rootScope, $log, ApiDataFactory) {
 
-    
 
-     _.each($scope.flowData, function(item) {
 
-alert(item)
+    _.each($scope.flowData, function(item) {
+
+        alert(item)
 
     });
 
@@ -24,7 +24,7 @@ alert(item)
     function addComment(candidateSelected) {
         _.each($scope.dataSuggectionsSimulated, function(candidate) {
 
-            if (candidate.name == candidateSelected) {
+            if (candidate.name === candidateSelected) {
                 candidate.addComment = true
                 candidate.commentTemp = candidate.comment
                 if (candidate.commentTemp == false) {
@@ -38,16 +38,16 @@ alert(item)
 
     _.each($scope.dataSuggectionsSimulated, function(candidate) {
 
-        if (candidate.status == 'Interview') {
+        if (candidate.status === 'Interview') {
             candidate.sortLevel = 1
         };
-        if (candidate.status == 'Offer') {
+        if (candidate.status === 'Offer') {
             candidate.sortLevel = 2
         };
-        if (candidate.status == 'Rejected') {
+        if (candidate.status === 'Rejected') {
             candidate.sortLevel = 0
         };
-        if (candidate.status == 'Hired') {
+        if (candidate.status === 'Hired') {
             candidate.sortLevel = 3
         };
 

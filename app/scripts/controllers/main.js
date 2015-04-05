@@ -37,7 +37,7 @@ kandidatoApp.controller('MainCtrl', function($scope, $rootScope, $location, $mdT
         $mdToast.show(
             $mdToast.simple()
             .content('Got it ! Updated.')
-            .position('right bottom')
+            .position('right top')
             .hideDelay(3000)
         );
     };

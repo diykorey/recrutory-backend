@@ -20,12 +20,13 @@
             </div>
         </div>
     </div>
-    <div ng-show="currentVacancy" class="clearfix sideView" ng-class="currentVacancy ? 'col-lg-6' : 'hide'">
+    <div ng-show="currentVacancy" class="clearfix sideView
+" ng-class="currentVacancy ? 'col-lg-6' : 'hide'">
         <md-toolbar md-scroll-shrink>
             <div class="md-toolbar-tools clearfix">
-                <div class="col-lg-10"><span class="heading-vacancy-side
+                <div class="col-lg-11"><span class="heading-vacancy-side
 ">{{currentVacancy.name}}</span></div>
-                <div class="col-lg-2"><span class="badge open">{{currentVacancy.state}}</span></div>
+                <div class="col-lg-1"><span ng-show="currentVacancy.hot == true" class="badge hot">HOT</span></div>
             </div>
         </md-toolbar>
         <md-content>
@@ -38,29 +39,26 @@
                         <div class="indeterminate"></div>
                     </div>
                     <div ng-show="selectedIndex == 0">
-                        <div class="col-centered section section-edit col-lg-11">
+                        <div class="col-centered section-edit col-lg-11 margin-t-20 
+">
                             <md-input-container>
-                                <label class="labelHeading">Vacancy name</label>
+                                <label class="labelHeading">Name</label>
                                 <input ng-blur="updateInfo(currentVacancyData.id)" ng-model="currentVacancyData.name">
                             </md-input-container>
                         </div>
-                        <div class="col-centered section section-edit col-lg-11">
+                        <div class="col-centered section-edit col-lg-11">
                             <md-input-container>
                                 <label class="labelHeading">Requirements</label>
                                 <input ng-blur="updateInfo(currentVacancyData.id)" ng-model="currentVacancyData.requirements">
                             </md-input-container>
                         </div>
                         <div class="col-centered separator col-lg-12"></div>
-                        <div class="col-centered section col-lg-11">
-                            <h5 class="vacancy-heading-inner">Description</h5>
-                            <h6>{{currentVacancyData.state}}</h6>
-                        </div>
                         <div class="col-centered section col-lg-11 clearfix">
                             <h5 class="vacancy-heading-inner">Tags</h5>
                             <div class="tags clearfix" ng-if="currentVacancyData.tags.length > 0">
                                 <a ng-repeat="tag in currentVacancyData.tags" ng-if="currentVacancyData.tags.length > 0" ng-click="removeTag(tag.keyword)">{{tag.keyword}}<button><i class="glyphicon glyphicon-remove"></i></button></a>
                             </div>
-                            <div class="col-centered section section-edit col-lg-11">
+                            <div class="col-centered section-edit col-lg-11">
                                 <md-input-container>
                                     <label class="labelHeading">Type tag name and hit Enter, Space or type comma to add it.</label>
                                     <input ng-keyup="$event.keyCode == 13 || $event.keyCode == 32 || $event.keyCode == 188? addTag() : null" ng-model="tagEdit
@@ -78,10 +76,10 @@
 margin-t-20">
                             <md-button class="md-raised md-accent button-text-white
  inline add-flow-btn
-" ng-click='selectedIndex = 2'><i src="glyphicon glyphicon-upload"> </i> Add To Vacancy</md-button>
+" ng-click='selectedIndex = 2'><i src="glyphicon glyphicon-upload"> </i> Add Flow</md-button>
                         </div>
                         <div ng-repeat="item in vacanciesFlowData" class="col-centered section col-lg-11 section-suggestions">
-                            <div class="col-lg-4 flow-candidate-name">Candidate @{{item.candidate.id}}</div>
+                            <div class="col-lg-4 flow-candidate-name">Candidate [ {{item.id}} ]</div>
                             <div class="col-lg-4">
                                 <md-select placeholder="{{item.actions[item.actions.length - 1].state}}" ng-model="actionsVal
 [item.candidate.id]">
@@ -90,24 +88,38 @@ margin-t-20">
                             </div>
                             <div class="col-lg-4 text-right">
                                 <md-button class="md-raised button-comment-suggestions inline
-" ng-click="editComment
+" ng-click="editDescription
 
-(item.id)">Show
+(item.id)">Description
                                 </md-button>
                             </div>
                             <div class="row" ng-show="item.id == currentCommentEditId
 ">
                                 <md-input-container class="comment-input
 ">
-                                    <label>Comment</label>
+                                    <label>Description</label>
                                     <input ng-model="item.actions[item.actions.length - 1].description">
                                 </md-input-container>
                             </div>
                         </div>
                     </div>
                     <div ng-show="selectedIndex == 2" ng-controller="suggestionsView">
+                        <div class="text-center
+margin-t-20">
+                            <md-button class="md-raised md-accent button-text-white
+ inline add-flow-btn
+" ng-click='sendFlow()'><i src="glyphicon glyphicon-upload"> </i>Add to flow</md-button>
+                        </div>
+                        <div ng-repeat="candidate in flowRecommended" class="col-centered section col-lg-11 section-suggestions">
+                            <div class="col-lg-1">
+                                <md-checkbox ng-model="flowaddModel
+[candidate.id]" ng-change="addCandidateToFlow(candidate.id)" aria-label="Checkbox 1"></md-checkbox>
+                            </div>
+                            <div class="col-lg-4 flow-candidate-name">Candidate [ {{candidate.id}} ]</div>
+                        </div>
                     </div>
                 </div>
+            </div>
         </md-content>
         <style type="text/css">
         .tag-editable span {
@@ -124,5 +136,5 @@ margin-t-20">
             background: transparent;
         }
         </style>
-        </div>
     </div>
+</div>
