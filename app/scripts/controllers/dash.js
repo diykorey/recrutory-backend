@@ -116,10 +116,11 @@ kandidatoApp.controller('dashCtrl', function($scope, $rootScope, $log, ApiDataFa
     }
 
     function selectVacancy(vacancy) {
-        if (vacancy.id === $scope.currentVacancy.id) {
-            $scope.currentVacancy = false;
-            return
-        };
+        // if (vacancy.id === $scope.currentVacancy.id) {
+        //     $scope.currentVacancy = false;
+        //     return
+        // };
+
         $scope.currentVacancy = vacancy
     }
 
@@ -142,6 +143,37 @@ kandidatoApp.controller('dashCtrl', function($scope, $rootScope, $log, ApiDataFa
         angular.copy($scope.currentVacancyData.tags, $scope.currentVacancy.tags);
 
     }
+
+    function quickAction(action, vacancy, index) {
+        var i = -1
+
+        if (action == 'select') {
+            $timeout(function() {
+                $scope.selectedIndex = index
+            }, 0);
+
+        }
+        if (action == 'delete') {
+            delete $scope.currentVacancy
+            console.log($scope.vacanciesData)
+            _.each($scope.vacanciesData, function(vacancyEach) {
+                i++
+                if (vacancy.id === vacancyEach.id) {
+                    $scope.vacanciesData.splice(i, 1);
+                    var URL = 'vacancy/' + vacancy.id
+                        ApiDataFactory.queryDelete(URL).then(function(result) {
+      $scope.showToast()
+  })
+
+
+                    return
+                };
+
+            });
+        };
+    }
+
+    $scope.quickAction = quickAction
 
     function sendFlow() {
         $rootScope.updateProcess = true

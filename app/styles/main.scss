@@ -205,8 +205,8 @@ html {
 }
 
 .name span {
-    background: $blue;
-    color: #fff;
+    background: transparent;
+    color: $gray;
     padding: 10px 20px;
     font-size: 1em;
     border-radius: 2px;
@@ -394,6 +394,38 @@ span.badge.new:after {
     border: 3px solid $red;
     border-radius: 3px;
 }
+
+.quick-actions-vacancy,
+.quick-actions-vacancy li {
+    margin: 0;
+    padding: 0
+}
+
+.quick-actions-vacancy {
+    margin: -10px -15px 0 0;
+}
+
+.quick-actions-vacancy li {
+    margin: 12px 0;
+}
+
+.quick-actions-vacancy a {
+    padding: 5px 8px !important;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1), 0 1px 2px rgba(0, 0, 0, 0.1) !important;
+    background: rgba(0, 0, 0, 0.1) !important;
+    border-radius: 3px !important;
+    color: #000 !important;
+    font-size: 12px !important
+}
+
+.quick-actions-vacancy .archive {
+    background: $red !important;
+    color: #fff !important;
+}
+
+.quick-actions-vacancy a:hover {
+    text-decoration: none !important;
+}
 /*
  * Angular material styles
  * 
@@ -435,18 +467,33 @@ md-input-container {
     padding-bottom: 10px !important;
 }
 
-md-select.md-default-theme .md-select-label {
-    border: none !important;
+.md-button.md-fab {
+    width: 30px !important;
+    height: 30px !important;
 }
 
-.md-select-label .md-select-icon {
-    display: none !important;
+.md-button.md-fab md-icon {
+    margin-top: -4px !important;
+    margin-right: -1px !important;
 }
 
-md-select {
-    width: 50px !important;
-    padding: 5px 10px !important;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1), 0 1px 2px rgba(0, 0, 0, 0.1) !important;
-    border-radius: 3px !important;
-    background: rgba(0, 0, 0, 0.02) !important;
+.md-button.md-default-theme.md-primary.md-raised,
+.md-button.md-default-theme.md-primary.md-fab,
+.md-button.md-default-theme.md-accent.md-raised,
+.md-button.md-default-theme.md-accent.md-fab {
+    color: rgba(255, 255, 255, 1) !important;
 }
+
+// md-select.md-default-theme .md-select-label {
+//     border: none !important;
+// }
+// .md-select-label .md-select-icon {
+//     display: none !important;
+// }
+// md-select {
+//     width: 50px !important;
+//     padding: 5px 10px !important;
+//     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1), 0 1px 2px rgba(0, 0, 0, 0.1) !important;
+//     border-radius: 3px !important;
+//     background: rgba(0, 0, 0, 0.02) !important;
+// }
