@@ -11,23 +11,30 @@
                     <li class="clearfix"><a ng-click="quickAction('delete',false)" class="pull-right archive" href="#">Archive <i class="glyphicon glyphicon-trash"></i></a></li>
                 </ul> -->
                 <div class="clearfix row">
-                    <div class="name col-lg-7 col-sm-12 pull-left">{{vacancy.name}}</div>
-                    <div class="col-lg-5 col-sm-12 pull-left clearfix">
-                        <md-button ng-click="quickAction('select', vacancy, 0)" class="md-fab md-accent" aria-label="refresh">
+                    <div class="col-lg-1 pull-left" style="padding:0"><span ng-if="vacancy.hot == true" class="badge hot">HOT</span></div>
+                    <div class="col-lg-9 pull-right clearfix" style="padding:0">
+                        <md-button ng-click="quickAction('select', vacancy, 1)" class="md-fab main md-accent pull-right" aria-label="refresh">
                             <md-tooltip>
                                 Main
                             </md-tooltip>
                             <md-icon md-svg-src="images/icons/doc.svg" style="width: 18px; height: 18px;"></md-icon>
                             </md-icon>
                         </md-button>
-                        <md-button ng-click="quickAction('select', vacancy, 1)" class="md-fab md-accent" aria-label="refresh">
+                        <md-button ng-click="quickAction('select', vacancy, 1)" class="md-fab flow md-accent pull-right" aria-label="refresh">
                             <md-tooltip>
                                 Flow
                             </md-tooltip>
                             <md-icon md-svg-src="images/icons/add.svg" style="width: 18px; height: 18px;"></md-icon>
                             </md-icon>
                         </md-button>
-                        <md-button ng-click="quickAction('delete', vacancy)" class="md-fab md-primary" aria-label="refresh">
+                        <md-button ng-click="quickAction('delete', vacancy)" class="md-fab note md-primary pull-right" aria-label="refresh">
+                            <md-tooltip>
+                                Note
+                            </md-tooltip>
+                            <md-icon md-svg-src="images/icons/edit.svg" style="width: 18px; height: 18px;"></md-icon>
+                            </md-icon>
+                        </md-button>
+                        <md-button ng-click="quickAction('delete', vacancy)" class="md-fab archive md-primary pull-right" aria-label="refresh">
                             <md-tooltip>
                                 Archive
                             </md-tooltip>
@@ -36,8 +43,9 @@
                         </md-button>
                     </div>
                 </div>
+                <div class="name row" style="">{{vacancy.name}}</div>
                 <!--  -->
-                <!-- <div><span ng-if="vacancy.hot == true" class="badge hot">HOT</span></div>
+                <!-- 
  -->
                 <h6>Tags:</h6>
                 <div class="tags row clearfix" ng-if="vacancy.tags.length > 0">

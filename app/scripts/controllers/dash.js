@@ -116,10 +116,10 @@ kandidatoApp.controller('dashCtrl', function($scope, $rootScope, $log, ApiDataFa
     }
 
     function selectVacancy(vacancy) {
-        // if (vacancy.id === $scope.currentVacancy.id) {
-        //     $scope.currentVacancy = false;
-        //     return
-        // };
+        if (vacancy.id === $scope.currentVacancy.id) {
+         $scope.currentVacancy = false;
+         return
+     };
 
         $scope.currentVacancy = vacancy
     }
