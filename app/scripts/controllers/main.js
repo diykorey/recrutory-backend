@@ -42,6 +42,15 @@ kandidatoApp.controller('MainCtrl', function($scope, $rootScope, $location, $mdT
         );
     };
 
+    $scope.showCustomToast = function() {
+        $mdToast.show({
+            controller: 'dashCtrl',
+            templateUrl: 'views/partials/undo-template.html',
+            hideDelay: 3000,
+            position: "right top"
+        });
+    };
+
     $scope.tabs = tabs;
 
 

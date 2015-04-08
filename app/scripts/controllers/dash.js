@@ -117,9 +117,9 @@ kandidatoApp.controller('dashCtrl', function($scope, $rootScope, $log, ApiDataFa
 
     function selectVacancy(vacancy) {
         if (vacancy.id === $scope.currentVacancy.id) {
-         $scope.currentVacancy = false;
-         return
-     };
+            $scope.currentVacancy = false;
+            return
+        };
 
         $scope.currentVacancy = vacancy
     }
@@ -154,18 +154,36 @@ kandidatoApp.controller('dashCtrl', function($scope, $rootScope, $log, ApiDataFa
 
         }
         if (action == 'delete') {
+
             delete $scope.currentVacancy
             console.log($scope.vacanciesData)
             _.each($scope.vacanciesData, function(vacancyEach) {
                 i++
                 if (vacancy.id === vacancyEach.id) {
-                    $scope.vacanciesData.splice(i, 1);
-                    var URL = 'vacancy/' + vacancy.id
-                        ApiDataFactory.queryDelete(URL).then(function(result) {
-      $scope.showToast()
-  })
+
+                    var iterator = i
 
 
+                    $scope.archive = $timeout(function() {
+                        alert($scope.allowUndoArchive)
+                        if ($scope.allowUndoArchive != true) {
+
+                            $scope.vacanciesData.splice(iterator, 1);
+                            var URL = '/vacancy/' + vacancy.id + '/archive'
+                            $scope.loader = true
+                                // ApiDataFactory.queryDelete(URL).then(function(result) {
+                                //     delete $scope.undoArchive
+                                //     $scope.loader = false
+                                // })
+
+                        }
+
+                    }, 3000);
+
+
+
+
+                    $scope.showCustomToast()
                     return
                 };
 
@@ -174,6 +192,15 @@ kandidatoApp.controller('dashCtrl', function($scope, $rootScope, $log, ApiDataFa
     }
 
     $scope.quickAction = quickAction
+
+
+    $scope.undoArchive = undoArchive
+
+    function undoArchive() {
+        $scope.allowUndoArchive = true;
+        $timeout.cancel($scope.archive);
+    }
+
 
     function sendFlow() {
         $rootScope.updateProcess = true
