@@ -31,7 +31,7 @@
         </div>
         <!-- Add your site or application content here -->
         <div class="wrapper-header col-centered">
-            <md-tabs md-selected="1" flex>
+            <md-tabs md-selected="selectedIndex" flex>
                 <md-tab ng-repeat="tab in tabs">
                     <a ng-if="tab.type == 'image'" href="#/{{tab.route}}"><img src="{{tab.heading}}"></a>
                     <a ng-if="tab.type == 'link'" href="#/{{tab.route}}">{{tab.heading}}</a>

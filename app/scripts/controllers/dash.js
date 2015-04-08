@@ -116,12 +116,21 @@ kandidatoApp.controller('dashCtrl', function($scope, $rootScope, $log, ApiDataFa
     }
 
     function selectVacancy(vacancy) {
+
+        if ($scope.returnSelectDefault == true) {
+            delete $scope.returnSelectDefault;
+            return
+        };
+
         if (vacancy.id === $scope.currentVacancy.id) {
             $scope.currentVacancy = false;
             return
         };
 
         $scope.currentVacancy = vacancy
+        $timeout(function() {
+            $scope.selectedIndex = 1
+        }, 0);
     }
 
 
@@ -145,9 +154,11 @@ kandidatoApp.controller('dashCtrl', function($scope, $rootScope, $log, ApiDataFa
     }
 
     function quickAction(action, vacancy, index) {
+        $scope.returnSelectDefault = true
         var i = -1
 
         if (action == 'select') {
+            $scope.currentVacancy = vacancy
             $timeout(function() {
                 $scope.selectedIndex = index
             }, 0);
@@ -165,7 +176,9 @@ kandidatoApp.controller('dashCtrl', function($scope, $rootScope, $log, ApiDataFa
 
 
                     $scope.archive = $timeout(function() {
-                        alert($scope.allowUndoArchive)
+
+                        archiveCard(vacancy)
+
                         if ($scope.allowUndoArchive != true) {
 
                             $scope.vacanciesData.splice(iterator, 1);
@@ -195,6 +208,11 @@ kandidatoApp.controller('dashCtrl', function($scope, $rootScope, $log, ApiDataFa
 
 
     $scope.undoArchive = undoArchive
+
+
+    function archiveCard() {
+
+    }
 
     function undoArchive() {
         $scope.allowUndoArchive = true;
@@ -254,12 +272,11 @@ kandidatoApp.controller('dashCtrl', function($scope, $rootScope, $log, ApiDataFa
         $scope.currentVacancy = false;
     });
 
+
     $scope.$watch('actionsVal', function onScopeChange(newCol, oldCol) {
         var changedVal = _.omit(newCol, function(v, k) {
             return oldCol[k] === v;
         });
-
-
     }, true);
 
     $scope.$watch('flowaddModel', function onScopeChange(newCol, oldCol) {

@@ -7,7 +7,7 @@
  * # MainCtrl
  * Controller of the kandidatoApp
  */
-kandidatoApp.controller('NavCtrl', function($scope, $rootScope, $location) {
+kandidatoApp.controller('NavCtrl', function($scope, $rootScope, $location, $timeout) {
     var tabs = [{
         heading: 'images/logo.png',
         type: 'image',
@@ -32,7 +32,9 @@ kandidatoApp.controller('NavCtrl', function($scope, $rootScope, $location) {
 
 
 
-
+    $timeout(function() {
+        $scope.selectedIndex = 1
+    }, 0);
 
 
     $scope.tabs = tabs;
