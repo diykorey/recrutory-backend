@@ -105,7 +105,6 @@ kandidatoApp.controller('dashCtrl', function($scope, $rootScope, $log, ApiDataFa
         ApiDataFactory.queryPost(URL, tag).then(function(result) {
             $rootScope.updateProcess = false
             $scope.showToast()
-
             $scope.currentVacancy = result
             $scope.currentVacancyData = $scope.currentVacancy
         })
@@ -118,15 +117,15 @@ kandidatoApp.controller('dashCtrl', function($scope, $rootScope, $log, ApiDataFa
     function selectVacancy(vacancy) {
 
         if ($scope.returnSelectDefault == true) {
-            delete $scope.returnSelectDefault;
+            $scope.returnSelectDefault = false
             return
         };
 
-        if (vacancy.id === $scope.currentVacancy.id) {
+        if (vacancy.id === $scope.currentVacancy.id && $scope.currentVacancy) {
             $scope.currentVacancy = false;
             return
         };
-
+        window.scrollTo(0, 0);
         $scope.currentVacancy = vacancy
         $timeout(function() {
             $scope.selectedIndex = 1
@@ -137,16 +136,16 @@ kandidatoApp.controller('dashCtrl', function($scope, $rootScope, $log, ApiDataFa
 
 
     function removeTag(tagToDelete) {
-        var i = -1
+        var i = 0
         _.each($scope.currentVacancy.tags, function(tag) {
-            i++
+
             if (tag.keyword === tagToDelete) {
                 $scope.currentVacancyData.tags.splice(i, 1);
                 var URL = 'vacancy/' + $scope.currentVacancy.id + '/tags/' + tag.id
                 ApiDataFactory.queryDelete(URL).then(function(result) {})
                 return
             };
-
+            i++
         });
 
         angular.copy($scope.currentVacancyData.tags, $scope.currentVacancy.tags);
@@ -163,40 +162,30 @@ kandidatoApp.controller('dashCtrl', function($scope, $rootScope, $log, ApiDataFa
                 $scope.selectedIndex = index
             }, 0);
 
-        }
-        if (action == 'delete') {
 
-            delete $scope.currentVacancy
-            console.log($scope.vacanciesData)
+        }
+        if (action == 'archive' || action == 'unarchive') {
+
+
+
             _.each($scope.vacanciesData, function(vacancyEach) {
                 i++
+
+                vacancyEach.allowArchive = false;
+
+
                 if (vacancy.id === vacancyEach.id) {
+
+                    if (action == 'unarchive') {
+                        $scope.vacanciesData[i].allowArchive = false;
+                    }
+                    if (action == 'archive') {
+                        $scope.vacanciesData[i].allowArchive = true;
+                    };
 
                     var iterator = i
 
 
-                    $scope.archive = $timeout(function() {
-
-                        archiveCard(vacancy)
-
-                        if ($scope.allowUndoArchive != true) {
-
-                            $scope.vacanciesData.splice(iterator, 1);
-                            var URL = '/vacancy/' + vacancy.id + '/archive'
-                            $scope.loader = true
-                                // ApiDataFactory.queryDelete(URL).then(function(result) {
-                                //     delete $scope.undoArchive
-                                //     $scope.loader = false
-                                // })
-
-                        }
-
-                    }, 3000);
-
-
-
-
-                    $scope.showCustomToast()
                     return
                 };
 
@@ -207,17 +196,34 @@ kandidatoApp.controller('dashCtrl', function($scope, $rootScope, $log, ApiDataFa
     $scope.quickAction = quickAction
 
 
-    $scope.undoArchive = undoArchive
+    function archiveVacancy(vacancy) {
 
+        $scope.loader = true
+        delete $scope.currentVacancy
+        var URL = 'vacancy/archive/' + vacancy.id
+            // ApiDataFactory.queryDelete(URL).then(function(result) {
+            //     $scope.loader = true;
+            //     
+            // })
+        var i = 0;
+        _.each($scope.vacanciesData, function(vacancyEach) {
+            if (vacancy.id == vacancyEach.id) {
 
-    function archiveCard() {
+                var iterator = i
+
+                $scope.vacanciesData.splice(i, 1);
+                $scope.loader = false
+                $scope.returnSelectDefault = false
+                $scope.currentVacancy = false
+            };
+
+            i++
+
+        });
 
     }
 
-    function undoArchive() {
-        $scope.allowUndoArchive = true;
-        $timeout.cancel($scope.archive);
-    }
+    $scope.archiveVacancy = archiveVacancy
 
 
     function sendFlow() {
@@ -301,6 +307,9 @@ kandidatoApp.controller('dashCtrl', function($scope, $rootScope, $log, ApiDataFa
     $scope.$watch('actionsData', function(current, old) {}, true);
 
     $scope.$watch('selectedIndex', function(indexNew, indexOld) {
+        if (indexNew != 2) {
+            $scope.suggestionPage = 0
+        };
         if (indexNew == 1) {
             $rootScope.updateProcess = true
             ApiDataFactory.queryGet('workflow/byVacancy/' + $scope.currentVacancyData.id).then(function(result) {
@@ -310,20 +319,33 @@ kandidatoApp.controller('dashCtrl', function($scope, $rootScope, $log, ApiDataFa
 
         };
         if (indexNew == 2) {
-            getSuggestions()
+            getSuggestions(-1)
 
         };
     });
 
 
 
-    function getSuggestions() {
+    function getSuggestions(page) {
+        $scope.suggestionPage = page
+        $scope.suggestionPage++;
         $rootScope.updateProcess = true
-        ApiDataFactory.queryGet('candidate/findRecommended?vacancyId=' + $scope.currentVacancy.id + '&page=0&size=10').then(function(result) {
-            $scope.flowRecommended = result;
+        ApiDataFactory.queryGet('candidate/findRecommended?vacancyId=' + $scope.currentVacancy.id + '&page=' + $scope.suggestionPage + '&size=5').then(function(result) {
+            if ($scope.suggestionPage > 0) {
+                _.each(result, function(candidate) {
+                    $scope.flowRecommended.push(candidate)
+
+                });
+
+            } else {
+                $scope.flowRecommended = result;
+            }
+
             $rootScope.updateProcess = false
         });
     }
+
+    $scope.getSuggestions = getSuggestions
 
     $scope.updateInfo = updateInfo
     $scope.addTag = addTag

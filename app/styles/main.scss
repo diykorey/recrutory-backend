@@ -7,137 +7,6 @@ $icon-font-path: "../bower_components/bootstrap-sass-official/vendor/assets/font
    License: none (public domain)
 */
 
-html,
-body,
-div,
-span,
-applet,
-object,
-iframe,
-h1,
-h2,
-h3,
-h4,
-h5,
-h6,
-p,
-blockquote,
-pre,
-a,
-abbr,
-acronym,
-address,
-big,
-cite,
-code,
-del,
-dfn,
-em,
-img,
-ins,
-kbd,
-q,
-s,
-samp,
-small,
-strike,
-strong,
-sub,
-sup,
-tt,
-var,
-b,
-u,
-i,
-center,
-dl,
-dt,
-dd,
-ol,
-ul,
-li,
-fieldset,
-form,
-label,
-legend,
-table,
-caption,
-tbody,
-tfoot,
-thead,
-tr,
-th,
-td,
-article,
-aside,
-canvas,
-details,
-embed,
-figure,
-figcaption,
-footer,
-header,
-hgroup,
-menu,
-nav,
-output,
-ruby,
-section,
-summary,
-time,
-mark,
-audio,
-video {
-    margin: 0;
-    padding: 0;
-    border: 0;
-    font-size: 100%;
-    font: inherit;
-    vertical-align: baseline;
-}
-/* HTML5 display-role reset for older browsers */
-
-article,
-aside,
-details,
-figcaption,
-figure,
-footer,
-header,
-hgroup,
-menu,
-nav,
-section {
-    display: block;
-}
-
-body {
-    line-height: 1;
-}
-
-ol,
-ul {
-    list-style: none;
-}
-
-blockquote,
-q {
-    quotes: none;
-}
-
-blockquote:before,
-blockquote:after,
-q:before,
-q:after {
-    content: '';
-    content: none;
-}
-
-table {
-    border-collapse: collapse;
-    border-spacing: 0;
-}
-
 // Colors
 $blue: #00b9e8;
 $green: #8bc34a;
@@ -147,6 +16,10 @@ $lightgray: #E1E1E1;
 .col-centered {
     margin: 0 auto;
     float: none;
+}
+
+.label-red {
+    color: $red;
 }
 
 .separator {
@@ -190,7 +63,7 @@ md-checkbox {
 }
 
 div.tags {
-    margin: 20px auto;
+    margin: 30px auto;
 }
 
 div.tags a {
@@ -354,6 +227,44 @@ html {
     margin-top: 30px;
     font-size: 12px;
 }
+
+.archive-warn-wrapper {
+    margin-top: 10%;
+}
+
+.archive-warn-wrapper i {
+    font-size: 32px;
+    color: $red;
+    margin-bottom: 20px;
+}
+
+.desc {
+    font-weight: 300;
+    font-size: 13px;
+    line-height: 15px
+}
+
+.desc div:first-child {
+    color: $red;
+    font-weight: 600;
+    font-size: 14px;
+}
+
+.text-cut {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    line-height: 16px;
+    /* fallback */
+    
+    max-height: 50px;
+    /* fallback */
+    
+    -webkit-line-clamp: 3;
+    /* number of lines to show */
+    
+    -webkit-box-orient: vertical;
+}
 /*
  * List tab [view] styles
  * 
@@ -400,6 +311,14 @@ span.badge.hot {
 
 span.badge.new:after {
     content: " new";
+}
+
+.card-content .badge {
+    margin-left: 10px;
+}
+
+.card-num {
+    font-size: 18px;
 }
 
 .numberCircle {

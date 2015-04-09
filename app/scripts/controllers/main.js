@@ -7,11 +7,11 @@
  * # MainCtrl
  * Controller of the kandidatoApp
  */
-kandidatoApp.controller('MainCtrl', function($scope, $rootScope, $location, $mdToast) {
+kandidatoApp.controller('MainCtrl', function($scope, $rootScope, $location, $mdToast, $timeout) {
     var tabs = [{
         heading: 'images/logo.png',
         type: 'image',
-        route: '/'
+        route: 'dashboard'
     }, {
         heading: 'Dashboard',
         type: 'link',
@@ -31,7 +31,19 @@ kandidatoApp.controller('MainCtrl', function($scope, $rootScope, $location, $mdT
     }];
 
 
+    // Hack for default tab
+    $timeout(function() {
+        $scope.selectedIndexMain = 2
+    }, 0);
+    $timeout(function() {
+        $scope.selectedIndexMain = 1
+    }, 100);
 
+    $scope.$watch('selectedIndexMain', function(newVal, oldVal) {
+        if (newVal == 0) {
+            $scope.selectedIndexMain = oldVal
+        };
+    });
 
     $scope.showToast = function() {
         $mdToast.show(
@@ -40,15 +52,6 @@ kandidatoApp.controller('MainCtrl', function($scope, $rootScope, $location, $mdT
             .position('right top')
             .hideDelay(3000)
         );
-    };
-
-    $scope.showCustomToast = function() {
-        $mdToast.show({
-            controller: 'dashCtrl',
-            templateUrl: 'views/partials/undo-template.html',
-            hideDelay: 3000,
-            position: "right top"
-        });
     };
 
     $scope.tabs = tabs;

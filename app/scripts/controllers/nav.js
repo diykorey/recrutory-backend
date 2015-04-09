@@ -32,9 +32,6 @@ kandidatoApp.controller('NavCtrl', function($scope, $rootScope, $location, $time
 
 
 
-    $timeout(function() {
-        $scope.selectedIndex = 1
-    }, 0);
 
 
     $scope.tabs = tabs;

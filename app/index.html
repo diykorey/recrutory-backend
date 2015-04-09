@@ -16,6 +16,7 @@
     <!-- build:css(.tmp) styles/main.css -->
     <link rel="stylesheet" href="styles/main.css">
     <link rel="stylesheet" href="styles/navbar.css">
+    <link rel="stylesheet" href="styles/reset.css">
     <!-- endbuild -->
     <link rel="stylesheet" href="styles/materialize.css">
 </head>
@@ -24,21 +25,21 @@
     <!--[if lt IE 7]>
       <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
     <![endif]-->
-    <div class="row header" ng-controller="MainCtrl
+    <div class="row header" style="position:fixed;top:0;width:100%;z-index:1000;background:#fff" ng-controller="MainCtrl
 ">
         <div ng-show="loader" class="progress" style="margin:0px">
             <div class="indeterminate"></div>
         </div>
         <!-- Add your site or application content here -->
         <div class="wrapper-header col-centered">
-            <md-tabs md-selected="selectedIndex" flex>
+            <md-tabs md-selected="selectedIndexMain" flex>
                 <md-tab ng-repeat="tab in tabs">
-                    <a ng-if="tab.type == 'image'" href="#/{{tab.route}}"><img src="{{tab.heading}}"></a>
+                    <a ng-if="tab.type == 'image'" href="#/{{tab.route}}"><img src="{{tab.heading}}" style="width:100%"></a>
                     <a ng-if="tab.type == 'link'" href="#/{{tab.route}}">{{tab.heading}}</a>
                 </md-tab>
             </md-tabs>
         </div>
-        <nav class="navbar navbar-default">
+        <nav class="navbar navbar-default" style="margin:0">
             <div class="container-fluid">
                 <div class="navbar-header">
                     <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
@@ -56,10 +57,10 @@
                     </ul>
                 </div>
                 <!--/.nav-collapse -->
-            </div>
-            <!--/.container-fluid -->
+                <!--/.container-fluid -->
         </nav>
-        <div class="row main col-centered" style="margin-top:-20px !important">
+        </div>
+        <div class="row main col-centered" style="margin-top:100px !important">
             <div ng-view=""></div>
         </div>
     </div>
