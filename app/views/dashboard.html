@@ -161,7 +161,7 @@ margin-t-20">
 " ng-click='sendFlow()' ng-disabled="flowData.length == 0"><i src="glyphicon glyphicon-upload"> </i>Add to flow</md-button>
                         </div>
                         <div class="col-centered col-lg-11 margin-b-20 margin-t-20 label-red">Suggested :</div>
-                        <div ng-repeat="candidate in flowRecommended" class="col-centered section col-lg-11 section-suggestions">
+                        <div ng-repeat="candidate in flowSuggested" class="col-centered section col-lg-11 section-suggestions">
                             <div class="col-lg-1">
                                 <md-checkbox ng-model="flowaddModel
 [candidate.id]" ng-change="addCandidateToFlow(candidate.id)" aria-label="Checkbox 1"></md-checkbox>
@@ -169,26 +169,21 @@ margin-t-20">
                             <div class="col-lg-4 flow-candidate-name">Candidate [ {{candidate.id}} ]</div>
                         </div>
                         <div class="text-center">
-                            <md-button class="inline" ng-click="getSuggestions(suggestionPage)">More</md-button>
+                            <md-button class="inline" ng-click="getSuggestions(suggestedPage,availablePage,'suggested')">More</md-button>
+                        </div>
+                        <div class="col-centered col-lg-11 margin-b-20 margin-t-20 label-red">Available :</div>
+                        <div ng-repeat="candidate in flowAvailable" class="col-centered section col-lg-11 section-suggestions">
+                            <div class="col-lg-1">
+                                <md-checkbox ng-model="flowaddModel[candidate.id]" ng-change="addCandidateToFlow(candidate.id)" aria-label="Checkbox 1"></md-checkbox>
+                            </div>
+                            <div class="col-lg-4 flow-candidate-name">Candidate [ {{candidate.id}} ]</div>
+                        </div>
+                        <div class="text-center">
+                            <md-button class="inline" ng-click="getSuggestions(suggestedPage,availablePage,'available')">More</md-button>
                         </div>
                     </div>
                 </div>
             </div>
         </md-content>
-        <style type="text/css">
-        .tag-editable span {
-            font-size: 12px;
-            padding: 5px 10px;
-        }
-        
-        .tag-editable button {
-            margin: 0 10px;
-            padding: 0;
-            color: #fff;
-            font-size: 12px;
-            border: none;
-            background: transparent;
-        }
-        </style>
     </div>
 </div>

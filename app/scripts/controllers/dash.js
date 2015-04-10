@@ -311,7 +311,8 @@ kandidatoApp.controller('dashCtrl', function($scope, $rootScope, $log, ApiDataFa
 
     $scope.$watch('selectedIndex', function(indexNew, indexOld) {
         if (indexNew != 2) {
-            $scope.suggestionPage = 0
+            $scope.suggestedPage = 0
+            $scope.availablePage = 0
         };
         if (indexNew == 1) {
             $rootScope.updateProcess = true
@@ -319,33 +320,61 @@ kandidatoApp.controller('dashCtrl', function($scope, $rootScope, $log, ApiDataFa
                 $rootScope.updateProcess = false
                 $scope.vacanciesFlowData = result // response data
             });
-
         };
         if (indexNew == 2) {
-            getSuggestions(-1)
+            getSuggestions(-1, -1, 'all')
 
         };
     });
 
 
 
-    function getSuggestions(page) {
-        $scope.suggestionPage = page
-        $scope.suggestionPage++;
-        $rootScope.updateProcess = true
-        ApiDataFactory.queryGet('candidate/findRecommended?vacancyId=' + $scope.currentVacancy.id + '&page=' + $scope.suggestionPage + '&size=5').then(function(result) {
-            if ($scope.suggestionPage > 0) {
-                _.each(result, function(candidate) {
-                    $scope.flowRecommended.push(candidate)
+    function getSuggestions(pageSuggested, availablePage, type) {
 
-                });
 
-            } else {
-                $scope.flowRecommended = result;
-            }
+        if (type == 'available' || type == 'all') {
+            $rootScope.updateProcess = true
+            $scope.availablePage = availablePage
+            $scope.availablePage++;
+            ApiDataFactory.queryGet('candidate/findAvailable?vacancyId=' + $scope.currentVacancy.id + '&page=' + $scope.availablePage + '&size=5').then(function(result) {
+                if ($scope.availablePage > 0) {
+                    _.each(result, function(candidate) {
+                        $scope.flowAvailable.push(candidate)
 
-            $rootScope.updateProcess = false
-        });
+                    });
+
+                } else {
+                    $scope.flowAvailable = result;
+                }
+                $rootScope.updateProcess = false
+
+            });
+        };
+
+
+        if (type == 'suggested' || type == 'all') {
+            $rootScope.updateProcess = true
+            $scope.suggestedPage = pageSuggested
+            $scope.suggestedPage++;
+            ApiDataFactory.queryGet('candidate/findRecommended?vacancyId=' + $scope.currentVacancy.id + '&page=' + $scope.suggestedPage + '&size=5').then(function(result) {
+                if ($scope.suggestedPage > 0) {
+                    _.each(result, function(candidate) {
+                        $scope.flowSuggested.push(candidate)
+
+                    });
+
+                } else {
+                    $scope.flowSuggested = result;
+                }
+                $rootScope.updateProcess = false
+            });
+        };
+
+
+
+
+
+
     }
 
     $scope.getSuggestions = getSuggestions
