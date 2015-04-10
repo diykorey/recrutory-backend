@@ -115,14 +115,17 @@ kandidatoApp.controller('dashCtrl', function($scope, $rootScope, $log, ApiDataFa
     }
 
     function selectVacancy(vacancy) {
+        document.title = "Recrutory - " + vacancy.name;
 
         if ($scope.returnSelectDefault == true) {
             $scope.returnSelectDefault = false
+
             return
         };
 
         if (vacancy.id === $scope.currentVacancy.id && $scope.currentVacancy) {
             $scope.currentVacancy = false;
+            document.title = "Recrutory"
             return
         };
         window.scrollTo(0, 0);
