@@ -14,19 +14,17 @@
     <!-- endbower -->
     <!-- endbuild -->
     <!-- build:css(.tmp) styles/main.css -->
-    <link rel="stylesheet" href="styles/reset.css">
     <link rel="stylesheet" href="styles/main.css">
     <link rel="stylesheet" href="styles/navbar.css">
     <!-- endbuild -->
-    <link rel="stylesheet" href="styles/materialize.css">
+  
 </head>
 
-<body>
+<body ng-controller="MainCtrl">
     <!--[if lt IE 7]>
       <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
     <![endif]-->
-    <div class="row header" style="position:fixed;top:0;width:100%;z-index:1000;background:#fff" ng-controller="MainCtrl
-">
+    <div class="row header" >
         <div ng-show="loader" class="progress" style="margin:0px">
             <div class="indeterminate"></div>
         </div>
@@ -50,11 +48,14 @@
                     </button>
                 </div>
                 <div id="navbar" class="navbar-collapse collapse">
+
                     <ul class="nav navbar-nav navbar-right">
+                        <li><input class="input-filter-nav" placeholder="Search" ng-model="filterValue"></li>
                         <li><a href="/#/addVacancy">Add vacancy</a></li>
                         <li><a href="/#/addCandidate">Add candidate</a></li>
                         <li><a href="/#/uploadCV">Upload CV</a></li>
                     </ul>
+
                 </div>
                 <!--/.nav-collapse -->
                 <!--/.container-fluid -->
@@ -102,17 +103,20 @@
     <script src="scripts/routing/routeProvider.js"></script>
     <!-- Config -->
     <script src="scripts/config/configColorsMaterial.js"></script>
+    <!-- Directives -->
+    <script src="scripts/directives/vacancyCard.js"></script>
+    <script src="scripts/directives/tagList.js"></script>
     <!-- Controllers -->
-    <script src="scripts/controllers/candidateDash.js"></script>
-    <script src="scripts/controllers/candidateDetails.js"></script>
-    <script src="scripts/controllers/about.js"></script>
-    <script src="scripts/controllers/main.js"></script>
-    <script src="scripts/controllers/list.js"></script>
-    <script src="scripts/controllers/dash.js"></script>
-    <script src="scripts/controllers/addVacancy.js"></script>
-    <script src="scripts/controllers/addCV.js"></script>
-    <script src="scripts/controllers/addCandidate.js"></script>
-    <script src="scripts/controllers/suggestions.js"></script>
+    <script src="scripts/controllers/candidateDashController.js"></script>
+    <script src="scripts/controllers/candidateDetailsController.js"></script>
+    <script src="scripts/controllers/aboutController.js"></script>
+    <script src="scripts/controllers/mainController.js"></script>
+    <script src="scripts/controllers/listVacancyController.js"></script>
+    <script src="scripts/controllers/dashboardVacancyController.js"></script>
+    <script src="scripts/controllers/addVacancyController.js"></script>
+    <script src="scripts/controllers/addCVController.js"></script>
+    <script src="scripts/controllers/addCandidateController.js"></script>
+    <script src="scripts/controllers/suggestionsVacancyController.js"></script>
     <!-- Utils -->
     <script src="scripts/utils.js"></script>
     <!-- Compiled and minified JavaScript -->

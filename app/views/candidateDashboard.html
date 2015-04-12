@@ -3,13 +3,7 @@
     <div class="card " ng-class="currentCandidate ? 'col-lg-4' : 'col-lg-3'" ng-repeat="candidate in candidatesData | filter:filterValue" ng-click="selectCandidate(candidate)">
         <div class="card-content clearfix" ng-class="candidate.id == currentCandidate.id ? 'selected' :'default'">
             <div class="name"><span>{{candidate.timelineRecords[0].fields[0].fieldValue}}</span></div>
-            <div class="tags row clearfix" ng-if="candidate.tags.length > 0">
-                <a ng-repeat="tag in candidate.tags" ng-if="candidate.tags.length > 0">{{tag.keyword}}</a>
-            </div>
-            <div class="tags row clearfix" ng-if="candidate.tags.length == 0">
-                <a class="no-tags
-">Vacancy has no tags</a>
-            </div>
+        <tag-list tags="candidate.tags"> </tag-list>
             <div class="date">{{candidate.createTime|date:'medium'}}</div>
         </div>
     </div>

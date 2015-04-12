@@ -9,13 +9,14 @@
  */
 kandidatoApp.controller('dashCtrl', function($scope, $rootScope, $log, ApiDataFactory, $http, $timeout) {
 
+    // Init dashCtrl scope values
     $scope.disableSuggestions = true
     $scope.actionsVal = {}
     $scope.flowData = {}
     $scope.actionsData = {}
     $scope.flowaddModel = {}
 
-
+    // Get all available vacancies
     function getData() {
         $rootScope.loader = true
         ApiDataFactory.queryGet('vacancy/byState/open').then(function(result) {
@@ -27,7 +28,9 @@ kandidatoApp.controller('dashCtrl', function($scope, $rootScope, $log, ApiDataFa
 
     getData()
 
-    var tabsVacancies = [{
+
+
+    $scope.tabsVacancies = [{
         heading: 'Main',
     }, {
         heading: 'Flow',
@@ -39,8 +42,6 @@ kandidatoApp.controller('dashCtrl', function($scope, $rootScope, $log, ApiDataFa
         heading: 'Notes',
 
     }];
-
-    $scope.tabsVacancies = tabsVacancies;
 
     $scope.candidateActions = [{
         name: "INIT"
@@ -56,19 +57,8 @@ kandidatoApp.controller('dashCtrl', function($scope, $rootScope, $log, ApiDataFa
         name: "REJECTED"
     }]
 
-    $scope.fastActions = [{
-        name: "Add vacancy",
-        index: 2
-    }]
 
-    function fastAction(vacancy, index) {
 
-        selectVacancy(vacancy)
-
-        $timeout(function() {
-            $scope.selectedIndex = index
-        }, 0);
-    }
 
 
     function addTag() {
@@ -108,9 +98,6 @@ kandidatoApp.controller('dashCtrl', function($scope, $rootScope, $log, ApiDataFa
             $scope.currentVacancy = result
             $scope.currentVacancyData = $scope.currentVacancy
         })
-
-
-
         $scope.tagEdit = ""
     }
 
@@ -122,7 +109,6 @@ kandidatoApp.controller('dashCtrl', function($scope, $rootScope, $log, ApiDataFa
 
             return
         };
-
         if (vacancy.id === $scope.currentVacancy.id && $scope.currentVacancy) {
             $scope.currentVacancy = false;
             document.title = "Recrutory"
@@ -134,8 +120,6 @@ kandidatoApp.controller('dashCtrl', function($scope, $rootScope, $log, ApiDataFa
             $scope.selectedIndex = 1
         }, 0);
     }
-
-
 
 
     function removeTag(tagToDelete) {
@@ -152,9 +136,9 @@ kandidatoApp.controller('dashCtrl', function($scope, $rootScope, $log, ApiDataFa
         });
 
         angular.copy($scope.currentVacancyData.tags, $scope.currentVacancy.tags);
-
     }
 
+    //Vacancy card quick actions
     function quickAction(action, vacancy, index) {
         $scope.returnSelectDefault = true
         var i = -1
@@ -167,9 +151,8 @@ kandidatoApp.controller('dashCtrl', function($scope, $rootScope, $log, ApiDataFa
 
 
         }
+
         if (action == 'archive' || action == 'unarchive') {
-
-
 
             _.each($scope.vacanciesData, function(vacancyEach) {
                 i++
@@ -196,9 +179,8 @@ kandidatoApp.controller('dashCtrl', function($scope, $rootScope, $log, ApiDataFa
         };
     }
 
-    $scope.quickAction = quickAction
 
-
+    // Archive vacancy
     function archiveVacancy(vacancy) {
 
         $scope.loader = true
@@ -229,6 +211,7 @@ kandidatoApp.controller('dashCtrl', function($scope, $rootScope, $log, ApiDataFa
     $scope.archiveVacancy = archiveVacancy
 
 
+    // Send selected flow data
     function sendFlow() {
         $rootScope.updateProcess = true
         var objToSend = {}
@@ -242,6 +225,8 @@ kandidatoApp.controller('dashCtrl', function($scope, $rootScope, $log, ApiDataFa
         })
     }
 
+
+    // Update vacancy info
     function updateInfo(vacancyId) {
         var dataToSend = {}
         if ($scope.currentVacancyData.name != $scope.currentVacancy.name || $scope.currentVacancyData.requirements != $scope.currentVacancy.requirements) {
@@ -261,16 +246,6 @@ kandidatoApp.controller('dashCtrl', function($scope, $rootScope, $log, ApiDataFa
     }
 
 
-
-    function editDescription
-        (candidateSelected) {
-            if ($scope.currentCommentEditId == candidateSelected) {
-                delete $scope.currentCommentEditId;
-                return
-            };
-            $scope.currentCommentEditId = candidateSelected
-        }
-
     $scope.$watch('currentVacancy', function(current, old) {
         $scope.flowaddModel = {}
         $scope.currentVacancyData = angular.copy($scope.currentVacancy)
@@ -280,13 +255,6 @@ kandidatoApp.controller('dashCtrl', function($scope, $rootScope, $log, ApiDataFa
     $scope.$watch('filterValue', function(newVal, oldVal) {
         $scope.currentVacancy = false;
     });
-
-
-    $scope.$watch('actionsVal', function onScopeChange(newCol, oldCol) {
-        var changedVal = _.omit(newCol, function(v, k) {
-            return oldCol[k] === v;
-        });
-    }, true);
 
     $scope.$watch('flowaddModel', function onScopeChange(newCol, oldCol) {
         var changedVal = _.omit(newCol, function(v, k) {
@@ -304,16 +272,11 @@ kandidatoApp.controller('dashCtrl', function($scope, $rootScope, $log, ApiDataFa
             };
 
         });
-        console.log($scope.flowData)
     }, true);
 
-    $scope.$watch('actionsData', function(current, old) {}, true);
-
+    // Selected detail editor tab watcher
     $scope.$watch('selectedIndex', function(indexNew, indexOld) {
-        if (indexNew != 2) {
-            $scope.suggestedPage = 0
-            $scope.availablePage = 0
-        };
+        
         if (indexNew == 1) {
             $rootScope.updateProcess = true
             ApiDataFactory.queryGet('workflow/byVacancy/' + $scope.currentVacancyData.id).then(function(result) {
@@ -323,7 +286,10 @@ kandidatoApp.controller('dashCtrl', function($scope, $rootScope, $log, ApiDataFa
         };
         if (indexNew == 2) {
             getSuggestions(-1, -1, 'all')
-
+        };
+        if (indexNew != 2) {
+            $scope.suggestedPage = 0
+            $scope.availablePage = 0
         };
     });
 
@@ -369,22 +335,16 @@ kandidatoApp.controller('dashCtrl', function($scope, $rootScope, $log, ApiDataFa
                 $rootScope.updateProcess = false
             });
         };
-
-
-
-
-
-
     }
 
-    $scope.getSuggestions = getSuggestions
 
-    $scope.updateInfo = updateInfo
-    $scope.addTag = addTag
-    $scope.fastAction = fastAction
-    $scope.isEmpty = isEmpty
+
+    $scope.getSuggestions = getSuggestions;
+    $scope.updateInfo = updateInfo;
+    $scope.addTag = addTag;
+    $scope.isEmpty = isEmpty;
     $scope.removeTag = removeTag;
     $scope.selectVacancy = selectVacancy;
-    $scope.editDescription = editDescription;
-    $scope.sendFlow = sendFlow
+    $scope.sendFlow = sendFlow;
+    $scope.quickAction = quickAction
 });

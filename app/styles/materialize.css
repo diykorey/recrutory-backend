@@ -2387,7 +2387,7 @@ samp {
  */
 
 button,
-input,
+input!,
 optgroup,
 select,
 textarea {
@@ -2421,15 +2421,15 @@ select {
 /**
  * 1. Avoid the WebKit bug in Android 4.0.* where (2) destroys native `audio`
  *    and `video` controls.
- * 2. Correct inability to style clickable `input` types in iOS.
+ * 2. Correct inability to style clickable `input!` types in iOS.
  * 3. Improve usability and consistency of cursor style between image-type
- *    `input` and others.
+ *    `input!` and others.
  */
 
 button,
-html input[type="button"],
-input[type="reset"],
-input[type="submit"] {
+html input![type="button"],
+input![type="reset"],
+input![type="submit"] {
     -webkit-appearance: button;
     /* 2 */
     
@@ -2441,7 +2441,7 @@ input[type="submit"] {
  */
 
 button[disabled],
-html input[disabled] {
+html input![disabled] {
     cursor: default;
 }
 /**
@@ -2449,16 +2449,16 @@ html input[disabled] {
  */
 
 button::-moz-focus-inner,
-input::-moz-focus-inner {
+input!::-moz-focus-inner {
     border: 0;
     padding: 0;
 }
 /**
- * Address Firefox 4+ setting `line-height` on `input` using `!important` in
+ * Address Firefox 4+ setting `line-height` on `input!` using `!important` in
  * the UA stylesheet.
  */
 
-input {
+input! {
     line-height: normal;
 }
 /**
@@ -2469,8 +2469,8 @@ input {
  * 2. Remove excess padding in IE 8/9/10.
  */
 
-input[type="checkbox"],
-input[type="radio"] {
+input![type="checkbox"],
+input![type="radio"] {
     box-sizing: border-box;
     /* 1 */
     
@@ -2479,12 +2479,12 @@ input[type="radio"] {
 }
 /**
  * Fix the cursor style for Chrome's increment/decrement buttons. For certain
- * `font-size` values of the `input`, it causes the cursor style of the
+ * `font-size` values of the `input!`, it causes the cursor style of the
  * decrement button to change from `default` to `text`.
  */
 
-input[type="number"]::-webkit-inner-spin-button,
-input[type="number"]::-webkit-outer-spin-button {
+input![type="number"]::-webkit-inner-spin-button,
+input![type="number"]::-webkit-outer-spin-button {
     height: auto;
 }
 /**
@@ -2493,7 +2493,7 @@ input[type="number"]::-webkit-outer-spin-button {
  *    (include `-moz` to future-proof).
  */
 
-input[type="search"] {
+input![type="search"] {
     -webkit-appearance: textfield;
     /* 1 */
     
@@ -2505,12 +2505,12 @@ input[type="search"] {
 }
 /**
  * Remove inner padding and search cancel button in Safari and Chrome on OS X.
- * Safari (but not Chrome) clips the cancel button when the search input has
+ * Safari (but not Chrome) clips the cancel button when the search input! has
  * padding (and `textfield` appearance).
  */
 
-input[type="search"]::-webkit-search-cancel-button,
-input[type="search"]::-webkit-search-decoration {
+input![type="search"]::-webkit-search-cancel-button,
+input![type="search"]::-webkit-search-decoration {
     -webkit-appearance: none;
 }
 /**
@@ -3258,8 +3258,8 @@ span.badge.new:after {
     float: right !important;
 }
 .no-select,
-input[type=range],
-input[type=range] + .thumb {
+input![type=range],
+input![type=range] + .thumb {
     -webkit-touch-callout: none;
     -webkit-user-select: none;
     -khtml-user-select: none;
@@ -3480,7 +3480,7 @@ input[type=range] + .thumb {
 .mdi-action-info-outline:before {
     content: "\e639";
 }
-.mdi-action-input:before {
+.mdi-action-input!:before {
     content: "\e63a";
 }
 .mdi-action-invert-colors:before {
@@ -3615,19 +3615,19 @@ input[type=range] + .thumb {
 .mdi-action-settings-ethernet:before {
     content: "\e666";
 }
-.mdi-action-settings-input-antenna:before {
+.mdi-action-settings-input!-antenna:before {
     content: "\e667";
 }
-.mdi-action-settings-input-component:before {
+.mdi-action-settings-input!-component:before {
     content: "\e668";
 }
-.mdi-action-settings-input-composite:before {
+.mdi-action-settings-input!-composite:before {
     content: "\e669";
 }
-.mdi-action-settings-input-hdmi:before {
+.mdi-action-settings-input!-hdmi:before {
     content: "\e66a";
 }
-.mdi-action-settings-input-svideo:before {
+.mdi-action-settings-input!-svideo:before {
     content: "\e66b";
 }
 .mdi-action-settings-overscan:before {
@@ -6901,12 +6901,12 @@ input[type=range] + .thumb {
         -webkit-mask-image: -webkit-radial-gradient(circle, white 100%, black 100%);
     }
     
-    .waves-input-wrapper {
+    .waves-input!-wrapper {
         border-radius: 0.2em;
         vertical-align: bottom;
     }
     
-    .waves-input-wrapper .waves-button-input {
+    .waves-input!-wrapper .waves-button-input! {
         position: relative;
         top: 0;
         left: 0;
@@ -7171,15 +7171,15 @@ input[type=range] + .thumb {
         color: #9e9e9e;
     }
     /***************************
-   Text Inputs + Textarea
+   Text input!s + Textarea
 ****************************/
     
-    .input-field {
+    .input!-field {
         position: relative;
         margin-top: 1rem;
     }
     
-    .input-field label {
+    .input!-field label {
         color: #9e9e9e;
         position: absolute;
         top: 0.8rem;
@@ -7193,7 +7193,7 @@ input[type=range] + .thumb {
         transition: 0.2s ease-out;
     }
     
-    .input-field label.active {
+    .input!-field label.active {
         font-size: 0.8rem;
         -webkit-transform: translateY(-140%);
         -moz-transform: translateY(-140%);
@@ -7202,49 +7202,49 @@ input[type=range] + .thumb {
         transform: translateY(-140%);
     }
     
-    .input-field input[type=text]:focus + label,
-    .input-field input[type=password]:focus + label,
-    .input-field input[type=email]:focus + label,
-    .input-field input[type=url]:focus + label,
-    .input-field input[type=date]:focus + label,
-    .input-field input[type=tel]:focus + label,
-    .input-field input[type=number]:focus + label,
-    .input-field input[type=search]:focus + label,
-    .input-field textarea:focus.materialize-textarea + label {
+    .input!-field input![type=text]:focus + label,
+    .input!-field input![type=password]:focus + label,
+    .input!-field input![type=email]:focus + label,
+    .input!-field input![type=url]:focus + label,
+    .input!-field input![type=date]:focus + label,
+    .input!-field input![type=tel]:focus + label,
+    .input!-field input![type=number]:focus + label,
+    .input!-field input![type=search]:focus + label,
+    .input!-field textarea:focus.materialize-textarea + label {
         color: #26a69a;
     }
     
-    .input-field input[type=text].valid,
-    .input-field input[type=password].valid,
-    .input-field input[type=email].valid,
-    .input-field input[type=url].valid,
-    .input-field input[type=date].valid,
-    .input-field input[type=tel].valid,
-    .input-field input[type=number].valid,
-    .input-field input[type=search].valid,
-    .input-field textarea.materialize-textarea.valid {
+    .input!-field input![type=text].valid,
+    .input!-field input![type=password].valid,
+    .input!-field input![type=email].valid,
+    .input!-field input![type=url].valid,
+    .input!-field input![type=date].valid,
+    .input!-field input![type=tel].valid,
+    .input!-field input![type=number].valid,
+    .input!-field input![type=search].valid,
+    .input!-field textarea.materialize-textarea.valid {
         border-bottom: 1px solid #4CAF50;
         -webkit-box-shadow: 0 1px 0 0 #4CAF50;
         -moz-box-shadow: 0 1px 0 0 #4CAF50;
         box-shadow: 0 1px 0 0 #4CAF50;
     }
     
-    .input-field input[type=text].invalid,
-    .input-field input[type=password].invalid,
-    .input-field input[type=email].invalid,
-    .input-field input[type=url].invalid,
-    .input-field input[type=date].invalid,
-    .input-field input[type=tel].invalid,
-    .input-field input[type=number].invalid,
-    .input-field input[type=search].invalid,
-    .input-field textarea.materialize-textarea.invalid {
+    .input!-field input![type=text].invalid,
+    .input!-field input![type=password].invalid,
+    .input!-field input![type=email].invalid,
+    .input!-field input![type=url].invalid,
+    .input!-field input![type=date].invalid,
+    .input!-field input![type=tel].invalid,
+    .input!-field input![type=number].invalid,
+    .input!-field input![type=search].invalid,
+    .input!-field textarea.materialize-textarea.invalid {
         border-bottom: 1px solid #F44336;
         -webkit-box-shadow: 0 1px 0 0 #F44336;
         -moz-box-shadow: 0 1px 0 0 #F44336;
         box-shadow: 0 1px 0 0 #F44336;
     }
     
-    .input-field .prefix {
+    .input!-field .prefix {
         position: absolute;
         width: 3rem;
         font-size: 2rem;
@@ -7255,34 +7255,34 @@ input[type=range] + .thumb {
         transition: color 0.2s;
     }
     
-    .input-field .prefix.active {
+    .input!-field .prefix.active {
         color: #26a69a;
     }
     
-    .input-field .prefix ~ input,
-    .input-field .prefix ~ textarea {
+    .input!-field .prefix ~ input!,
+    .input!-field .prefix ~ textarea {
         margin-left: 3rem;
         width: 92%;
         width: calc(100% - 3rem);
     }
     
-    .input-field .prefix ~ textarea {
+    .input!-field .prefix ~ textarea {
         padding-top: 0.8rem;
     }
     
-    .input-field .prefix ~ label {
+    .input!-field .prefix ~ label {
         margin-left: 3rem;
     }
     
     @media only screen and (max-width: 992px) {
-        .input-field .prefix ~ input {
+        .input!-field .prefix ~ input! {
             width: 86%;
             width: calc(100% - 3rem);
         }
     }
     
     @media only screen and (max-width: 600px) {
-        .input-field .prefix ~ input {
+        .input!-field .prefix ~ input! {
             width: 80%;
             width: calc(100% - 3rem);
         }
@@ -7294,14 +7294,14 @@ input[type=range] + .thumb {
         background-color: transparent;
     }
     
-    input[type=text],
-    input[type=password],
-    input[type=email],
-    input[type=url],
-    input[type=date],
-    input[type=tel],
-    input[type=number],
-    input[type=search],
+    input![type=text],
+    input![type=password],
+    input![type=email],
+    input![type=url],
+    input![type=date],
+    input![type=tel],
+    input![type=number],
+    input![type=search],
     textarea.materialize-textarea {
         background-color: transparent;
         border: none;
@@ -7325,14 +7325,14 @@ input[type=range] + .thumb {
         transition: 0.3s;
     }
     
-    input[type=text]:focus,
-    input[type=password]:focus,
-    input[type=email]:focus,
-    input[type=url]:focus,
-    input[type=date]:focus,
-    input[type=tel]:focus,
-    input[type=number]:focus,
-    input[type=search]:focus,
+    input![type=text]:focus,
+    input![type=password]:focus,
+    input![type=email]:focus,
+    input![type=url]:focus,
+    input![type=date]:focus,
+    input![type=tel]:focus,
+    input![type=number]:focus,
+    input![type=search]:focus,
     textarea:focus.materialize-textarea {
         border-bottom: 1px solid #26a69a;
         -webkit-box-shadow: 0 1px 0 0 #26a69a;
@@ -7635,17 +7635,17 @@ input[type=range] + .thumb {
         cursor: pointer;
     }
     
-    .switch label input[type=checkbox] {
+    .switch label input![type=checkbox] {
         opacity: 0;
         width: 0;
         height: 0;
     }
     
-    .switch label input[type=checkbox]:checked + .lever {
+    .switch label input![type=checkbox]:checked + .lever {
         background-color: #84c7c1;
     }
     
-    .switch label input[type=checkbox]:checked + .lever:after {
+    .switch label input![type=checkbox]:checked + .lever:after {
         background-color: #26a69a;
     }
     
@@ -7677,24 +7677,24 @@ input[type=range] + .thumb {
         transition: left 0.3s ease, background 0.3s ease, box-shadow 0.1s ease;
     }
     
-    input[type=checkbox]:checked:not(:disabled) ~ .lever:active:after {
+    input![type=checkbox]:checked:not(:disabled) ~ .lever:active:after {
         box-shadow: 0 1px 3px 1px rgba(0, 0, 0, 0.4), 0 0 0 15px rgba(38, 166, 154, 0.1);
     }
     
-    input[type=checkbox]:not(:disabled) ~ .lever:active:after {
+    input![type=checkbox]:not(:disabled) ~ .lever:active:after {
         box-shadow: 0 1px 3px 1px rgba(0, 0, 0, 0.4), 0 0 0 15px rgba(0, 0, 0, 0.08);
     }
     
-    .switch label input[type=checkbox]:checked + .lever:after {
+    .switch label input![type=checkbox]:checked + .lever:after {
         left: 24px;
     }
     
-    .switch input[type=checkbox][disabled] + .lever {
+    .switch input![type=checkbox][disabled] + .lever {
         cursor: default;
     }
     
-    .switch label input[type=checkbox][disabled] + .lever:after,
-    .switch label input[type=checkbox][disabled]:checked + .lever:after {
+    .switch label input![type=checkbox][disabled] + .lever:after,
+    .switch label input![type=checkbox][disabled]:checked + .lever:after {
         background-color: #BDBDBD;
     }
     /***************
@@ -7710,7 +7710,7 @@ input[type=range] + .thumb {
         margin-top: 15px;
     }
     
-    .select-wrapper input.select-dropdown {
+    .select-wrapper input!.select-dropdown {
         position: relative;
         cursor: pointer;
         color: #444;
@@ -7746,7 +7746,7 @@ input[type=range] + .thumb {
         color: rgba(0, 0, 0, 0.3);
     }
     
-    .select-wrapper input.select-dropdown:disabled {
+    .select-wrapper input!.select-dropdown:disabled {
         color: rgba(0, 0, 0, 0.3);
         border-bottom: 1px solid rgba(0, 0, 0, 0.3);
     }
@@ -7763,7 +7763,7 @@ input[type=range] + .thumb {
         background-color: transparent;
     }
     /*********************
-      File Input
+      File input!
 **********************/
     
     .file-field {
@@ -7771,7 +7771,7 @@ input[type=range] + .thumb {
         overflow: hidden;
     }
     
-    .file-field input.file-path {
+    .file-field input!.file-path {
         margin-left: 100px;
     }
     
@@ -7787,7 +7787,7 @@ input[type=range] + .thumb {
         cursor: pointer;
     }
     
-    .file-field input[type=file] {
+    .file-field input![type=file] {
         position: absolute;
         top: 0;
         right: 0;
@@ -7809,12 +7809,12 @@ input[type=range] + .thumb {
         position: relative;
     }
     
-    input[type=range],
-    input[type=range] + .thumb {
+    input![type=range],
+    input![type=range] + .thumb {
         cursor: pointer;
     }
     
-    input[type=range] {
+    input![type=range] {
         position: relative;
         background-color: transparent;
         border: none;
@@ -7824,7 +7824,7 @@ input[type=range] + .thumb {
         padding: 0;
     }
     
-    input[type=range] + .thumb {
+    input![type=range] + .thumb {
         position: absolute;
         border: none;
         height: 0;
@@ -7845,7 +7845,7 @@ input[type=range] + .thumb {
         transform: rotate(-45deg);
     }
     
-    input[type=range] + .thumb .value {
+    input![type=range] + .thumb .value {
         display: block;
         width: 30px;
         text-align: center;
@@ -7858,32 +7858,32 @@ input[type=range] + .thumb {
         transform: rotate(45deg);
     }
     
-    input[type=range] + .thumb.active {
+    input![type=range] + .thumb.active {
         border-radius: 50% 50% 50% 0;
     }
     
-    input[type=range] + .thumb.active .value {
+    input![type=range] + .thumb.active .value {
         color: #fff;
         margin-left: -1px;
         margin-top: 8px;
         font-size: 10px;
     }
     
-    input[type=range]:focus {
+    input![type=range]:focus {
         outline: none;
     }
     
-    input[type=range] {
+    input![type=range] {
         -webkit-appearance: none;
     }
     
-    input[type=range]::-webkit-slider-runnable-track {
+    input![type=range]::-webkit-slider-runnable-track {
         height: 3px;
         background: #c2c0c2;
         border: none;
     }
     
-    input[type=range]::-webkit-slider-thumb {
+    input![type=range]::-webkit-slider-thumb {
         -webkit-appearance: none;
         border: none;
         height: 14px;
@@ -7899,24 +7899,24 @@ input[type=range] + .thumb {
         transition: 0.3s;
     }
     
-    input[type=range]:focus::-webkit-slider-runnable-track {
+    input![type=range]:focus::-webkit-slider-runnable-track {
         background: #ccc;
     }
     
-    input[type=range] {
+    input![type=range] {
         /* fix for FF unable to apply focus style bug  */
         
         border: 1px solid white;
         /*required for proper track sizing in FF*/
     }
     
-    input[type=range]::-moz-range-track {
+    input![type=range]::-moz-range-track {
         height: 3px;
         background: #ddd;
         border: none;
     }
     
-    input[type=range]::-moz-range-thumb {
+    input![type=range]::-moz-range-thumb {
         border: none;
         height: 14px;
         width: 14px;
@@ -7926,16 +7926,16 @@ input[type=range] + .thumb {
     }
     /*hide the outline behind the border*/
     
-    input[type=range]:-moz-focusring {
+    input![type=range]:-moz-focusring {
         outline: 1px solid white;
         outline-offset: -1px;
     }
     
-    input[type=range]:focus::-moz-range-track {
+    input![type=range]:focus::-moz-range-track {
         background: #ccc;
     }
     
-    input[type=range]::-ms-track {
+    input![type=range]::-ms-track {
         height: 3px;
         /*remove bg colour from the track, we'll use ms-fill-lower and ms-fill-upper instead */
         
@@ -7949,15 +7949,15 @@ input[type=range] + .thumb {
         color: transparent;
     }
     
-    input[type=range]::-ms-fill-lower {
+    input![type=range]::-ms-fill-lower {
         background: #777;
     }
     
-    input[type=range]::-ms-fill-upper {
+    input![type=range]::-ms-fill-upper {
         background: #ddd;
     }
     
-    input[type=range]::-ms-thumb {
+    input![type=range]::-ms-thumb {
         border: none;
         height: 14px;
         width: 14px;
@@ -7965,15 +7965,15 @@ input[type=range] + .thumb {
         background: #26a69a;
     }
     
-    input[type=range]:focus::-ms-fill-lower {
+    input![type=range]:focus::-ms-fill-lower {
         background: #888;
     }
     
-    input[type=range]:focus::-ms-fill-upper {
+    input![type=range]:focus::-ms-fill-upper {
         background: #ccc;
     }
     /***************************
-   Text Inputs + Textarea
+   Text input!s + Textarea
 ****************************/
     
     select {
@@ -8756,17 +8756,17 @@ input[type=range] + .thumb {
         user-select: none;
     }
     /**
- * The picker input element.
+ * The picker input! element.
  */
     
-    .picker__input {
+    .picker__input! {
         cursor: default;
     }
     /**
- * When the picker is opened, the input element is "activated".
+ * When the picker is opened, the input! element is "activated".
  */
     
-    .picker__input.picker__input--active {
+    .picker__input!.picker__input!--active {
         border-color: #0089ec;
     }
     /**
@@ -8915,7 +8915,7 @@ input[type=range] + .thumb {
    CUSTOM MATERIALIZE STYLES
    ========================================================================== */
     
-    .picker__input.picker__input--active {
+    .picker__input!.picker__input!--active {
         border-color: #E3F2FD;
     }
     
