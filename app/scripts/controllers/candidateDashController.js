@@ -37,35 +37,71 @@ kandidatoApp.controller('candidateDash', function($scope, $rootScope, $log, ApiD
 
     function selectCandidate(candidateData) {
         $scope.currentCandidate = candidateData
+        console.log($scope.currentCandidate)
         $log.info('Set candidate', $scope.currentCandidate);
     }
 
-    function addCandidateTags() {
-        var tagEach = {};
-        tagEach.keyword = $scope.tagInput;
-        $scope.currentCandidateTags.push(tagEach)
+
+    // Update vacancy info
+    function updateInfo(candidate) {
+        var dataToSend = {}
+        if ($scope.currentCandidateData.timelineRecords[0].fields[0].fieldValue != $scope.currentCandidate.timelineRecords[0].fields[0].fieldValue) {
+            dataToSend.id = $scope.currentCandidateData.id
+            dataToSend.createTime = $scope.currentCandidateData.createTime
+            dataToSend.tags = $scope.currentCandidateData.tags
+            dataToSend.timelineRecords = []
+            dataToSend.timelineRecords.push($scope.currentCandidateData.timelineRecords[0])
+            dataToSend.summaryCard = $scope.currentCandidateData.summaryCard
+            var URL = 'candidate/update'
+            ApiDataFactory.queryPost(URL, dataToSend).then(function(result) {
+                $rootScope.updateProcess = false
+                $scope.showToast()
+            })
+
+
+
+        }
+        angular.copy($scope.currentCandidateData, $scope.currentCandidate);
     }
 
-    function removeTag(tagToDelete) {
-        var i = -1
-        _.each($scope.currentCandidateData.tags, function(tag) {
-            i++
-            if (tag.keyword == tagToDelete) {
-                $scope.currentCandidateData.tags.splice(i, 1);
-                return
-            };
 
-        });
-    }
+    //     {
+    //   "id": 0,
+    //   "createTime": "string",
+    //   "tags": [
+    //     {
+    //       "id": 0,
+    //       "keyword": "string"
+    //     }
+    //   ],
+    //   "timelineRecords": [
+    //     {
+    //       "id": 0,
+    //       "createTime": "string",
+    //       "fields": [
+    //         {
+    //           "id": 0,
+    //           "type": {},
+    //           "fieldValue": "string"
+    //         }
+    //       ]
+    //     }
+    //   ],
+    //   "summaryCard": {}
+    // }
+
+
+    $scope.updateInfo = updateInfo
+
 
     $scope.$watch('currentCandidate', function(current, old) {
         $scope.currentCandidateData = angular.copy($scope.currentCandidate)
+        console.log($scope.currentCandidateData)
     }, true);
 
-    $scope.selectedIndex = 2;
+
     $scope.tabsCandidateDetails = tabsCandidateDetails;
-    $scope.addCandidateTags = addCandidateTags;
-    $scope.removeTag = removeTag;
+
     $scope.selectCandidate = selectCandidate;
 
 });

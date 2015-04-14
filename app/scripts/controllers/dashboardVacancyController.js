@@ -229,7 +229,8 @@ kandidatoApp.controller('dashCtrl', function($scope, $rootScope, $log, ApiDataFa
     // Update vacancy info
     function updateInfo(vacancyId) {
         var dataToSend = {}
-        if ($scope.currentVacancyData.name != $scope.currentVacancy.name || $scope.currentVacancyData.requirements != $scope.currentVacancy.requirements) {
+        if ($scope.currentVacancy
+Data.name != $scope.currentVacancy.name || $scope.currentVacancyData.requirements != $scope.currentVacancy.requirements) {
             dataToSend.name = $scope.currentVacancyData.name
             dataToSend.requirements = $scope.currentVacancyData.requirements
             $rootScope.updateProcess = true

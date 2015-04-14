@@ -7,7 +7,6 @@ $icon-font-path: "../bower_components/bootstrap-sass-official/vendor/assets/font
    License: none (public domain)
 */
 
-
 // Colors
 $blue: #00b9e8;
 $green: #8bc34a;
@@ -136,23 +135,23 @@ html {
 .header {
     margin: 0;
     background: #fff;
-    position:fixed;
-    top:0;
-    width:100%;
-    z-index:1000;
-    background:#fff
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 1000;
+    background: #fff
 }
 
-.input-filter-nav{
-    margin:15px;
-    background:darken( $gray, 10% );
-    color:#fff;
-    border:none;
-padding:3px 10px
+.input-filter-nav {
+    margin: 12px 15px 10px 12px;
+    background: darken( $gray, 10%);
+    color: #fff;
+    border: none;
+    padding: 3px 10px
 }
 
-.input-filter-nav:focus{
-    border-left:2px solid $red
+.input-filter-nav:focus {
+    border-left: 2px solid $red
 }
 
 .row {
@@ -169,7 +168,7 @@ padding:3px 10px
 
 .progress {
     background: $green !important;
-       position: relative;
+    position: relative;
     height: 4px;
     display: block;
     width: 100%;
@@ -620,15 +619,14 @@ md-tooltip {
 }
 
 // Loader
-
-progress
-{
+progress {
     display: inline-block;
     /* 1 */
     
     vertical-align: baseline;
     /* 2 */
 }
+
 .progress {
     position: relative;
     height: 4px;
@@ -642,6 +640,7 @@ progress
     margin: 0.5rem 0 1rem 0;
     overflow: hidden;
 }
+
 .progress .determinate {
     position: absolute;
     background-color: inherit;
@@ -654,9 +653,11 @@ progress
     -ms-transition: width 0.3s linear;
     transition: width 0.3s linear;
 }
+
 .progress .indeterminate {
     background-color: #26a69a;
 }
+
 .progress .indeterminate:before {
     content: '';
     position: absolute;
@@ -671,6 +672,7 @@ progress
     -o-animation: indeterminate 2.1s cubic-bezier(0.65, 0.815, 0.735, 0.395) infinite;
     animation: indeterminate 2.1s cubic-bezier(0.65, 0.815, 0.735, 0.395) infinite;
 }
+
 .progress .indeterminate:after {
     content: '';
     position: absolute;
@@ -690,97 +692,91 @@ progress
     -o-animation-delay: 1.15s;
     animation-delay: 1.15s;
 }
+
 @-webkit-keyframes indeterminate {
     0% {
         left: -35%;
         right: 100%;
     }
-    
     60% {
         left: 100%;
         right: -90%;
     }
-    
     100% {
         left: 100%;
         right: -90%;
     }
 }
+
 @-moz-keyframes indeterminate {
     0% {
         left: -35%;
         right: 100%;
     }
-    
     60% {
         left: 100%;
         right: -90%;
     }
-    
     100% {
         left: 100%;
         right: -90%;
     }
 }
+
 @keyframes indeterminate {
     0% {
         left: -35%;
         right: 100%;
     }
-    
     60% {
         left: 100%;
         right: -90%;
     }
-    
     100% {
         left: 100%;
         right: -90%;
     }
 }
+
 @-webkit-keyframes indeterminate-short {
     0% {
         left: -200%;
         right: 100%;
     }
-    
     60% {
         left: 107%;
         right: -8%;
     }
-    
     100% {
         left: 107%;
         right: -8%;
     }
 }
+
 @-moz-keyframes indeterminate-short {
     0% {
         left: -200%;
         right: 100%;
     }
-    
     60% {
         left: 107%;
         right: -8%;
     }
-    
     100% {
         left: 107%;
         right: -8%;
     }
 }
+
 @keyframes indeterminate-short {
     0% {
         left: -200%;
         right: 100%;
     }
-    
     60% {
         left: 107%;
         right: -8%;
     }
-    
     100% {
         left: 107%;
         right: -8%;

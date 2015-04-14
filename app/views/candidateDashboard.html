@@ -1,81 +1,205 @@
-<div class="candidate-card-wrapper
-" ng-class="currentCandidate ? 'col-lg-8' : 'row'">
-    <div class="card " ng-class="currentCandidate ? 'col-lg-4' : 'col-lg-3'" ng-repeat="candidate in candidatesData | filter:filterValue" ng-click="selectCandidate(candidate)">
-        <div class="card-content clearfix" ng-class="candidate.id == currentCandidate.id ? 'selected' :'default'">
-            <div class="name"><span>{{candidate.timelineRecords[0].fields[0].fieldValue}}</span></div>
-        <tag-list tags="candidate.tags"> </tag-list>
-            <div class="date">{{candidate.createTime|date:'medium'}}</div>
+<div class="row">
+    <!-- Dashboard wrapper  -->
+    <div ng-class="currentCandidate ? 'col-lg-6' : 'row'">
+        <!-- Vacancy card wrapper | Angular DIRECTIVE-->
+        <div ng-repeat="candidate in candidatesData | filter:filterValue " class="card clearfix" ng-class="currentCandidate ? 'col-lg-6' : 'col-lg-3'">
+            <div class="card-content clearfix " ng-click="selectCandidate(candidate)" ng-class="candidate.id == currentCandidate.id ? 'selected' :'default'">
+                <div ng-hide="candidate.allowArchive == true">
+                    <!-- Default card content -->
+                    <div class="clearfix row">
+                        <div class="col-lg-3 pull-left" style="padding:0"><span class="card-num
+            ">{{candidate.id}}</span>
+                            <!-- <span ng-if="candidate.hot == true" class="badge hot">HOT</span> -->
+                        </div>
+                        <div class="col-lg-9 pull-right clearfix" style="padding:0">
+                            <md-button ng-click="quickAction('select', candidate, 0)" class="md-fab main md-accent pull-right" aria-label="refresh">
+                                <md-tooltip>
+                                    Main
+                                </md-tooltip>
+                                M
+                                </md-icon>
+                            </md-button>
+                            <md-button ng-click="quickAction('select', candidate, 1)" class="md-fab flow md-accent pull-right" aria-label="refresh">
+                                <md-tooltip>
+                                    Flow
+                                </md-tooltip>
+                                F
+                                </md-icon>
+                            </md-button>
+                            <md-button ng-click="quickAction('select', candidate, 3)" class="md-fab note md-primary pull-right" aria-label="refresh">
+                                <md-tooltip>
+                                    Note
+                                </md-tooltip>
+                                N
+                                </md-icon>
+                            </md-button>
+                            <md-button ng-click="quickAction('archive', candidate)" class="md-fab archive md-primary pull-right" aria-label="refresh">
+                                <md-tooltip>
+                                    Archive
+                                </md-tooltip>
+                                A
+                                </md-icon>
+                            </md-button>
+                        </div>
+                    </div>
+                    <div class="name row">{{candidate.timelineRecords[0].fields[0].fieldValue}}</div>
+                    <!-- <div class="desc row margin-t-10">
+    <div class="margin-t-10 margin-b-10">Description :</div>
+    <div class="text-cut">{{vacancy.requirements}}</div>
+</div>
+ -->
+                    <h6>Tags:</h6>
+                    <tag-list tags="candidate.tags"> </tag-list>
+                    <div class="date bottom-inner
+         ">{{candidate.createTime|date:'medium'}}</div>
+                </div>
+                <!-- End Default card content -->
+                <div ng-show="vacancy.allowArchive == true" class="text-center col-centered col-lg-11 archive-warn-wrapper
+      ">
+                    <!-- Archive card content -->
+                    <i class="glyphicon glyphicon-trash text-center"></i>
+                    <p>Are you sure that you want
+                        <br>to archive this candidate ?
+                    </p>
+                    <div class="margin-t-20">
+                        <md-button class="md-raised md-warn inline" ng-click="archiveCandidate(candidate)">ARCHIVE</md-button>
+                        <md-button ng-click="quickAction('unarchive', candidate)">UNDO</md-button>
+                    </div>
+                </div>
+                <!-- End Archive card content -->
+            </div>
         </div>
     </div>
-</div>
-<div ng-show="currentCandidate" class="clearfix sideView" ng-class="currentCandidate ? 'col-lg-4' : 'hide'">
-    <md-toolbar md-scroll-shrink>
-        <div class="md-toolbar-tools">
-            <h3>
-        <span>{{currentCandidate.timelineRecords[0].fields[0].fieldValue}}</span>
-      </h3>
-        </div>
-    </md-toolbar>
-    <md-content>
-        <div class="wrapper-sidemenu col-centered">
-            <div>
+    <!-- End Vacancy card wrapper  -->
+    <div ng-show="currentCandidate" class="clearfix sideView " ng-class="currentCandidate ? 'col-lg-6' : 'hide'">
+        <!-- Vacancy side menu  -->
+        <md-toolbar md-scroll-shrink>
+            <!-- Nav Vacancy side menu  -->
+            <div class="md-toolbar-tools clearfix">
+                <div class="col-lg-11"><span class="heading-vacancy-side
+               ">{{currentCandidate.timelineRecords[0].fields[0].fieldValue}}</span></div>
+                <!-- <div class="col-lg-1"><span ng-show="currentCandidate.hot == true" class="badge hot">HOT</span></div> -->
+            </div>
+        </md-toolbar>
+        <!-- End Nav Vacancy side menu  -->
+        <md-content>
+            <!-- Content Vacancy side menu  -->
+            <div class="wrapper-sidemenu col-centered">
+                <!-- Wrapper side menu  -->
                 <md-tabs md-selected="selectedIndex" flex>
                     <md-tab ng-repeat="tab in tabsCandidateDetails"><a href='javascript:void(0)'>{{tab.heading}}</a> </md-tab>
                 </md-tabs>
+                <div ng-show="updateProcess" class="progress progress-details" style="margin:0px">
+                    <div class="indeterminate"></div>
+                </div>
                 <div ng-show="selectedIndex == 0">
-                    <md-input-container>
-                        <label>Name</label>
-                        <input ng-model="currentCandidateData.summaryCard.predefinedFields.NAME_SURNAME.fieldValue">
-                    </md-input-container>
-                    <md-input-container>
-                        <label>Email</label>
-                        <input ng-model="currentCandidateData.summaryCard.predefinedFields.EMAIL.fieldValue">
-                    </md-input-container>
-                    <md-input-container>
-                        <label>Skype</label>
-                        <input ng-model="currentCandidateData.summaryCard.predefinedFields.SKYPE.fieldValue">
-                    </md-input-container>
-                    <md-input-container>
-                        <label>Phone</label>
-                        <input ng-model="currentCandidateData.summaryCard.predefinedFields.PHONE.fieldValue">
-                    </md-input-container>
-                    <md-input-container>
-                        <label>Address</label>
-                        <input ng-model="currentCandidateData.summaryCard.predefinedFields.ADDRESS.fieldValue">
-                    </md-input-container>
+                    <!-- Tab Main  -->
+                    <div class="col-centered section-edit col-lg-11 margin-t-20 ">
+                        <md-input-container>
+                            <label class="labelHeading">Name</label>
+                            <input ng-blur="updateInfo(currentCandidateData.id)" ng-model="currentCandidateData.timelineRecords[0].fields[0].fieldValue">
+                        </md-input-container>
+                    </div>
+               <!-- <div class="col-centered section-edit col-lg-11">
+    <md-input-container>
+        <label class="labelHeading">Requirements</label>
+        <input ng-blur="updateInfo(currentCandidateData.id)" ng-model="currentCandidateData.requirements">
+    </md-input-container>
+</div>
+ -->
+                    <div class="col-centered separator col-lg-12"></div>
                     <div class="col-centered section col-lg-11 clearfix">
                         <h5 class="vacancy-heading-inner">Tags</h5>
-                        <div class="tags clearfix" ng-if="currentCandidateData
-.tags.length > 0">
-                            <a ng-repeat="tag in currentCandidateData.tags" ng-if="currentCandidateData.tags.length > 0">{{tag.keyword}}<button ng-click="removeTag(tag.keyword)"><i class="glyphicon glyphicon-remove"></i></button></a>
+                        <div class="tags clearfix" ng-if="currentCandidateData.tags.length > 0">
+                            <a ng-repeat="tag in currentCandidateData.tags" ng-if="currentCandidateData.tags.length > 0" ng-click="removeTag(tag.keyword)">{{tag.keyword}}<button><i class="glyphicon glyphicon-remove"></i></button></a>
                         </div>
-                        <div class="tags clearfix" ng-if="currentCandidateData.tags.length == 0">
+                        <div class="tags clearfix" ng-show="currentCandidateData.tags.length == 0">
                             <a class="no-tags
-">Vacancy has no tags</a>
+                     ">Vacancy has no tags</a>
+                        </div>
+                        <div class="col-centered section-edit col-lg-11">
+                            <md-input-container>
+                                <label class="labelHeading">Type tag name and hit Enter, Space or type comma to add it.</label>
+                                <input ng-keyup="$event.keyCode == 13 || $event.keyCode == 32 || $event.keyCode == 188? addTag() : null" ng-model="tagEdit
+                           ">
+                            </md-input-container>
                         </div>
                     </div>
-                    <md-input-container>
-                        <label>Add tag</label>
-                        <input ng-model="tagInput" ng-keypress="($event.which === 13)?addCandidateTags():0">
-                    </md-input-container>
                 </div>
-                <div ng-show="selectedIndex == 1">2</div>
-                <div ng-show="selectedIndex == 2">3</div>
+                <!-- End tab Main  -->
+                <div ng-show="selectedIndex == 1">
+                    <!-- Tab Flow  -->
+                    <div class="text-center
+                  margin-t-20">
+                        <md-button class="md-raised md-accent button-text-white
+                     inline add-flow-btn
+                     " ng-click='selectedIndex = 2'><i src="glyphicon glyphicon-upload"> </i> Add Flow</md-button>
+                    </div>
+                    <div ng-repeat="item in vacanciesFlowData" class="col-centered section col-lg-11 section-suggestions">
+                        <div class="col-lg-4 flow-candidate-name">Candidate [ {{item.id}} ]</div>
+                        <div class="col-lg-4">
+                            <md-select placeholder="{{item.actions[item.actions.length - 1].state}}" ng-model="actionsVal
+                        [item.candidate.id]">
+                                <md-option ng-repeat="action in candidateActions" value="{{action.name}}">{{action.name}}</md-option>
+                            </md-select>
+                        </div>
+                        <div class="col-lg-4 text-right">
+                            <md-button class="md-raised button-comment-suggestions inline
+                        " ng-click="editDescription
+                        (item.id)">Description
+                            </md-button>
+                        </div>
+                        <div class="row" ng-show="item.id == currentCommentEditId
+                     ">
+                            <md-input-container class="comment-input
+                        ">
+                                <label>Description</label>
+                                <input ng-model="item.actions[item.actions.length - 1].description">
+                            </md-input-container>
+                        </div>
+                    </div>
+                </div>
+                <!-- End Tab Flow  -->
+                <div ng-show="selectedIndex == 2" ng-controller="suggestionsView">
+                    <!-- Tab Suggestions  -->
+                    <div class="text-center
+                  margin-t-20">
+                        <md-button class="md-raised md-accent button-text-white
+                     inline add-flow-btn
+                     " ng-click='sendFlow()' ng-disabled="flowData.length == 0"><i src="glyphicon glyphicon-upload"> </i>Add to flow</md-button>
+                    </div>
+                    <md-input-container class="col-lg-4 col-centered">
+                        <label>Filter</label>
+                        <input ng-model="filterSuggestions">
+                    </md-input-container>
+                    <div class="col-centered col-lg-11 margin-b-20 margin-t-20 label-red">Suggested :</div>
+                    <div ng-repeat="candidate in flowSuggested | filter:filterSuggestions" class="col-centered section col-lg-11 section-suggestions">
+                        <div class="col-lg-1">
+                            <md-checkbox ng-model="flowaddModel
+                        [candidate.id]" ng-change="addCandidateToFlow(candidate.id)" aria-label="Checkbox 1"></md-checkbox>
+                        </div>
+                        <div class="col-lg-4 flow-candidate-name">Candidate [ {{candidate.id}} ]</div>
+                    </div>
+                    <div class="text-center">
+                        <md-button class="inline" ng-click="getSuggestions(suggestedPage,availablePage,'suggested')">More</md-button>
+                    </div>
+                    <div class="col-centered col-lg-11 margin-b-20 margin-t-20 label-red">Available :</div>
+                    <div ng-repeat="candidate in flowAvailable | filter:filterSuggestions" class="col-centered section col-lg-11 section-suggestions">
+                        <div class="col-lg-1">
+                            <md-checkbox ng-model="flowaddModel[candidate.id]" ng-change="addCandidateToFlow(candidate.id)" aria-label="Checkbox 1"></md-checkbox>
+                        </div>
+                        <div class="col-lg-4 flow-candidate-name">Candidate [ {{candidate.id}} ]</div>
+                    </div>
+                    <div class="text-center">
+                        <md-button class="inline" ng-click="getSuggestions(suggestedPage,availablePage,'available')">More</md-button>
+                    </div>
+                </div>
+                <!-- End tab Suggestions  -->
             </div>
-    </md-content>
+            <!--  End Wrapper side menu  -->
+        </md-content>
+        <!-- End Content Vacancy side menu  -->
     </div>
-    <style type="text/css">
-    .tag-editable span {
-        font-size: 12px;
-        padding: 5px 10px;
-    }
-    
-    .tag-editable button {
-        margin: 0 10px;
-        padding: 0;
-        color: #fff;
-        font-size: 12px;
-        border: none;
-        background: transparent;
-    }
-    </style>
+    <!-- Vacancy side menu  -->
+</div>
+<!-- End Dashboard wrapper  -->
