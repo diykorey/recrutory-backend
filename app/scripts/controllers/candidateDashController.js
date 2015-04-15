@@ -9,7 +9,9 @@
  */
 kandidatoApp.controller('candidateDash', function($scope, $rootScope, $log, ApiDataFactory) {
 
-    $scope.currentCandidate = false
+
+    $scope.customFields = []
+
 
     var tabsCandidateDetails = [{
         heading: 'Main',
@@ -28,7 +30,6 @@ kandidatoApp.controller('candidateDash', function($scope, $rootScope, $log, ApiD
 
             $scope.candidatesData = result // response data
 
-            console.log($scope.candidatesData)
 
         })
     }
@@ -64,31 +65,45 @@ kandidatoApp.controller('candidateDash', function($scope, $rootScope, $log, ApiD
         angular.copy($scope.currentCandidateData, $scope.currentCandidate);
     }
 
+    $scope.addFieldProgress = false
 
-    //     {
-    //   "id": 0,
-    //   "createTime": "string",
-    //   "tags": [
-    //     {
-    //       "id": 0,
-    //       "keyword": "string"
-    //     }
-    //   ],
-    //   "timelineRecords": [
-    //     {
-    //       "id": 0,
-    //       "createTime": "string",
-    //       "fields": [
-    //         {
-    //           "id": 0,
-    //           "type": {},
-    //           "fieldValue": "string"
-    //         }
-    //       ]
-    //     }
-    //   ],
-    //   "summaryCard": {}
-    // }
+    function addCustomField(action) {
+        if (action == 'add') {
+            $scope.addFieldProgress = 1
+        };
+        if (action == 'addText') {
+            $scope.addFieldProgress = 2
+        };
+        if (action == 'save') {
+            $rootScope.updateProcess = true
+            var newField = {}
+            newField.type = {}
+            newField.type.name = $scope.newFieldName
+            newField.type.prime = false
+            newField.fieldValue = $scope.newFieldValue
+            $scope.customFields.push(newField)
+            delete $scope.addFieldProgress
+            $scope.newFieldName = "";
+            $scope.newFieldValue = "";
+            console.log(newField)
+            var URL = "candidate/" + $scope.currentCandidate.id + "/addfield"
+            ApiDataFactory.queryPost(URL, newField).then(function(result) {
+                $rootScope.updateProcess = false
+                $scope.showToast()
+            })
+
+        };
+        if (action == 'cancel') {
+            delete $scope.addFieldProgress
+        };
+
+
+    }
+
+    $scope.addCustomField = addCustomField
+
+
+
 
 
     $scope.updateInfo = updateInfo
@@ -97,6 +112,13 @@ kandidatoApp.controller('candidateDash', function($scope, $rootScope, $log, ApiD
     $scope.$watch('currentCandidate', function(current, old) {
         $scope.currentCandidateData = angular.copy($scope.currentCandidate)
         console.log($scope.currentCandidateData)
+        $scope.customFields = []
+        if (typeof $scope.currentCandidateData.summaryCard !== "undefined") {
+            _.each($scope.currentCandidateData.summaryCard.customFields, function(value, name) {
+                $scope.customFields.push(value)
+            });
+        };
+
     }, true);
 
 
