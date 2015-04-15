@@ -95,16 +95,18 @@
                 <div ng-show="selectedIndex == 0">
                     <!-- Tab Main  -->
                     <div class="col-centered section-edit col-lg-11 margin-t-20 ">
-                        <md-input-container>
-                            <label class="labelHeading">Name</label>
-                            <input ng-blur="updateInfo(currentCandidateData.id)" ng-model="currentCandidateData.timelineRecords[0].fields[0].fieldValue">
+                        <md-input-container ng-repeat="field in predefinedFields
+
+">
+                            <label class="labelHeading">{{field.type.name}}</label>
+                            <input ng-focus="customField.set(field)" ng-model="field.fieldValue">
                         </md-input-container>
                     </div>
                     <div class="col-centered section-edit col-lg-11 margin-t-20 ">
                         <md-input-container ng-repeat="field in customFields
 ">
                             <label class="labelHeading">{{field.type.name}}</label>
-                            <input ng-model="field.fieldValue">
+                            <input ng-focus="customField.set(field)" ng-model="field.fieldValue">
                         </md-input-container>
                     </div>
                     <!-- <div class="col-centered section-edit col-lg-11">
@@ -117,10 +119,11 @@
                     <div class="col-centered col-lg-11 clearfix">
                         <div class="text-center
                   margin-t-20 margin-b-20">
-                            <md-button ng-hide="addFieldProgress" class="md-raised md-accent button-text-white inline add-flow-btn" ng-click='addCustomField("add")'><i src="glyphicon glyphicon-upload"> </i> Add Field </md-button>
-                            <md-button ng-show="addFieldProgress == 1" class="md-raised md-accent button-text-white inline add-flow-btn" ng-click='addCustomField("addText")'><i src="glyphicon glyphicon-upload"> </i> Add text for {{newFieldName}} </md-button>
-                            <md-button ng-show="addFieldProgress == 2" class="md-raised md-accent button-text-white inline add-flow-btn" ng-click='addCustomField("save")'><i src="glyphicon glyphicon-upload"> </i> Save </md-button>
-                            <md-button ng-show="addFieldProgress" class="md-raised md-accent button-text-white inline add-flow-btn" ng-click='addCustomField("cancel")'><i src="glyphicon glyphicon-upload"> </i> Cancel </md-button>
+                            <md-button ng-hide="addFieldProgress" class="md-raised md-accent button-text-white inline add-flow-btn" ng-click='customField.add()'><i src="glyphicon glyphicon-upload"> </i> Add Field </md-button>
+                            <md-button ng-show="addFieldProgress == 1" class="md-raised md-accent button-text-white inline add-flow-btn" ng-click='customField.addText()'><i src="glyphicon glyphicon-upload"> </i> Add text for {{newFieldName}} </md-button>
+                            <md-button ng-show="addFieldProgress == 2" class="md-raised md-accent button-text-white inline add-flow-btn" ng-click='customField.save()'><i src="glyphicon glyphicon-upload"> </i> Save </md-button>
+                            <md-button ng-show="addFieldProgress" class="md-raised md-accent button-text-white inline add-flow-btn" ng-click='customField.cancel()'><i src="glyphicon glyphicon-upload"> </i> Cancel </md-button>
+                            <md-button class="md-raised md-warn inline" ng-click="customField.delete()" ng-show="currentField ? !currentField.type.prime : false">Delete</md-button>
                         </div>
                     </div>
                     <div class="col-centered section-edit col-lg-11 margin-t-20" ng-show="addFieldProgress == 1">

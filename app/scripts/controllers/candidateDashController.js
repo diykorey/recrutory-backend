@@ -67,14 +67,16 @@ kandidatoApp.controller('candidateDash', function($scope, $rootScope, $log, ApiD
 
     $scope.addFieldProgress = false
 
-    function addCustomField(action) {
-        if (action == 'add') {
+
+    $scope.customField = {
+        add: function() {
+            delete $scope.currentField
             $scope.addFieldProgress = 1
-        };
-        if (action == 'addText') {
+        },
+        addText: function() {
             $scope.addFieldProgress = 2
-        };
-        if (action == 'save') {
+        },
+        save: function() {
             $rootScope.updateProcess = true
             var newField = {}
             newField.type = {}
@@ -88,21 +90,56 @@ kandidatoApp.controller('candidateDash', function($scope, $rootScope, $log, ApiD
             console.log(newField)
             var URL = "candidate/" + $scope.currentCandidate.id + "/addfield"
             ApiDataFactory.queryPost(URL, newField).then(function(result) {
+
+                var i = 0
+                _.each($scope.candidatesData, function(candidate) {
+                    if (candidate.id == result.id) {
+                        $scope.candidatesData[i] = result;
+                        $scope.currentCandidate = result;
+                    }
+                    i++
+                });
+
                 $rootScope.updateProcess = false
                 $scope.showToast()
             })
-
-        };
-        if (action == 'cancel') {
+        },
+        cancel: function() {
             delete $scope.addFieldProgress
-        };
+        },
+        set: function(field) {
+            $scope.currentField = field
+            console.log($scope.currentField.type.prime)
+        },
+        unset: function() {
+            delete $scope.currentField
+        },
+        delete: function() {
+            $rootScope.updateProcess = true
 
+            var i = 0;
+            _.each($scope.currentCandidate.summaryCard.customFields, function(field) {
+                if (field.id == $scope.currentField.id) {
+                    $scope.customFields.splice(i, 1)
+                    var URL = 'candidate/removefield/' + field.id
+                    ApiDataFactory.queryDelete(URL).then(function(result) {
+                        var i = 0
+                        _.each($scope.candidatesData, function(candidate) {
+                            if (candidate.id == $scope.currentCandidate.id) {
+                                delete $scope.candidatesData[i].summaryCard.customFields[field.type.name]
+                                delete $scope.currentField
+                                $rootScope.updateProcess = false
+                                $scope.showToast()
+                            };
+                            i++
 
+                        });
+                    })
+                }
+                i++
+            });
+        }
     }
-
-    $scope.addCustomField = addCustomField
-
-
 
 
 
@@ -113,10 +150,17 @@ kandidatoApp.controller('candidateDash', function($scope, $rootScope, $log, ApiD
         $scope.currentCandidateData = angular.copy($scope.currentCandidate)
         console.log($scope.currentCandidateData)
         $scope.customFields = []
+        $scope.predefinedFields = []
         if (typeof $scope.currentCandidateData.summaryCard !== "undefined") {
             _.each($scope.currentCandidateData.summaryCard.customFields, function(value, name) {
+                console.log(value)
                 $scope.customFields.push(value)
             });
+            _.each($scope.currentCandidateData.summaryCard.predefinedFields, function(value, name) {
+                console.log(value)
+                $scope.predefinedFields.push(value)
+            });
+
         };
 
     }, true);
