@@ -3,31 +3,31 @@
 kandidatoApp.config(function($routeProvider) {
     $routeProvider
         .when('/dashboard', {
-            templateUrl: 'views/dashboard.html',
+            templateUrl: 'app/views/dashboard.html',
             controller: 'dashCtrl'
         })
         .when('/list', {
-            templateUrl: 'views/list.html',
+            templateUrl: 'app/views/list.html',
             controller: 'listCtrl'
         })
         .when('/addVacancy', {
-            templateUrl: 'views/addVacancy.html',
+            templateUrl: 'app/views/addVacancy.html',
             controller: 'addVacancyCtrl',
         })
         .when('/addCandidate', {
-            templateUrl: 'views/addCandidate.html',
+            templateUrl: 'app/views/addCandidate.html',
             controller: 'addCandidate',
         })
         .when('/uploadCV', {
-            templateUrl: 'views/addCV.html',
+            templateUrl: 'app/views/addCV.html',
             controller: 'addCvCtrl',
         })
         .when('/candidateDashboard', {
-            templateUrl: 'views/candidateDashboard.html',
+            templateUrl: 'app/views/candidateDashboard.html',
             controller: 'candidateDash'
         })
         .when('/candidateList', {
-            templateUrl: 'views/candidateList.html',
+            templateUrl: 'app/views/candidateList.html',
             controller: 'AboutCtrl'
         })
         .otherwise({

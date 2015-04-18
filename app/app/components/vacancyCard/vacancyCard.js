@@ -3,6 +3,6 @@ kandidatoApp.directive('vacancyCard', function() {
   return {
       restrict: 'E',
       replace: 'true',
-      templateUrl: 'views/partials/vacancyCard.html'
+      templateUrl: 'app/components/vacancyCard/vacancyCard.html'
   };
 });
