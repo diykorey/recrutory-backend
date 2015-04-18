@@ -9,7 +9,7 @@
  */
 kandidatoApp.controller('MainCtrl', function($scope, $rootScope, $location, $mdToast, $timeout) {
     var tabs = [{
-        heading: 'images/logo.png',
+        heading: 'assets/images/logo.png',
         type: 'image',
         route: 'dashboard'
     }, {

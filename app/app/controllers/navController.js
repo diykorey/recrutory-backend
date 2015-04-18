@@ -9,7 +9,7 @@
  */
 kandidatoApp.controller('NavCtrl', function($scope, $rootScope, $location, $timeout) {
     var tabs = [{
-        heading: 'images/logo.png',
+        heading: '',
         type: 'image',
         route: '/'
     }, {

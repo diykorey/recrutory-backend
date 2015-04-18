@@ -226,6 +226,42 @@ kandidatoApp.controller('dashCtrl', function($scope, $rootScope, $log, ApiDataFa
     }
 
 
+    $scope.noteAction = {
+        add: function() {
+            function note() {
+                this.new = true;
+                this.placeholder = "Note text";
+                this.creationDate = new Date();
+            }
+            $scope.notes.push(new note())
+        },
+        save: function() {
+            $rootScope.updateProcess = true
+            var note = $scope.notes[$scope.notes.length - 1]
+            if (note.comment == "") {
+                return
+            };
+            delete note.placeholder
+            delete note.new
+            delete note.creationDate
+            var URL = "comment/vacancy/" + $scope.currentVacancy.id
+            ApiDataFactory.queryPost(URL, note.comment).then(function(result) {
+
+
+                ApiDataFactory.queryGet('comment/vacancy/' + $scope.currentVacancyData.id).then(function(result) {
+                    $scope.notes = result
+                    $rootScope.updateProcess = false
+                    $scope.showToast()
+                });
+            })
+            console.log(note)
+        },
+        delete: function() {
+
+        }
+    }
+
+
     // Update vacancy info
     function updateInfo(vacancyId) {
         var dataToSend = {}
@@ -286,6 +322,11 @@ kandidatoApp.controller('dashCtrl', function($scope, $rootScope, $log, ApiDataFa
         };
         if (indexNew == 2) {
             getSuggestions(-1, -1, 'all')
+        };
+        if (indexNew == 3) {
+            ApiDataFactory.queryGet('comment/vacancy/' + $scope.currentVacancyData.id).then(function(result) {
+                $scope.notes = result
+            });
         };
         if (indexNew != 2) {
             $scope.suggestedPage = 0

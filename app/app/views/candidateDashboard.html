@@ -12,28 +12,28 @@
                             <!-- <span ng-if="candidate.hot == true" class="badge hot">HOT</span> -->
                         </div>
                         <div class="col-lg-9 pull-right clearfix" style="padding:0">
-                            <md-button ng-click="quickAction('select', candidate, 0)" class="md-fab main md-accent pull-right" aria-label="refresh">
+                            <md-button ng-click="quickAction.selectMain(candidate)" class="md-fab main md-accent pull-right" aria-label="refresh">
                                 <md-tooltip>
                                     Main
                                 </md-tooltip>
                                 M
                                 </md-icon>
                             </md-button>
-                            <md-button ng-click="quickAction('select', candidate, 1)" class="md-fab flow md-accent pull-right" aria-label="refresh">
+                            <md-button ng-click="quickAction.selectFlow(candidate)" class="md-fab flow md-accent pull-right" aria-label="refresh">
                                 <md-tooltip>
                                     Flow
                                 </md-tooltip>
                                 F
                                 </md-icon>
                             </md-button>
-                            <md-button ng-click="quickAction('select', candidate, 3)" class="md-fab note md-primary pull-right" aria-label="refresh">
+                            <md-button ng-click="quickAction.selectNote(candidate)" class="md-fab note md-primary pull-right" aria-label="refresh">
                                 <md-tooltip>
                                     Note
                                 </md-tooltip>
                                 N
                                 </md-icon>
                             </md-button>
-                            <md-button ng-click="quickAction('archive', candidate)" class="md-fab archive md-primary pull-right" aria-label="refresh">
+                            <md-button ng-click="quickAction.selectArchive(candidate)" class="md-fab archive md-primary pull-right" aria-label="refresh">
                                 <md-tooltip>
                                     Archive
                                 </md-tooltip>
@@ -42,7 +42,7 @@
                             </md-button>
                         </div>
                     </div>
-                    <div class="name row">{{candidate.timelineRecords[0].fields[0].fieldValue}}</div>
+                    <div class="name row">{{candidate.summaryCard.predefinedFields.NAME_SURNAME.fieldValue}}</div>
                     <!-- <div class="desc row margin-t-10">
     <div class="margin-t-10 margin-b-10">Description :</div>
     <div class="text-cut">{{vacancy.requirements}}</div>
@@ -77,7 +77,7 @@
             <!-- Nav Vacancy side menu  -->
             <div class="md-toolbar-tools clearfix">
                 <div class="col-lg-11"><span class="heading-vacancy-side
-               ">{{currentCandidate.timelineRecords[0].fields[0].fieldValue}}</span></div>
+               ">{{currentCandidate.summaryCard.predefinedFields.NAME_SURNAME.fieldValue}}</span></div>
                 <!-- <div class="col-lg-1"><span ng-show="currentCandidate.hot == true" class="badge hot">HOT</span></div> -->
             </div>
         </md-toolbar>
@@ -166,7 +166,7 @@
                      inline add-flow-btn
                      " ng-click='selectedIndex = 2'><i src="glyphicon glyphicon-upload"> </i> Add Flow</md-button>
                     </div>
-                    <div ng-repeat="item in vacanciesFlowData" class="col-centered section col-lg-11 section-suggestions">
+                    <div ng-repeat="item in candidatesFlowData" class="col-centered section col-lg-11 section-suggestions">
                         <div class="col-lg-4 flow-candidate-name">Candidate [ {{item.id}} ]</div>
                         <div class="col-lg-4">
                             <md-select placeholder="{{item.actions[item.actions.length - 1].state}}" ng-model="actionsVal
@@ -226,11 +226,32 @@
                     </div>
                 </div>
                 <!-- End tab Suggestions  -->
+                <div ng-show="selectedIndex == 3" ng-controller="suggestionsView">
+                    <!-- Tab Notes  -->
+                    <div class="col-centered section-edit col-lg-11 margin-t-20 text-center">
+                        <div class="row clearfix" ng-repeat="note in notes" style="padding:20px 0">
+                            <div ng-show="!note.new">
+                                <h5>Note {{note.creationDate|date:'medium'}}</h5>
+                                <span>{{note.comment}}</span>
+                            </div>
+                            <div class="col-lg-7 col-centered">
+                                <md-input-container flex ng-show="note.new">
+                                    <h5>{{note.placeholder}}</h5>
+                                    <textarea ng-blur="noteAction.save()" ng-model="note.comment" columns="1"></textarea>
+                                </md-input-container>
+                            </div>
+                            <div class="col-centered separator col-lg-12" ng-show="notes.length > 1"></div>
+                        </div>
+                        <md-button class="md-raised md-accent button-text-white inline" ng-click='noteAction.add()' ng-hide="notes[notes.length - 1].new == true">Add note</md-button>
+                    </div>
+                </div>
             </div>
-            <!--  End Wrapper side menu  -->
-        </md-content>
-        <!-- End Content Vacancy side menu  -->
+            <!-- End tab Notes  -->
     </div>
-    <!-- Vacancy side menu  -->
+    <!--  End Wrapper side menu  -->
+    </md-content>
+    <!-- End Content Vacancy side menu  -->
+</div>
+<!-- Vacancy side menu  -->
 </div>
 <!-- End Dashboard wrapper  -->

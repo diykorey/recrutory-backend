@@ -19,6 +19,8 @@ kandidatoApp.controller('candidateDash', function($scope, $rootScope, $log, ApiD
         heading: 'Flow',
 
     }, {
+        heading: 'Suggestions',
+    }, {
         heading: 'Notes',
 
     }];
@@ -37,8 +39,19 @@ kandidatoApp.controller('candidateDash', function($scope, $rootScope, $log, ApiD
     getData()
 
     function selectCandidate(candidateData) {
+        $rootScope.updateProcess = true
+        if ($scope.currentCandidate && candidateData.id == $scope.currentCandidate.id) {
+            delete $scope.currentCandidate;
+            return
+        };
         $scope.currentCandidate = candidateData
-        console.log($scope.currentCandidate)
+        ApiDataFactory.queryGet('workflow/byCandidate/' + $scope.currentCandidate.id).then(function(result) {
+            $scope.candidatesFlowData = result
+            $rootScope.updateProcess = false
+        });
+        ApiDataFactory.queryGet('comment/candidate/' + $scope.currentCandidate.id).then(function(result) {
+            $scope.notes = result
+        });
         $log.info('Set candidate', $scope.currentCandidate);
     }
 
@@ -143,7 +156,36 @@ kandidatoApp.controller('candidateDash', function($scope, $rootScope, $log, ApiD
 
 
 
+    $scope.quickAction = {
+        selectMain: function(candidate) {
+            $scope.currentCandidate = candidate;
+            $scope.selectedIndex = 0;
+        },
+        selectFlow: function(candidate) {
+            $scope.currentCandidate = candidate;
+            $scope.selectedIndex = 1;
+        },
+        selectNote: function(candidate) {
+            $scope.currentCandidate = candidate;
+            $scope.selectedIndex = 3;
+        },
+        selectArchive: function(candidate) {
+            $scope.currentCandidate = candidate
+        }
+    }
+
+
+
     $scope.updateInfo = updateInfo
+
+
+    // Selected detail editor tab watcher
+    $scope.$watch('selectedIndex', function(indexNew, indexOld) {
+        if (indexNew != 2) {
+            $scope.suggestedPage = 0
+            $scope.availablePage = 0
+        };
+    });
 
 
     $scope.$watch('currentCandidate', function(current, old) {

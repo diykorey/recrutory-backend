@@ -3,7 +3,7 @@
 kandidatoApp.config(function($routeProvider) {
     $routeProvider
         .when('/dashboard', {
-            templateUrl: 'app/views/dashboard.html',
+            templateUrl: 'app/views/vacancyDashboard.html',
             controller: 'dashCtrl'
         })
         .when('/list', {

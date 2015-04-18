@@ -34,7 +34,7 @@ module.exports = function(grunt) {
                 tasks: ['wiredep']
             },
             compass: {
-                files: ['<%= yeoman.app %>/assets/styles/{,*/}*.{scss,sass}'],
+                files: ['<%= yeoman.app %>/assets/styles/*.scss'],
                 tasks: ['compass:server', 'autoprefixer']
             },
             gruntfile: {
@@ -274,7 +274,7 @@ module.exports = function(grunt) {
                 files: [{
                     expand: true,
                     cwd: '<%= yeoman.dist %>',
-                    src: ['*.html', 'app/views/{,*/}*.html','app/components/{,*/}*.html','app/shared/{,*/}*.html'],
+                    src: ['*.html', 'app/views/{,*/}*.html', 'app/components/{,*/}*.html', 'app/shared/{,*/}*.html'],
 
                     dest: '<%= yeoman.dist %>'
                 }]

@@ -17,22 +17,23 @@
     <link rel="stylesheet" href="assets/styles/main.css">
     <link rel="stylesheet" href="assets/styles/navbar.css">
     <!-- endbuild -->
-  
 </head>
 
 <body ng-controller="MainCtrl">
     <!--[if lt IE 7]>
       <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
     <![endif]-->
-    <div class="row header" >
-        <div ng-show="loader" class="progress" style="margin:0px">
-            <div class="indeterminate"></div>
+    <div class="row header">
+        <div style="height:4px;" class="clearfix">
+            <div ng-show="loader" class="progress" style="margin:0px">
+                <div class="indeterminate"></div>
+            </div>
         </div>
         <!-- Add your site or application content here -->
         <div class="wrapper-header col-centered">
             <md-tabs md-selected="selectedIndexMain" flex>
                 <md-tab ng-repeat="tab in tabs">
-                    <a ng-if="tab.type == 'image'" href="#/{{tab.route}}"><img src="{{tab.heading}}" style="width:100%"></a>
+                    <a ng-if="tab.type == 'image'" href="#/{{tab.route}}"><img ng-src="{{tab.heading}}" style="width:100%"></a>
                     <a ng-if="tab.type == 'link'" href="#/{{tab.route}}">{{tab.heading}}</a>
                 </md-tab>
             </md-tabs>
@@ -48,14 +49,14 @@
                     </button>
                 </div>
                 <div id="navbar" class="navbar-collapse collapse">
-
                     <ul class="nav navbar-nav navbar-right">
-                        <li><input class="input-filter-nav" placeholder="Search" ng-model="filterValue"></li>
+                        <li>
+                            <input class="input-filter-nav" placeholder="Search" ng-model="filterValue">
+                        </li>
                         <li><a href="/#/addVacancy">Add vacancy</a></li>
                         <li><a href="/#/addCandidate">Add candidate</a></li>
                         <li><a href="/#/uploadCV">Upload CV</a></li>
                     </ul>
-
                 </div>
                 <!--/.nav-collapse -->
                 <!--/.container-fluid -->
