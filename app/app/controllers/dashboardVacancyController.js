@@ -138,46 +138,59 @@ kandidatoApp.controller('dashCtrl', function($scope, $rootScope, $log, ApiDataFa
         angular.copy($scope.currentVacancyData.tags, $scope.currentVacancy.tags);
     }
 
-    //Vacancy card quick actions
-    function quickAction(action, vacancy, index) {
-        $scope.returnSelectDefault = true
-        var i = -1
 
-        if (action == 'select') {
+    $scope.quickAction = {
+        main: function(vacancy) {
+            $scope.returnSelectDefault = true
             $scope.currentVacancy = vacancy
             $timeout(function() {
-                $scope.selectedIndex = index
+                $scope.selectedIndex = 0
             }, 0);
 
+        },
+        flow: function(vacancy) {
+            $scope.returnSelectDefault = true
+            $scope.currentVacancy = vacancy
+            $timeout(function() {
+                $scope.selectedIndex = 1
+            }, 0);
 
-        }
+        },
+        notes: function(vacancy) {
+            $scope.returnSelectDefault = true
+            $scope.currentVacancy = vacancy
 
-        if (action == 'archive' || action == 'unarchive') {
+            $timeout(function() {
+                $scope.selectedIndex = 3
+            }, 0);
 
+        },
+        archive: function(vacancy, type) {
+            $scope.returnSelectDefault = true
+            var i = 0
             _.each($scope.vacanciesData, function(vacancyEach) {
-                i++
-
-                vacancyEach.allowArchive = false;
 
 
                 if (vacancy.id === vacancyEach.id) {
 
-                    if (action == 'unarchive') {
+                    if (type == 'unarchive') {
                         $scope.vacanciesData[i].allowArchive = false;
                     }
-                    if (action == 'archive') {
+                    if (type == 'archive') {
                         $scope.vacanciesData[i].allowArchive = true;
                     };
 
-                    var iterator = i
+
 
 
                     return
                 };
-
+                i++
             });
-        };
+        }
     }
+
+
 
 
     // Archive vacancy
@@ -244,21 +257,32 @@ kandidatoApp.controller('dashCtrl', function($scope, $rootScope, $log, ApiDataFa
             delete note.placeholder
             delete note.new
             delete note.creationDate
-            var URL = "comment/vacancy/" + $scope.currentVacancy.id
-            ApiDataFactory.queryPost(URL, note.comment).then(function(result) {
+            note.entityId = $scope.currentVacancy.id
+            note.type = 'VACANCY'
+            note.text = note.comment
+            delete note.comment
+            console.log(note)
 
+            var URL = "comment"
+            ApiDataFactory.queryPost(URL, note).then(function(result) {
 
-                ApiDataFactory.queryGet('comment/vacancy/' + $scope.currentVacancyData.id).then(function(result) {
-                    $scope.notes = result
-                    $rootScope.updateProcess = false
-                    $scope.showToast()
-                });
+                getVacancyNotes()
+
             })
             console.log(note)
         },
         delete: function() {
 
         }
+    }
+
+
+    function getVacancyNotes() {
+
+        ApiDataFactory.queryGet('comment/vacancy/' + $scope.currentVacancyData.id).then(function(result) {
+            $scope.notes = result
+            $rootScope.updateProcess = false
+        });
     }
 
 
@@ -324,9 +348,7 @@ kandidatoApp.controller('dashCtrl', function($scope, $rootScope, $log, ApiDataFa
             getSuggestions(-1, -1, 'all')
         };
         if (indexNew == 3) {
-            ApiDataFactory.queryGet('comment/vacancy/' + $scope.currentVacancyData.id).then(function(result) {
-                $scope.notes = result
-            });
+            getVacancyNotes()
         };
         if (indexNew != 2) {
             $scope.suggestedPage = 0
@@ -387,5 +409,5 @@ kandidatoApp.controller('dashCtrl', function($scope, $rootScope, $log, ApiDataFa
     $scope.removeTag = removeTag;
     $scope.selectVacancy = selectVacancy;
     $scope.sendFlow = sendFlow;
-    $scope.quickAction = quickAction
+
 });
