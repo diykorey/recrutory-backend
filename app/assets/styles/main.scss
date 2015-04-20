@@ -1,4 +1,4 @@
-$icon-font-path: "../bower_components/bootstrap-sass-official/vendor/assets/fonts/bootstrap/";
+$icon-font-path: "../../../bower_components/bootstrap-sass-official/vendor/assets/fonts/bootstrap/";
 // bower:scss
 @import "../../../bower_components/bootstrap-sass-official/vendor/assets/stylesheets/bootstrap.scss";
 // endbower
@@ -616,6 +616,11 @@ md-input-container {
 
 md-tooltip {
     margin-top: 100px !important;
+}
+
+//Notes
+.note-actions-inner {
+    padding: 20px 0
 }
 
 // Loader

@@ -7,7 +7,6 @@
  * # MainCtrl
  * Controller of the kandidatoApp
  */
-kandidatoApp.controller('addVacancyCtrl', function($scope, $rootScope, $location) {
-
+kandidatoApp.controller('notesController', function($scope, $rootScope, $log, ApiDataFactory) {
 
 });

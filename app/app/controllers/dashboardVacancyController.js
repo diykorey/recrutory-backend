@@ -43,7 +43,7 @@ kandidatoApp.controller('dashCtrl', function($scope, $rootScope, $log, ApiDataFa
 
     }];
 
-    $scope.candidateActions = [{
+    $scope.vacancyActions = [{
         name: "INIT"
     }, {
         name: "CONTACT"
@@ -194,7 +194,7 @@ kandidatoApp.controller('dashCtrl', function($scope, $rootScope, $log, ApiDataFa
 
 
     // Archive vacancy
-    function archiveVacancy(vacancy) {
+    $scope.archiveVacancy = function(vacancy) {
 
         $scope.loader = true
         delete $scope.currentVacancy
@@ -204,24 +204,15 @@ kandidatoApp.controller('dashCtrl', function($scope, $rootScope, $log, ApiDataFa
             //     
             // })
         var i = 0;
-        _.each($scope.vacanciesData, function(vacancyEach) {
-            if (vacancy.id == vacancyEach.id) {
-
-                var iterator = i
-
-                $scope.vacanciesData.splice(i, 1);
-                $scope.loader = false
-                $scope.returnSelectDefault = false
-                $scope.currentVacancy = false
-            };
-
-            i++
-
-        });
+        $scope.vacanciesData.splice(_.indexOf($scope.vacanciesData, vacancy), 1);
+        $scope.loader = false
+        $scope.returnSelectDefault = false
+        $scope.currentVacancy = false
 
     }
 
-    $scope.archiveVacancy = archiveVacancy
+
+
 
 
     // Send selected flow data
@@ -239,6 +230,15 @@ kandidatoApp.controller('dashCtrl', function($scope, $rootScope, $log, ApiDataFa
     }
 
 
+
+    function getVacancyNotes() {
+
+        ApiDataFactory.queryGet('comment/vacancy/' + $scope.currentVacancyData.id).then(function(result) {
+            $scope.notes = result
+            $rootScope.updateProcess = false
+        });
+    }
+
     $scope.noteAction = {
         add: function() {
             function note() {
@@ -247,6 +247,34 @@ kandidatoApp.controller('dashCtrl', function($scope, $rootScope, $log, ApiDataFa
                 this.creationDate = new Date();
             }
             $scope.notes.push(new note())
+        },
+        discard: function() {
+            $scope.notes.splice($scope.notes.length - 1, 1)
+        },
+        edit: function(note) {
+            $rootScope.updateProcess = true
+
+            note.entityId = note.id
+            note.type = 'VACANCY'
+            note.text = note.comment
+            URL = 'comment/' + note.id
+            ApiDataFactory.queryPost(URL, note).then(function(result) {
+                delete note.editNote
+                $rootScope.updateProcess = false
+                $scope.showToast()
+
+
+            })
+        },
+        deletenote: function(note) {
+            if (note.deleteNote) {
+                $scope.notes.splice(_.indexOf($scope.notes, note), 1)
+                var URL = 'comment/' + note.id
+                    // ApiDataFactory.queryDelete(URL).then(function(result) {})
+            };
+
+            console.log(note)
+            note.deleteNote = true
         },
         save: function() {
             $rootScope.updateProcess = true
@@ -267,23 +295,13 @@ kandidatoApp.controller('dashCtrl', function($scope, $rootScope, $log, ApiDataFa
             ApiDataFactory.queryPost(URL, note).then(function(result) {
 
                 getVacancyNotes()
-
+                $rootScope.updateProcess = false
+                $scope.showToast()
             })
             console.log(note)
-        },
-        delete: function() {
-
         }
     }
 
-
-    function getVacancyNotes() {
-
-        ApiDataFactory.queryGet('comment/vacancy/' + $scope.currentVacancyData.id).then(function(result) {
-            $scope.notes = result
-            $rootScope.updateProcess = false
-        });
-    }
 
 
     // Update vacancy info
@@ -322,13 +340,13 @@ kandidatoApp.controller('dashCtrl', function($scope, $rootScope, $log, ApiDataFa
         });
 
         $scope.flowData = []
-        _.each($scope.flowaddModel, function(state, candidate) {
+        _.each($scope.flowaddModel, function(state, vacancy) {
 
             if (state == true) {
-                $scope.candidateEach = {}
-                $scope.candidateEach.candidateId = parseInt(candidate)
-                $scope.candidateEach.vacancyId = $scope.currentVacancy.id
-                $scope.flowData.push($scope.candidateEach)
+                $scope.vacancyEach = {}
+                $scope.vacancyEach.vacancyId = parseInt(vacancy)
+                $scope.vacancyEach.vacancyId = $scope.currentVacancy.id
+                $scope.flowData.push($scope.vacancyEach)
             };
 
         });
@@ -350,6 +368,8 @@ kandidatoApp.controller('dashCtrl', function($scope, $rootScope, $log, ApiDataFa
         if (indexNew == 3) {
             getVacancyNotes()
         };
+
+
         if (indexNew != 2) {
             $scope.suggestedPage = 0
             $scope.availablePage = 0
@@ -365,10 +385,10 @@ kandidatoApp.controller('dashCtrl', function($scope, $rootScope, $log, ApiDataFa
             $rootScope.updateProcess = true
             $scope.availablePage = availablePage
             $scope.availablePage++;
-            ApiDataFactory.queryGet('candidate/findAvailable?vacancyId=' + $scope.currentVacancy.id + '&page=' + $scope.availablePage + '&size=5').then(function(result) {
+            ApiDataFactory.queryGet('vacancy/findAvailable?candidateId=' + $scope.currentVacancy.id + '&page=' + $scope.availablePage + '&size=5').then(function(result) {
                 if ($scope.availablePage > 0) {
-                    _.each(result, function(candidate) {
-                        $scope.flowAvailable.push(candidate)
+                    _.each(result, function(vacancy) {
+                        $scope.flowAvailable.push(vacancy)
 
                     });
 
@@ -385,10 +405,10 @@ kandidatoApp.controller('dashCtrl', function($scope, $rootScope, $log, ApiDataFa
             $rootScope.updateProcess = true
             $scope.suggestedPage = pageSuggested
             $scope.suggestedPage++;
-            ApiDataFactory.queryGet('candidate/findRecommended?vacancyId=' + $scope.currentVacancy.id + '&page=' + $scope.suggestedPage + '&size=5').then(function(result) {
+            ApiDataFactory.queryGet('vacancy/findRecommended?candidateId=' + $scope.currentVacancy.id + '&page=' + $scope.suggestedPage + '&size=5').then(function(result) {
                 if ($scope.suggestedPage > 0) {
-                    _.each(result, function(candidate) {
-                        $scope.flowSuggested.push(candidate)
+                    _.each(result, function(vacancy) {
+                        $scope.flowSuggested.push(vacancy)
 
                     });
 

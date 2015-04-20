@@ -93,7 +93,7 @@
                     </div>
                 </div>
                 <!-- End Tab Flow  -->
-                <div ng-show="selectedIndex == 2" ng-controller="suggestionsView">
+                <div ng-show="selectedIndex == 2">
                     <!-- Tab Suggestions  -->
                     <div class="text-center
                   margin-t-20">
@@ -108,8 +108,7 @@
                     <div class="col-centered col-lg-11 margin-b-20 margin-t-20 label-red">Suggested :</div>
                     <div ng-repeat="candidate in flowSuggested | filter:filterSuggestions" class="col-centered section col-lg-11 section-suggestions">
                         <div class="col-lg-1">
-                            <md-checkbox ng-model="flowaddModel
-                        [candidate.id]" ng-change="addCandidateToFlow(candidate.id)" aria-label="Checkbox 1"></md-checkbox>
+                            <md-checkbox ng-model="flowaddModel[candidate.id]" aria-label="Checkbox 1"></md-checkbox>
                         </div>
                         <div class="col-lg-4 flow-candidate-name">Candidate [ {{candidate.id}} ]</div>
                     </div>
@@ -119,7 +118,7 @@
                     <div class="col-centered col-lg-11 margin-b-20 margin-t-20 label-red">Available :</div>
                     <div ng-repeat="candidate in flowAvailable | filter:filterSuggestions" class="col-centered section col-lg-11 section-suggestions">
                         <div class="col-lg-1">
-                            <md-checkbox ng-model="flowaddModel[candidate.id]" ng-change="addCandidateToFlow(candidate.id)" aria-label="Checkbox 1"></md-checkbox>
+                            <md-checkbox ng-model="flowaddModel[candidate.id]" aria-label="Checkbox 1"></md-checkbox>
                         </div>
                         <div class="col-lg-4 flow-candidate-name">Candidate [ {{candidate.id}} ]</div>
                     </div>
@@ -128,28 +127,18 @@
                     </div>
                 </div>
                 <!-- End tab Suggestions  -->
-<div ng-show="selectedIndex == 3" ng-controller="suggestionsView">
-    <!-- Tab Notes  -->
-    <div class="col-centered section-edit col-lg-11 margin-t-20 text-center">
-        <div class="row clearfix" ng-repeat="note in notes" style="padding:20px 0">
-            <div ng-show="!note.new">
-                <h5>Note {{note.creationDate|date:'medium'}}</h5>
-                <span>{{note.comment}}</span>
+                <div ng-show="selectedIndex == 3">
+                    <!-- Tab Notes  -->
+                    <div class="col-centered section-edit col-lg-11 margin-t-20 text-center">
+                        <notes class="row clearfix" ng-repeat="note in notes" style="padding:20px 0"></notes>
+                        <!-- Tab Notes Directive | Content -->
+                        <md-button class="md-raised md-accent button-text-white inline" ng-click='noteAction.add()' ng-hide="notes[notes.length - 1].new == true">Add note</md-button>
+                        <md-button class="md-raised md-accent button-text-white inline" ng-click='noteAction.save()' ng-show="notes[notes.length - 1].new == true">Save</md-button>
+                        <md-button class="md-raised md-warn inline" ng-click='noteAction.discard()' ng-show="notes[notes.length - 1].new == true">Discard</md-button>
+                    </div>
+                </div>
+                <!-- End tab Notes  -->
             </div>
-            <div class="col-lg-7 col-centered">
-                <md-input-container flex ng-show="note.new">
-                    <h5>{{note.placeholder}}</h5>
-                    <textarea ng-blur="noteAction.save()" ng-model="note.comment" columns="1"></textarea>
-                </md-input-container>
-            </div>
-            <div class="col-centered separator col-lg-12" ng-show="notes.length > 1"></div>
-        </div>
-        <md-button class="md-raised md-accent button-text-white inline" ng-click='noteAction.add()' ng-hide="notes[notes.length - 1].new == true">Add note</md-button>
-    </div>
-</div>
-</div>
-<!-- End tab Notes  -->
-
             <!--  End Wrapper side menu  -->
         </md-content>
         <!-- End Content Vacancy side menu  -->
