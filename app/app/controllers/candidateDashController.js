@@ -263,7 +263,8 @@ kandidatoApp.controller('candidateDash', function($scope, $rootScope, $log, ApiD
     $scope.$watch('selectedIndex', function(indexNew, indexOld) {
 
         if (indexNew == 1) {
-            ApiDataFactory.queryGet('workflow/byCandidate/' + $scope.currentCandidateData.id).then(function(result) {
+            ApiDataFactory.queryGet('workflow/byCandidate
+/' + $scope.currentCandidateData.id).then(function(result) {
                 $rootScope.updateProcess = false
                 $scope.candidatesFlowData = result // response data
             });
@@ -294,7 +295,8 @@ kandidatoApp.controller('candidateDash', function($scope, $rootScope, $log, ApiD
         $rootScope.updateProcess = true
         var objToSend = {}
         objToSend.flows = $scope.flowData
-        ApiDataFactory.queryPost('workflow/', objToSend).then(function(result) {
+        console.log(JSON.stringify(objToSend))
+        ApiDataFactory.queryPost('workflow/', JSON.stringify(objToSend)).then(function(result) {
             $scope.selectedIndex = 1;
             $scope.flowaddModel = {}
             getSuggestions()
@@ -314,8 +316,8 @@ kandidatoApp.controller('candidateDash', function($scope, $rootScope, $log, ApiD
             console.log(vacancy, state)
             if (state == true) {
                 var vacancyEach = {}
-                vacancyEach.vacancyId = parseInt(vacancy)
                 vacancyEach.candidateId = $scope.currentCandidate.id
+                vacancyEach.vacancyId = parseInt(vacancy)
 
                 $scope.flowData.push(vacancyEach)
             };
@@ -331,7 +333,7 @@ kandidatoApp.controller('candidateDash', function($scope, $rootScope, $log, ApiD
         $rootScope.updateProcess = true
         $scope.suggestedPage = pageSuggested
 
-        ApiDataFactory.queryGet('candidate/findRecommended?vacancyId=' + $scope.currentCandidate.id + '&page=' + $scope.suggestedPage + '&size=5').then(function(result) {
+        ApiDataFactory.queryGet('vacancy/findRecommended?candidateId=' + $scope.currentCandidate.id + '&page=' + $scope.suggestedPage + '&size=5').then(function(result) {
             if ($scope.suggestedPage > 0) {
                 _.each(result, function(candidate) {
                     $scope.flowSuggested.push(candidate)
