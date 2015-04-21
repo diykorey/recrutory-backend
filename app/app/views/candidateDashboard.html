@@ -90,13 +90,13 @@
                     <div class="col-centered section-edit col-lg-11 margin-t-20 ">
                         <md-input-container ng-repeat="field in currentCandidate.summaryCard.predefinedFields">
                             <label class="labelHeading">{{field.type.name}}</label>
-                            <input ng-focus="customField.set(field)" ng-model="field.fieldValue">
+                            <input ng-blur="updateField(field)" ng-focus="customField.set(field)" ng-model="field.fieldValue">
                         </md-input-container>
                     </div>
                     <div class="col-centered section-edit col-lg-11 margin-t-20 ">
                         <md-input-container ng-repeat="field in currentCandidate.summaryCard.customFields">
                             <label class="labelHeading">{{field.type.name}}</label>
-                            <input ng-focus="customField.set(field)" ng-model="field.fieldValue">
+                            <input ng-blur="updateField(field)" ng-focus="customField.set(field)" ng-model="field.fieldValue">
                         </md-input-container>
                     </div>
                     <!-- <div class="col-centered section-edit col-lg-11">
@@ -216,13 +216,7 @@
                 <!-- End tab Suggestions  -->
                 <div ng-show="selectedIndex == 3">
                     <!-- Tab Notes  -->
-                    <div class="col-centered section-edit col-lg-11 margin-t-20 text-center">
-                        <notes class="row clearfix" ng-repeat="note in notes" style="padding:20px 0"></notes>
-                        <!-- Tab Notes Directive | Content -->
-                        <md-button class="md-raised md-accent button-text-white inline" ng-click='noteAction.add()' ng-hide="notes[notes.length - 1].new == true">Add note</md-button>
-                        <md-button class="md-raised md-accent button-text-white inline" ng-click='noteAction.save()' ng-show="notes[notes.length - 1].new == true">Save</md-button>
-                        <md-button class="md-raised md-warn inline" ng-click='noteAction.discard()' ng-show="notes[notes.length - 1].new == true">Discard</md-button>
-                    </div>
+                    <notes class="row clearfix" style="padding:20px 0"></notes>
                 </div>
                 <!-- End tab Notes  -->
             </div>

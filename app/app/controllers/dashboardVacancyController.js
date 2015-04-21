@@ -334,22 +334,26 @@ kandidatoApp.controller('dashCtrl', function($scope, $rootScope, $log, ApiDataFa
         $scope.currentVacancy = false;
     });
 
+
     $scope.$watch('flowaddModel', function onScopeChange(newCol, oldCol) {
+
         var changedVal = _.omit(newCol, function(v, k) {
             return oldCol[k] === v;
         });
 
         $scope.flowData = []
-        _.each($scope.flowaddModel, function(state, vacancy) {
-
+        _.each($scope.flowaddModel, function(state, candidate) {
+            console.log(candidate, state)
             if (state == true) {
-                $scope.vacancyEach = {}
-                $scope.vacancyEach.vacancyId = parseInt(vacancy)
-                $scope.vacancyEach.vacancyId = $scope.currentVacancy.id
-                $scope.flowData.push($scope.vacancyEach)
+                var candidateEach = {}
+                candidateEach.candidateId = candidate
+                candidateEach.vacancyId = $scope.currentVacancy.id
+
+                $scope.flowData.push(candidateEach)
             };
 
         });
+        console.log($scope.flowData)
     }, true);
 
     // Selected detail editor tab watcher
@@ -385,7 +389,7 @@ kandidatoApp.controller('dashCtrl', function($scope, $rootScope, $log, ApiDataFa
             $rootScope.updateProcess = true
             $scope.availablePage = availablePage
             $scope.availablePage++;
-            ApiDataFactory.queryGet('vacancy/findAvailable?candidateId=' + $scope.currentVacancy.id + '&page=' + $scope.availablePage + '&size=5').then(function(result) {
+            ApiDataFactory.queryGet('candidate/findAvailable?vacancyId=' + $scope.currentVacancy.id + '&page=' + $scope.availablePage + '&size=5').then(function(result) {
                 if ($scope.availablePage > 0) {
                     _.each(result, function(vacancy) {
                         $scope.flowAvailable.push(vacancy)
@@ -405,7 +409,7 @@ kandidatoApp.controller('dashCtrl', function($scope, $rootScope, $log, ApiDataFa
             $rootScope.updateProcess = true
             $scope.suggestedPage = pageSuggested
             $scope.suggestedPage++;
-            ApiDataFactory.queryGet('vacancy/findRecommended?candidateId=' + $scope.currentVacancy.id + '&page=' + $scope.suggestedPage + '&size=5').then(function(result) {
+            ApiDataFactory.queryGet('candidate/findRecommended?vacancyId=' + $scope.currentVacancy.id + '&page=' + $scope.suggestedPage + '&size=5').then(function(result) {
                 if ($scope.suggestedPage > 0) {
                     _.each(result, function(vacancy) {
                         $scope.flowSuggested.push(vacancy)

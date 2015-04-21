@@ -1,0 +1,32 @@
+<div>
+    <div class="col-centered section-edit col-lg-11 margin-t-20 ">
+        <md-input-container>
+            <label class="labelHeading">Name</label>
+            <input ng-blur="updateInfo(currentVacancyData.id)" ng-model="currentVacancyData.name">
+        </md-input-container>
+    </div>
+    <div class="col-centered section-edit col-lg-11">
+        <md-input-container>
+            <label class="labelHeading">Requirements</label>
+            <input ng-blur="updateInfo(currentVacancyData.id)" ng-model="currentVacancyData.requirements">
+        </md-input-container>
+    </div>
+    <div class="col-centered separator col-lg-12"></div>
+    <div class="col-centered section col-lg-11 clearfix">
+        <h5 class="vacancy-heading-inner">Tags</h5>
+        <div class="tags clearfix" ng-if="currentVacancyData.tags.length > 0">
+            <a ng-repeat="tag in currentVacancyData.tags" ng-if="currentVacancyData.tags.length > 0" ng-click="removeTag(tag.keyword)">{{tag.keyword}}<button><i class="glyphicon glyphicon-remove"></i></button></a>
+        </div>
+        <div class="tags clearfix" ng-show="currentVacancyData.tags.length == 0">
+            <a class="no-tags
+                     ">Vacancy has no tags</a>
+        </div>
+        <div class="col-centered section-edit col-lg-11">
+            <md-input-container>
+                <label class="labelHeading">Type tag name and hit Enter, Space or type comma to add it.</label>
+                <input ng-keyup="$event.keyCode == 13 || $event.keyCode == 32 || $event.keyCode == 188? addTag() : null" ng-model="tagEdit
+                           ">
+            </md-input-container>
+        </div>
+    </div>
+</div>

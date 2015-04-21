@@ -27,115 +27,18 @@
                     <div class="indeterminate"></div>
                 </div>
                 <div ng-show="selectedIndex == 0">
-                    <!-- Tab Main  -->
-                    <div class="col-centered section-edit col-lg-11 margin-t-20 ">
-                        <md-input-container>
-                            <label class="labelHeading">Name</label>
-                            <input ng-blur="updateInfo(currentVacancyData.id)" ng-model="currentVacancyData.name">
-                        </md-input-container>
-                    </div>
-                    <div class="col-centered section-edit col-lg-11">
-                        <md-input-container>
-                            <label class="labelHeading">Requirements</label>
-                            <input ng-blur="updateInfo(currentVacancyData.id)" ng-model="currentVacancyData.requirements">
-                        </md-input-container>
-                    </div>
-                    <div class="col-centered separator col-lg-12"></div>
-                    <div class="col-centered section col-lg-11 clearfix">
-                        <h5 class="vacancy-heading-inner">Tags</h5>
-                        <div class="tags clearfix" ng-if="currentVacancyData.tags.length > 0">
-                            <a ng-repeat="tag in currentVacancyData.tags" ng-if="currentVacancyData.tags.length > 0" ng-click="removeTag(tag.keyword)">{{tag.keyword}}<button><i class="glyphicon glyphicon-remove"></i></button></a>
-                        </div>
-                        <div class="tags clearfix" ng-show="currentVacancyData.tags.length == 0">
-                            <a class="no-tags
-                     ">Vacancy has no tags</a>
-                        </div>
-                        <div class="col-centered section-edit col-lg-11">
-                            <md-input-container>
-                                <label class="labelHeading">Type tag name and hit Enter, Space or type comma to add it.</label>
-                                <input ng-keyup="$event.keyCode == 13 || $event.keyCode == 32 || $event.keyCode == 188? addTag() : null" ng-model="tagEdit
-                           ">
-                            </md-input-container>
-                        </div>
-                    </div>
+                    <vacancy-side-main></vacancy-side-main>
                 </div>
                 <!-- End tab Main  -->
                 <div ng-show="selectedIndex == 1">
-                    <!-- Tab Flow  -->
-                    <div class="text-center
-                  margin-t-20">
-                        <md-button class="md-raised md-accent button-text-white
-                     inline add-flow-btn
-                     " ng-click='selectedIndex = 2'><i src="glyphicon glyphicon-upload"> </i> Add Flow</md-button>
-                    </div>
-                    <div ng-repeat="item in vacanciesFlowData" class="col-centered section col-lg-11 section-suggestions">
-                        <div class="col-lg-4 flow-candidate-name">Candidate [ {{item.id}} ]</div>
-                        <div class="col-lg-4">
-                            <md-select placeholder="{{item.actions[item.actions.length - 1].state}}" ng-model="actionsVal
-                        [item.candidate.id]">
-                                <md-option ng-repeat="action in candidateActions" value="{{action.name}}">{{action.name}}</md-option>
-                            </md-select>
-                        </div>
-                        <div class="col-lg-4 text-right">
-                            <md-button class="md-raised button-comment-suggestions inline
-                        " ng-click="editDescription
-                        (item.id)">Description
-                            </md-button>
-                        </div>
-                        <div class="row" ng-show="item.id == currentCommentEditId
-                     ">
-                            <md-input-container class="comment-input
-                        ">
-                                <label>Description</label>
-                                <input ng-model="item.actions[item.actions.length - 1].description">
-                            </md-input-container>
-                        </div>
-                    </div>
+                    <vacancy-side-flow></vacancy-side-flow>
                 </div>
-                <!-- End Tab Flow  -->
                 <div ng-show="selectedIndex == 2">
-                    <!-- Tab Suggestions  -->
-                    <div class="text-center
-                  margin-t-20">
-                        <md-button class="md-raised md-accent button-text-white
-                     inline add-flow-btn
-                     " ng-click='sendFlow()' ng-disabled="flowData.length == 0"><i src="glyphicon glyphicon-upload"> </i>Add to flow</md-button>
-                    </div>
-                    <md-input-container class="col-lg-4 col-centered">
-                        <label>Filter</label>
-                        <input ng-model="filterSuggestions">
-                    </md-input-container>
-                    <div class="col-centered col-lg-11 margin-b-20 margin-t-20 label-red">Suggested :</div>
-                    <div ng-repeat="candidate in flowSuggested | filter:filterSuggestions" class="col-centered section col-lg-11 section-suggestions">
-                        <div class="col-lg-1">
-                            <md-checkbox ng-model="flowaddModel[candidate.id]" aria-label="Checkbox 1"></md-checkbox>
-                        </div>
-                        <div class="col-lg-4 flow-candidate-name">Candidate [ {{candidate.id}} ]</div>
-                    </div>
-                    <div class="text-center">
-                        <md-button class="inline" ng-click="getSuggestions(suggestedPage,availablePage,'suggested')">More</md-button>
-                    </div>
-                    <div class="col-centered col-lg-11 margin-b-20 margin-t-20 label-red">Available :</div>
-                    <div ng-repeat="candidate in flowAvailable | filter:filterSuggestions" class="col-centered section col-lg-11 section-suggestions">
-                        <div class="col-lg-1">
-                            <md-checkbox ng-model="flowaddModel[candidate.id]" aria-label="Checkbox 1"></md-checkbox>
-                        </div>
-                        <div class="col-lg-4 flow-candidate-name">Candidate [ {{candidate.id}} ]</div>
-                    </div>
-                    <div class="text-center">
-                        <md-button class="inline" ng-click="getSuggestions(suggestedPage,availablePage,'available')">More</md-button>
-                    </div>
+                    <vacancy-side-suggestions></vacancy-side-suggestions>
                 </div>
                 <!-- End tab Suggestions  -->
                 <div ng-show="selectedIndex == 3">
-                    <!-- Tab Notes  -->
-                    <div class="col-centered section-edit col-lg-11 margin-t-20 text-center">
-                        <notes class="row clearfix" ng-repeat="note in notes" style="padding:20px 0"></notes>
-                        <!-- Tab Notes Directive | Content -->
-                        <md-button class="md-raised md-accent button-text-white inline" ng-click='noteAction.add()' ng-hide="notes[notes.length - 1].new == true">Add note</md-button>
-                        <md-button class="md-raised md-accent button-text-white inline" ng-click='noteAction.save()' ng-show="notes[notes.length - 1].new == true">Save</md-button>
-                        <md-button class="md-raised md-warn inline" ng-click='noteAction.discard()' ng-show="notes[notes.length - 1].new == true">Discard</md-button>
-                    </div>
+                    <notes class="row clearfix" style="padding:20px 0"></notes>
                 </div>
                 <!-- End tab Notes  -->
             </div>

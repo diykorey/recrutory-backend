@@ -15,7 +15,7 @@ kandidatoApp.controller('listCtrl', function($scope, $rootScope, $log, ApiDataFa
 
     function getData() {
         $rootScope.loader = true
-        ApiDataFactory.query('vacancy/byState/open').then(function(result) {
+        ApiDataFactory.queryGet('vacancy/byState/open').then(function(result) {
             $rootScope.loader = false
 
             $scope.vacanciesData = result // response data

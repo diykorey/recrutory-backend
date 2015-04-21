@@ -142,6 +142,21 @@ kandidatoApp.controller('candidateDash', function($scope, $rootScope, $log, ApiD
         }
     }
 
+
+    $scope.updateField = function(field) {
+
+
+
+        var URL = "candidate/" + $scope.currentCandidate.id + "/updatefield"
+        ApiDataFactory.queryPost(URL, field).then(function() {
+
+            $scope.currentCandidate.summaryCard.customFields[field.type.name] = field
+            $scope.candidatesData[_.indexOf($scope.candidatesData, $scope.currentCandidate)] = $scope.currentCandidate;
+            $rootScope.updateProcess = false;
+            $scope.showToast()
+        })
+    }
+
     $scope.addFieldProgress = false
 
 
@@ -159,6 +174,7 @@ kandidatoApp.controller('candidateDash', function($scope, $rootScope, $log, ApiD
             newField.type = {}
             newField.type.name = $scope.newFieldName
             newField.type.prime = false
+
             newField.fieldValue = $scope.newFieldValue
             $scope.customFields.push(newField)
             delete $scope.addFieldProgress
@@ -198,17 +214,16 @@ kandidatoApp.controller('candidateDash', function($scope, $rootScope, $log, ApiD
                     $scope.customFields.splice(_.indexOf($scope.customFields, $scope.currentField), 1)
                     var URL = 'candidate/removefield/' + field.id
                     ApiDataFactory.queryDelete(URL).then(function(result) {
-                        var i = 0
-                        _.each($scope.candidatesData, function(candidate) {
-                            if (candidate.id == $scope.currentCandidate.id) {
-                                delete $scope.candidatesData[i].summaryCard.customFields[field.type.name]
-                                delete $scope.currentField
-                                $rootScope.updateProcess = false
-                                $scope.showToast()
-                            };
-                            i++
 
-                        });
+
+
+                        delete $scope.candidatesData[_.indexOf($scope.candidatesData, $scope.currentCandidate)].summaryCard.customFields[field.type.name]
+                        delete $scope.currentField
+                        $rootScope.updateProcess = false
+                        $scope.showToast()
+
+
+
                     })
                 }
 
@@ -263,9 +278,8 @@ kandidatoApp.controller('candidateDash', function($scope, $rootScope, $log, ApiD
     $scope.$watch('selectedIndex', function(indexNew, indexOld) {
 
         if (indexNew == 1) {
-            ApiDataFactory.queryGet('workflow/byCandidate
-/' + $scope.currentCandidateData.id).then(function(result) {
-                $rootScope.updateProcess = false
+            ApiDataFactory.queryGet('workflow/byVacancy/ ' + $scope.currentCandidateData.id).then(function(result) {
+                $rootScope.updateProcess = false;
                 $scope.candidatesFlowData = result // response data
             });
         };
@@ -273,12 +287,10 @@ kandidatoApp.controller('candidateDash', function($scope, $rootScope, $log, ApiD
             getCandidateNotes()
         };
         if (indexNew == 2) {
-            getSuggestions(0)
-        };
-        if (indexNew != 2) {
             $scope.suggestedPage = 0
-            $scope.availablePage = 0
+            getSuggestions($scope.suggestedPage)
         };
+
     });
 
 
@@ -298,22 +310,18 @@ kandidatoApp.controller('candidateDash', function($scope, $rootScope, $log, ApiD
         console.log(JSON.stringify(objToSend))
         ApiDataFactory.queryPost('workflow/', JSON.stringify(objToSend)).then(function(result) {
             $scope.selectedIndex = 1;
-            $scope.flowaddModel = {}
-            getSuggestions()
-            $rootScope.updateProcess = false
+            $scope.flowaddModel =
+                $rootScope.updateProcess = false
             $scope.showToast()
         })
     }
 
     $scope.$watch('flowaddModel', function onScopeChange(newCol, oldCol) {
-
         var changedVal = _.omit(newCol, function(v, k) {
             return oldCol[k] === v;
         });
-
         $scope.flowData = []
         _.each($scope.flowaddModel, function(state, vacancy) {
-            console.log(vacancy, state)
             if (state == true) {
                 var vacancyEach = {}
                 vacancyEach.candidateId = $scope.currentCandidate.id
@@ -321,14 +329,11 @@ kandidatoApp.controller('candidateDash', function($scope, $rootScope, $log, ApiD
 
                 $scope.flowData.push(vacancyEach)
             };
-
         });
-        console.log($scope.flowData)
     }, true);
 
 
     function getSuggestions(pageSuggested) {
-
 
         $rootScope.updateProcess = true
         $scope.suggestedPage = pageSuggested
