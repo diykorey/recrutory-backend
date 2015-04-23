@@ -2,6 +2,6 @@ kandidatoApp.directive('vacancySideSuggestions', function() {
     return {
         restrict: 'E',
         replace: 'true',
-        templateUrl: 'app/components/vacancySideSuggestions/vacancySideSuggestions.html'
+        templateUrl: 'app/components/vacancy/vacancySideSuggestions/vacancySideSuggestions.html'
     };
 });

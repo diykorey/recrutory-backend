@@ -272,7 +272,7 @@ kandidatoApp.controller('candidateDash', function($scope, $rootScope, $log, ApiD
     $scope.$watch('selectedIndex', function(indexNew, indexOld) {
 
         if (indexNew == 1) {
-            ApiDataFactory.queryGet('workflow/byVacancy/ ' + $scope.currentCandidateData.id).then(function(result) {
+            ApiDataFactory.queryGet('workflow/byCandidate/' + $scope.currentCandidateData.id).then(function(result) {
                 $rootScope.updateProcess = false;
                 $scope.candidatesFlowData = result // response data
             });
@@ -308,8 +308,8 @@ kandidatoApp.controller('candidateDash', function($scope, $rootScope, $log, ApiD
         console.log(JSON.stringify(objToSend))
         ApiDataFactory.queryPost('workflow/', JSON.stringify(objToSend)).then(function(result) {
             $scope.selectedIndex = 1;
-            $scope.flowaddModel =
-                $rootScope.updateProcess = false
+            $scope.flowaddModel = {}
+            $rootScope.updateProcess = false
             $scope.showToast()
         })
     }
@@ -320,6 +320,7 @@ kandidatoApp.controller('candidateDash', function($scope, $rootScope, $log, ApiD
 
     $scope.changeFlowData = function(vacancyId) {
         !$scope.flowaddModel[vacancyId]
+        console.log($scope.flowaddModel)
         $scope.flowData = []
         _.each($scope.flowaddModel, function(state, vacancy) {
             if (state == true) {

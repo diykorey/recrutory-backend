@@ -1,0 +1,54 @@
+<div>
+    <div class="col-centered section-edit col-lg-11 margin-t-20 ">
+        <md-input-container ng-repeat="field in currentCandidate.summaryCard.predefinedFields">
+            <label class="labelHeading">{{field.type.name}}</label>
+            <input ng-blur="updateField(field)" ng-focus="customField.set(field)" ng-model="field.fieldValue">
+        </md-input-container>
+    </div>
+    <div class="col-centered section-edit col-lg-11 margin-t-20 ">
+        <md-input-container ng-repeat="field in currentCandidate.summaryCard.customFields">
+            <label class="labelHeading">{{field.type.name}}</label>
+            <input ng-blur="updateField(field)" ng-focus="customField.set(field)" ng-model="field.fieldValue">
+        </md-input-container>
+    </div>
+    <div class="col-centered col-lg-11 clearfix">
+        <div class="text-center
+                  margin-t-20 margin-b-20">
+            <md-button ng-hide="addFieldProgress" class="md-raised md-accent button-text-white inline add-flow-btn" ng-click='customField.add()'><i src="glyphicon glyphicon-upload"> </i> Add Field </md-button>
+            <md-button ng-show="addFieldProgress == 1" class="md-raised md-accent button-text-white inline add-flow-btn" ng-click='customField.addText()'><i src="glyphicon glyphicon-upload"> </i> Add text for {{newFieldName}} </md-button>
+            <md-button ng-show="addFieldProgress == 2" class="md-raised md-accent button-text-white inline add-flow-btn" ng-click='customField.save()'><i src="glyphicon glyphicon-upload"> </i> Save </md-button>
+            <md-button ng-show="addFieldProgress" class="md-raised md-accent button-text-white inline add-flow-btn" ng-click='customField.cancel()'><i src="glyphicon glyphicon-upload"> </i> Cancel </md-button>
+            <md-button class="md-raised md-warn inline" ng-click="customField.delete()" ng-show="currentField ? !currentField.type.prime : false">Delete</md-button>
+        </div>
+    </div>
+    <div class="col-centered section-edit col-lg-11 margin-t-20" ng-show="addFieldProgress == 1">
+        <md-input-container>
+            <label class="labelHeading" contentEditable="true">Field name</label>
+            <input type="text" ng-model="newFieldName">
+        </md-input-container>
+    </div>
+    <div class="col-centered section-edit col-lg-11 margin-t-20" ng-show="addFieldProgress == 2">
+        <md-input-container>
+            <label class="labelHeading">{{newFieldName}}</label>
+            <input type="text" ng-model="newFieldValue">
+        </md-input-container>
+    </div>
+    <div class="col-centered separator col-lg-12"></div>
+    <div class="col-centered section col-lg-11 clearfix">
+        <h5 class="vacancy-heading-inner">Tags</h5>
+        <div class="tags clearfix" ng-if="currentCandidateData.tags.length > 0">
+            <a ng-repeat="tag in currentCandidateData.tags" ng-if="currentCandidateData.tags.length > 0" ng-click="removeTag(tag.keyword)">{{tag.keyword}}<button><i class="glyphicon glyphicon-remove"></i></button></a>
+        </div>
+        <div class="tags clearfix" ng-show="currentCandidateData.tags.length == 0">
+            <a class="no-tags
+                     ">Vacancy has no tags</a>
+        </div>
+        <div class="col-centered section-edit col-lg-11">
+            <md-input-container>
+                <label class="labelHeading">Type tag name and hit Enter, Space or type comma to add it.</label>
+                <input ng-keyup="$event.keyCode == 13 || $event.keyCode == 32 || $event.keyCode == 188? addTag() : null" ng-model="tagEdit
+                           ">
+            </md-input-container>
+        </div>
+    </div>
+</div>
