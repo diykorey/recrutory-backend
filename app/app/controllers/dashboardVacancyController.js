@@ -139,6 +139,13 @@ kandidatoApp.controller('dashCtrl', function($scope, $rootScope, $log, ApiDataFa
     }
 
 
+/**
+     * Card quick action class.
+     * this main() - sets current vacancy, and switches to MAIN side menu tab
+     * this flow() - sets current vacancy, and switches to FLOW side menu tab
+     * this notes() - sets current vacancy, and switches to NOTE side menu tab
+     */
+
     $scope.quickAction = {
         main: function(vacancy) {
             $scope.returnSelectDefault = true
@@ -238,6 +245,16 @@ kandidatoApp.controller('dashCtrl', function($scope, $rootScope, $log, ApiDataFa
             $rootScope.updateProcess = false
         });
     }
+
+
+    /**
+ * Note action class.
+ * this add() - add new note to $scope.notes array, with ket new.
+ * this discard() - removes last element from $scope.notes array, exactly latest new.
+ * this save() - Remowing new key, and sending request to add new note, then gets new data with ID's and Date of creation set.
+ * this edit() - PARAMS : note - clicked edit entity | Update note via this id and with new value.
+ * this deleteNote() - PARAMS : note - clicked edit entity | Splices $scope.array and send API request ( callback getCandidateNotes() )  with note id to delete.
+ */
 
     $scope.noteAction = {
         add: function() {

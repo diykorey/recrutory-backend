@@ -31,6 +31,19 @@ kandidatoApp.controller('MainCtrl', function($scope, $rootScope, $location, $mdT
     }];
 
 
+    $scope.tabsCandidateDetails = [{
+        heading: 'Main',
+    }, {
+        heading: 'Flow',
+
+    }, {
+        heading: 'Suggestions',
+    }, {
+        heading: 'Notes',
+
+    }];
+
+
     // Hack for default tab
     $timeout(function() {
         $scope.selectedIndexMain = 2

@@ -12,21 +12,13 @@ kandidatoApp.controller('candidateDash', function($scope, $rootScope, $log, ApiD
 
     $scope.customFields = []
     $scope.flowaddModel = {}
+    $scope.addFieldProgress = false
 
+    /**
+     * Gets all candidates data from API
+     */
 
-    var tabsCandidateDetails = [{
-        heading: 'Main',
-    }, {
-        heading: 'Flow',
-
-    }, {
-        heading: 'Suggestions',
-    }, {
-        heading: 'Notes',
-
-    }];
-
-    function getData() {
+    $scope.getCandidatesData = function() {
         $rootScope.loader = true
         ApiDataFactory.queryGet('candidate/findByOwner/1').then(function(result) {
             $rootScope.loader = false
@@ -37,14 +29,18 @@ kandidatoApp.controller('candidateDash', function($scope, $rootScope, $log, ApiD
         })
     }
 
-    getData()
+    $scope.getCandidatesData()
 
-    function selectCandidate(candidate) {
+
+    /**
+     * Sets current candidate to scope
+     */
+
+    $scope.selectCandidate = function(candidate) {
 
         document.title = "Recrutory - " + candidate.name;
         if ($scope.returnSelectDefault == true) {
             $scope.returnSelectDefault = false
-
             return
         };
         if ($scope.currentCandidate && candidate.id == $scope.currentCandidate.id) {
@@ -52,44 +48,28 @@ kandidatoApp.controller('candidateDash', function($scope, $rootScope, $log, ApiD
             document.title = "Recrutory"
             return
         };
-        window.scrollTo(0, 0);
+        // window.scrollTo(0, 0);
         $scope.currentCandidate = candidate
         $timeout(function() {
             $scope.selectedIndex = 1
         }, 0);
     }
 
-
-
-
-    // Update Candidate info
-    function updateInfo(candidate) {
-        var dataToSend = {}
-        if ($scope.currentCandidateData.timelineRecords[0].fields[0].fieldValue != $scope.currentCandidate.timelineRecords[0].fields[0].fieldValue) {
-            dataToSend.id = $scope.currentCandidateData.id
-            dataToSend.createTime = $scope.currentCandidateData.createTime
-            dataToSend.tags = $scope.currentCandidateData.tags
-            dataToSend.timelineRecords = []
-            dataToSend.timelineRecords.push($scope.currentCandidateData.timelineRecords[0])
-            dataToSend.summaryCard = $scope.currentCandidateData.summaryCard
-            var URL = 'candidate/update'
-            ApiDataFactory.queryPost(URL, dataToSend).then(function(result) {
-                $rootScope.updateProcess = false
-                $scope.showToast()
-            })
-
-
-
-        }
-        angular.copy($scope.currentCandidateData, $scope.currentCandidate);
-    }
+    /**
+     * Note action class.
+     * this add() - add new note to $scope.notes array, with ket new.
+     * this discard() - removes last element from $scope.notes array, exactly latest new.
+     * this save() - Remowing new key, and sending request to add new note, then gets new data with ID's and Date of creation set.
+     * this edit() - PARAMS : note - clicked edit entity | Update note via this id and with new value.
+     * this deleteNote() - PARAMS : note - clicked edit entity | Splices $scope.array and send API request ( callback getCandidateNotes() )  with note id to delete.
+     */
 
     $scope.noteAction = {
         add: function() {
             function note() {
                 this.new = true;
                 this.placeholder = "Note text";
-                this.creationDate = new Date();
+
             }
             $scope.notes.push(new note())
         },
@@ -115,7 +95,7 @@ kandidatoApp.controller('candidateDash', function($scope, $rootScope, $log, ApiD
             if (note.deleteNote) {
                 $scope.notes.splice(_.indexOf($scope.notes, note), 1)
                 var URL = 'comment/' + note.id
-                    // ApiDataFactory.queryDelete(URL).then(function(result) {})
+                ApiDataFactory.queryDelete(URL).then(function(result) {})
             };
             note.deleteNote = true
         },
@@ -125,6 +105,7 @@ kandidatoApp.controller('candidateDash', function($scope, $rootScope, $log, ApiD
             if (note.comment == "") {
                 return
             };
+            console.log(note)
             delete note.placeholder
             delete note.new
             delete note.creationDate
@@ -143,22 +124,15 @@ kandidatoApp.controller('candidateDash', function($scope, $rootScope, $log, ApiD
     }
 
 
-    $scope.updateField = function(field) {
 
-
-
-        var URL = "candidate/" + $scope.currentCandidate.id + "/updatefield"
-        ApiDataFactory.queryPost(URL, field).then(function() {
-
-            $scope.currentCandidate.summaryCard.customFields[field.type.name] = field
-            $scope.candidatesData[_.indexOf($scope.candidatesData, $scope.currentCandidate)] = $scope.currentCandidate;
-            $rootScope.updateProcess = false;
-            $scope.showToast()
-        })
-    }
-
-    $scope.addFieldProgress = false
-
+    /**
+     * New custom candidate field action class.
+     * this add() - sets first step, and view is showing input to enter name of field
+     * this addText() - sets second step, where use is able to set text for custom field
+     * this save() - gets all entered data and sends generated data to API, replaces all local entities from API data.
+     * this candel() - cancels new field creation process
+     * this delete() - deletes current focused field ($scope.currentField)
+     */
 
     $scope.customField = {
         add: function() {
@@ -174,24 +148,13 @@ kandidatoApp.controller('candidateDash', function($scope, $rootScope, $log, ApiD
             newField.type = {}
             newField.type.name = $scope.newFieldName
             newField.type.prime = false
-
             newField.fieldValue = $scope.newFieldValue
-            $scope.customFields.push(newField)
+
             delete $scope.addFieldProgress
-            $scope.newFieldName = "";
-            $scope.newFieldValue = "";
             var URL = "candidate/" + $scope.currentCandidate.id + "/addfield"
             ApiDataFactory.queryPost(URL, newField).then(function(result) {
-
-                var i = 0
-                _.each($scope.candidatesData, function(candidate) {
-                    if (candidate.id == result.id) {
-                        $scope.candidatesData[i] = result;
-                        $scope.currentCandidate = result;
-                    }
-                    i++
-                });
-
+                $scope.candidatesData[_.indexOf($scope.candidatesData, result)] = result
+                $scope.currentCandidate = result
                 $rootScope.updateProcess = false
                 $scope.showToast()
             })
@@ -214,16 +177,10 @@ kandidatoApp.controller('candidateDash', function($scope, $rootScope, $log, ApiD
                     $scope.customFields.splice(_.indexOf($scope.customFields, $scope.currentField), 1)
                     var URL = 'candidate/removefield/' + field.id
                     ApiDataFactory.queryDelete(URL).then(function(result) {
-
-
-
                         delete $scope.candidatesData[_.indexOf($scope.candidatesData, $scope.currentCandidate)].summaryCard.customFields[field.type.name]
                         delete $scope.currentField
                         $rootScope.updateProcess = false
                         $scope.showToast()
-
-
-
                     })
                 }
 
@@ -231,6 +188,13 @@ kandidatoApp.controller('candidateDash', function($scope, $rootScope, $log, ApiD
         }
     }
 
+
+    /**
+     * Card quick action class.
+     * this main() - sets current candidate, and switches to MAIN side menu tab
+     * this flow() - sets current candidate, and switches to FLOW side menu tab
+     * this notes() - sets current candidate, and switches to NOTE side menu tab
+     */
 
 
     $scope.quickAction = {
@@ -262,8 +226,9 @@ kandidatoApp.controller('candidateDash', function($scope, $rootScope, $log, ApiD
     }
 
 
-
-    $scope.updateInfo = updateInfo
+    /**
+     * Gets current candidate notes [ usable for refresh also ]
+     */
 
     function getCandidateNotes() {
 
@@ -271,67 +236,12 @@ kandidatoApp.controller('candidateDash', function($scope, $rootScope, $log, ApiD
             $scope.notes = result
             $rootScope.updateProcess = false
         });
+
     }
 
-
-    // Selected detail editor tab watcher
-    $scope.$watch('selectedIndex', function(indexNew, indexOld) {
-
-        if (indexNew == 1) {
-            ApiDataFactory.queryGet('workflow/byVacancy/ ' + $scope.currentCandidateData.id).then(function(result) {
-                $rootScope.updateProcess = false;
-                $scope.candidatesFlowData = result // response data
-            });
-        };
-        if (indexNew == 3) {
-            getCandidateNotes()
-        };
-        if (indexNew == 2) {
-            $scope.suggestedPage = 0
-            getSuggestions($scope.suggestedPage)
-        };
-
-    });
-
-
-    $scope.$watch('currentCandidate', function(current, old) {
-        $scope.currentCandidateData = angular.copy($scope.currentCandidate)
-        $scope.customFields = []
-        $scope.predefinedFields = []
-
-
-    }, true);
-
-    // Send selected flow data
-    $scope.sendFlow = function() {
-        $rootScope.updateProcess = true
-        var objToSend = {}
-        objToSend.flows = $scope.flowData
-        console.log(JSON.stringify(objToSend))
-        ApiDataFactory.queryPost('workflow/', JSON.stringify(objToSend)).then(function(result) {
-            $scope.selectedIndex = 1;
-            $scope.flowaddModel =
-                $rootScope.updateProcess = false
-            $scope.showToast()
-        })
-    }
-
-    $scope.$watch('flowaddModel', function onScopeChange(newCol, oldCol) {
-        var changedVal = _.omit(newCol, function(v, k) {
-            return oldCol[k] === v;
-        });
-        $scope.flowData = []
-        _.each($scope.flowaddModel, function(state, vacancy) {
-            if (state == true) {
-                var vacancyEach = {}
-                vacancyEach.candidateId = $scope.currentCandidate.id
-                vacancyEach.vacancyId = parseInt(vacancy)
-
-                $scope.flowData.push(vacancyEach)
-            };
-        });
-    }, true);
-
+    /**
+     * Gets currentCandidate suggestions
+     */
 
     function getSuggestions(pageSuggested) {
 
@@ -354,8 +264,72 @@ kandidatoApp.controller('candidateDash', function($scope, $rootScope, $log, ApiD
     }
 
 
-    $scope.tabsCandidateDetails = tabsCandidateDetails;
+    /**
+     * Selected tab watcher
+     */
 
-    $scope.selectCandidate = selectCandidate;
+
+    $scope.$watch('selectedIndex', function(indexNew, indexOld) {
+
+        if (indexNew == 1) {
+            ApiDataFactory.queryGet('workflow/byVacancy/ ' + $scope.currentCandidateData.id).then(function(result) {
+                $rootScope.updateProcess = false;
+                $scope.candidatesFlowData = result // response data
+            });
+        };
+        if (indexNew == 3) {
+            getCandidateNotes()
+        };
+        if (indexNew == 2) {
+            $scope.suggestedPage = 0
+            getSuggestions($scope.suggestedPage)
+        };
+
+    });
+
+    /**
+     * Automatically copy currentCandidate data to currentCandidatesData
+     */
+
+    $scope.$watch('currentCandidate', function(current, old) {
+        $scope.currentCandidateData = angular.copy($scope.currentCandidate)
+    }, true);
+
+
+
+    /**
+     * Sends selected flow data to API
+     */
+
+    $scope.sendFlow = function() {
+        $rootScope.updateProcess = true
+        var objToSend = {}
+        objToSend.flows = $scope.flowData
+        console.log(JSON.stringify(objToSend))
+        ApiDataFactory.queryPost('workflow/', JSON.stringify(objToSend)).then(function(result) {
+            $scope.selectedIndex = 1;
+            $scope.flowaddModel =
+                $rootScope.updateProcess = false
+            $scope.showToast()
+        })
+    }
+
+    /**
+     * Watches new flow data selections
+     */
+
+    $scope.changeFlowData = function(vacancyId) {
+        !$scope.flowaddModel[vacancyId]
+        $scope.flowData = []
+        _.each($scope.flowaddModel, function(state, vacancy) {
+            if (state == true) {
+                var vacancyEach = {}
+                vacancyEach.candidateId = $scope.currentCandidate.id
+                vacancyEach.vacancyId = parseInt(vacancy)
+                $scope.flowData.push(vacancyEach)
+            };
+        });
+    }
+
 
 });

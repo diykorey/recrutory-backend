@@ -1,5 +1,16 @@
 <div>
     <div class="col-centered section-edit col-lg-11 margin-t-20 text-center">
+       <div class="col-lg-7 col-centered">
+            <md-input-container flex ng-show="notes[notes.length - 1].new == true">
+                <h5>{{note.placeholder}}</h5>
+                <textarea autofocus="true" ng-model="notes[notes.length - 1].comment" columns="1"></textarea>
+            </md-input-container>
+        </div>
+   
+        <md-button class="md-raised md-accent button-text-white inline" ng-click='noteAction.add()' ng-hide="notes[notes.length - 1].new == true">Add note</md-button>
+        <md-button class="md-raised md-accent button-text-white inline" ng-click='noteAction.save()' ng-show="notes[notes.length - 1].new == true">Save</md-button>
+        <md-button class="md-raised md-warn inline" ng-click='noteAction.discard()' ng-show="notes[notes.length - 1].new == true">Discard</md-button>
+             <div class="col-centered separator col-lg-12 margin-t-20 margin-b-20" ng-show="notes.length > 1"></div>
         <div ng-show="!note.new" ng-repeat="note in notes" class="text-left clearfix">
             <div class="row">
                 <div ng-hide="note.deleteNote">
@@ -24,16 +35,8 @@
                     </div>
                 </div>
             </div>
+
         </div>
-        <div class="col-lg-7 col-centered">
-            <md-input-container flex ng-show="note.new">
-                <h5>{{note.placeholder}}</h5>
-                <textarea autofocus="true" ng-model="note.comment" columns="1"></textarea>
-            </md-input-container>
-        </div>
-        <div class="col-centered separator col-lg-12" ng-show="notes.length > 1"></div>
-        <md-button class="md-raised md-accent button-text-white inline" ng-click='noteAction.add()' ng-hide="notes[notes.length - 1].new == true">Add note</md-button>
-        <md-button class="md-raised md-accent button-text-white inline" ng-click='noteAction.save()' ng-show="notes[notes.length - 1].new == true">Save</md-button>
-        <md-button class="md-raised md-warn inline" ng-click='noteAction.discard()' ng-show="notes[notes.length - 1].new == true">Discard</md-button>
+     
     </div>
 </div>
