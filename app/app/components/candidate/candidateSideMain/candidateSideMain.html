@@ -37,7 +37,7 @@
     <div class="col-centered section col-lg-11 clearfix">
         <h5 class="vacancy-heading-inner">Tags</h5>
         <div class="tags clearfix" ng-if="currentCandidateData.tags.length > 0">
-            <a ng-repeat="tag in currentCandidateData.tags" ng-if="currentCandidateData.tags.length > 0" ng-click="removeTag(tag.keyword)">{{tag.keyword}}<button><i class="glyphicon glyphicon-remove"></i></button></a>
+            <a ng-repeat="tag in currentCandidateData.tags" ng-if="currentCandidateData.tags.length > 0" ng-click="tags.delete(tag)">{{tag.keyword}}<button><i class="glyphicon glyphicon-remove"></i></button></a>
         </div>
         <div class="tags clearfix" ng-show="currentCandidateData.tags.length == 0">
             <a class="no-tags
@@ -46,7 +46,7 @@
         <div class="col-centered section-edit col-lg-11">
             <md-input-container>
                 <label class="labelHeading">Type tag name and hit Enter, Space or type comma to add it.</label>
-                <input ng-keyup="$event.keyCode == 13 || $event.keyCode == 32 || $event.keyCode == 188? addTag() : null" ng-model="tagEdit
+                <input ng-keyup="$event.keyCode == 13 || $event.keyCode == 32 || $event.keyCode == 188? tags.add() : null" ng-model="tagEdit
                            ">
             </md-input-container>
         </div>

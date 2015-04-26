@@ -30,6 +30,33 @@ kandidatoApp.controller('MainCtrl', function($scope, $rootScope, $location, $mdT
         route: 'candidateList'
     }];
 
+    $scope.tabsVacancies = [{
+        heading: 'Main',
+    }, {
+        heading: 'Flow',
+
+    }, {
+        heading: 'Suggestions',
+
+    }, {
+        heading: 'Notes',
+
+    }];
+
+    $scope.vacancyActions = [{
+        name: "INIT"
+    }, {
+        name: "CONTACT"
+    }, {
+        name: "INTERVIEW"
+    }, {
+        name: "OFFER"
+    }, {
+        name: "HIRED"
+    }, {
+        name: "REJECTED"
+    }]
+
 
     $scope.tabsCandidateDetails = [{
         heading: 'Main',

@@ -33,6 +33,69 @@ kandidatoApp.controller('candidateDash', function($scope, $rootScope, $log, ApiD
 
 
     /**
+     * Tags actions, add and delete.
+     */
+
+
+    $scope.tags = {
+
+        add: function() {
+            if (/^\s*$/.test($scope.tagEdit)) {
+                $scope.tagEdit = ""
+                return
+
+            }
+
+            _.each($scope.currentCandidate.tags, function(tag) {
+                if (tag.keyword === $scope.tagEdit) {
+                    $scope.sameTagFound = true
+                };
+
+            });
+
+            if ($scope.sameTagFound === true) {
+                $scope.tagEdit = ""
+                delete $scope.sameTagFound
+                return
+            };
+
+
+            $scope.tagEdit = $scope.tagEdit.replace(/,/g, "")
+            $rootScope.updateProcess = true
+            var tag = {}
+            tag.keyword = $scope.tagEdit
+            $scope.currentCandidate.tags.push(tag)
+            tag = {}
+            tag.tags = [$scope.tagEdit]
+            var URL = 'candidate/' + $scope.currentCandidate.id + '/tags'
+            ApiDataFactory.queryPost(URL, tag).then(function(result) {
+                $rootScope.updateProcess = false
+                $scope.showToast()
+                $scope.currentCandidate = result
+            })
+            $scope.tagEdit = ""
+        },
+        delete: function(tag) {
+            var i = 0
+            _.each($scope.currentCandidate.tags, function(tagEach) {
+
+                if (tagEach.keyword === tag.keyword) {
+                    $scope.currentCandidate.tags.splice(i, 1);
+                    var URL = 'candidate/' + $scope.currentCandidate.id + '/tags/' + tag.id
+                    ApiDataFactory.queryDelete(URL).then(function(result) {})
+                    return
+                };
+                i++
+            })
+        }
+
+    }
+
+
+
+
+
+    /**
      * Sets current candidate to scope
      */
 

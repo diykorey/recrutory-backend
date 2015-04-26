@@ -16,92 +16,85 @@ kandidatoApp.controller('dashCtrl', function($scope, $rootScope, $log, ApiDataFa
     $scope.actionsData = {}
     $scope.flowaddModel = {}
 
-    // Get all available vacancies
-    function getData() {
+    /**
+     * Gets all vacancies data from API
+     */
+
+    $scope.getVacancyData = function() {
         $rootScope.loader = true
         ApiDataFactory.queryGet('vacancy/byState/open').then(function(result) {
             $rootScope.loader = false
-
             $scope.vacanciesData = result // response data
         })
     }
 
-    getData()
+    $scope.getVacancyData();
 
 
-
-    $scope.tabsVacancies = [{
-        heading: 'Main',
-    }, {
-        heading: 'Flow',
-
-    }, {
-        heading: 'Suggestions',
-
-    }, {
-        heading: 'Notes',
-
-    }];
-
-    $scope.vacancyActions = [{
-        name: "INIT"
-    }, {
-        name: "CONTACT"
-    }, {
-        name: "INTERVIEW"
-    }, {
-        name: "OFFER"
-    }, {
-        name: "HIRED"
-    }, {
-        name: "REJECTED"
-    }]
+    /**
+     * Tags actions, add and delete.
+     */
 
 
+    $scope.tags = {
 
+        add: function() {
+            if (/^\s*$/.test($scope.tagEdit)) {
+                $scope.tagEdit = ""
+                return
 
+            }
 
-    function addTag() {
+            _.each($scope.currentVacancy.tags, function(tag) {
+                if (tag.keyword === $scope.tagEdit) {
+                    $scope.sameTagFound = true
+                };
 
+            });
 
-        if (/^\s*$/.test($scope.tagEdit)) {
-            $scope.tagEdit = ""
-            return
-
-        }
-
-        _.each($scope.currentVacancy.tags, function(tag) {
-            if (tag.keyword === $scope.tagEdit) {
-                $scope.sameTagFound = true
+            if ($scope.sameTagFound === true) {
+                $scope.tagEdit = ""
+                delete $scope.sameTagFound
+                return
             };
 
-        });
 
-        if ($scope.sameTagFound === true) {
+            $scope.tagEdit = $scope.tagEdit.replace(/,/g, "")
+            $rootScope.updateProcess = true
+            var tag = {}
+            tag.keyword = $scope.tagEdit
+            $scope.currentVacancy.tags.push(tag)
+            tag = {}
+            tag.tags = [$scope.tagEdit]
+            var URL = 'vacancy/' + $scope.currentVacancy.id + '/tags'
+            ApiDataFactory.queryPost(URL, tag).then(function(result) {
+                $rootScope.updateProcess = false
+                $scope.showToast()
+                $scope.currentVacancy = result
+            })
             $scope.tagEdit = ""
-            delete $scope.sameTagFound
-            return
-        };
+        },
+        delete: function(tag) {
+            var i = 0
+            _.each($scope.currentVacancy.tags, function(tagEach) {
 
+                if (tagEach.keyword === tag.keyword) {
+                    $scope.currentVacancy.tags.splice(i, 1);
+                    var URL = 'vacancy/' + $scope.currentVacancy.id + '/tags/' + tag.id
+                    ApiDataFactory.queryDelete(URL).then(function(result) {})
+                    return
+                };
+                i++
+            })
+        }
 
-        $scope.tagEdit = $scope.tagEdit.replace(/,/g, "")
-        $rootScope.updateProcess = true
-        var tag = {}
-        tag.keyword = $scope.tagEdit
-        $scope.currentVacancy.tags.push(tag)
-        tag = {}
-        tag.tags = [$scope.tagEdit]
-        var URL = 'vacancy/' + $scope.currentVacancy.id + '/tags'
-        ApiDataFactory.queryPost(URL, tag).then(function(result) {
-            $rootScope.updateProcess = false
-            $scope.showToast()
-            $scope.currentVacancy = result
-            $scope.currentVacancyData = $scope.currentVacancy
-        })
-        $scope.tagEdit = ""
     }
 
-    function selectVacancy(vacancy) {
+    /**
+     * Sets current vacancy
+     */
+
+    $scope.selectVacancy = function(vacancy) {
         document.title = "Recrutory - " + vacancy.name;
 
         if ($scope.returnSelectDefault == true) {
@@ -122,21 +115,7 @@ kandidatoApp.controller('dashCtrl', function($scope, $rootScope, $log, ApiDataFa
     }
 
 
-    function removeTag(tagToDelete) {
-        var i = 0
-        _.each($scope.currentVacancy.tags, function(tag) {
 
-            if (tag.keyword === tagToDelete) {
-                $scope.currentVacancyData.tags.splice(i, 1);
-                var URL = 'vacancy/' + $scope.currentVacancy.id + '/tags/' + tag.id
-                ApiDataFactory.queryDelete(URL).then(function(result) {})
-                return
-            };
-            i++
-        });
-
-        angular.copy($scope.currentVacancyData.tags, $scope.currentVacancy.tags);
-    }
 
 
     /**
@@ -222,8 +201,11 @@ kandidatoApp.controller('dashCtrl', function($scope, $rootScope, $log, ApiDataFa
 
 
 
-    // Send selected flow data
-    function sendFlow() {
+    /**
+     * Sends selected flow data to API
+     */
+
+    $scope.sendFlow = function() {
         $rootScope.updateProcess = true
         var objToSend = {}
         objToSend.flows = $scope.flowData
@@ -253,7 +235,8 @@ kandidatoApp.controller('dashCtrl', function($scope, $rootScope, $log, ApiDataFa
      * this discard() - removes last element from $scope.notes array, exactly latest new.
      * this save() - Remowing new key, and sending request to add new note, then gets new data with ID's and Date of creation set.
      * this edit() - PARAMS : note - clicked edit entity | Update note via this id and with new value.
-     * this deleteNote() - PARAMS : note - clicked edit entity | Splices $scope.array and send API request ( callback getCandidateNotes() )  with note id to delete.
+     * this deleteNote() - PARAMS : note - clicked edit entity | Splices $scope.array and send API request ( callback getCandidate
+Notes() )  with note id to delete.
      */
 
     $scope.noteAction = {
@@ -321,8 +304,11 @@ kandidatoApp.controller('dashCtrl', function($scope, $rootScope, $log, ApiDataFa
 
 
 
-    // Update vacancy info
-    function updateInfo(vacancyId) {
+    /**
+     * Update vacancy info, API request
+     */
+
+    $scope.updateInfo = function(vacancyId) {
         var dataToSend = {}
         if ($scope.currentVacancyData.name != $scope.currentVacancy.name || $scope.currentVacancyData.requirements != $scope.currentVacancy.requirements) {
             dataToSend.name = $scope.currentVacancyData.name
@@ -352,28 +338,29 @@ kandidatoApp.controller('dashCtrl', function($scope, $rootScope, $log, ApiDataFa
     });
 
 
-    $scope.$watch('flowaddModel', function onScopeChange(newCol, oldCol) {
+    /**
+     * Changes new flow data selections
+     */
 
-        var changedVal = _.omit(newCol, function(v, k) {
-            return oldCol[k] === v;
-        });
-
+    $scope.changeFlowData = function(candidateId) {
+        !$scope.flowaddModel[candidateId]
+        console.log($scope.flowaddModel)
         $scope.flowData = []
         _.each($scope.flowaddModel, function(state, candidate) {
-            console.log(candidate, state)
             if (state == true) {
                 var candidateEach = {}
-                candidateEach.candidateId = candidate
                 candidateEach.vacancyId = $scope.currentVacancy.id
-
+                candidateEach.candidateId = parseInt(candidate)
                 $scope.flowData.push(candidateEach)
             };
-
         });
-        console.log($scope.flowData)
-    }, true);
+    }
 
-    // Selected detail editor tab watcher
+
+    /**
+     * Selected tab watcher
+     */
+
     $scope.$watch('selectedIndex', function(indexNew, indexOld) {
 
         if (indexNew == 1) {
@@ -384,7 +371,7 @@ kandidatoApp.controller('dashCtrl', function($scope, $rootScope, $log, ApiDataFa
             });
         };
         if (indexNew == 2) {
-            getSuggestions(-1, -1, 'all')
+            $scope.getSuggestions(-1, -1, 'all')
         };
         if (indexNew == 3) {
             getVacancyNotes()
@@ -398,8 +385,12 @@ kandidatoApp.controller('dashCtrl', function($scope, $rootScope, $log, ApiDataFa
     });
 
 
+    /**
+     * Gets currentVacancy suggestions
+     */
 
-    function getSuggestions(pageSuggested, availablePage, type) {
+
+    $scope.getSuggestions = function(pageSuggested, availablePage, type) {
 
 
         if (type == 'available' || type == 'all') {
@@ -441,14 +432,6 @@ kandidatoApp.controller('dashCtrl', function($scope, $rootScope, $log, ApiDataFa
         };
     }
 
-
-
-    $scope.getSuggestions = getSuggestions;
-    $scope.updateInfo = updateInfo;
-    $scope.addTag = addTag;
     $scope.isEmpty = isEmpty;
-    $scope.removeTag = removeTag;
-    $scope.selectVacancy = selectVacancy;
-    $scope.sendFlow = sendFlow;
 
 });

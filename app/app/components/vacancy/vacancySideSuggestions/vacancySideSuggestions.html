@@ -9,7 +9,7 @@
     <div class="col-centered col-lg-11 margin-b-20 margin-t-20 label-red">Suggested :</div>
     <div ng-repeat="candidate in flowSuggested | filter:filterSuggestions" class="col-centered section col-lg-11 section-suggestions">
         <div class="col-lg-1">
-            <md-checkbox ng-model="flowaddModel[candidate.id]" ng-change="!flowaddModel[candidate.id]" aria-label="Checkbox 1"></md-checkbox>
+            <md-checkbox ng-model="flowaddModel[candidate.id]" ng-change="changeFlowData(candidate.id)" aria-label="Checkbox 1"></md-checkbox>
         </div>
         <div class="col-lg-4 flow-candidate-name">Candidate [ {{candidate.id}} ]</div>
     </div>
@@ -19,7 +19,7 @@
     <div class="col-centered col-lg-11 margin-b-20 margin-t-20 label-red">Available :</div>
     <div ng-repeat="candidate in flowAvailable | filter:filterSuggestions" class="col-centered section col-lg-11 section-suggestions">
         <div class="col-lg-1">
-            <md-checkbox ng-model="flowaddModel[candidate.id]" aria-label="Checkbox 1"></md-checkbox>
+            <md-checkbox ng-model="flowaddModel[candidate.id]" ng-change="changeFlowData(candidate.id)" aria-label="Checkbox 1"></md-checkbox>
         </div>
         <div class="col-lg-4 flow-candidate-name">Candidate [ {{candidate.id}} ]</div>
     </div>
