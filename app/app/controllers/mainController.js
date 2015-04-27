@@ -8,9 +8,16 @@
  * Controller of the kandidatoApp
  */
 kandidatoApp.controller('MainCtrl', function($scope, $rootScope, $location, $mdToast, $timeout) {
+
+    // {
+    //      heading: 'assets/images/logo.png',
+    //      type: 'image',
+    //      route: 'dashboard'
+    //  },
+
     var tabs = [{
-        heading: 'assets/images/logo.png',
-        type: 'image',
+        heading: 'Recrutory',
+        type: 'link',
         route: 'dashboard'
     }, {
         heading: 'Dashboard',

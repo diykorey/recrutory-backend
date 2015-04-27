@@ -9,7 +9,8 @@
  */
 kandidatoApp.controller('candidateDash', function($scope, $rootScope, $log, ApiDataFactory, $timeout) {
 
-
+    $scope.hideCustom = true;
+    $scope.hidePrime = true;
     $scope.customFields = []
     $scope.flowaddModel = {}
     $scope.addFieldProgress = false
