@@ -9,6 +9,7 @@
  */
 kandidatoApp.controller('candidateDash', function($scope, $rootScope, $log, ApiDataFactory, $timeout) {
 
+    $scope.hidePredefined = false;
     $scope.hideCustom = true;
     $scope.hidePrime = true;
     $scope.customFields = []
@@ -211,10 +212,14 @@ kandidatoApp.controller('candidateDash', function($scope, $rootScope, $log, ApiD
             var newField = {}
             newField.type = {}
             newField.type.name = $scope.newFieldName
-            newField.type.prime = false
+            newField.type.prime = $scope.newFieldPrime
             newField.fieldValue = $scope.newFieldValue
 
-            delete $scope.addFieldProgress
+
+            delete $scope.addProgress
+            $scope.newFieldName = ''
+            $scope.newFieldPrime = ''
+            $scope.newFieldValue = ''
             var URL = "candidate/" + $scope.currentCandidate.id + "/addfield"
             ApiDataFactory.queryPost(URL, newField).then(function(result) {
                 $scope.candidatesData[_.indexOf($scope.candidatesData, result)] = result
@@ -224,7 +229,11 @@ kandidatoApp.controller('candidateDash', function($scope, $rootScope, $log, ApiD
             })
         },
         cancel: function() {
-            delete $scope.addFieldProgress
+
+            delete $scope.addProgress
+            $scope.newFieldName = ''
+            $scope.newFieldPrime = ''
+            $scope.newFieldValue = ''
         },
         set: function(field) {
             $scope.currentField = field
