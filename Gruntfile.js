@@ -12,6 +12,8 @@ module.exports = function(grunt) {
     // Load grunt tasks automatically
     require('load-grunt-tasks')(grunt);
 
+
+
     // Time how long tasks take. Can help when optimizing build times
     require('time-grunt')(grunt);
 
@@ -23,6 +25,7 @@ module.exports = function(grunt) {
 
     // Define the configuration for all the tasks
     grunt.initConfig({
+
 
         // Project settings
         yeoman: appConfig,
@@ -317,7 +320,7 @@ module.exports = function(grunt) {
                         'styles/*.css',
                         'images/*.png',
                         'app/views/{,*/}*.html',
-                        'app/components/{,*/}*.html',
+                        'app/components/**',
                         'app/shared/{,*/}*.html',
                         'images/{,*/}*.{webp}',
                         'fonts/*'
@@ -362,6 +365,20 @@ module.exports = function(grunt) {
             unit: {
                 configFile: 'test/karma.conf.js',
                 singleRun: true
+            }
+        },
+        // make a zipfile
+        // make a zipfile
+        // gzip assets 1-to-1 for production
+        compress: {
+            main: {
+                options: {
+                    mode: 'zip'
+                },
+                expand: true,
+                cwd: 'dist/',
+                src: ['**/*'],
+                dest: 'dist/'
             }
         }
     });
@@ -409,7 +426,8 @@ module.exports = function(grunt) {
         'uglify',
         'filerev',
         'usemin',
-        'htmlmin'
+        'htmlmin',
+        'compress'
     ]);
 
     grunt.registerTask('default', [
