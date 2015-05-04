@@ -15,7 +15,9 @@ var kandidatoApp = angular.module('kandidatoApp', [
     'ngRoute',
     'ngTouch',
     'ngMaterial',
-    'ngAnimate'
+    'ngAnimate',
+    'ngSanitize',
+    'MassAutoComplete'
 ])
 
 kandidatoApp.$inject = ['$scope', 'ApiDataFactory'];

@@ -37,7 +37,7 @@ module.exports = function(grunt) {
                 tasks: ['wiredep']
             },
             compass: {
-                files: ['<%= yeoman.app %>/assets/styles/*.scss'],
+                files: ['<%= yeoman.app %>/assets/styles/*'],
                 tasks: ['compass:server', 'autoprefixer']
             },
             gruntfile: {
@@ -47,11 +47,7 @@ module.exports = function(grunt) {
                 options: {
                     livereload: '<%= connect.options.livereload %>'
                 },
-                files: [
-                    '<%= yeoman.app %>/{,*/}*.html',
-                    '.tmp/assets/styles/{,*/}*.css',
-                    '<%= yeoman.app %>/images/{,*/}*.{png,jpg,jpeg,gif,webp,svg}'
-                ]
+                files: ['<%= yeoman.app %>/app/{,*/}*.html', '<%= yeoman.app %>/app/{,*/}*.js', '<%= yeoman.app %>/images/{,*/}*.{png,jpg,jpeg,gif,webp,svg}']
             }
         },
 
@@ -247,9 +243,9 @@ module.exports = function(grunt) {
             dist: {
                 files: [{
                     expand: true,
-                    cwd: '<%= yeoman.app %>/images',
+                    cwd: '<%= yeoman.app %>/assets/images',
                     src: '{,*/}*.{png,jpg,jpeg,gif}',
-                    dest: '<%= yeoman.dist %>/images'
+                    dest: '<%= yeoman.dist %>/assets/images'
                 }]
             }
         },
@@ -258,9 +254,9 @@ module.exports = function(grunt) {
             dist: {
                 files: [{
                     expand: true,
-                    cwd: '<%= yeoman.app %>/images',
+                    cwd: '<%= yeoman.app %>/assets/images',
                     src: '{,*/}*.svg',
-                    dest: '<%= yeoman.dist %>/images'
+                    dest: '<%= yeoman.dist %>/assets/images'
                 }]
             }
         },

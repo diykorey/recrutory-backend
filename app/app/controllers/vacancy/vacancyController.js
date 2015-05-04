@@ -7,7 +7,7 @@
  * # MainCtrl
  * Controller of the kandidatoApp
  */
-kandidatoApp.controller('dashCtrl', function($scope, $rootScope, $log, ApiDataFactory, $http, $timeout) {
+kandidatoApp.controller('vacancyCtrl', function($scope, $rootScope, $log, ApiDataFactory, $http, $timeout) {
 
     // Init dashCtrl scope values
     $scope.disableSuggestions = true
@@ -373,15 +373,17 @@ Notes() )  with note id to delete.
         if (indexNew == 2) {
             $scope.getSuggestions(-1, -1, 'all')
         };
+        if (indexNew != 2) {
+            $scope.suggestedPage = 0
+            $scope.availablePage = 0
+        };
+
         if (indexNew == 3) {
             getVacancyNotes()
         };
 
 
-        if (indexNew != 2) {
-            $scope.suggestedPage = 0
-            $scope.availablePage = 0
-        };
+
     });
 
 

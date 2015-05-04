@@ -7,12 +7,9 @@ $icon-font-path: "../../../bower_components/bootstrap-sass-official/vendor/asset
    License: none (public domain)
 */
 
-// Colors
-$blue: #00b9e8;
-$green: #8bc34a;
-$red: #f15f4c;
-$gray: #4b494f;
-$lightgray: #E1E1E1;
+@import "colors.scss";
+@import "material_loader.scss";
+@import "navbar.scss";
 .col-centered {
     margin: 0 auto;
     float: none;
@@ -91,27 +88,6 @@ div.tags a > button {
     color: #fff;
     padding: 2px 10px 1px 10px;
     font-size: 10px;
-}
-
-.no-tags {
-    background: rgba(0, 0, 0, 0.05) !important;
-    color: #000 !important;
-}
-
-.margin-t-20 {
-    margin-top: 20px;
-}
-
-.margin-b-20 {
-    margin-bottom: 20px;
-}
-
-.margin-t-10 {
-    margin-top: 10px;
-}
-
-.margin-b-10 {
-    margin-bottom: 10px;
 }
 /*
  * General styles
@@ -527,6 +503,49 @@ span.badge.hot {
 .quick-actions-vacancy a:hover {
     text-decoration: none !important;
 }
+
+//List
+.filters {
+    padding: 40px 0;
+}
+
+//Notes
+.note-actions-inner {
+    padding: 20px 0
+}
+
+.closure-block {
+    padding: 10px 0;
+    border-top: 2px solid $gray;
+    border-left: 2px solid $gray;
+    border-right: 2px solid $gray;
+    border-bottom-left-radius: none;
+    border-bottom-right-radius: none;
+}
+
+.closure-block .label {
+    margin-top: 5px;
+    color: #000;
+    font-size: 14px;
+}
+
+.fields-wrapper {
+    margin-top: -12px;
+    border-bottom: 2px solid $gray;
+    border-left: 2px solid $gray;
+    border-right: 2px solid $gray;
+    max-height: auto;
+    transition: max-height 0.15s ease-out;
+    overflow: hidden;
+}
+
+.border-visible {
+    border-color: $red;
+}
+
+.hidden-fields {
+    max-height: 0;
+}
 /*
  * Angular material styles
  * 
@@ -635,211 +654,55 @@ md-input-container {
 md-tooltip {
     margin-top: 100px !important;
 }
+/*Mass autocomplete*/
 
-//List
-.filters {
-    padding: 40px 0;
-}
-
-//Notes
-.note-actions-inner {
-    padding: 20px 0
-}
-
-// Loader
-progress {
-    display: inline-block;
-    /* 1 */
-    
-    vertical-align: baseline;
-    /* 2 */
-}
-
-.progress {
-    position: relative;
-    height: 4px;
-    display: block;
+.ac-container {
+    -webkit-backface-visibility: hidden;
+    -moz-backface-visibility: hidden;
+    -ms-backface-visibility: hidden;
+    -o-backface-visibility: hidden;
+    backface-visibility: hidden;
+    -webkit-transform: translate3d(0, 0, 0);
+    -moz-transform: translate3d(0, 0, 0);
+    -ms-transform: translate3d(0, 0, 0);
+    -o-transform: translate3d(0, 0, 0);
+    transform: translate3d(0, 0, 0);
+    top: 55px;
+    z-index: 9999;
     width: 100%;
-    background-color: #acece6;
-    -webkit-border-radius: 2px;
-    -moz-border-radius: 2px;
-    border-radius: 2px;
-    background-clip: padding-box;
-    margin: 0.5rem 0 1rem 0;
-    overflow: hidden;
 }
 
-.progress .determinate {
-    position: absolute;
-    background-color: inherit;
-    top: 0;
-    bottom: 0;
-    background-color: #26a69a;
-    -webkit-transition: width 0.3s linear;
-    -moz-transition: width 0.3s linear;
-    -o-transition: width 0.3s linear;
-    -ms-transition: width 0.3s linear;
-    transition: width 0.3s linear;
+.ac-container .ac-menu {
+    border: 1px solid $red;
+    list-style: none;
+    padding: 0;
+    background-color: white;
+    box-shadow: 0 3px 7px 0px rgba(0, 0, 0, 0.15);
+    margin: 0;
 }
 
-.progress .indeterminate {
-    background-color: #26a69a;
+.ac-container .ac-menu .ac-menu-item {
+    border-bottom: 1px dotted #ccc;
+    line-height: 10px;
+    margin: 0;
 }
 
-.progress .indeterminate:before {
-    content: '';
-    position: absolute;
-    background-color: inherit;
-    top: 0;
-    left: 0;
-    bottom: 0;
-    will-change: left, right;
-    -webkit-animation: indeterminate 2.1s cubic-bezier(0.65, 0.815, 0.735, 0.395) infinite;
-    -moz-animation: indeterminate 2.1s cubic-bezier(0.65, 0.815, 0.735, 0.395) infinite;
-    -ms-animation: indeterminate 2.1s cubic-bezier(0.65, 0.815, 0.735, 0.395) infinite;
-    -o-animation: indeterminate 2.1s cubic-bezier(0.65, 0.815, 0.735, 0.395) infinite;
-    animation: indeterminate 2.1s cubic-bezier(0.65, 0.815, 0.735, 0.395) infinite;
+.ac-container .ac-menu .ac-menu-item:last-child {
+    border-bottom: 0;
 }
 
-.progress .indeterminate:after {
-    content: '';
-    position: absolute;
-    background-color: inherit;
-    top: 0;
-    left: 0;
-    bottom: 0;
-    will-change: left, right;
-    -webkit-animation: indeterminate-short 2.1s cubic-bezier(0.165, 0.84, 0.44, 1) infinite;
-    -moz-animation: indeterminate-short 2.1s cubic-bezier(0.165, 0.84, 0.44, 1) infinite;
-    -ms-animation: indeterminate-short 2.1s cubic-bezier(0.165, 0.84, 0.44, 1) infinite;
-    -o-animation: indeterminate-short 2.1s cubic-bezier(0.165, 0.84, 0.44, 1) infinite;
-    animation: indeterminate-short 2.1s cubic-bezier(0.165, 0.84, 0.44, 1) infinite;
-    -webkit-animation-delay: 1.15s;
-    -moz-animation-delay: 1.15s;
-    -ms-animation-delay: 1.15s;
-    -o-animation-delay: 1.15s;
-    animation-delay: 1.15s;
+.ac-container .ac-menu .ac-menu-item:hover {
+    background-color: #e0eaff;
 }
 
-@-webkit-keyframes indeterminate {
-    0% {
-        left: -35%;
-        right: 100%;
-    }
-    60% {
-        left: 100%;
-        right: -90%;
-    }
-    100% {
-        left: 100%;
-        right: -90%;
-    }
+.ac-container .ac-menu a {
+    padding-left: 5px;
+    display: block;
+    color: inherit;
+    text-decoration: none;
 }
 
-@-moz-keyframes indeterminate {
-    0% {
-        left: -35%;
-        right: 100%;
-    }
-    60% {
-        left: 100%;
-        right: -90%;
-    }
-    100% {
-        left: 100%;
-        right: -90%;
-    }
-}
-
-@keyframes indeterminate {
-    0% {
-        left: -35%;
-        right: 100%;
-    }
-    60% {
-        left: 100%;
-        right: -90%;
-    }
-    100% {
-        left: 100%;
-        right: -90%;
-    }
-}
-
-@-webkit-keyframes indeterminate-short {
-    0% {
-        left: -200%;
-        right: 100%;
-    }
-    60% {
-        left: 107%;
-        right: -8%;
-    }
-    100% {
-        left: 107%;
-        right: -8%;
-    }
-}
-
-@-moz-keyframes indeterminate-short {
-    0% {
-        left: -200%;
-        right: 100%;
-    }
-    60% {
-        left: 107%;
-        right: -8%;
-    }
-    100% {
-        left: 107%;
-        right: -8%;
-    }
-}
-
-@keyframes indeterminate-short {
-    0% {
-        left: -200%;
-        right: 100%;
-    }
-    60% {
-        left: 107%;
-        right: -8%;
-    }
-    100% {
-        left: 107%;
-        right: -8%;
-    }
-}
-
-.closure-block {
-    padding: 10px 0;
-    border-top: 2px solid $gray;
-    border-left: 2px solid $gray;
-    border-right: 2px solid $gray;
-    border-bottom-left-radius: none;
-    border-bottom-right-radius: none;
-}
-
-.closure-block .label {
-    margin-top: 5px;
-    color: #000;
-    font-size: 14px;
-}
-
-.fields-wrapper {
-    margin-top: -12px;
-    border-bottom: 2px solid $gray;
-    border-left: 2px solid $gray;
-    border-right: 2px solid $gray;
-    max-height: auto;
-    transition: max-height 0.15s ease-out;
-    overflow: hidden;
-}
-
-.border-visible {
-    border-color: $red;
-}
-
-.hidden-fields {
-    max-height: 0;
+.ac-container .ac-menu .ac-state-focus {
+    outline: none;
+    background-color: #e0eaff;
 }

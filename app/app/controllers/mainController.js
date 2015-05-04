@@ -7,7 +7,7 @@
  * # MainCtrl
  * Controller of the kandidatoApp
  */
-kandidatoApp.controller('MainCtrl', function($scope, $rootScope, $location, $mdToast, $timeout) {
+kandidatoApp.controller('MainCtrl', function($scope, $rootScope, $location, $mdToast, $timeout, ApiDataFactory) {
 
     // {
     //      heading: 'assets/images/logo.png',
@@ -115,6 +115,16 @@ kandidatoApp.controller('MainCtrl', function($scope, $rootScope, $location, $mdT
         $location.path(hash);
     }
 
+
+    http: //recrutory-web-dev.cloudapp.net:8080/recrutory/
+
+        ApiDataFactory.queryGet('candidate/findFieldTypes').then(function(result) {
+            $rootScope.updateProcess = false;
+            $scope.fieldTypes = _.map(result, function(num) {
+                return num.name
+            }); // response data
+            console.log($scope.fieldTypes)
+        });
 
     $scope.route = route;
 

@@ -1,11 +1,34 @@
-<div class="row" ng-controller="vacancyDashboardCtrl">
-    <!-- Dashboard wrapper  -->
-    <div ng-class="currentVacancy ? 'col-lg-6' : 'row'">
-        <!-- Vacancy card wrapper | Angular DIRECTIVE-->
-        <vacancy-card ng-repeat="vacancy in vacanciesData | filter:filterValue "></vacancy-card>
+<div class="row" ng-controller="vacancyListCtrl">
+    <div class="filters col-lg-11 col-centered">
+        <div class="col-lg-1" ng-repeat="filter in filters">
+            <md-checkbox ng-model="filterValues[filter.name].value" ng-change="filterVacancies()" class="md-warn" aria-label="{{filter.name}}">
+                {{filter.name}}
+            </md-checkbox>
+        </div>
+    </div>
+    <div ng-class="currentVacancy ? 'col-lg-7' : 'col-centered col-lg-11'">
+        <table class="table  tableMaterial" style="border-radius:5px;background:#fff">
+            <thead style="border:none">
+                <tr>
+                    <th ng-repeat="column in columnsTable">{{column.heading.toUpperCase()}}</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="vacancy in vacanciesData | filter: {hot : filterValues['Hot'].filter} | filter: {hot : filterValues['state'].filter}" ng-class="vacancy == currentVacancy ? 'selectedTable' : 'none' " ng-click="selectVacancy(vacancy)">
+                    <td>{{vacancy.name}}</td>
+                    <td><a href="#!" class="collection-item"><span class="badge open">{{vacancy.state}}</span></a><a ng-if="vacancy.hot == true" href="#!" class="collection-item"><span class="badge hot">HOT</span></a></td>
+                    <td>{{vacancy.createTime|date:'medium'}}</td>
+                    <td>
+                        <tag-list tags="vacancy.tags"> </tag-list>
+                    </td>
+                    <td><span class="badge open">{{vacancy.number}}</span></a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
     </div>
     <!-- End Vacancy card wrapper  -->
-    <div ng-show="currentVacancy" class="clearfix sideView " ng-class="currentVacancy ? 'col-lg-6' : 'hide'">
+    <div ng-show="currentVacancy" class="clearfix sideView " ng-class="currentVacancy ? 'col-lg-5' : 'hide'">
         <!-- Vacancy side menu  -->
         <md-toolbar md-scroll-shrink>
             <!-- Nav Vacancy side menu  -->
@@ -48,4 +71,3 @@
     </div>
     <!-- Vacancy side menu  -->
 </div>
-<!-- End Dashboard wrapper  -->

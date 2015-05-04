@@ -7,7 +7,7 @@
  * # MainCtrl
  * Controller of the kandidatoApp
  */
-kandidatoApp.controller('candidateDash', function($scope, $rootScope, $log, ApiDataFactory, $timeout) {
+kandidatoApp.controller('candidateCtrl', function($scope, $rootScope, $log, ApiDataFactory, $timeout, $sce, $q) {
 
     $scope.hidePredefined = false;
     $scope.hideCustom = true;
@@ -15,6 +15,8 @@ kandidatoApp.controller('candidateDash', function($scope, $rootScope, $log, ApiD
     $scope.customFields = []
     $scope.flowaddModel = {}
     $scope.addFieldProgress = false
+    $scope.flowSuggested = []
+    $scope.flowAvailable = []
 
     /**
      * Gets all candidates data from API
@@ -102,7 +104,7 @@ kandidatoApp.controller('candidateDash', function($scope, $rootScope, $log, ApiD
      */
 
     $scope.selectCandidate = function(candidate) {
-
+        console.log(candidate)
         document.title = "Recrutory - " + candidate.name;
         if ($scope.returnSelectDefault == true) {
             $scope.returnSelectDefault = false
@@ -313,28 +315,51 @@ kandidatoApp.controller('candidateDash', function($scope, $rootScope, $log, ApiD
     }
 
     /**
-     * Gets currentCandidate suggestions
+     * Gets currentVacancy suggestions
      */
 
-    function getSuggestions(pageSuggested) {
+    $scope.getSuggestions = {
+        suggested: function(pageSuggested) {
 
-        $rootScope.updateProcess = true
-        $scope.suggestedPage = pageSuggested
+            $rootScope.updateProcess = true
+            $scope.suggestedPage = pageSuggested
 
-        ApiDataFactory.queryGet('vacancy/findRecommended?candidateId=' + $scope.currentCandidate.id + '&page=' + $scope.suggestedPage + '&size=5').then(function(result) {
-            if ($scope.suggestedPage > 0) {
-                _.each(result, function(candidate) {
-                    $scope.flowSuggested.push(candidate)
+            ApiDataFactory.queryGet('vacancy/findRecommended?candidateId=' + $scope.currentCandidate.id + '&page=' + $scope.suggestedPage + '&size=5').then(function(result) {
+                if ($scope.suggestedPage > 0) {
+                    _.each(result, function(vacancy) {
+                        $scope.flowSuggested.push(vacancy)
 
-                });
+                    });
 
-            } else {
-                $scope.flowSuggested = result;
-            }
-            $rootScope.updateProcess = false
+                } else {
+                    $scope.flowSuggested = result;
+                    console.log(result)
+                }
+                $rootScope.updateProcess = false
+            });
             $scope.suggestedPage++;
-        });
+        },
+        available: function(availablePage) {
+            $rootScope.updateProcess = true
+            $scope.availablePage = availablePage
+
+            ApiDataFactory.queryGet('vacancy/findAvailable?candidateId=' + $scope.currentCandidate.id + '&page=' + $scope.availablePage + '&size=5').then(function(result) {
+                if ($scope.availablePage > 0) {
+                    _.each(result, function(vacancy) {
+                        $scope.flowAvailable.push(vacancy)
+
+                    });
+
+                } else {
+                    $scope.flowAvailable = result;
+                }
+                $rootScope.updateProcess = false
+
+            });
+            $scope.availablePage++;
+        }
     }
+
 
 
     /**
@@ -355,7 +380,9 @@ kandidatoApp.controller('candidateDash', function($scope, $rootScope, $log, ApiD
         };
         if (indexNew == 2) {
             $scope.suggestedPage = 0
-            getSuggestions($scope.suggestedPage)
+            $scope.availablePage = 0
+            $scope.getSuggestions.suggested($scope.suggestedPage)
+            $scope.getSuggestions.available($scope.availablePage)
         };
 
     });
@@ -405,5 +432,32 @@ kandidatoApp.controller('candidateDash', function($scope, $rootScope, $log, ApiD
         });
     }
 
+    /**
+     * Mass auto complete
+     */
+    $scope.dirty = {};
+
+
+
+    function suggest_state(term) {
+        var q = term.toLowerCase().trim();
+        var results = [];
+
+        // Find first 10 states that start with `term`.
+        for (var i = 0; i < $scope.fieldTypes.length && results.length < 10; i++) {
+            var fieldName = $scope.fieldTypes[i];
+            if (fieldName.toLowerCase().indexOf(q) === 0)
+                results.push({
+                    label: fieldName,
+                    value: fieldName
+                });
+        }
+        console.log(results)
+        return results;
+    }
+
+    $scope.autocomplete_options = {
+        suggest: suggest_state
+    };
 
 });

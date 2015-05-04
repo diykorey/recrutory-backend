@@ -9,13 +9,12 @@
     <link href='http://fonts.googleapis.com/css?family=Roboto:500,100,300,700,400' rel='stylesheet' type='text/css'>
     <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
     <!-- build:css(.) styles/vendor.css -->
-    <!-- bower:css -->
-    <link rel="stylesheet" href="bower_components/angular-material/angular-material.css" />
-    <!-- endbower -->
     <!-- endbuild -->
     <!-- build:css(.tmp) styles/main.css -->
     <link rel="stylesheet" href="assets/styles/main.css">
-    <link rel="stylesheet" href="assets/styles/navbar.css">
+    <!-- bower:css -->
+    <link rel="stylesheet" href="bower_components/angular-material/angular-material.css" />
+    <!-- endbower -->
     <!-- endbuild -->
 </head>
 
@@ -94,6 +93,8 @@
     <script src="bower_components/angular-animate/angular-animate.js"></script>
     <script src="bower_components/angular-aria/angular-aria.js"></script>
     <script src="bower_components/angular-material/angular-material.js"></script>
+    <script src="bower_components/angular-sanitize/angular-sanitize.js"></script>
+    <script src="bower_components/angular-mass-autocomplete/massautocomplete.min.js"></script>
     <!-- endbower -->
     <!-- endbuild -->
     <!-- build:js({.tmp,app}) scripts/scripts.js -->
@@ -119,12 +120,16 @@
     <script src="app/components/candidate/candidateSideFlow/candidateSideFlow.js"></script>
     <script src="app/components/candidate/candidateSideSuggestions/candidateSideSuggestions.js"></script>
     <!-- Controllers -->
-    <script src="app/controllers/candidateDashController.js"></script>
-    <script src="app/controllers/candidateDetailsController.js"></script>
-    <script src="app/controllers/aboutController.js"></script>
     <script src="app/controllers/mainController.js"></script>
-    <script src="app/controllers/listVacancyController.js"></script>
-    <script src="app/controllers/dashboardVacancyController.js"></script>
+    <!-- Vacancy -->
+    <script src="app/controllers/vacancy/vacancyController.js"></script>
+    <script src="app/controllers/vacancy/vacancyDashboardController.js"></script>
+    <script src="app/controllers/vacancy/vacancyListController.js"></script>
+    <!-- Candidate -->
+    <script src="app/controllers/candidate/candidateController.js"></script>
+    <script src="app/controllers/candidate/candidateDashboardController.js"></script>
+    <script src="app/controllers/candidate/candidateListController.js"></script>
+    <!-- Misc -->
     <script src="app/controllers/addVacancyController.js"></script>
     <script src="app/controllers/addCVController.js"></script>
     <script src="app/controllers/addCandidateController.js"></script>
@@ -136,6 +141,7 @@
     <!-- endbuild -->
     <!-- Utils -->
     <script type="text/javascript" src="http://underscorejs.org/underscore.js"></script>
+    <script src="app/libs/massautocomplete.js"></script>
 </body>
 
 </html>

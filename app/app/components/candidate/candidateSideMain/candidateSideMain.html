@@ -1,16 +1,15 @@
 <div>
     <div class="col-centered col-lg-11 clearfix">
-        <div class="text-center
-                  margin-t-20 margin-b-20">
+        <div class="text-center margin-t-20 margin-b-20">
             <md-button ng-hide="addProgress" class="md-raised md-accent button-text-white inline add-flow-btn" ng-click='addProgress = true'><i src="glyphicon glyphicon-upload"> </i> Add Field </md-button>
         </div>
     </div>
     <div class="row newField">
         <div class="col-sm-11 col-centered" ng-show="addProgress">
-            <div class="col-lg-6">
+            <div class="col-lg-6" mass-autocomplete>
                 <md-input-container>
-                    <label contentEditable="true">Field name</label>
-                    <input type="text" ng-model="newFieldName">
+                    <label contentEditable="true">Field text</label>
+                    <input type="text" ng-model="dirty.value" mass-autocomplete-item="autocomplete_options">
                 </md-input-container>
             </div>
             <div class="col-lg-6">
