@@ -4,11 +4,11 @@ kandidatoApp.config(function($routeProvider) {
     $routeProvider
         .when('/dashboard', {
             templateUrl: 'app/views/vacancyDashboard.html',
-            controller: 'vacancyCtrl'
+            controller: 'vacancyDashboardCtrl'
         })
         .when('/list', {
             templateUrl: 'app/views/vacancyList.html',
-            controller: 'vacancyCtrl'
+            controller: 'vacancyListCtrl'
         })
         .when('/addVacancy', {
             templateUrl: 'app/views/addVacancy.html',
@@ -24,11 +24,11 @@ kandidatoApp.config(function($routeProvider) {
         })
         .when('/candidateDashboard', {
             templateUrl: 'app/views/candidateDashboard.html',
-            controller: 'candidateCtrl'
+            controller: 'candidateDashboardCtrl'
         })
         .when('/candidateList', {
             templateUrl: 'app/views/candidateList.html',
-            controller: 'candidateCtrl'
+            controller: 'candidateListCtrl'
         })
         .otherwise({
             redirectTo: '/'

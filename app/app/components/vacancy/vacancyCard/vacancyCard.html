@@ -1,10 +1,9 @@
-<div class="card clearfix" ng-class="currentVacancy ? 'col-lg-6' : 'col-lg-3'">
-    <div class="card-content clearfix " ng-click="selectVacancy(vacancy)" ng-class="vacancy.id == currentVacancy.id ? 'selected' :'default'">
+<div class="clearfix" ng-class="currentVacancy ? 'col-lg-6' : 'col-lg-3'">
+    <div class="content row clearfix" ng-click="selectVacancy(vacancy)" ng-class="vacancy.id == currentVacancy.id ? 'selected' :'default'">
         <div ng-hide="vacancy.allowArchive == true">
             <!-- Default card content -->
             <div class="clearfix row">
-                <div class="col-lg-3 pull-left" style="padding:0"><span class="card-num
-            ">{{vacancy.id}}</span><span ng-if="vacancy.hot == true" class="badge hot">HOT</span>
+                <div class="col-lg-3 pull-left"><span class="number">{{vacancy.id}}</span><span ng-if="vacancy.hot == true" class="badge hot">HOT</span>
                 </div>
                 <div class="col-lg-9 pull-right clearfix" style="padding:0">
                     <md-button ng-click="quickAction.main(vacancy)" class="md-fab main md-accent pull-right" aria-label="refresh">
@@ -42,8 +41,10 @@
                 <div class="margin-t-10 margin-b-10">Description :</div>
                 <div class="text-cut">{{vacancy.requirements}}</div>
             </div>
-            <h6>Tags:</h6>
-            <tag-list tags="vacancy.tags"> </tag-list>
+            <div class="row">
+                <h6>Tags:</h6>
+                <tag-list tags="vacancy.tags"> </tag-list>
+            </div>
             <div class="date bottom-inner
          ">{{vacancy.createTime|date:'medium'}}</div>
         </div>

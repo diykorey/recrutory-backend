@@ -17,6 +17,8 @@ kandidatoApp.controller('candidateCtrl', function($scope, $rootScope, $log, ApiD
     $scope.addFieldProgress = false
     $scope.flowSuggested = []
     $scope.flowAvailable = []
+    $scope.newField = {}
+    $scope.newField.type = {}
 
     /**
      * Gets all candidates data from API
@@ -211,21 +213,13 @@ kandidatoApp.controller('candidateCtrl', function($scope, $rootScope, $log, ApiD
         },
         save: function() {
             $rootScope.updateProcess = true
-            var newField = {}
-            newField.type = {}
-            newField.type.name = $scope.newFieldName
-            newField.type.prime = $scope.newFieldPrime
-            newField.fieldValue = $scope.newFieldValue
 
-
-            delete $scope.addProgress
-            $scope.newFieldName = ''
-            $scope.newFieldPrime = ''
-            $scope.newFieldValue = ''
             var URL = "candidate/" + $scope.currentCandidate.id + "/addfield"
-            ApiDataFactory.queryPost(URL, newField).then(function(result) {
+            ApiDataFactory.queryPost(URL, $scope.newField).then(function(result) {
                 $scope.candidatesData[_.indexOf($scope.candidatesData, result)] = result
                 $scope.currentCandidate = result
+                $scope.newField = {}
+                $scope.newField.type = {}
                 $rootScope.updateProcess = false
                 $scope.showToast()
             })
@@ -435,7 +429,7 @@ kandidatoApp.controller('candidateCtrl', function($scope, $rootScope, $log, ApiD
     /**
      * Mass auto complete
      */
-    $scope.dirty = {};
+
 
 
 

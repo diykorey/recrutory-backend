@@ -1,8 +1,8 @@
-<div class="row" ng-controller="vacancyDashboardCtrl">
+<div class="row" ng-controller="vacancyCtrl">
     <!-- Dashboard wrapper  -->
     <div ng-class="currentVacancy ? 'col-lg-6' : 'row'">
         <!-- Vacancy card wrapper | Angular DIRECTIVE-->
-        <vacancy-card ng-repeat="vacancy in vacanciesData | filter:filterValue "></vacancy-card>
+        <vacancy-card ng-repeat="vacancy in vacanciesData | filter:filterValue " class="recrutory-card"></vacancy-card>
     </div>
     <!-- End Vacancy card wrapper  -->
     <div ng-show="currentVacancy" class="clearfix sideView " ng-class="currentVacancy ? 'col-lg-6' : 'hide'">

@@ -1,4 +1,4 @@
-<div ng-controller="candidateListCtrl">
+<div ng-controller="candidateCtrl">
     <div class="filters col-lg-11 col-centered">
         <div class="col-lg-1" ng-repeat="filter in filters">
             <md-checkbox ng-model="filterValues[filter.name].value" ng-change="filtercandidates()" class="md-warn" aria-label="{{filter.name}}">

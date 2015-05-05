@@ -1,4 +1,4 @@
-<div class="row" ng-controller="vacancyListCtrl">
+<div class="row" ng-controller="vacancyCtrl">
     <div class="filters col-lg-11 col-centered">
         <div class="col-lg-1" ng-repeat="filter in filters">
             <md-checkbox ng-model="filterValues[filter.name].value" ng-change="filterVacancies()" class="md-warn" aria-label="{{filter.name}}">
