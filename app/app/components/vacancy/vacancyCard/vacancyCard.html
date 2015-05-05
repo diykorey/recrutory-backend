@@ -1,11 +1,16 @@
 <div class="clearfix" ng-class="currentVacancy ? 'col-lg-6' : 'col-lg-3'">
-    <div class="content row clearfix" ng-click="selectVacancy(vacancy)" ng-class="vacancy.id == currentVacancy.id ? 'selected' :'default'">
+    <div class="content row clearfix" ng-click="selectVacancy(vacancy)" ng-class="vacancy.id == currentVacancy.id ? 'selected' :''">
         <div ng-hide="vacancy.allowArchive == true">
             <!-- Default card content -->
             <div class="clearfix row">
-                <div class="col-lg-3 pull-left"><span class="number">{{vacancy.id}}</span><span ng-if="vacancy.hot == true" class="badge hot">HOT</span>
+                <!-- <div class="col-lg-3 pull-left action-btns"><span class="number">{{vacancy.id}}</span><span  class="badge hot">HOT</span>
+</div>
+ -->
+                <div class="col-lg-4 action-btns">
+                    <div class="col-lg-6 text-center number">{{vacancy.id}}</div>
+                    <div class="col-lg-6 text-center hot" ng-if="vacancy.hot == true">HOT</div>
                 </div>
-                <div class="col-lg-9 pull-right clearfix" style="padding:0">
+                <div class="col-lg-8 pull-right clearfix" style="padding:0">
                     <md-button ng-click="quickAction.main(vacancy)" class="md-fab main md-accent pull-right" aria-label="refresh">
                         <md-tooltip>
                             Main
@@ -37,20 +42,18 @@
                 </div>
             </div>
             <div class="name row">{{vacancy.name}}</div>
-            <div class="desc row margin-t-10">
-                <div class="margin-t-10 margin-b-10">Description :</div>
-                <div class="text-cut">{{vacancy.requirements}}</div>
+            <div class="desc row">
+                <label>Description :</label>
+                <div>{{vacancy.requirements | limitTo: 110}}{{vacancy.requirements.length > 120 ? '...': ''}}</div>
             </div>
-            <div class="row">
-                <h6>Tags:</h6>
+            <div class="tags row">
+                <label>Tags:</label>
                 <tag-list tags="vacancy.tags"> </tag-list>
             </div>
-            <div class="date bottom-inner
-         ">{{vacancy.createTime|date:'medium'}}</div>
+            <div class="date row">{{vacancy.createTime|date:'medium'}}</div>
         </div>
         <!-- End Default card content -->
-        <div ng-show="vacancy.allowArchive == true" class="text-center col-centered col-lg-11 archive-warn-wrapper
-      ">
+        <div ng-show="vacancy.allowArchive == true" class="text-center col-centered col-lg-11 archive-warn-wrapper">
             <!-- Archive card content -->
             <i class="glyphicon glyphicon-trash text-center"></i>
             <p>Are you sure that you want

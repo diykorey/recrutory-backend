@@ -168,7 +168,7 @@ module.exports = function(grunt) {
             },
             server: {
                 options: {
-                    debugInfo: true
+                    debugInfo: false
                 }
             }
         },
@@ -362,20 +362,6 @@ module.exports = function(grunt) {
                 configFile: 'test/karma.conf.js',
                 singleRun: true
             }
-        },
-        // make a zipfile
-        // make a zipfile
-        // gzip assets 1-to-1 for production
-        compress: {
-            main: {
-                options: {
-                    mode: 'zip'
-                },
-                expand: true,
-                cwd: 'dist/',
-                src: ['**/*'],
-                dest: 'dist/'
-            }
         }
     });
 
@@ -422,8 +408,7 @@ module.exports = function(grunt) {
         'uglify',
         'filerev',
         'usemin',
-        'htmlmin',
-        'compress'
+        'htmlmin'
     ]);
 
     grunt.registerTask('default', [
