@@ -1,0 +1,157 @@
+/* Import Font Awesome for icons */
+@import 'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css';
+
+/* Import Tailwind CSS */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+@tailwind variants;
+
+/* Custom styles for your recruitment app */
+:root {
+	--color-primary-50: 239 246 255;
+	--color-primary-100: 219 234 254;
+	--color-primary-200: 191 219 254;
+	--color-primary-300: 147 197 253;
+	--color-primary-400: 96 165 250;
+	--color-primary-500: 59 130 246;
+	--color-primary-600: 37 99 235;
+	--color-primary-700: 29 78 216;
+	--color-primary-800: 30 64 175;
+	--color-primary-900: 30 58 138;
+}
+
+/* Global app styles */
+body {
+	font-family: 'Inter', 'Roboto', system-ui, -apple-system, sans-serif;
+	line-height: 1.6;
+}
+
+/* Enhanced Skeleton UI components */
+.card {
+	@apply bg-surface-100-800-token border border-surface-300-600-token;
+	backdrop-filter: blur(4px);
+}
+
+.card-hover {
+	transition: all 0.2s ease-in-out;
+}
+
+.card-hover:hover {
+	@apply shadow-xl transform -translate-y-1;
+}
+
+/* Custom button enhancements */
+.btn {
+	@apply transition-all duration-200 ease-in-out;
+	font-weight: 500;
+}
+
+.btn:hover {
+	@apply shadow-md transform -translate-y-0.5;
+}
+
+/* Input group styling */
+.input-group-shim {
+	@apply bg-surface-200-700-token border-surface-300-600-token flex items-center justify-center px-3;
+}
+
+/* Badge enhancements */
+.badge {
+	@apply text-xs font-medium px-2 py-1 rounded-full;
+}
+
+.chip {
+	@apply text-xs font-medium px-2 py-1 rounded-full;
+}
+
+/* Custom vacancy card styles */
+.vacancy-card {
+	@apply card p-4 hover:shadow-lg transition-shadow duration-200 cursor-pointer;
+}
+
+.vacancy-card.selected {
+	@apply ring-2 ring-primary-500;
+}
+
+/* Hot badge styles */
+.hot-badge {
+	@apply badge variant-filled-warning text-xs font-semibold;
+}
+
+/* Quick action buttons */
+.quick-actions {
+	@apply flex gap-2;
+}
+
+/* Navigation styles */
+.nav-item {
+	@apply flex items-center gap-3 px-4 py-2 rounded-lg hover:bg-surface-100-800-token transition-colors;
+}
+
+.nav-item.active {
+	@apply bg-primary-500 text-white;
+}
+
+/* Table enhancements */
+.table {
+	@apply w-full border-collapse;
+}
+
+.table th {
+	@apply bg-surface-200-700-token font-semibold text-left px-4 py-3;
+	border-bottom: 1px solid rgb(var(--color-surface-300) / 0.3);
+}
+
+.table td {
+	@apply px-4 py-3;
+	border-bottom: 1px solid rgb(var(--color-surface-300) / 0.1);
+}
+
+.table-hover tbody tr:hover {
+	@apply bg-surface-100-800-token;
+}
+
+/* Custom progress bar */
+.progress-indeterminate {
+	@apply w-full h-1 bg-surface-200-700-token overflow-hidden;
+}
+
+.progress-indeterminate::after {
+	content: '';
+	@apply block h-full bg-primary-500 animate-pulse;
+	animation: indeterminate 2s infinite linear;
+}
+
+@keyframes indeterminate {
+	0% { transform: translateX(-100%); }
+	100% { transform: translateX(100%); }
+}
+
+/* Tag styles */
+.tag-item {
+	@apply chip variant-soft-primary text-sm;
+}
+
+/* Responsive grid for vacancy cards */
+.vacancy-grid {
+	@apply grid gap-4;
+	grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+}
+
+@media (max-width: 768px) {
+	.vacancy-grid {
+		grid-template-columns: 1fr;
+	}
+}
+
+/* Responsive utilities */
+@media (max-width: 768px) {
+	.container {
+		padding: 0 1rem;
+	}
+
+	.space-y-10 > * + * {
+		margin-top: 2rem;
+	}
+}

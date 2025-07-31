@@ -1,0 +1,109 @@
+@import './variables.scss';
+
+// Global reset and base styles
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Roboto', sans-serif;
+  background-color: $background-color;
+  color: $text-primary;
+  line-height: 1.5;
+}
+
+// Card styles (migrated from _card.scss)
+.card {
+  background: $card-background;
+  border-radius: 4px;
+  box-shadow: $elevation-1;
+  padding: $spacing-md;
+  margin-bottom: $spacing-md;
+
+  &.elevated {
+    box-shadow: $elevation-2;
+  }
+
+  .card-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: $spacing-md;
+
+    .card-title {
+      font-size: 1.25rem;
+      font-weight: 500;
+      margin: 0;
+    }
+  }
+
+  .card-content {
+    margin-bottom: $spacing-md;
+  }
+
+  .card-actions {
+    display: flex;
+    gap: $spacing-sm;
+    justify-content: flex-end;
+  }
+}
+
+// Layout utilities
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 $spacing-md;
+}
+
+.row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: $spacing-md;
+}
+
+.col {
+  flex: 1;
+  min-width: 300px;
+}
+
+// Utility classes
+.text-center { text-align: center; }
+.text-right { text-align: right; }
+.mb-sm { margin-bottom: $spacing-sm; }
+.mb-md { margin-bottom: $spacing-md; }
+.mb-lg { margin-bottom: $spacing-lg; }
+.mt-sm { margin-top: $spacing-sm; }
+.mt-md { margin-top: $spacing-md; }
+.mt-lg { margin-top: $spacing-lg; }
+
+// Loading spinner
+.loader {
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  border: 2px solid $primary-color;
+  border-radius: 50%;
+  border-top-color: transparent;
+  animation: spin 1s ease-in-out infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+// Responsive design
+@media (max-width: $breakpoint-mobile) {
+  .row {
+    flex-direction: column;
+  }
+
+  .col {
+    min-width: auto;
+  }
+
+  .card {
+    margin: 0 0 $spacing-md 0;
+  }
+}
