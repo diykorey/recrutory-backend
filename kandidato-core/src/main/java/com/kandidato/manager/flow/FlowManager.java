@@ -1,7 +1,9 @@
 package com.kandidato.manager.flow;
 
-import com.kandidato.persistence.entity.Flow;
-import com.kandidato.persistence.entity.FlowAction;
+
+import com.kandidato.model.dto.FlowDTO;
+import com.kandidato.model.dto.FlowActionDTO;
+import com.kandidato.model.dto.input.FlowIn;
 
 import java.util.List;
 
@@ -13,17 +15,8 @@ public interface FlowManager {
     /**
      * Creates a new {@link com.kandidato.persistence.entity.Flow}, which links the specified canidate to the vacancy.
      *
-     * @param vacancyId
-     * @param candidateId
      */
-    Flow create(long vacancyId, long candidateId);
-
-    /**
-     * Creates a new {@link Flow}.
-     *
-     * @param flow
-     */
-    Flow create(Flow flow);
+    List<FlowDTO> create(List<FlowIn> flows);
 
     /**
      * Removes the flow with the specified id.
@@ -33,28 +26,34 @@ public interface FlowManager {
     void remove(long id);
 
     /**
-     * Retrieves a list of {@link Flow}s, for the specified vacancy.
+     * Retrieves a list of {@link com.kandidato.model.dto.FlowDTO}s, for the specified vacancy.
      *
      * @param vacancyId
-     *
      * @return list of flows or an empty list if no flows are present
      */
-    List<Flow> findByVacancy(long vacancyId);
+    List<FlowDTO> findByVacancy(long vacancyId);
 
     /**
-     * Returns the {@link Flow} with the matching id.
+     * Returns the {@link com.kandidato.model.dto.FlowDTO} with the matching id.
      *
      * @param flowId
      * @return
      */
-    Flow find(long flowId);
+    FlowDTO find(long flowId);
 
     /**
-     * Returns the all {@link Flow} in the system.
+     * Retrieves a list of {@link com.kandidato.model.dto.FlowDTO}s, for the specified candidate.
+     *
+     * @param candidateId
+     * @return list of flows or an empty list if no flows are present
+     */
+    List<FlowDTO> findByCandidate(long candidateId);
+    /**
+     * Returns the all {@link com.kandidato.model.dto.FlowDTO} in the system.
      *
      * @return
      */
-    List<Flow> findAll();
+    List<FlowDTO> findFlowsByUser();
 
-    FlowAction createAction(FlowAction action);
+    
 }

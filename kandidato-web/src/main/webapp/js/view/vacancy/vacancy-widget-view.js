@@ -12,7 +12,7 @@ define([
         events: {
             "click .clickable": "showVacancyDetails"
         },
-        showVacancyDetails: function() {
+        showVacancyDetails: function () {
             Backbone.trigger('vacancySelected', this);
             var vacancyDetails = new VacancyDetails({model: this.model});
             vacancyDetails.render();

@@ -12,6 +12,9 @@ public interface CommentManager {
 
     void addComment(long authorId, long entityId, CommentType type, String commentText);
 
+    void updateComment(long commentId, String commentText);
+
     List<EntityComment<?>> getEntityComments(long entityId, CommentType type);
 
+    void removeComment(long commentId);
 }

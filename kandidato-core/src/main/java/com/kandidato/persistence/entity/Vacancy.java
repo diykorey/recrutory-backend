@@ -1,19 +1,19 @@
 package com.kandidato.persistence.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.kandidato.constants.SearchIndexState;
 import com.kandidato.constants.VacancyState;
 import com.kandidato.persistence.entity.comment.CommentableEntity;
 import com.kandidato.persistence.entity.comment.VacancyComment;
+import com.kandidato.persistence.entity.tag.Tag;
+import com.kandidato.persistence.entity.tag.Taggable;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 @javax.persistence.Entity
 @Table(name = "VACANCIES")
-public class Vacancy implements CommentableEntity<VacancyComment>, CreatorAware {
+public class Vacancy implements CommentableEntity<VacancyComment>, CreatorAware, Taggable {
 
     @Id
     @GeneratedValue
@@ -30,19 +30,19 @@ public class Vacancy implements CommentableEntity<VacancyComment>, CreatorAware 
     @Enumerated(value = EnumType.STRING)
     private VacancyState state;
 
+    @Column(name = "SEARCH_INDEX_STATE")
+    @Enumerated(EnumType.STRING)
+    private SearchIndexState searchState = SearchIndexState.NEW;
+
     @Column(name = "HOT_FLAG")
     private boolean hot;
 
     @Column(name = "DESCRIPTION")
     private String requirements;
 
-    @ManyToMany(cascade = CascadeType.ALL)
+    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinTable(name = "VACANCIES_TAGS", joinColumns = {@JoinColumn(name = "VACANCY_ID")}, inverseJoinColumns = {@JoinColumn(name = "TAG_ID")})
-    private Set<Tag> tags;
-
-    @ManyToOne
-    @JoinColumn(name = "PROJECT_ID")
-    private Project project;
+    private Set<Tag> tags = new HashSet<>();
 
     @OneToMany(mappedBy = "vacancy", cascade = CascadeType.ALL)
     @JsonIgnore
@@ -52,7 +52,7 @@ public class Vacancy implements CommentableEntity<VacancyComment>, CreatorAware 
     @JoinColumn(name = "USER_ID")
     private User creator;
 
-    @OneToMany(mappedBy = "entity", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "entity", cascade = CascadeType.ALL, targetEntity = VacancyComment.class)
     @JsonIgnore
     private List<VacancyComment> comments = new ArrayList<>();
 
@@ -75,6 +75,14 @@ public class Vacancy implements CommentableEntity<VacancyComment>, CreatorAware 
         this.state = state;
     }
 
+    public SearchIndexState getSearchState() {
+        return searchState;
+    }
+
+    public void setSearchState(SearchIndexState searchState) {
+        this.searchState = searchState;
+    }
+
     public boolean isHot() {
         return hot;
     }
@@ -91,20 +99,14 @@ public class Vacancy implements CommentableEntity<VacancyComment>, CreatorAware 
         this.requirements = requirements;
     }
 
+    @Override
     public Set<Tag> getTags() {
         return tags;
     }
 
+    @Override
     public void setTags(Set<Tag> tags) {
         this.tags = tags;
-    }
-
-    public Project getProject() {
-        return project;
-    }
-
-    public void setProject(Project project) {
-        this.project = project;
     }
 
     public List<Flow> getFlows() {

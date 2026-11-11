@@ -1,26 +1,17 @@
 package com.kandidato.manager.user;
 
-import com.kandidato.persistence.entity.User;
+import com.kandidato.model.dto.TokenDTO;
+import com.kandidato.model.dto.UserDTO;
+import com.kandidato.security.model.CurrentProfile;
 
-/**
- * Created by andriy on 7/27/14.
- */
+import java.util.Optional;
+
 public interface UserManager {
+    String FACEBOOK = "facebook";
+    String GOOGLE = "google";
+    String LINKEDIN = "linkedIn";
 
-    /**
-     * Retrieves the {@link User} with the corresponding login.
-     *
-     * @param login
-     * @return user or {@code null} if the user is not found
-     */
-    User getUserByLogin(String login);
+    UserDTO attachNewProvider(CurrentProfile currentUser, TokenDTO token);
 
-    /**
-     * Creates a new user.
-     *
-     * @param user to be created
-     * @return instance of the user, which was created
-     */
-    User createUser(User user);
-
+    Optional<CurrentProfile> getCurrentProfile(String provider, String token);
 }

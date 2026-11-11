@@ -3,7 +3,6 @@ package com.kandidato.persistence.entity.comment;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.kandidato.persistence.entity.Resume;
 import com.kandidato.persistence.entity.User;
-import com.kandidato.persistence.entity.Vacancy;
 
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
@@ -29,7 +28,7 @@ public class ResumeComment extends EntityComment<Resume> {
         this.setEntity(entity);
     }
 
-    @ManyToOne(targetEntity = Vacancy.class)
+    @ManyToOne(targetEntity = Resume.class)
     @JoinColumn(name = "ENTITY_ID")
     @JsonIgnore
     private Resume entity;

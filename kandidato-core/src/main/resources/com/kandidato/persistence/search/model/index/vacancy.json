@@ -1,0 +1,44 @@
+{
+  "name": "vacancies",
+  "fields": [
+    {
+      "name": "number",
+      "type": "Edm.String",
+      "key": true
+    },
+    {
+      "name": "name",
+      "type": "Edm.String"
+    },
+    {
+      "name": "userId",
+      "type": "Edm.Int64"
+    },
+    {
+      "name": "hot",
+      "type": "Edm.Boolean"
+    },
+    {
+      "name": "tags",
+      "type": "Collection(Edm.String)"
+    },
+    {
+      "name": "requirements",
+      "type": "Edm.String",
+      "filterable": false
+    }
+  ],
+  "scoringProfiles": [
+    {
+      "name": "tags",
+      "text": {
+        "weights": {
+          "name": 5,
+          "tags": 6,
+          "requirements": 3
+        }
+      }
+    }
+  ],
+  "defaultScoringProfile" : "tags"
+}

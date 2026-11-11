@@ -24,7 +24,7 @@
 <!-- The file upload form used as target for the file upload widget -->
 <form id="fileupload" action="upload" method="POST" enctype="multipart/form-data">
     <!-- Redirect browsers with JavaScript disabled to the origin page -->
-    <noscript><input type="hidden" name="redirect" value="http://blueimp.github.io/jQuery-File-Upload/"></noscript>
+    <noscript><input type="hidden" name="redirect" fieldValue="http://blueimp.github.io/jQuery-File-Upload/"></noscript>
     <!-- The fileupload-buttonbar contains buttons to add/delete files and start/cancel the upload -->
     <div class="row fileupload-buttonbar">
         <div class="col-lg-7">
@@ -131,7 +131,7 @@
                     <i class="glyphicon glyphicon-trash"></i>
                     <span>Delete</span>
                 </button>
-                <input type="checkbox" name="delete" value="1" class="toggle">
+                <input type="checkbox" name="delete" fieldValue="1" class="toggle">
             {% } else { %}
                 <button class="btn btn-warning cancel">
                     <i class="glyphicon glyphicon-ban-circle"></i>

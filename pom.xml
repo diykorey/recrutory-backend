@@ -7,32 +7,52 @@
     <version>0.0.0</version>
     <groupId>com.kandidato</groupId>
     <artifactId>kandidato</artifactId>
-
+    <scm>
+        <connection>scm:git:https://bitbucket.org/mykola_kavf/kandidato/src/6c8c0615627ff3a5aefc3c326d3173748d869689?at=master</connection>
+    </scm>
     <properties>
-        <application.version>0.1</application.version>
-        <java-version>1.7</java-version>
+        <application.version>0.2.0</application.version>
+        <java-version>1.8</java-version>
         <javax-inject.version>1</javax-inject.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <spring.version>4.0.2.RELEASE</spring.version>
-        <spring.security.version>3.2.3.RELEASE</spring.security.version>
-        <spring-social-core.version>1.1.0.RC1</spring-social-core.version>
-        <spring-social-linkedin.version>1.0.0.RC4</spring-social-linkedin.version>
-        <spring-data.version>1.5.1.RELEASE</spring-data.version>
+        <spring.version>4.3.4.RELEASE</spring.version>
+        <spring.security.version>4.2.0.RELEASE</spring.security.version>
+        <spring.social.facebook>2.0.3.RELEASE</spring.social.facebook>
+        <spring.social.google>1.0.0.RELEASE</spring.social.google>
+        <spring.social.linkedin>1.0.2.RELEASE</spring.social.linkedin>
+        <spring-data.version>1.10.5.RELEASE</spring-data.version>
         <hibernate.version>4.3.4.Final</hibernate.version>
-        <mysql.version>5.1.28</mysql.version>
+        <hibernate-validator.version>5.1.3.Final</hibernate-validator.version>
+        <mssql.driver.version>4.0</mssql.driver.version>
         <servlet-api.version>3.0.1</servlet-api.version>
-        <elasticsearch.version>1.0.1</elasticsearch.version>
+        <spring-data-elasticsearch.version>2.0.5.RELEASE</spring-data-elasticsearch.version>
         <httpclient.version>4.3.3</httpclient.version>
         <gson.version>2.2.4</gson.version>
-        <guava.version>16.0.1</guava.version>
+        <guava.version>18.0</guava.version>
         <jstl.version>1.2</jstl.version>
-        <logback.version>1.1.2</logback.version>
+        <logback.version>1.1.3</logback.version>
         <junit.version>4.11</junit.version>
+        <cglib.version>3.1</cglib.version>
+        <powermock.version>1.5.6</powermock.version>
+        <easymock.version>3.2</easymock.version>
+        <powermock-easymock-api.version>1.5.6</powermock-easymock-api.version>
         <commons-fileupload.version>1.3.1</commons-fileupload.version>
-        <HikariCP.version>1.3.5</HikariCP.version>
         <build.environment>local</build.environment>
+        <dozer.version>5.4.0</dozer.version>
+        <tomcat.version>8.0.18</tomcat.version>
+        <tomcat7-maven-plugin.version>2.2</tomcat7-maven-plugin.version>
+        <jackson-annotations.version>2.8.5</jackson-annotations.version>
+        <swagger-springmvc.version>1.0.2</swagger-springmvc.version>
+        <microsoft-windowsazure-api.version>0.4.6</microsoft-windowsazure-api.version>
+        <hikari.pool.version>2.4.1</hikari.pool.version>
+        <p6spy-version>2.1.4</p6spy-version>
     </properties>
 
+    <modules>
+        <module>kandidato-db</module>
+        <module>kandidato-core</module>
+        <module>kandidato-web</module>
+    </modules>
     <repositories>
         <repository>
             <id>spring-milestones</id>
@@ -47,16 +67,15 @@
             <name>Spring Milestone Repository</name>
             <url>http://repo.spring.io/libs-milestone</url>
         </repository>
+        <repository>
+            <id>sonatype</id>
+            <name>Sonatypr maven repository for mapstruct</name>
+            <url>https://oss.sonatype.org/content/repositories/releases/org/mapstruct/mapstruct/1.0.0.Beta2/</url>
+        </repository>
     </repositories>
-    <modules>
-        <module>kandidato-db</module>
-        <module>kandidato-core</module>
-        <module>kandidato-search</module>
-        <module>kandidato-web</module>
-    </modules>
     <dependencyManagement>
         <dependencies>
-            <!--Project Modules-->
+
             <dependency>
                 <groupId>com.kandidato</groupId>
                 <artifactId>kandidato-core</artifactId>
@@ -124,9 +143,9 @@
             </dependency>
 
             <dependency>
-                <groupId>org.springframework</groupId>
-                <artifactId>spring-context</artifactId>
-                <version>${spring.version}</version>
+                <groupId>org.springframework.data</groupId>
+                <artifactId>spring-data-elasticsearch</artifactId>
+                <version>${spring-data-elasticsearch.version}</version>
             </dependency>
 
             <dependency>
@@ -162,14 +181,20 @@
             <!-- Spring Social -->
             <dependency>
                 <groupId>org.springframework.social</groupId>
-                <artifactId>spring-social-core</artifactId>
-                <version>${spring-social-core.version}</version>
+                <artifactId>spring-social-facebook</artifactId>
+                <version>${spring.social.facebook}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.springframework.social</groupId>
+                <artifactId>spring-social-google</artifactId>
+                <version>${spring.social.google}</version>
             </dependency>
 
             <dependency>
                 <groupId>org.springframework.social</groupId>
                 <artifactId>spring-social-linkedin</artifactId>
-                <version>${spring-social-linkedin.version}</version>
+                <version>${spring.social.linkedin}</version>
             </dependency>
 
             <!-- Hibernate 4 -->
@@ -181,42 +206,36 @@
 
             <dependency>
                 <groupId>org.hibernate</groupId>
+                <artifactId>hibernate-validator</artifactId>
+                <version>${hibernate-validator.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.hibernate</groupId>
                 <artifactId>hibernate-entitymanager</artifactId>
                 <version>${hibernate.version}</version>
             </dependency>
 
             <dependency>
-                <groupId>mysql</groupId>
-                <artifactId>mysql-connector-java</artifactId>
-                <version>${mysql.version}</version>
-                <scope>runtime</scope>
+                <groupId>org.apache.tomcat</groupId>
+                <artifactId>tomcat-catalina</artifactId>
+                <version>${tomcat.version}</version>
+                <scope>provided</scope>
+            </dependency>
+
+            <!-- Database driver -->
+            <dependency>
+                <groupId>com.microsoft.sqlserver</groupId>
+                <artifactId>sqljdbc4</artifactId>
+                <version>${mssql.driver.version}</version>
             </dependency>
 
             <dependency>
                 <groupId>com.zaxxer</groupId>
                 <artifactId>HikariCP</artifactId>
-                <version>${HikariCP.version}</version>
+                <version>${hikari.pool.version}</version>
+                <scope>compile</scope>
             </dependency>
-
-            <!-- ElasticSearch -->
-            <dependency>
-                <groupId>org.elasticsearch</groupId>
-                <artifactId>elasticsearch</artifactId>
-                <version>${elasticsearch.version}</version>
-            </dependency>
-
-            <!-- Quartz Scheduler -->
-            <dependency>
-                <groupId>org.quartz-scheduler</groupId>
-                <artifactId>quartz</artifactId>
-                <version>2.2.1</version>
-            </dependency>
-            <dependency>
-                <groupId>org.quartz-scheduler</groupId>
-                <artifactId>quartz-jobs</artifactId>
-                <version>2.2.1</version>
-            </dependency>
-
 
             <!-- Other -->
             <dependency>
@@ -242,10 +261,30 @@
                 <artifactId>gson</artifactId>
                 <version>${gson.version}</version>
             </dependency>
+
             <dependency>
                 <groupId>commons-fileupload</groupId>
                 <artifactId>commons-fileupload</artifactId>
                 <version>${commons-fileupload.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>net.sf.dozer</groupId>
+                <artifactId>dozer</artifactId>
+                <version>${dozer.version}</version>
+            </dependency>
+
+            <!-- Microsoft Azure -->
+            <dependency>
+                <groupId>com.microsoft.windowsazure</groupId>
+                <artifactId>microsoft-windowsazure-api</artifactId>
+                <version>${microsoft-windowsazure-api.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.azure</groupId>
+                <artifactId>search</artifactId>
+                <version>0.1</version>
             </dependency>
 
             <!-- Logs -->
@@ -262,12 +301,56 @@
             </dependency>
 
             <dependency>
+                <groupId>org.powermock</groupId>
+                <artifactId>powermock-module-junit4</artifactId>
+                <version>${powermock.version}</version>
+                <scope>test</scope>
+            </dependency>
+
+            <dependency>
+                <groupId>org.powermock</groupId>
+                <artifactId>powermock-api-easymock</artifactId>
+                <version>${powermock-easymock-api.version}</version>
+                <scope>test</scope>
+            </dependency>
+
+            <dependency>
+                <groupId>org.easymock</groupId>
+                <artifactId>easymock</artifactId>
+                <version>${easymock.version}</version>
+                <scope>test</scope>
+            </dependency>
+
+            <!--Cglib is required by easymock -->
+            <dependency>
+                <groupId>cglib</groupId>
+                <artifactId>cglib</artifactId>
+                <version>${cglib.version}</version>
+                <scope>test</scope>
+            </dependency>
+
+            <dependency>
                 <groupId>org.springframework</groupId>
                 <artifactId>spring-test</artifactId>
                 <version>${spring.version}</version>
                 <scope>test</scope>
             </dependency>
 
+            <dependency>
+                <groupId>com.fasterxml.jackson.core</groupId>
+                <artifactId>jackson-annotations</artifactId>
+                <version>${jackson-annotations.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.mangofactory</groupId>
+                <artifactId>swagger-springmvc</artifactId>
+                <version>${swagger-springmvc.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>p6spy</groupId>
+                <artifactId>p6spy</artifactId>
+                <version>${p6spy-version}</version>
+            </dependency>
 
         </dependencies>
     </dependencyManagement>
@@ -279,9 +362,14 @@
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-compiler-plugin</artifactId>
                     <configuration>
-                        <source>1.7</source>
-                        <target>1.7</target>
+                        <source>${java-version}</source>
+                        <target>${java-version}</target>
                     </configuration>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.tomcat.maven</groupId>
+                    <artifactId>tomcat7-maven-plugin</artifactId>
+                    <version>${tomcat7-maven-plugin.version}</version>
                 </plugin>
             </plugins>
         </pluginManagement>
@@ -289,16 +377,21 @@
 
     <profiles>
         <profile>
-            <!-- When built in OpenShift the 'openshift' profile will be used when
-                invoking mvn. -->
-            <!-- Use this profile for any OpenShift specific customization your app
-                will need. -->
-            <!-- By default that is to put the resulting archive into the 'webapps'
-                folder. -->
-            <!-- http://maven.apache.org/guides/mini/guide-building-for-different-environments.html -->
-            <id>openshift</id>
+            <id>dev</id>
+            <activation>
+                <activeByDefault>false</activeByDefault>
+            </activation>
             <properties>
                 <build.environment>dev</build.environment>
+            </properties>
+        </profile>
+        <profile>
+            <id>production</id>
+            <activation>
+                <activeByDefault>false</activeByDefault>
+            </activation>
+            <properties>
+                <build.environment>prod</build.environment>
             </properties>
         </profile>
     </profiles>

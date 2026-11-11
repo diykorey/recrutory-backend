@@ -1,11 +1,10 @@
 package com.kandidato.persistence.entity;
 
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.kandidato.persistence.entity.comment.CommentableEntity;
 import com.kandidato.persistence.entity.comment.ResumeComment;
 
-import com.kandidato.constants.ResumeState;
+import com.kandidato.constants.SearchIndexState;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -22,18 +21,20 @@ public class Resume implements CommentableEntity<ResumeComment>, CreatorAware {
 
     @Column(name = "STATE")
     @Enumerated(EnumType.STRING)
-    private ResumeState state;
+    private SearchIndexState state;
 
     @ManyToOne
     @JoinColumn(name = "CANDIDATE_ID")
     private Candidate candidate;
 
-    @Column(name = "DATA")
-    @Lob
-    private byte[] data;
+    @Column(name = "DATA_URL")
+    private String dataUrl;
 
-    @OneToMany(mappedBy = "entity", cascade = CascadeType.ALL)
-    @JsonIgnore
+    @Column(name = "ORIGINAL_FILE_NAME")
+    private String originalFileName;
+
+    //TODO do we need it?
+    @OneToMany(mappedBy = "entity", cascade = CascadeType.ALL, targetEntity = ResumeComment.class)
     private List<ResumeComment> comments = new ArrayList<>();
 
     @ManyToOne
@@ -48,14 +49,6 @@ public class Resume implements CommentableEntity<ResumeComment>, CreatorAware {
         this.id = id;
     }
 
-    public byte[] getData() {
-        return data;
-    }
-
-    public void setData(byte[] data) {
-        this.data = data;
-    }
-
     @Override
     public List<ResumeComment> getComments() {
         return comments;
@@ -66,11 +59,11 @@ public class Resume implements CommentableEntity<ResumeComment>, CreatorAware {
         this.comments = comments;
     }
 
-    public ResumeState getState() {
+    public SearchIndexState getState() {
         return state;
     }
 
-    public void setState(ResumeState state) {
+    public void setState(SearchIndexState state) {
         this.state = state;
     }
 
@@ -90,5 +83,21 @@ public class Resume implements CommentableEntity<ResumeComment>, CreatorAware {
     @Override
     public void setCreator(User creator) {
         this.creator = creator;
+    }
+
+    public String getDataUrl() {
+        return dataUrl;
+    }
+
+    public void setDataUrl(String dataUrl) {
+        this.dataUrl = dataUrl;
+    }
+
+    public String getOriginalFileName() {
+        return originalFileName;
+    }
+
+    public void setOriginalFileName(String originalFileName) {
+        this.originalFileName = originalFileName;
     }
 }

@@ -8,13 +8,14 @@ import org.springframework.http.*;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.Arrays;
+import java.util.List;
 
-/**
- * Created by andriy on 6/9/14.
- */
+import static java.util.stream.Collectors.toList;
+
+
 public class CommentServiceTest {
 
-//    @Test
+    //    @Test
     public void shouldPostAndFetchVacancyComment() {
 
         try {
@@ -43,6 +44,5 @@ public class CommentServiceTest {
             Assert.fail(e.getMessage());
         }
     }
-
 
 }

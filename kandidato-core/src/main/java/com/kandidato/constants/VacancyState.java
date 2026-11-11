@@ -1,5 +1,5 @@
 package com.kandidato.constants;
 
 public enum VacancyState {
-  OPEN, HOLD, CLOSED
+  OPEN, HOLD, CLOSED, NONE
 }

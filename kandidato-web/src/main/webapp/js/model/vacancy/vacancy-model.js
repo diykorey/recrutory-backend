@@ -1,8 +1,7 @@
 define([
     'underscore',
-    'backbone',
-    'model/project/project-model'
-], function (_, Backbone, ProjectModel) {
+    'backbone'
+], function (_, Backbone) {
     var VacancyModel = Backbone.Model.extend({
         urlRoot: 'vacancy',
         defaults: {
@@ -12,8 +11,7 @@ define([
             state: "OPEN",
             hot: false,
             requirements: '',
-            tags: [],
-            project: new ProjectModel()
+            tags: []
         },
         url: function () {
             return this.urlRoot + '/' + this.id;

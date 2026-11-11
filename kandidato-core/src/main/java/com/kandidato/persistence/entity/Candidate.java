@@ -1,51 +1,51 @@
 package com.kandidato.persistence.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.kandidato.constants.PredefinedTimelineFieldType;
 import com.kandidato.persistence.entity.comment.CandidateComment;
 import com.kandidato.persistence.entity.comment.CommentableEntity;
+import com.kandidato.persistence.entity.tag.Tag;
+import com.kandidato.persistence.entity.tag.Taggable;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 
 @javax.persistence.Entity
 @Table(name = "CANDIDATES")
-public class Candidate implements CommentableEntity<CandidateComment>, CreatorAware {
+public class Candidate implements CommentableEntity<CandidateComment>, CreatorAware, Taggable {
 
     @Id
     @Column(name = "CANDIDATE_ID")
     @GeneratedValue
     private Long id;
 
-    @Column(name = "FIRST_NAME")
-    private String name;
-
-    @Column(name = "LAST_NAME")
-    private String lastName;
-
     @Column(name = "CREATION_TIME")
-    private Date createTime;
+    private Date createTime = new Date();
 
-    @ManyToMany(cascade = {CascadeType.ALL})
+    @ManyToMany(cascade = {CascadeType.ALL}, fetch = FetchType.EAGER)
     @JoinTable(name = "CANDIDATE_TAGS", joinColumns = {@JoinColumn(name = "CANDIDATE_ID")}, inverseJoinColumns = {@JoinColumn(name = "TAG_ID")})
     @JsonIgnore
-    private Set<Tag> tags;
+    private Set<Tag> tags = new HashSet<>();
 
-    @OneToMany(mappedBy = "entity", cascade = CascadeType.ALL)
-    @JsonIgnore
+    @OneToMany(mappedBy = "entity", cascade = CascadeType.ALL, targetEntity = CandidateComment.class)
     private List<CandidateComment> comments = new ArrayList<>();
+
+    @OneToMany(mappedBy = "candidate", cascade = CascadeType.ALL, targetEntity = TimelineField.class, fetch = FetchType.LAZY)
+    @OrderBy("createTime DESC")
+    private List<TimelineField> timelineFields = new ArrayList<>();
+
 
     @ManyToOne
     @JoinColumn(name = "USER_ID")
     private User creator;
 
-//    private List<TimelineRecord> timeline;
+    public Candidate() {
+    }
 
-//    private List<Contact> contacts;
-
+    public Candidate(Long id) {
+        this.id = id;
+    }
 
     public Long getId() {
         return id;
@@ -53,22 +53,6 @@ public class Candidate implements CommentableEntity<CandidateComment>, CreatorAw
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getLastName() {
-        return lastName;
-    }
-
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
     }
 
     public Date getCreateTime() {
@@ -79,10 +63,12 @@ public class Candidate implements CommentableEntity<CandidateComment>, CreatorAw
         this.createTime = createTime;
     }
 
+    @Override
     public Set<Tag> getTags() {
         return tags;
     }
 
+    @Override
     public void setTags(Set<Tag> tags) {
         this.tags = tags;
     }
@@ -107,22 +93,13 @@ public class Candidate implements CommentableEntity<CandidateComment>, CreatorAw
         this.creator = creator;
     }
 
-    //    public List<TimelineRecord> getTimeline() {
-//        return timeline;
-//    }
-//
-//    public void setTimeline(List<TimelineRecord> timeline) {
-//        this.timeline = timeline;
-//    }
+    public List<TimelineField> getTimelineFields() {
+        return timelineFields;
+    }
 
-//    public List<Contact> getContacts() {
-//        return contacts;
-//    }
-//
-//    public void setContacts(List<Contact> contacts) {
-//        this.contacts = contacts;
-//    }
-
+    public void setTimelineFields(List<TimelineField> timelineFields) {
+        this.timelineFields = timelineFields;
+    }
 
     @Override
     public boolean equals(Object o) {
@@ -132,8 +109,6 @@ public class Candidate implements CommentableEntity<CandidateComment>, CreatorAw
         Candidate candidate = (Candidate) o;
 
         if (!createTime.equals(candidate.createTime)) return false;
-        if (!lastName.equals(candidate.lastName)) return false;
-        if (!name.equals(candidate.name)) return false;
         if (!tags.equals(candidate.tags)) return false;
 
         return true;
@@ -141,9 +116,7 @@ public class Candidate implements CommentableEntity<CandidateComment>, CreatorAw
 
     @Override
     public int hashCode() {
-        int result = name.hashCode();
-        result = 31 * result + lastName.hashCode();
-        result = 31 * result + createTime.hashCode();
+        int result = createTime.hashCode();
         result = 31 * result + tags.hashCode();
         return result;
     }
@@ -154,8 +127,6 @@ public class Candidate implements CommentableEntity<CandidateComment>, CreatorAw
         builder.append(": {");
         builder.append("id: ");
         builder.append(id);
-        builder.append(", name: ");
-        builder.append(name);
         builder.append(", createTime: ");
         builder.append(createTime);
         builder.append("}");

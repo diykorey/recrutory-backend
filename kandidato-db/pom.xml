@@ -26,7 +26,7 @@
                 <inherited>false</inherited>
                 <configuration>
                     <locations>
-                        <location>filesystem:sql/</location>
+                        <location>filesystem:sql/version-0.1/</location>
                     </locations>
                     <sqlMigrationPrefix>patch-</sqlMigrationPrefix>
                     <initVersion>0</initVersion>
@@ -38,14 +38,14 @@
                         <goals>
                             <goal>migrate</goal>
                         </goals>
-                        <phase>package</phase>
+                        <phase>install</phase>
                     </execution>
                 </executions>
                 <dependencies>
                     <dependency>
-                        <groupId>mysql</groupId>
-                        <artifactId>mysql-connector-java</artifactId>
-                        <version>${mysql.version}</version>
+                        <groupId>com.microsoft.sqlserver</groupId>
+                        <artifactId>sqljdbc4</artifactId>
+                        <version>${mssql.driver.version}</version>
                     </dependency>
                 </dependencies>
             </plugin>

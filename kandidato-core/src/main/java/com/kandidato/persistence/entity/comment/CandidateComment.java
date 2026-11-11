@@ -2,7 +2,6 @@ package com.kandidato.persistence.entity.comment;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.kandidato.persistence.entity.Candidate;
-import com.kandidato.persistence.entity.FlowAction;
 import com.kandidato.persistence.entity.User;
 
 import javax.persistence.DiscriminatorValue;
@@ -29,7 +28,7 @@ public class CandidateComment extends EntityComment<Candidate> {
         this.setEntity(entity);
     }
 
-    @ManyToOne(targetEntity = FlowAction.class)
+    @ManyToOne(targetEntity = Candidate.class)
     @JoinColumn(name = "ENTITY_ID")
     @JsonIgnore
     private Candidate entity;

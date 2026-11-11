@@ -9,17 +9,15 @@ define([
     'view/candidate/candidate-view',
     'view/candidate/candidates-view',
     'view/vacancy/vacancy-dashboard-view',
-    'view/flow/flow-dashboard-view',
-    'view/project/project-list-view'
+    'view/flow/flow-dashboard-view'
 
-], function ($, _, Backbone, CandidateView, CandidatesView, VacancyDashboard, FlowDashboard, ProjectListView) {
+], function ($, _, Backbone, CandidateView, CandidatesView, VacancyDashboard, FlowDashboard) {
     var AppRouter = Backbone.Router.extend({
         routes: {
             'vacancy-dashboard': 'vacancyDashboard',
             'flow-dashboard': 'flowDashboard',
             'candidate/:id': 'candidate',
             'candidates': 'candidates',
-            'projects': 'projects',
             // Default
             '': 'home'
         }
@@ -43,10 +41,6 @@ define([
         app_router.on('route:vacancyDashboard', function () {
             var vacancyDashboard = new VacancyDashboard({author: 1});
             vacancyDashboard.start();
-        });
-        app_router.on('route:projects', function () {
-            var projectListView = new ProjectListView();
-            projectListView.start();
         });
         app_router.on('route:home', function () {
             var vacancyDashboard = new VacancyDashboard({author: 1});

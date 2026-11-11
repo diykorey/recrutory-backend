@@ -16,15 +16,16 @@ public class Flow implements Entity, CreatorAware {
     @GeneratedValue
     private Long id;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "CANDIDATE_ID")
     private Candidate candidate;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "VACANCY_ID")
+    @JsonIgnore
     private Vacancy vacancy;
 
-    @OneToMany(mappedBy = "flow")
+    @OneToMany(mappedBy = "flow", fetch = FetchType.EAGER)
     private List<FlowAction> actions = new ArrayList<>();
 
     @Column(name = "CREATION_TIME")

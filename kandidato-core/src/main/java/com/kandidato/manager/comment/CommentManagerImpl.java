@@ -4,6 +4,7 @@ import com.kandidato.constants.CommentType;
 import com.kandidato.persistence.entity.comment.EntityComment;
 import com.kandidato.persistence.repository.comment.CommentRepository;
 import com.kandidato.persistence.repository.comment.query.CommentByEntityQuery;
+import org.hibernate.Criteria;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -26,7 +27,19 @@ public class CommentManagerImpl implements CommentManager {
     }
 
     @Override
+    public void updateComment(long commentId, String commentText) {
+        EntityComment comment = this.repository.getOne(commentId);
+        comment.setComment(commentText);
+        this.repository.save(comment);
+    }
+
+    @Override
     public List<EntityComment<?>> getEntityComments(long entityId, CommentType type) {
         return new ArrayList(repository.query(new CommentByEntityQuery(entityId, type)));
+    }
+
+    @Override
+    public void removeComment(long commentId) {
+        this.repository.delete(commentId);
     }
 }
