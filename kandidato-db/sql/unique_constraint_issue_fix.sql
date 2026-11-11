@@ -1,0 +1,6 @@
+USE [kandidato]
+GO
+
+/****** Object:  Index [PK__USERS__F3BEEBFF249D2E59]    Script Date: 16-Oct-15 17:07:31 ******/
+ALTER TABLE [dbo].[USERS] ADD CONSTRAINT UQ__USERS__E39E26653F9E5D18 UNIQUE(LOGIN) 
+GO

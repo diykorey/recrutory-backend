@@ -23,7 +23,7 @@ define([
             $('#vacancy-details-tab').html(vacancyEditor.render().el);
         },
         showFlows: function() {
-            var flowCollection = new FlowCollection({criteria : '/byVacancy/' + this.model.id});
+            var flowCollection = new FlowCollection({criteria : 'byVacancy/' + this.model.id});
             flowCollection.fetch({
                 success: function() {
                     var flowList = new FlowListView({model: flowCollection});

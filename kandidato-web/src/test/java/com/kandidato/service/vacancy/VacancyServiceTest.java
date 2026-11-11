@@ -35,7 +35,7 @@ public class VacancyServiceTest {
             headers.setContentType(MediaType.APPLICATION_JSON);
             headers.setAccept(Arrays.asList(MediaType.APPLICATION_JSON));
 
-//            Vacancy vac = getTestVacancy(id);
+//            VacancyDTO vac = getTestVacancy(id);
 //            ObjectMapper mapper = new ObjectMapper();
 //            mapper.writeValueAsString(vac);
             String vacJson = "{\"state\":\"OPEN\",\"hot\":false,\"requirements\":\"Test vacancy\",\"project\":{\"id\":1,\"name\":\"Test project\",\"description\":\"Test project name\",\"creationTime\":1399150800000},\"creator\":{\"id\":1},\"createTime\":1399150800000}";

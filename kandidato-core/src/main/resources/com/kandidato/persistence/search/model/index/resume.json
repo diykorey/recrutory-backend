@@ -1,0 +1,187 @@
+    {
+      "name": "resumes",
+      "fields": [
+        {
+          "name": "id",
+          "type": "Edm.String",
+          "searchable": false,
+          "filterable": false,
+          "retrievable": true,
+          "sortable": false,
+          "facetable": false,
+          "suggestions": false,
+          "key": true,
+          "analyzer": null
+        },
+        {
+          "name": "organizationId",
+          "type": "Edm.Int64",
+          "searchable": false,
+          "filterable": false,
+          "retrievable": true,
+          "sortable": false,
+          "facetable": false,
+          "suggestions": false,
+          "key": false,
+          "analyzer": null
+        },
+        {
+          "name": "userId",
+          "type": "Edm.Int64",
+          "searchable": false,
+          "filterable": false,
+          "retrievable": true,
+          "sortable": false,
+          "facetable": false,
+          "suggestions": false,
+          "key": false,
+          "analyzer": null
+        },
+        {
+          "name": "candidateId",
+          "type": "Edm.Int64",
+          "searchable": false,
+          "filterable": false,
+          "retrievable": false,
+          "sortable": false,
+          "facetable": false,
+          "suggestions": false,
+          "key": false,
+          "analyzer": null
+        },
+        {
+          "name": "text",
+          "type": "Edm.String",
+          "searchable": true,
+          "filterable": false,
+          "retrievable": true,
+          "sortable": false,
+          "facetable": false,
+          "suggestions": false,
+          "key": false,
+          "analyzer": "standard.lucene"
+        }
+      ],
+      "scoringProfiles": [],
+      "defaultScoringProfile": "",
+      "corsOptions": null,
+      "suggesters": []
+    },
+    {
+      "name": "test",
+      "fields": [
+        {
+          "name": "id",
+          "type": "Edm.String",
+          "searchable": false,
+          "filterable": false,
+          "retrievable": true,
+          "sortable": false,
+          "facetable": false,
+          "suggestions": false,
+          "key": true,
+          "analyzer": null
+        },
+        {
+          "name": "str",
+          "type": "Edm.String",
+          "searchable": true,
+          "filterable": false,
+          "retrievable": true,
+          "sortable": false,
+          "facetable": false,
+          "suggestions": false,
+          "key": false,
+          "analyzer": "standard.lucene"
+        },
+        {
+          "name": "coll",
+          "type": "Collection(Edm.String)",
+          "searchable": true,
+          "filterable": false,
+          "retrievable": true,
+          "sortable": false,
+          "facetable": false,
+          "suggestions": false,
+          "key": false,
+          "analyzer": "standard.lucene"
+        },
+        {
+          "name": "int",
+          "type": "Edm.Int32",
+          "searchable": false,
+          "filterable": false,
+          "retrievable": true,
+          "sortable": false,
+          "facetable": false,
+          "suggestions": false,
+          "key": false,
+          "analyzer": null
+        },
+        {
+          "name": "long",
+          "type": "Edm.Int64",
+          "searchable": false,
+          "filterable": false,
+          "retrievable": true,
+          "sortable": false,
+          "facetable": false,
+          "suggestions": false,
+          "key": false,
+          "analyzer": null
+        },
+        {
+          "name": "double",
+          "type": "Edm.Double",
+          "searchable": false,
+          "filterable": false,
+          "retrievable": true,
+          "sortable": false,
+          "facetable": false,
+          "suggestions": false,
+          "key": false,
+          "analyzer": null
+        },
+        {
+          "name": "bool",
+          "type": "Edm.Boolean",
+          "searchable": false,
+          "filterable": false,
+          "retrievable": true,
+          "sortable": false,
+          "facetable": false,
+          "suggestions": false,
+          "key": false,
+          "analyzer": null
+        },
+        {
+          "name": "data",
+          "type": "Edm.DateTimeOffset",
+          "searchable": false,
+          "filterable": false,
+          "retrievable": true,
+          "sortable": false,
+          "facetable": false,
+          "suggestions": false,
+          "key": false,
+          "analyzer": null
+        },
+        {
+          "name": "geo",
+          "type": "Edm.GeographyPoint",
+          "searchable": false,
+          "filterable": false,
+          "retrievable": true,
+          "sortable": false,
+          "facetable": false,
+          "suggestions": false,
+          "key": false,
+          "analyzer": null
+        }
+      ],
+      "scoringProfiles": [],
+      "defaultScoringProfile": "",
+      "corsOptions": null,
+      "suggesters": []
+    }
+

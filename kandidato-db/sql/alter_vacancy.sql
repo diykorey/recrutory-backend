@@ -1,0 +1,8 @@
+USE [kandidato]
+GO
+
+
+
+ALTER TABLE [dbo].[VACANCIES]
+ADD [SEARCH_INDEX_STATE] varchar(255)  DEFAULT 'NEW'
+GO

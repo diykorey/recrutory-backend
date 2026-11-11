@@ -12,4 +12,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
  */
 @org.springframework.stereotype.Repository
 public interface UserRepository extends JpaRepository<User, Long>, Repository<User, UserQuery> {
+    User findByFacebookId(String facebookId);
+    User findByLinkedinId(String linkedinId);
+    User findByGooglePlusId(String googlePlusId);
 }

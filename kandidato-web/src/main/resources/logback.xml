@@ -1,37 +1,41 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<configuration>
+<configuration  debug="true" scan="true">
     <contextName>kandidato-web</contextName>
     <jmxConfigurator/>
+    <property resource="com/kandidato/config/common.properties" />
     <appender name="console" class="ch.qos.logback.core.ConsoleAppender">
         <encoder>
             <charset>UTF-8</charset>
-            <param name="Pattern"
-                   value="%date{HH:mm:ss.SSS} [%thread] %-10level [%file:%line] - %msg - %logger %date{dd:MM:yyyy}%n"/>
+            <param name="Pattern" value="%date %-10level [%file:%line] - %msg - [%thread] %logger%n" />
         </encoder>
     </appender>
-
+    <!-- This file appender is used to output echonect business layer logs -->
     <appender name="mainAppender" class="ch.qos.logback.core.rolling.RollingFileAppender">
-        <param name="File" value="logs/kandidato.log"/>
-        <encoder>
+        <param name="File" value="${log.path}/recrutory.log" />
+        <encoder class="ch.qos.logback.core.encoder.LayoutWrappingEncoder">
             <charset>UTF-8</charset>
-            <param name="Pattern"
-                   value="%date{HH:mm:ss.SSS} [%thread] %-10level [%file:%line] - %msg - %logger %date{dd:MM:yyyy}%n"/>
+            <layout class="ch.qos.logback.classic.PatternLayout">
+                <param name="Pattern" value="%date %-10level [%file:%line] - %msg - [%thread] %logger%n" />
+            </layout>
         </encoder>
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
-            <param name="FileNamePattern" value="logs/backup/kandidato.log-%d{yyyy-MM-dd}.%i.zip"/>
+            <param name="FileNamePattern" value="${log.path}/backup/recrutory.%d{yyyy-MM-dd_HH}.%i.zip" />
             <timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+                <!-- or whenever the file size reaches 100MB -->
                 <maxFileSize>100MB</maxFileSize>
             </timeBasedFileNamingAndTriggeringPolicy>
         </rollingPolicy>
     </appender>
 
-
     <logger name="com.kandidato" additivity="false" level="DEBUG">
         <appender-ref ref="mainAppender"/>
     </logger>
 
-    <logger name="org.springframework" additivity="false" level="ERROR">
+    <logger name="org.springframework" additivity="false" level="INFO">
+        <appender-ref ref="mainAppender"/>
+    </logger>
+    <logger name="p6spy" additivity="false" level="ERROR">
         <appender-ref ref="mainAppender"/>
     </logger>
 

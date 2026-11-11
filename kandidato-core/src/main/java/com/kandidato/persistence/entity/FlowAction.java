@@ -1,5 +1,6 @@
 package com.kandidato.persistence.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.kandidato.constants.FlowState;
 import com.kandidato.persistence.entity.comment.ActionComment;
 import com.kandidato.persistence.entity.comment.CommentableEntity;
@@ -30,9 +31,10 @@ public class FlowAction implements CommentableEntity<ActionComment> {
 
     @ManyToOne(cascade = CascadeType.REMOVE)
     @JoinColumn(name = "FLOW_ID")
+    @JsonIgnore
     private Flow flow;
 
-    @OneToMany(mappedBy = "entity", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "entity", cascade = CascadeType.ALL, targetEntity = ActionComment.class)
     private List<ActionComment> comments = new ArrayList<>();
 
     public Long getId() {

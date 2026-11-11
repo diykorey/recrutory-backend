@@ -1,6 +1,6 @@
 package com.kandidato.persistence.repository.resume.query;
 
-import com.kandidato.constants.ResumeState;
+import com.kandidato.constants.SearchIndexState;
 import com.kandidato.persistence.entity.Resume;
 import com.kandidato.persistence.repository.query.AbstractCriteriaQuery;
 import org.hibernate.criterion.Criterion;
@@ -15,6 +15,6 @@ public class FindNotIndexedResumes extends AbstractCriteriaQuery implements Resu
     @Override
     public Criterion toCriterion() {
         return Restrictions.or(//
-                Restrictions.eq("state", ResumeState.NEW), Restrictions.eq("state", ResumeState.OLD));
+                Restrictions.eq("state", SearchIndexState.NEW), Restrictions.eq("state", SearchIndexState.OLD));
     }
 }

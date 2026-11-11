@@ -1,50 +1,44 @@
 package com.kandidato.manager.candidate;
 
-import com.kandidato.persistence.entity.Candidate;
+import com.kandidato.model.dto.*;
+import com.kandidato.model.dto.input.CandidateIn;
+import com.kandidato.model.dto.input.TagsIn;
+import com.kandidato.persistence.entity.User;
+import com.kandidato.security.model.CurrentProfile;
+import org.springframework.data.domain.Sort;
 
 import java.util.List;
 
-/**
- * Created by andriy on 5/15/14.
- */
 public interface CandidateManager {
 
+    BaseCandidateDTO create(CurrentProfile currentUser, CandidateIn candidateIn);
 
-    /**
-     * Creates a new candidate.
-     *
-     * @param vacancy
-     * @return newly created candidate
-     */
-    Candidate create(Candidate vacancy);
+    BaseCandidateDTO getCandidate(long id);
 
-    /**
-     * Retrieves a {@link com.kandidato.persistence.entity.Candidate} by its id.
-     *
-     * @param id
-     * @return
-     */
-    Candidate findById(long id);
-
-    /**
-     * Removes the {@link Candidate} with the specified id.
-     *
-     * @param id
-     */
     void remove(long id);
 
-    /**
-     * Updates the existing candidate.
-     *
-     * @param candidate
-     */
-    void update(Candidate candidate);
+    void update(CandidateDTO candidate);
 
-    /**
-     * Retrieves the list of {@link com.kandidato.persistence.entity.Candidate}s, posted by the specified user.
-     *
-     * @param ownerId
-     * @return list of {@link com.kandidato.persistence.entity.Candidate}s
-     */
-    List<Candidate> findByOwner(long ownerId);
+    List<BaseCandidateDTO> findByOwner(long ownerId);
+
+    List<BaseCandidateDTO> findAvailable(long vacancyId, long creatorId, int page, int size);
+
+    BaseCandidateDTO addField(long userId, long candidateId, TimelineFieldDTO field);
+
+    BaseCandidateDTO updateField(long fieldId, TimelineFieldDTO field);
+
+    void removeField(long fieldId);
+
+    List<TimelineFieldTypeDTO> findFieldTypes(long userId);
+
+    List<BaseCandidateDTO> find(Long id, String sortBy, String direction, int page, int size);
+
+    //TODO this duplicates tags API in VacancyManager
+    BaseCandidateDTO addTags(long candidateId, TagsIn tagsIn);
+
+    void removeTag(long candidateId, long tagId);
+
+    CandidateDTO getCandidateProfile(long id);
+
+    List<BaseCandidateDTO> filterByNameAndEmail(String name, String email, User user, String sortBy, Sort.Direction direction, int page, int size);
 }

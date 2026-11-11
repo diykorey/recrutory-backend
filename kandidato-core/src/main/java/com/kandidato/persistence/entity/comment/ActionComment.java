@@ -1,7 +1,6 @@
 package com.kandidato.persistence.entity.comment;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.kandidato.constants.CommentType;
 import com.kandidato.persistence.entity.FlowAction;
 import com.kandidato.persistence.entity.User;
 
